@@ -5,7 +5,7 @@
 
   <groupId>ruleengine</groupId>
   <artifactId>cpre</artifactId>
-  <version>1.0.0</version>
+  <version>0.1</version>
 
   <properties>
     <droolsVersion>6.3.0.Final</droolsVersion>

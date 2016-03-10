@@ -5,13 +5,13 @@ To install the artifact (a single jar) just put it wherever you prefer. What you
 
 They can be downloaded from:
 
-Drools: http://download.jboss.org/drools/release/6.3.0.Final/droolsjbpm-integration-distribution-6.3.0.Final.zip
+Drools: http://goo.gl/jvXYI5
 
 and
 
 GSon: http://goo.gl/D0q3dl
 
-Uncompress the zip and put the jars somewhere, e.g. /usr/local/share/java/droolsjbpm and /usr/local/share/java/gson.
+Uncompress the zip and put the jars somewhere, e.g. /usr/local/share/java/drools and /usr/local/share/java/gson.
 
 To run the standalone WEB Server just issue the command:
 

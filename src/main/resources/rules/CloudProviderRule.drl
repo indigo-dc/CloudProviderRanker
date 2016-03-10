@@ -1,0 +1,47 @@
+package org.indigo.cloudproviderruleengine;
+ 
+import org.indigo.cloudproviderruleengine.CloudProvider;
+
+rule "VDISK"
+	when
+		cp : CloudProvider( inUseVDISK < totalVDISK )
+	then
+		cp.addToTotalRank( cp.getTotalVDISK() - cp.getInUseVDISK() );
+end
+ 
+rule "VCPU"
+    when
+        cp : CloudProvider( inUseVCPU < totalVCPU )
+    then
+        cp.addToTotalRank( cp.getTotalVCPU() - cp.getInUseVCPU() );
+end
+
+rule "VRAM"
+	when 
+		cp : CloudProvider( inUseVRAM < totalVRAM )
+	then
+		cp.addToTotalRank( cp.getTotalVRAM()-cp.getInUseVRAM() );
+end
+
+rule "VCPUZERO"
+    when
+        cp : CloudProvider( inUseVCPU >= totalVCPU )
+    then
+        cp.zeroRank( );
+        
+end
+
+rule "VRAMZERO"
+	when 
+		cp : CloudProvider( inUseVRAM >= totalVRAM )
+	then
+		cp.zeroRank( );
+end
+
+rule "VDISKZERO"
+    when
+        cp : CloudProvider( inUseVDISK >= totalVDISK )
+    then
+        cp.zeroRank( );
+        
+end

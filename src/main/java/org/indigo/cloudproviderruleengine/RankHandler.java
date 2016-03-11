@@ -27,7 +27,14 @@ import org.kie.api.runtime.KieSession;
 class RankHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange t) throws IOException {
-	
+	if(t.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
+	    String response = "API \"rank\" only supports POST method";
+	    t.sendResponseHeaders(405, response.getBytes().length);
+	    OutputStream os = t.getResponseBody();
+	    os.write(response.getBytes());
+	    os.close();
+	    return;
+	}
 	
 	List<CloudProvider> cpvec = null;
 	try {

@@ -10,7 +10,7 @@ class VersionHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange t) throws IOException {
 	if(t.getRequestMethod( ).compareToIgnoreCase("GET")!=0) {
-	    String response = "API version supports only GET method";
+	    String response = "API \"version\" only supports GET method";
 	    t.sendResponseHeaders(405, response.getBytes().length);
 	    OutputStream os = t.getResponseBody();
 	    os.write(response.getBytes());

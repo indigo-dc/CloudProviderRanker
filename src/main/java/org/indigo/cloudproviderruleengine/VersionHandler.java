@@ -9,6 +9,7 @@ import com.sun.net.httpserver.HttpHandler;
 class VersionHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange t) throws IOException {
+
 	if(t.getRequestMethod( ).compareToIgnoreCase("GET")!=0) {
 	    String response = "API \"version\" only supports GET method";
 	    t.sendResponseHeaders(405, response.getBytes().length);
@@ -22,5 +23,6 @@ class VersionHandler implements HttpHandler {
 	    os.write(response.getBytes());
 	    os.close();
 	}
+
     }
 }

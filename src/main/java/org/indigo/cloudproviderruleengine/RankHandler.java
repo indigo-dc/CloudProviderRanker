@@ -19,7 +19,7 @@ import org.kie.api.runtime.KieSession;
 
 /**
  * 
- * Method to parse the request's POST payload and convert into CloudProvider Objects and rank them
+ * Class to parse the request's POST payload and convert into CloudProvider Objects and rank them
  * 
  * @author dorigoa
  *

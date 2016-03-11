@@ -24,7 +24,7 @@ public class RESTEngine {
 	    e.printStackTrace();
 	}
     	if(server != null) {
-	    server.createContext("/version", new versionHandler());
+	    server.createContext("/version", new VersionHandler());
 	    server.createContext("/rank", new RankHandler());
 	    server.setExecutor(null); // creates a default executor
 	    server.start();

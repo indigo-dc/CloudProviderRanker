@@ -47,13 +47,13 @@ public class RESTEngine {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	    }
-	    if(server != null) {
-		server.createContext("/version", new VersionHandler());
-		server.createContext("/rank", new RankHandler());
-		server.setExecutor(Executors.newCachedThreadPool());
-		server.start();
-		System.out.println("HTTP Server is listening on port "+TCPPORT+"\n");
-	    }
+// 	    if(server != null) {
+// 		server.createContext("/version", new VersionHandler());
+// 		server.createContext("/rank", new RankHandler());
+// 		server.setExecutor(Executors.newCachedThreadPool());
+// 		server.start();
+// 		System.out.println("HTTP Server is listening on port "+TCPPORT+"\n");
+// 	    }
 	} else {
 
 	    // Use: keytool -genkey -alias webservice -keystore server_keystore.ks
@@ -115,11 +115,17 @@ public class RESTEngine {
 
 	    HttpsConfigurator configurator = new HttpsConfigurator(sslContext);
 	    ((HttpsServer)server).setHttpsConfigurator(configurator);
-	    server.createContext("/version", new VersionHandler());
-	    server.createContext("/rank", new RankHandler());
-	    server.setExecutor(Executors.newCachedThreadPool());
-	    server.start();
-	    System.out.println("HTTPS Server is listening on port "+TCPPORT+"\n");
+	    //server.createContext("/version", new VersionHandler());
+	    //server.createContext("/rank", new RankHandler());
+	    //server.setExecutor(Executors.newCachedThreadPool());
+	    //server.start();
+	    //System.out.println("HTTPS Server is listening on port "+TCPPORT+"\n");
 	}
+
+	server.createContext("/version", new VersionHandler());
+	server.createContext("/rank", new RankHandler());
+	server.setExecutor(Executors.newCachedThreadPool());
+	server.start();
+	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
     }
 }

@@ -42,8 +42,6 @@ class RankHandler implements HttpHandler {
 	
 	clientHostName = t.getRemoteAddress( ).getHostName( );
 
-	
-
 	List<CloudProvider> cpvec = null;
 	try {
 	    InputStream is = t.getRequestBody();
@@ -56,6 +54,16 @@ class RankHandler implements HttpHandler {
 	    if ( obj.has("cloudproviders") ) {
 		cpvec = parse( obj.get("cloudproviders").getAsJsonArray( ) );
 	    }
+
+	    if(cpvec.size()==0) {
+		String response = "No valid cloud provider was found: have you provided some ? with correct JSON syntax ?";
+		t.sendResponseHeaders(200, response.getBytes().length);
+		OutputStream os = t.getResponseBody();
+		os.write(response.getBytes());
+		os.close();
+		return;
+	    }
+
 	    KieServices ks = KieServices.Factory.get();
 	    KieContainer kContainer = ks.getKieClasspathContainer();
 	    KieSession kSession = kContainer.newKieSession("ksession-rules");
@@ -63,7 +71,7 @@ class RankHandler implements HttpHandler {
 		kSession.insert(cp);
 	    
 	    int tot = kSession.fireAllRules();
-	    System.out.println("[" + clientHostName + "] Total rules applied="+tot);
+	    System.err.println("[" + clientHostName + "] Total rules applied="+tot);
 	    
 	    Vector<String> respVec = new Vector<String>();
 	    for(CloudProvider cp : cpvec ) {
@@ -73,12 +81,12 @@ class RankHandler implements HttpHandler {
 		respVec.add(json);
 	    }
 	    String response = "{\"rankedcloudproviders\":[" + String.join(",", respVec) + "]}";
-	    System.out.println("[" + clientHostName + "]"+ response+"\n\n");
+	    System.err.println("[" + clientHostName + "]"+ response+"\n\n");
 	    t.sendResponseHeaders(200, response.getBytes().length);
 	    OutputStream os = t.getResponseBody();
 	    os.write(response.getBytes());
 	    os.close();
-	    
+	    return;
 	} catch(Exception e) {
 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
 	    t.sendResponseHeaders(400, err.getBytes().length);
@@ -86,7 +94,7 @@ class RankHandler implements HttpHandler {
 	    os.write(err.getBytes());
 	    os.close();
 	    e.printStackTrace();
-	    
+	    return;
 	} catch(Throwable e) {
 	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
 	    t.sendResponseHeaders(400, err.getBytes().length);
@@ -94,6 +102,7 @@ class RankHandler implements HttpHandler {
 	    os.write(err.getBytes());
 	    os.close();
 	    e.printStackTrace();
+	    return;
 	}
     }
 
@@ -110,14 +119,14 @@ class RankHandler implements HttpHandler {
         for(int i = 0; i < array.size( ); i++) {
 	    try {
 		JsonObject obj = array.get( i ).getAsJsonObject();
-		System.out.println("[" + clientHostName + "] Processing provider "+obj.toString());
+		System.err.println("[" + clientHostName + "] Processing provider "+obj.toString());
 		Gson gson = new GsonBuilder().create();
 		CloudProvider cp = gson.fromJson(obj, CloudProvider.class);
 		cpvec.add(cp);
 	    } catch(Exception e) {
-		System.out.println(e.getMessage());
+		System.err.println(e.getMessage());
 	    } catch(Throwable t) {
-		System.out.println(t.getMessage());
+		System.err.println(t.getMessage());
 	    } 
 	}
 	return cpvec;

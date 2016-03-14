@@ -42,7 +42,7 @@ public class RESTEngine {
 	if(args.length>0)
 	    TCPPORT = Integer.parseInt( args[0] );
 	if(args.length>=2 && args.length <3) {
-	    System.out.println("If a keystore path is specified then must specify also a password. STOP!");
+	    System.err.println("If a keystore path is specified then must specify also a password. STOP!");
 	    System.exit(1);
 	}
 	if(args.length == 3) {
@@ -55,7 +55,8 @@ public class RESTEngine {
 	    try {
 		server = HttpServer.create(new InetSocketAddress(TCPPORT), 0);
 	    } catch (IOException e) {
-		e.printStackTrace();
+		System.err.println("Error in HttpServer.create: " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	} else {
 
@@ -65,13 +66,15 @@ public class RESTEngine {
 	    try {
 		server = HttpsServer.create(new InetSocketAddress(TCPPORT), 0);
 	    } catch (IOException e) {
-		e.printStackTrace();
+		System.err.println("Error in HttpsServer.create: " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	    SSLContext sslContext = null;
 	    try {
 		sslContext = SSLContext.getInstance("TLS");
 	    } catch( NoSuchAlgorithmException e ) {
-		e.printStackTrace();
+		System.err.println("Error in SSLContext.getInstance(\"TLS\"): " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	    
 	    char[] keystorePassword = password.toCharArray( );
@@ -79,40 +82,50 @@ public class RESTEngine {
 	    try {
 		ks = KeyStore.getInstance("JKS");
 	    } catch( KeyStoreException e ) {
-		e.printStackTrace();
+		System.err.println("Error in KeyStore.getInstance(\"JKS\"): " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	    try {
 		ks.load(new FileInputStream(keystorepath), keystorePassword);
 	    } catch(FileNotFoundException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
+		System.exit(1);
 	    } catch(IOException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
+		System.exit(1);
 	    } catch(NoSuchAlgorithmException e){
-		e.printStackTrace();
+		System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
+		System.exit(1);
 	    } catch(CertificateException e){
-		e.printStackTrace();
+		System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
+		System.exit(1);
 	    }
 
 	    KeyManagerFactory kmf = null;
 	    try {
 		kmf = KeyManagerFactory.getInstance("SunX509");
 	    } catch(NoSuchAlgorithmException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyManagerFactory.getInstance(\"SunX509\"): " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	    try {
 		kmf.init(ks, keystorePassword);
 	    } catch(KeyStoreException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+		System.exit(1);
 	    } catch(NoSuchAlgorithmException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+		System.exit(1);
 	    } catch(UnrecoverableKeyException e) {
-		e.printStackTrace();
+		System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+		System.exit(1);
 	    }
 	    
 	    try {
 		sslContext.init(kmf.getKeyManagers(), null, null);
 	    } catch(KeyManagementException e) {
-		e.printStackTrace();
+		System.err.println("Error in SSLContext.init: " + e.getMessage( ) );
+		System.exit(1);
 	    }
 
 	    HttpsConfigurator configurator = new HttpsConfigurator(sslContext);

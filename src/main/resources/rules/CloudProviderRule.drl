@@ -2,13 +2,20 @@ package org.indigo.cloudproviderruleengine;
  
 import org.indigo.cloudproviderruleengine.CloudProvider;
 
+rule "VEPHDISK"
+	when
+		cp : CloudProvider( inUseVEPHDISK < totalVEPHDISK )
+	then
+		cp.addToTotalRank( ((double)(cp.getTotalVEPHDISK() - cp.getInUseVEPHDISK())) /((double) cp.getTotalVEPHDISK()) );
+end
+
 rule "VDISK"
 	when
 		cp : CloudProvider( inUseVDISK < totalVDISK )
 	then
 		cp.addToTotalRank( ((double)(cp.getTotalVDISK() - cp.getInUseVDISK())) /((double) cp.getTotalVDISK()) );
 end
- 
+
 rule "VCPU"
     when
         cp : CloudProvider( inUseVCPU < totalVCPU )
@@ -25,7 +32,7 @@ end
 
 rule "ZERO"
     when
-	cp : CloudProvider( inUseVCPU >= totalVCPU || inUseVRAM >= totalVRAM || inUseVDISK >= totalVDISK )
+	cp : CloudProvider( inUseVCPU >= totalVCPU || inUseVRAM >= totalVRAM || inUseVEPHDISK >= totalVEPHDISK || inUseVDISK >= totalVDISK  )
     then
 	cp.zeroRank( );
 end

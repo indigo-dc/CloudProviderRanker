@@ -33,13 +33,6 @@ public class CloudProvider implements Comparable<CloudProvider> {
 	public long 	getInUseVDISK( ) { return inUseVDISK; }
 	public double 	getTotalRank( )  { return totalRank;  }
 	  
-// 	public void addToTotalRank( int add ) {
-// 	  totalRank += add;
-// 	}
-// 	public void addToTotalRank( long add ) {
-// 	  totalRank += add;
-// 	}
-
         public void addToTotalRank( double add ) {
 	  totalRank += add;
 	}

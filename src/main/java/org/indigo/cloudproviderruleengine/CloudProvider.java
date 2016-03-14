@@ -14,7 +14,7 @@ public class CloudProvider implements Comparable<CloudProvider> {
 	
 	private int 	id;
 	private String 	name;
-	private long	totalRank;
+	private double	totalRank;
 	
 	private int    	totalVCPU;
 	private long    totalVRAM;
@@ -23,23 +23,29 @@ public class CloudProvider implements Comparable<CloudProvider> {
 	private long    inUseVRAM;
 	private long    inUseVDISK;
 
-	public int 		getID( ) { return id; }
-	public String 	getName( ) { return name; }
-	public int 		getTotalVCPU( ) { return totalVCPU; }
-	public long 	getTotalVRAM( ) { return totalVRAM; }
+	public int 	getID( )         { return id;         }
+	public String 	getName( )       { return name;       }
+	public int 	getTotalVCPU( )  { return totalVCPU;  }
+	public long 	getTotalVRAM( )  { return totalVRAM;  }
 	public long 	getTotalVDISK( ) { return totalVDISK; }
-	public int 		getInUseVCPU ( ) { return inUseVCPU; }
-	public long 	getInUseVRAM( ) { return inUseVRAM; }
+	public int 	getInUseVCPU ( ) { return inUseVCPU;  }
+	public long 	getInUseVRAM( )  { return inUseVRAM;  }
 	public long 	getInUseVDISK( ) { return inUseVDISK; }
-	public long 	getTotalRank( ) { return totalRank; }
+	public double 	getTotalRank( )  { return totalRank;  }
 	  
-	public void addToTotalRank( int add ) {
+// 	public void addToTotalRank( int add ) {
+// 	  totalRank += add;
+// 	}
+// 	public void addToTotalRank( long add ) {
+// 	  totalRank += add;
+// 	}
+
+        public void addToTotalRank( double add ) {
 	  totalRank += add;
 	}
-	public void addToTotalRank( long add ) {
-	  totalRank += add;
-	}
+
 	public void zeroRank( ) {
 		totalRank = 0;
 	}
+
 }

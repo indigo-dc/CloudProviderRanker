@@ -25,6 +25,9 @@ import org.kie.api.runtime.KieSession;
  *
  */
 class RankHandler implements HttpHandler {
+
+    private String clientHostName = "";
+
     @Override
     public void handle(HttpExchange t) throws IOException {
 
@@ -37,6 +40,10 @@ class RankHandler implements HttpHandler {
 	    return;
 	}
 	
+	clientHostName = t.getRemoteAddress( ).getHostName( );
+
+	
+
 	List<CloudProvider> cpvec = null;
 	try {
 	    InputStream is = t.getRequestBody();
@@ -56,7 +63,7 @@ class RankHandler implements HttpHandler {
 		kSession.insert(cp);
 	    
 	    int tot = kSession.fireAllRules();
-	    System.out.println("Total rules applied="+tot+"\n");
+	    System.out.println("[" + clientHostName + "] Total rules applied="+tot);
 	    
 	    Vector<String> respVec = new Vector<String>();
 	    for(CloudProvider cp : cpvec ) {
@@ -66,7 +73,7 @@ class RankHandler implements HttpHandler {
 		respVec.add(json);
 	    }
 	    String response = "{\"rankedcloudproviders\":[" + String.join(",", respVec) + "]}";
-	    System.out.println(response+"\n\n");
+	    System.out.println("[" + clientHostName + "]"+ response+"\n\n");
 	    t.sendResponseHeaders(200, response.getBytes().length);
 	    OutputStream os = t.getResponseBody();
 	    os.write(response.getBytes());
@@ -88,8 +95,6 @@ class RankHandler implements HttpHandler {
 	    os.close();
 	    e.printStackTrace();
 	}
-	
-	
     }
 
 
@@ -100,12 +105,12 @@ class RankHandler implements HttpHandler {
      *
      *
      */
-    static List<CloudProvider> parse(JsonArray array) {
+    List<CloudProvider> parse(JsonArray array) {
     	List<CloudProvider> cpvec = new Vector<CloudProvider>( );
         for(int i = 0; i < array.size( ); i++) {
 	    try {
 		JsonObject obj = array.get( i ).getAsJsonObject();
-		System.out.println("Processing provider ["+obj.toString());
+		System.out.println("[" + clientHostName + "] Processing provider "+obj.toString());
 		Gson gson = new GsonBuilder().create();
 		CloudProvider cp = gson.fromJson(obj, CloudProvider.class);
 		cpvec.add(cp);

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ruleengine</groupId>
-  <artifactId>cpre</artifactId>
+  <artifactId>CloudProviderRanker</artifactId>
   <version>0.1</version>
 
   <properties>

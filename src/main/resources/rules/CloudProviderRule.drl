@@ -6,28 +6,28 @@ rule "VEPHDISK"
 	when
 		cp : CloudProvider( inUseVEPHDISK < totalVEPHDISK )
 	then
-		cp.addToTotalRank( ((double)(cp.getTotalVEPHDISK() - cp.getInUseVEPHDISK())) /((double) cp.getTotalVEPHDISK()) );
+		cp.addToTotalRank( ((float)(cp.getTotalVEPHDISK() - cp.getInUseVEPHDISK())) /((float) cp.getTotalVEPHDISK()) );
 end
 
 rule "VDISK"
 	when
 		cp : CloudProvider( inUseVDISK < totalVDISK )
 	then
-		cp.addToTotalRank( ((double)(cp.getTotalVDISK() - cp.getInUseVDISK())) /((double) cp.getTotalVDISK()) );
+		cp.addToTotalRank( ((float)(cp.getTotalVDISK() - cp.getInUseVDISK())) /((float) cp.getTotalVDISK()) );
 end
 
 rule "VCPU"
     when
         cp : CloudProvider( inUseVCPU < totalVCPU )
     then
-        cp.addToTotalRank( ((double)(cp.getTotalVCPU() - cp.getInUseVCPU()))/((double)cp.getTotalVCPU()) );
+        cp.addToTotalRank( ((float)(cp.getTotalVCPU() - cp.getInUseVCPU()))/((float)cp.getTotalVCPU()) );
 end
 
 rule "VRAM"
 	when 
 		cp : CloudProvider( inUseVRAM < totalVRAM )
 	then
-		cp.addToTotalRank( ((double)(cp.getTotalVRAM()-cp.getInUseVRAM()))/((double)cp.getTotalVRAM()) );
+		cp.addToTotalRank( ((float)(cp.getTotalVRAM()-cp.getInUseVRAM()))/((float)cp.getTotalVRAM()) );
 end
 
 rule "ZERO"

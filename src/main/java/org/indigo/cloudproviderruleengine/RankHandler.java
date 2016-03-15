@@ -81,7 +81,7 @@ class RankHandler implements HttpHandler {
 		respVec.add(json);
 	    }
 	    String response = "{\"rankedcloudproviders\":[" + String.join(",", respVec) + "]}";
-	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response+"\n\n");
+	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
 	    t.sendResponseHeaders(200, response.getBytes().length);
 	    OutputStream os = t.getResponseBody();
 	    os.write(response.getBytes());

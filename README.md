@@ -26,26 +26,26 @@ keytool -genkey -alias webservice -keystore <filepath>
 
 To test it at the client side just use cURL in this way:
 
-curl -X POST -d '{"cloudproviders":[{"id":1, "url": "http://PADOVA", "name":"padova", "totalVCPU":10, "totalVRAM":32, "totalVDISK":10, "inUseVCPU":3, "inUseVRAM":8, "inUseVDISK":1 }, {"id":2, "name":"legnaro", "totalVCPU":5, "totalVRAM":16, "totalVDISK":5, "inUseVCPU":1, "inUseVRAM":4, "inUseVDISK":2, "url":"http://LEGNARO"}, {"id":3, "url": "http://TORINO", "name":"torino", "totalVCPU":10, "totalVRAM":16, "totalVDISK":10, "inUseVCPU":3, "inUseVRAM":8, "inUseVDISK":3}]}' http(s)://localhost:<TCPPORT>/rank
+curl -k -X POST -d '{"cloudproviders":[{"id":1, "totalVEPHDISK":10, "inUseVEPHDISK": 1, "url": "http://PADOVA", "name":"padova", "totalVCPU":10, "totalVRAM":32, "totalVDISK":10, "inUseVCPU":7, "inUseVRAM":8, "inUseVDISK":1 }, {"id":2, "totalVEPHDISK":10, "inUseVEPHDISK": 9, "name":"legnaro", "totalVCPU":5, "totalVRAM":7, "totalVDISK":5, "inUseVCPU":1, "inUseVRAM":4, "inUseVDISK":2, "url":"http://LEGNARO"}, {"id":3, "totalVEPHDISK":10, "inUseVEPHDISK": 10,  "url": "http://TORINO", "name":"torino", "totalVCPU":10, "totalVRAM":16, "totalVDISK":10, "inUseVCPU":3, "inUseVRAM":8, "inUseVDISK":3}]}' http://localhost:8443/rank
 
 you'll receive an output like this:
 
-{  
-   "rankedcloudproviders":[  
-      {  
+{
+   "rankedcloudproviders":[
+      {
          "id":1,
          "name":"padova",
-         "rank":40
+         "rank":2.85
       },
-      {  
+      {
          "id":2,
          "name":"legnaro",
-         "rank":19
+         "rank":1.9285715
       },
-      {  
+      {
          "id":3,
          "name":"torino",
-         "rank":22
+         "rank":0.0
       }
    ]
 }

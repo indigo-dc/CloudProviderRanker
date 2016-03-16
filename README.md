@@ -52,23 +52,40 @@ The JSON request must be an array of cloud providers. Each cloud provider must c
 }
 
 You'll receive an output like this:
+{  
+    "rankedcloudproviders":[  
+        {  
+            "id":1,
+            "name":"padova",
+            "rank":2.85,
+            "ranked":true,
+            "errorReason":""
+        },
+        {  
+            "id":2,
+            "name":"legnaro",
+            "rank":1.9285715,
+            "ranked":true,
+            "errorReason":""
+        },
+        ...
+    ]
+}
 
-{
-   "rankedcloudproviders":[
-      {
-         "id":1,
-         "name":"padova",
-         "rank":2.85
-      },
-      {
-         "id":2,
-         "name":"legnaro",
-         "rank":1.9285715
-      },
-      {
-         "id":3,
-         "name":"torino",
-         "rank":0.0
-      }
-   ]
+In case of a missing field in the user's request, an output like this will be returned:
+
+{  
+    "rankedcloudproviders":[  
+        {  
+            ...
+        },
+	...
+        {  
+            "id":3,
+            "name":"torino",
+            "rank":0.0,
+	    "ranked":false,
+            "errorReason":"Not ranked provider: Missing inUseVDISK field"
+        }
+    ]
 }

@@ -12,6 +12,18 @@ public class CloudProvider implements Comparable<CloudProvider> {
 	return -1;
     }
     
+    public static String ID            = "id";
+    public static String NAME          = "name";
+    public static String TOTALVCPU     = "totalVCPU";
+    public static String TOTALVRAM     = "totalVRAM";
+    public static String TOTALVDISK    = "totalVDISK";
+    public static String TOTALVEPHDISK = "totalVEPHDISK";
+    public static String INUSEVCPU     = "inUseVCPU";
+    public static String INUSEVRAM     = "inUseVRAM";
+    public static String INUSEVEPHDISK = "inUseVEPHDISK";
+    public static String INUSEVDISK    = "inUseVDISK";
+
+    
     private int     id;
     private String  name;
     private float   totalRank;
@@ -24,25 +36,33 @@ public class CloudProvider implements Comparable<CloudProvider> {
     private long    inUseVRAM;
     private long    inUseVEPHDISK;
     private long    inUseVDISK;
+
+    private boolean goodParsing;
+    private String  parseError;
     
-    public int 	  getID( )            { return id;            }
-    public String getName( )          { return name;          }
-    public int 	  getTotalVCPU( )     { return totalVCPU;     }
-    public long   getTotalVRAM( )     { return totalVRAM;     }
-    public long   getTotalVEPHDISK( ) { return totalVEPHDISK; }
-    public long   getTotalVDISK( )    { return totalVDISK;    }
-    public int 	  getInUseVCPU ( )    { return inUseVCPU;     }
-    public long   getInUseVRAM( )     { return inUseVRAM;     }
-    public long   getInUseVEPHDISK( ) { return inUseVEPHDISK; }
-    public long   getInUseVDISK( )    { return inUseVDISK;    }
-    public float  getTotalRank( )     { return totalRank;     }
-    
+    public int 	   getID( )            { return id;            }
+    public String  getName( )          { return name;          }
+    public int 	   getTotalVCPU( )     { return totalVCPU;     }
+    public long    getTotalVRAM( )     { return totalVRAM;     }
+    public long    getTotalVEPHDISK( ) { return totalVEPHDISK; }
+    public long    getTotalVDISK( )    { return totalVDISK;    }
+    public int 	   getInUseVCPU ( )    { return inUseVCPU;     }
+    public long    getInUseVRAM( )     { return inUseVRAM;     }
+    public long    getInUseVEPHDISK( ) { return inUseVEPHDISK; }
+    public long    getInUseVDISK( )    { return inUseVDISK;    }
+    public float   getTotalRank( )     { return totalRank;     }
+    public String  getParseError( )    { return parseError;    }
+    public boolean isGoodParsed( )     { return goodParsing;   }
+    public void    setGoodParsed( )    { goodParsing = true;   }
+    public void    setWrongParsed( )   { goodParsing = false;  }
+    public void    setErrorMessage( String err ) { parseError = err; }
+
     public void addToTotalRank( float add ) {
 	totalRank += add;
     }
-    
+
     public void zeroRank( ) {
 	totalRank = 0;
     }
-    
+
 }

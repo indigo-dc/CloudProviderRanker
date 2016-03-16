@@ -75,7 +75,12 @@ class RankHandler implements HttpHandler {
 	    
 	    Vector<String> respVec = new Vector<String>();
 	    for(CloudProvider cp : cpvec ) {
-		RankedCloudProvider rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank() );
+		RankedCloudProvider rcp = null;
+		if(!cp.isGoodParsed( )) {
+		    rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), false, "Not ranked provider: " + cp.getParseError( ) );
+		} else
+		    rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), true, "" );
+		//		RankedCloudProvider rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), "" );
 		Gson gson2 = new Gson();
 		String json = gson2.toJson(rcp);
 		respVec.add(json);
@@ -122,6 +127,47 @@ class RankHandler implements HttpHandler {
 		System.err.println("[" + clientHostName + "] Processing provider "+obj.toString());
 		Gson gson = new GsonBuilder().create();
 		CloudProvider cp = gson.fromJson(obj, CloudProvider.class);
+		cp.setGoodParsed();
+		if(!obj.has(CloudProvider.ID)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.ID + " field" );
+		}
+		if(!obj.has(CloudProvider.NAME)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.NAME + " field" );
+		}
+		if(!obj.has(CloudProvider.TOTALVCPU)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVCPU + " field" );
+		}
+		if(!obj.has(CloudProvider.TOTALVRAM)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVRAM + " field" );
+		}
+		if(!obj.has(CloudProvider.TOTALVDISK)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVDISK + " field" );
+		}
+		if(!obj.has(CloudProvider.TOTALVEPHDISK)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVEPHDISK + " field" );
+		}
+		if(!obj.has(CloudProvider.INUSEVCPU)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVCPU + " field" );
+		}
+		if(!obj.has(CloudProvider.INUSEVRAM)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVRAM + " field" );
+		}
+		if(!obj.has(CloudProvider.INUSEVDISK)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVDISK + " field" );
+		}
+		if(!obj.has(CloudProvider.INUSEVEPHDISK)) {
+		    cp.setWrongParsed( );
+		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVEPHDISK + " field" );
+		}
 		cpvec.add(cp);
 	    } catch(Exception e) {
 		System.err.println(e.getMessage());

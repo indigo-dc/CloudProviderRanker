@@ -16,6 +16,7 @@ import com.google.gson.*;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+//import org.kie.api.runtime.StatelessKieSession;
 
 /**
  * 
@@ -25,12 +26,12 @@ import org.kie.api.runtime.KieSession;
  *
  */
 class RankHandler implements HttpHandler {
-
+    
     private String clientHostName = "";
-
+    
     @Override
     public void handle(HttpExchange t) throws IOException {
-
+	
 	if(t.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
 	    String response = "API \"rank\" only supports POST method";
 	    t.sendResponseHeaders(405, response.getBytes().length);
@@ -41,7 +42,7 @@ class RankHandler implements HttpHandler {
 	}
 	
 	clientHostName = t.getRemoteAddress( ).getHostName( );
-
+	
 	List<CloudProvider> cpvec = null;
 	try {
 	    InputStream is = t.getRequestBody();
@@ -54,19 +55,20 @@ class RankHandler implements HttpHandler {
 	    if ( obj.has("cloudproviders") ) {
 		cpvec = parse( obj.get("cloudproviders").getAsJsonArray( ) );
 	    }
-
+	    
 	    if(cpvec.size()==0) {
-		String response = "No valid cloud provider was found: have you provided some ? with correct JSON syntax ?";
+		String response = "No valid cloud provider was found: have you provided some ? and with correct JSON syntax ?";
 		t.sendResponseHeaders(200, response.getBytes().length);
 		OutputStream os = t.getResponseBody();
 		os.write(response.getBytes());
 		os.close();
 		return;
 	    }
-
+	    
 	    KieServices ks = KieServices.Factory.get();
 	    KieContainer kContainer = ks.getKieClasspathContainer();
 	    KieSession kSession = kContainer.newKieSession("ksession-rules");
+	    //StatelessKieSession kSession = kContainer.newStatelessKieSession();
 	    for(CloudProvider cp : cpvec )
 		kSession.insert(cp);
 	    
@@ -77,10 +79,17 @@ class RankHandler implements HttpHandler {
 	    for(CloudProvider cp : cpvec ) {
 		RankedCloudProvider rcp = null;
 		if(!cp.isGoodParsed( )) {
-		    rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), false, "Not ranked provider: " + cp.getParseError( ) );
+		    rcp = new RankedCloudProvider( cp.getID(), 
+						   cp.getName(), 
+						   cp.getTotalRank(), 
+						   false, 
+						   "Not ranked provider because " + cp.getParseError( ) );
 		} else
-		    rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), true, "" );
-		//		RankedCloudProvider rcp = new RankedCloudProvider( cp.getID(), cp.getName(), cp.getTotalRank(), "" );
+		    rcp = new RankedCloudProvider( cp.getID(), 
+						   cp.getName(), 
+						   cp.getTotalRank(), 
+						   true, 
+						   "" );
 		Gson gson2 = new Gson();
 		String json = gson2.toJson(rcp);
 		respVec.add(json);
@@ -110,8 +119,8 @@ class RankHandler implements HttpHandler {
 	    return;
 	}
     }
-
-
+    
+    
     /**
      *
      *
@@ -130,50 +139,50 @@ class RankHandler implements HttpHandler {
 		cp.setGoodParsed();
 		if(!obj.has(CloudProvider.ID)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.ID + " field" );
+		    cp.setErrorMessage( CloudProvider.ID + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.NAME)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.NAME + " field" );
+		    cp.setErrorMessage( CloudProvider.NAME + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.TOTALVCPU)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVCPU + " field" );
+		    cp.setErrorMessage( CloudProvider.TOTALVCPU + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.TOTALVRAM)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVRAM + " field" );
+		    cp.setErrorMessage( CloudProvider.TOTALVRAM + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.TOTALVDISK)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVDISK + " field" );
+		    cp.setErrorMessage( CloudProvider.TOTALVDISK + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.TOTALVEPHDISK)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.TOTALVEPHDISK + " field" );
+		    cp.setErrorMessage( CloudProvider.TOTALVEPHDISK + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.INUSEVCPU)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVCPU + " field" );
+		    cp.setErrorMessage( CloudProvider.INUSEVCPU + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.INUSEVRAM)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVRAM + " field" );
+		    cp.setErrorMessage( CloudProvider.INUSEVRAM + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.INUSEVDISK)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVDISK + " field" );
+		    cp.setErrorMessage( CloudProvider.INUSEVDISK + " field is missing" );
 		}
 		if(!obj.has(CloudProvider.INUSEVEPHDISK)) {
 		    cp.setWrongParsed( );
-		    cp.setErrorMessage( "Missing " + CloudProvider.INUSEVEPHDISK + " field" );
+		    cp.setErrorMessage( CloudProvider.INUSEVEPHDISK + " field is missing" );
 		}
 		cpvec.add(cp);
 	    } catch(Exception e) {
 		System.err.println(e.getMessage());
 	    } catch(Throwable t) {
 		System.err.println(t.getMessage());
-	    } 
+	    }
 	}
 	return cpvec;
     }

@@ -5,7 +5,7 @@ To install the artifact (a single jar) just put it wherever you prefer. What you
 
 They can be downloaded from:
 
-Drools: http://goo.gl/jvXYI5
+Drools: http://download.jboss.org/drools/release/6.3.0.Final/droolsjbpm-tools-distribution-6.3.0.Final.zip
 
 and
 

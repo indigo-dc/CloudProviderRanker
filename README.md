@@ -89,3 +89,21 @@ In case of a missing field in the user's request, an output like this will be re
         }
     ]
 }
+
+--------------------
+
+Docker container:
+
+To build a docker image which can spawn a container running the server, yuo have to build CloudProviderRanker before by issuing the command
+
+mvn install
+
+then issue te command:
+
+docker build -t [CONTAINER_NAME] .
+
+To run the container:
+
+docker run -t -d -p 7443:7443 -p 8443:8443 dorigoa/cloudprovider-ranker
+
+To change the TCP port used inside the container, edit the startup-cpre script and re-build the docker image.

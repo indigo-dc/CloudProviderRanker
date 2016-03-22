@@ -110,4 +110,28 @@ To change the TCP port used inside the container, edit the startup-cpre script a
 
 To debug the server, an SSHD daemon is started by the startup-cpre script. It also sets the user "centos" with password "centos".
 
+------------------------------
 
+Basic current ranking algorigthm
+================================
+Current ranking logic is quite trivial and can be used as proof of concept.
+The higher the ranking, the better the provider.
+The rank is equal to the sum of the following pieces
+
+	(TOTAL VCPU - USED VCPU)/TOTAL VCPU
+	(TOTAL VDISK - USED VDISK)/TOTAL VDISK
+	(TOTAL VRAM - USED VRAM)/TOTAL VRAM
+	(TOTAL VEPHDISK - USED VEPHDISK)/TOTAL VEPHDISK
+
+VDISK is the block storage (Cinder), VEPHDISK is the ephemeral storage disk available for instances.
+
+If at least one of the couples
+
+	(TOTAL VCPU - USED VCPU)
+	(TOTAL VDISK - USED VDISK)
+	(TOTAL VRAM - USED VRAM)
+	(TOTAL VEPHDISK - USED VEPHDISK)
+
+is zero (a particular virtual resource is exhausted), then the provider receives a ZERO rank.
+
+The ranking is implemented in the "rule" file (and not in the Java code) which is handled by the drools runtime framework.

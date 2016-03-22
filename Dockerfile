@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos
 EXPOSE 22 7443
 MAINTAINER Alvise Dorigo <alvise.dorigo@pd.infn.it>
 RUN yum -y update 

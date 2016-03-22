@@ -1,5 +1,5 @@
 FROM centos:latest
-EXPOSE 22 8443
+EXPOSE 22 7443
 MAINTAINER Alvise Dorigo <alvise.dorigo@pd.infn.it>
 RUN yum -y update 
 RUN yum -y install iproute \

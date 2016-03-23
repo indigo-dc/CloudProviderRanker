@@ -134,6 +134,7 @@ public class RESTEngine {
 
 	server.createContext("/version", new VersionHandler());
 	server.createContext("/rank", new RankHandler());
+	server.createContext("/checkprovider", new CheckProviderHandler());
 	server.setExecutor(Executors.newCachedThreadPool());
 	server.start();
 	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");

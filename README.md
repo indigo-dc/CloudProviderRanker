@@ -100,7 +100,7 @@ To build a docker image which can spawn a container running the server, yuo have
 
 then issue te command:
 
-	docker build -t [IMAE_NAME] .
+	docker build -t [IMAGE_NAME] .
 
 To run the container:
 

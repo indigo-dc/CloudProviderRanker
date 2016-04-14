@@ -16,11 +16,11 @@ import com.google.gson.*;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-//import org.kie.api.runtime.StatelessKieSession;
 
 /**
  * 
- * Class to parse the request's POST payload and convert into CloudProvider Objects and rank them
+ * This is the real ranker which receives the JSON text to be converted to CloudProvider's instances
+ * each instance is ranked basing on the rule define in the file main/resources/rules/CloudProviderRule.drl
  * 
  * @author dorigoa
  *
@@ -68,7 +68,7 @@ class RankHandler implements HttpHandler {
 	    KieServices ks = KieServices.Factory.get();
 	    KieContainer kContainer = ks.getKieClasspathContainer();
 	    KieSession kSession = kContainer.newKieSession("ksession-rules");
-	    //StatelessKieSession kSession = kContainer.newStatelessKieSession();
+	    
 	    for(CloudProvider cp : cpvec )
 		kSession.insert(cp);
 	    

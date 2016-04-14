@@ -1,5 +1,14 @@
 package org.indigo.cloudproviderruleengine;
 
+/**
+ *
+ *
+ * Class for a Cloud Provider as required by the server to perform the ranking
+ * When the server receives a JSON text describing a cloud provider, the text is
+ * automatically converted into an instance of this class by a Gson library's function
+ *
+ *
+ */
 public class CloudProvider implements Comparable<CloudProvider> {
 	
     /**

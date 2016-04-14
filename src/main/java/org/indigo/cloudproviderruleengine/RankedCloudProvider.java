@@ -1,5 +1,10 @@
 package org.indigo.cloudproviderruleengine;
 
+/**
+ *
+ * Class for a cloud provider which has been ranked (less info required comparing to CloudProvider)
+ *
+ */
 public class RankedCloudProvider {
     private int     id;
     private String  name;

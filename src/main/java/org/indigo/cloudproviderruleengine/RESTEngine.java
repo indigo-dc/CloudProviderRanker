@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.Map;
 
+// doc: https://goo.gl/AJ792o
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 
@@ -24,7 +25,10 @@ import java.security.UnrecoverableKeyException;
 import java.security.KeyManagementException;
 
 /**
- * This is a sample class to launch a rule.
+ *
+ * Entry point class (main loop) which setup an http listener and a thread pool 
+ * to execute it; then starts the Http server.
+ *
  */
 public class RESTEngine {
 

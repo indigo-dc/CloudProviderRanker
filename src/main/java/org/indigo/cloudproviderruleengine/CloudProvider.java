@@ -9,17 +9,17 @@ package org.indigo.cloudproviderruleengine;
  *
  *
  */
-public class CloudProvider implements Comparable<CloudProvider> {
+public class CloudProvider /*implements Comparable<CloudProvider>*/ {
 	
     /**
      * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
-    public int compareTo(CloudProvider cp) {
+/*    public int compareTo(CloudProvider cp) {
 	if( this.totalRank > cp.totalRank ) return 1;
 	if( this.totalRank == cp.totalRank ) return 0;
 	return -1;
-    }
+    }*/
     
     public static String ID            = "id";
     public static String NAME          = "name";

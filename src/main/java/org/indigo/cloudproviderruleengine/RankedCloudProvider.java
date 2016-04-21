@@ -19,4 +19,10 @@ public class RankedCloudProvider {
 	this.errorReason = error;
 	this.ranked      = ranked;
     }
+    
+    public int getID() { return id; }
+    public String getName() { return name; }
+    public float getRank( ) { return rank; }
+    public boolean isRanked( ) { return ranked; }
+    public String getRankError( ) { return errorReason; }
 }

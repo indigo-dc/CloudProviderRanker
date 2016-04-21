@@ -2,9 +2,6 @@ package org.indigo.cloudproviderruleengine;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-//import com.google.gson.*;
-
-// Test build: javac -cp /usr/share/java/junit4-4.12.jar:../target/CloudProviderRanker-0.1.jar:/usr/local/share/java/gson/gson-2.6.2.jar CloudProviderTest.java
 
 public class RankedCloudProviderTest {
   

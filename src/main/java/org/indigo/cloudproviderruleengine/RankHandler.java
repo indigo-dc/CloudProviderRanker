@@ -25,7 +25,7 @@ import org.kie.api.runtime.KieSession;
  * @author dorigoa
  *
  */
-class RankHandler implements HttpHandler {
+public class RankHandler implements HttpHandler {
     
     private String clientHostName = "";
     

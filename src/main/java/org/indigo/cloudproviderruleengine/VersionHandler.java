@@ -11,7 +11,7 @@ import com.sun.net.httpserver.HttpHandler;
  * Handler class to return the server's version number to the client
  *
  */
-class VersionHandler implements HttpHandler {
+public class VersionHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange t) throws IOException {
 

@@ -18,7 +18,7 @@ import com.google.gson.*;
  * @author dorigoa
  *
  */
-class CheckProviderHandler implements HttpHandler {
+public class CheckProviderHandler implements HttpHandler {
     
     private String clientHostName = "";
     

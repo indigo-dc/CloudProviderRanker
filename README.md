@@ -1,3 +1,3 @@
-# My Awesome Book
+# Cloud Provider Ranker
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+CloudProviderRanker is a standalone REST WEB service which ranks cloud providers basing on rules implemented with the Drools framework http://drools.org/

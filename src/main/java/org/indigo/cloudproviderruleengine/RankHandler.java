@@ -74,7 +74,11 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    if( obj.has("sla") ) {
-	      //preferences = parseSLA( obj.get("sla").getAsJsonArray( ) );
+	      JsonArray SLAs = obj.get("sla").getAsJsonArray( );
+	      for(int i = 0; i<SLAs.size( ) ; ++i) {
+		JsonObject currentSLA = SLAs.get(i).getAsJsonObject( );
+		Service[] services = parseService( currentSLA );
+	      }
 	    }
 	    
 // 	    if ( obj.has("cloudproviders") ) {
@@ -211,7 +215,12 @@ public class RankHandler implements HttpHandler {
 	}
 	return cpvec;
     } */
-    
+   
+   /**
+    *
+    * Convert a JSON array "preferences" into a java array of Preference objects
+    *
+    */
    private Preference[] parsePreferences( JsonArray array ) {
    
      Preference[] preferences = new Preference[array.size( )];
@@ -234,7 +243,12 @@ public class RankHandler implements HttpHandler {
      
    }
    
-       
+   /**
+    *
+    * Convert a JSON array "priority" into a java array of Priority objects
+    *
+    *
+    */
    private Priority[] parsePriorities( JsonArray array ) {
    
      Priority[] priorities = new Priority[array.size( )];
@@ -253,5 +267,47 @@ public class RankHandler implements HttpHandler {
      
      return priorities;
      
+   }
+   
+   /**
+    *
+    * Extract (and convert to a Java array) the services from a SLA json element
+    *
+    *
+    */
+   private Service[] parseService( JsonObject sla ) {
+     JsonArray Services = sla.get("services").getAsJsonArray( );
+     Service[] services = new Service[Services.size()];
+     for(int i = 0; i < Services.size( ); i++) {
+       try {
+         JsonObject obj = Services.get( i ).getAsJsonObject();
+         System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
+	 Target[] targets = parseTarget( obj ); 
+	 services[i] = new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets);
+	 System.err.println("Service[" + i + "]=" + services[i]);
+       } catch(Exception e) {
+	 System.err.println("Exception: " + e.getMessage());
+       } catch(Throwable t) {
+	 System.err.println("Throwable: " + t.getMessage());
+       }
+     }
+     return services;
+   }
+   
+   /**
+    *
+    * Extract (and convert to a Java array) the targets from a service json element
+    *
+    *
+    */
+   private Target[] parseTarget( JsonObject service ) {
+     JsonArray Targets = service.get("targets").getAsJsonArray( );
+     Target[] targets = new Target[Targets.size( )];
+     Gson gson = new GsonBuilder().create();
+     for(int i = 0; i < Targets.size( ); i++) {
+       targets[i] = gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class);
+
+     }
+     return targets;
    }
 }

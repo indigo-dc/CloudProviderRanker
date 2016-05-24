@@ -43,7 +43,8 @@ public class RankHandler implements HttpHandler {
 	
 	clientHostName = t.getRemoteAddress( ).getHostName( );
 	
-	List<CloudProvider> cpvec = null;
+	//List<CloudProvider> cpvec = null;
+	Preferences[] preferences = null;
 	try {
 	    InputStream is = t.getRequestBody();
 	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
@@ -52,55 +53,68 @@ public class RankHandler implements HttpHandler {
 	    Gson gson = new Gson();
 	    JsonElement E = gson.fromJson(line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
-	    if ( obj.has("cloudproviders") ) {
-		cpvec = parse( obj.get("cloudproviders").getAsJsonArray( ) );
+	    
+	    
+	    
+	    if( obj.has("preferences") ) {
+	      preferences = parsePreferences( obj.get("preferences").getAsJsonArray( ) );
 	    }
 	    
-	    if(cpvec.size()==0) {
-		String response = "No valid cloud provider was found: have you provided some ? and with correct JSON syntax ?";
-		t.sendResponseHeaders(200, response.getBytes().length);
-		OutputStream os = t.getResponseBody();
-		os.write(response.getBytes());
-		os.close();
-		return;
+	    
+	    
+	    if( obj.has("sla") ) {
+	      //preferences = parseSLA( obj.get("sla").getAsJsonArray( ) );
 	    }
 	    
-	    KieServices ks = KieServices.Factory.get();
-	    KieContainer kContainer = ks.getKieClasspathContainer();
-	    KieSession kSession = kContainer.newKieSession("ksession-rules");
-	    
-	    for(CloudProvider cp : cpvec )
-		kSession.insert(cp);
-	    
-	    int tot = kSession.fireAllRules();
-	    System.err.println("[" + clientHostName + "] Total rules applied="+tot);
-	    
-	    Vector<String> respVec = new Vector<String>();
-	    for(CloudProvider cp : cpvec ) {
-		RankedCloudProvider rcp = null;
-		if(!cp.isGoodParsed( )) {
-		    rcp = new RankedCloudProvider( cp.getID(), 
-						   cp.getName(), 
-						   cp.getTotalRank(), 
-						   false, 
-						   "Not ranked provider because " + cp.getParseError( ) );
-		} else
-		    rcp = new RankedCloudProvider( cp.getID(), 
-						   cp.getName(), 
-						   cp.getTotalRank(), 
-						   true, 
-						   "" );
-		Gson gson2 = new Gson();
-		String json = gson2.toJson(rcp);
-		respVec.add(json);
-	    }
-	    String response = "{\"rankedcloudproviders\":[" + String.join(",", respVec) + "]}";
-	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
-	    t.sendResponseHeaders(200, response.getBytes().length);
-	    OutputStream os = t.getResponseBody();
-	    os.write(response.getBytes());
-	    os.close();
-	    return;
+// 	    if ( obj.has("cloudproviders") ) {
+// 		cpvec = parse( obj.get("cloudproviders").getAsJsonArray( ) );
+// 	    }
+// 	    
+// 	    if(cpvec.size()==0) {
+// 		String response = "No valid cloud provider was found: have you provided some ? and with correct JSON syntax ?";
+// 		t.sendResponseHeaders(200, response.getBytes().length);
+// 		OutputStream os = t.getResponseBody();
+// 		os.write(response.getBytes());
+// 		os.close();
+// 		return;
+// 	    }
+// 	    
+// 	    KieServices ks = KieServices.Factory.get();
+// 	    KieContainer kContainer = ks.getKieClasspathContainer();
+// 	    KieSession kSession = kContainer.newKieSession("ksession-rules");
+// 	    
+// 	    for(CloudProvider cp : cpvec )
+// 		kSession.insert(cp);
+// 	    
+// 	    int tot = kSession.fireAllRules();
+// 	    System.err.println("[" + clientHostName + "] Total rules applied="+tot);
+// 	    
+// 	    Vector<String> respVec = new Vector<String>();
+// 	    for(CloudProvider cp : cpvec ) {
+// 		RankedCloudProvider rcp = null;
+// 		if(!cp.isGoodParsed( )) {
+// 		    rcp = new RankedCloudProvider( cp.getID(), 
+// 						   cp.getName(), 
+// 						   cp.getTotalRank(), 
+// 						   false, 
+// 						   "Not ranked provider because " + cp.getParseError( ) );
+// 		} else
+// 		    rcp = new RankedCloudProvider( cp.getID(), 
+// 						   cp.getName(), 
+// 						   cp.getTotalRank(), 
+// 						   true, 
+// 						   "" );
+// 		Gson gson2 = new Gson();
+// 		String json = gson2.toJson(rcp);
+// 		respVec.add(json);
+// 	    }
+ 	    String response = "{ok}";
+ 	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
+ 	    t.sendResponseHeaders(200, response.getBytes().length);
+ 	    OutputStream os = t.getResponseBody();
+ 	    os.write(response.getBytes());
+ 	    os.close();
+ 	    return;
 	} catch(Exception e) {
 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
 	    t.sendResponseHeaders(400, err.getBytes().length);
@@ -128,7 +142,7 @@ public class RankHandler implements HttpHandler {
      *
      *
      */
-    List<CloudProvider> parse(JsonArray array) {
+/*     List<CloudProvider> parse(JsonArray array) {
     	List<CloudProvider> cpvec = new Vector<CloudProvider>( );
         for(int i = 0; i < array.size( ); i++) {
 	    try {
@@ -185,5 +199,24 @@ public class RankHandler implements HttpHandler {
 	    }
 	}
 	return cpvec;
-    }
+    } */
+    
+   private Preferences[] parsePreferences( JsonArray array ) {
+     System.err.println("Invoked parsePreferences...");
+     Preferences[] preferences = new Preferences[array.size( )];
+     for(int i = 0; i < array.size( ); i++) {
+       try {
+	 JsonObject obj = array.get( i ).getAsJsonObject();
+	 System.err.println("[" + clientHostName + "] Processing preference " + obj.toString());
+	 Gson gson = new GsonBuilder().create();
+	 Preference pref = gson.fromJson(obj, Preference.class);
+	 System.err.println("Preference={" + pref + "\n\n" );
+       } catch(Exception e) {
+	 System.err.println(e.getMessage());
+       } catch(Throwable t) {
+	 System.err.println(t.getMessage());
+       }
+     }
+     return preferences;
+   }
 }

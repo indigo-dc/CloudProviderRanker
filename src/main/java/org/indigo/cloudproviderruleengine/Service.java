@@ -7,5 +7,5 @@ public class Service {
   public String type;
   public String service_id;
   
-  public List<ServiceTarget> targets;
+  public List<Target> targets;
 }

@@ -5,8 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Vector;
+import java.util.Iterator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -73,12 +74,25 @@ public class RankHandler implements HttpHandler {
 	      System.err.println("preference[" + i + "]={" + preferences[i].toString( )+"}" );
 	    }
 	    
+	    Service[] services = null;
+	    ArrayList<Sla> SLAs = new ArrayList<Sla>();
+	    
 	    if( obj.has("sla") ) {
-	      JsonArray SLAs = obj.get("sla").getAsJsonArray( );
-	      for(int i = 0; i<SLAs.size( ) ; ++i) {
-		JsonObject currentSLA = SLAs.get(i).getAsJsonObject( );
-		Service[] services = parseService( currentSLA );
+	      JsonArray SLAS = obj.get("sla").getAsJsonArray( );
+	      for(int i=0; i < SLAS.size( ); ++i) {
+                JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
+                services = parseService( currentSLA );
+		SLAs.add( new Sla( currentSLA.get("id").getAsString(),
+				   currentSLA.get("customer").getAsString(),
+				   currentSLA.get("provider").getAsString(),
+				   currentSLA.get("start_date").getAsString(),
+				   currentSLA.get("end_date").getAsString(), services) );
 	      }
+	    }
+	    int j = 0;
+	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
+	      Sla sla = i.next( );
+	      System.err.println("SLA[" + j++ +"]={"+sla.toString()+"]");
 	    }
 	    
 // 	    if ( obj.has("cloudproviders") ) {

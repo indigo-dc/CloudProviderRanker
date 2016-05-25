@@ -46,7 +46,6 @@ public class RankHandler implements HttpHandler {
 	
 	clientHostName = t.getRemoteAddress( ).getHostName( );
 	
-	//List<CloudProvider> cpvec = null;
 	Preference[] preferences = null;
 	
 	try {
@@ -61,7 +60,9 @@ public class RankHandler implements HttpHandler {
 	    boolean specified_preferences = false, specified_sla = false;
 	    
 	    //
+	    //
 	    // convert preferences json block to Java Preference[] array
+	    //
 	    //
 	    if( obj.has("preferences") ) {
 	      specified_preferences = true;
@@ -75,15 +76,14 @@ public class RankHandler implements HttpHandler {
 	      }
 	    }
 	    
-// 	    for(int i = 0; i< preferences.length; ++i) {
-// 	      System.err.println("preference[" + i + "]={" + preferences[i].toString( )+"}" );
-// 	    }
 	    
 	    Service[] services = null;
 	    ArrayList<Sla> SLAs = new ArrayList<Sla>();
 	    
 	    //
+	    //
 	    // Convert sla json blocks to Java Sla arraylist
+	    //
 	    //
 	    if( obj.has("sla") ) {
 	      specified_sla = true;
@@ -100,12 +100,16 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    //
+	    //
 	    // Concatenate all preferences' priorities and sort them basing on the weight
+	    //
 	    //
 	    /* Test with: curl -k -X POST -d \
 	     '{"preferences":[{"service_type":"compute","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f6","service_id":"4401ac5dc8cfbbb7a02575e8040f","weight":0.1},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b58","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","weight":0.9}],"id":"4401ac5dc8cfbbb737b0a02575ee0e55"},{"service_type":"storage","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f7","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","weight":0.7},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b60","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bd","weight":0.4}],"id":"4401ac5dc8cfbbb737b0a02575ee0e59"}],"sla":[{"customer":"indigo-demo","provider":"provider-UPV-GRyCAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b58"},{"customer":"indigo-demo","provider":"provider-PADOVA-CAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b60"},{"customer":"indigo-demo","provider":"provider-RECAS-BARI","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f6"},{"customer":"indigo-demo","provider":"provider-RECAS-TORINO","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f7"}]}'\
 	     http://localhost:8443/rank
   	    */
+	    // see http://pastebin.com/TnRWU2cj for pretty formatted version
+	    
 	    ArrayList<Priority> all_priorities = new ArrayList<Priority>();
 	    for (int i = 0; i < preferences.length; ++i) {
 	      Priority[] priorities_loc = preferences[i].priorities;
@@ -116,7 +120,9 @@ public class RankHandler implements HttpHandler {
 	    Collections.sort(all_priorities);
 	    
 	    //
+	    //
 	    // Build an Hashtable sla_id -> provider_name
+	    //
 	    //
 	    Hashtable<String, String> slaid_to_provider = new Hashtable<String, String>();
 	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
@@ -125,7 +131,9 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    //
+	    //
 	    // if specified preferences, order the providers and immediately return them to the client
+	    //
 	    //
 	    Vector<String> ranked_providers = new Vector<String>();
 	    if(specified_preferences && specified_sla) {
@@ -146,13 +154,7 @@ public class RankHandler implements HttpHandler {
  	      os.close();
  	      return;
 	    }
-/* 	    
-	    int j = 0;
-	    for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
-	      Priority prio = i.next( );
-	      System.err.println("Priority [" + j++ +"]={"+prio.toString()+"]");
-	    } 
-*/
+
 	    
 	    /**
 	     *
@@ -295,7 +297,8 @@ public class RankHandler implements HttpHandler {
 	}
 	return cpvec;
     } */
-   // 
+    
+// 
 //    /**
 //     *
 //     * Convert a JSON array "preferences" into a java array of Preference objects
@@ -325,6 +328,7 @@ public class RankHandler implements HttpHandler {
    
    /**
     *
+    *
     * Convert a JSON array "priority" into a java array of Priority objects
     *
     *
@@ -351,6 +355,7 @@ public class RankHandler implements HttpHandler {
    
    /**
     *
+    *
     * Extract (and convert to a Java array) the services from a SLA json element
     *
     *
@@ -375,6 +380,7 @@ public class RankHandler implements HttpHandler {
    }
    
    /**
+    *
     *
     * Extract (and convert to a Java array) the targets from a service json element
     *

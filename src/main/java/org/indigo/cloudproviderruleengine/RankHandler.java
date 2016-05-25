@@ -52,9 +52,14 @@ public class RankHandler implements HttpHandler {
 	    InputStream is = t.getRequestBody();
 	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
 	    BufferedReader buffReader = new BufferedReader(inputReader);
-	    String line = buffReader.readLine();
+	    String Line = "";
+	    String line = "";
+	    while( (line = buffReader.readLine()) != null) {
+       		Line += line;
+	    }
+	    System.err.println("DEBUG - Line="+Line);
 	    Gson gson = new Gson();
-	    JsonElement E = gson.fromJson(line, JsonElement.class);
+	    JsonElement E = gson.fromJson(Line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
 	     
 	    boolean specified_preferences = false, specified_sla = false;
@@ -135,18 +140,29 @@ public class RankHandler implements HttpHandler {
 	    // if specified preferences, order the providers and immediately return them to the client
 	    //
 	    //
-	    Vector<String> ranked_providers = new Vector<String>();
+	    Vector<RankedCloudProvider> ranked_providers = new Vector<RankedCloudProvider>();
 	    if(specified_preferences && specified_sla) {
 	      int j = 0;
 	      for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
 	        Priority p = i.next( );
 	        //ranked_providers[j++] = slaid_to_provider.get( p.sla_id );
-		ranked_providers.add( "\"" + slaid_to_provider.get( p.sla_id ) + "\":" + (all_priorities.size() - j++) );
+		//ranked_providers.add( "\"" + slaid_to_provider.get( p.sla_id ) + "\":" + (all_priorities.size() - j++) );
+		ranked_providers.add(new RankedCloudProvider( slaid_to_provider.get( p.sla_id ), 
+					 		      (all_priorities.size() - j++),
+					 		      true,
+					 		      "" ) );
 	      }
 	      
+	      Vector<String> rcp_vec = new Vector<String>();
+	      for (Iterator<RankedCloudProvider> i = ranked_providers.iterator(); i.hasNext(); ) {
+	        RankedCloudProvider rcp = i.next( );
+	        rcp_vec.add(gson.toJson(rcp));
+	      }
+	      
+	      String response = "[" + String.join(",", rcp_vec) + "]";
 	      
 	      
-	      String response = "{" + String.join(",", ranked_providers) + "}";
+	      
 	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
  	      t.sendResponseHeaders(200, response.getBytes().length);
  	      OutputStream os = t.getResponseBody();

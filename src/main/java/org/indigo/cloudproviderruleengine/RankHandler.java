@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Hashtable;
+import java.util.Collections;
 
 import com.google.gson.*;
 
@@ -56,28 +58,35 @@ public class RankHandler implements HttpHandler {
 	    JsonElement E = gson.fromJson(line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
 	     
+	    boolean specified_preferences = false, specified_sla = false;
 	    
-	    
-	    
+	    //
+	    // convert preferences json block to Java Preference[] array
+	    //
 	    if( obj.has("preferences") ) {
+	      specified_preferences = true;
 	      Priority[] priorities = null;
 	      JsonArray Preferences = obj.get("preferences").getAsJsonArray( );
 	      preferences = new Preference[Preferences.size() ];
 	      for(int i = 0; i< Preferences.size(); ++i) {
 	        JsonObject pref = Preferences.get(i).getAsJsonObject( );
-		priorities = parsePriorities( Preferences.get(0).getAsJsonObject( ).get("priority").getAsJsonArray( ) );
+		priorities = parsePriorities( Preferences.get(i).getAsJsonObject( ).get("priority").getAsJsonArray( ) );
 		preferences[i] = new Preference( pref.get("service_type").getAsString( ), priorities );
 	      }
 	    }
 	    
-	    for(int i = 0; i< preferences.length; ++i) {
-	      System.err.println("preference[" + i + "]={" + preferences[i].toString( )+"}" );
-	    }
+// 	    for(int i = 0; i< preferences.length; ++i) {
+// 	      System.err.println("preference[" + i + "]={" + preferences[i].toString( )+"}" );
+// 	    }
 	    
 	    Service[] services = null;
 	    ArrayList<Sla> SLAs = new ArrayList<Sla>();
 	    
+	    //
+	    // Convert sla json blocks to Java Sla arraylist
+	    //
 	    if( obj.has("sla") ) {
+	      specified_sla = true;
 	      JsonArray SLAS = obj.get("sla").getAsJsonArray( );
 	      for(int i=0; i < SLAS.size( ); ++i) {
                 JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
@@ -89,11 +98,68 @@ public class RankHandler implements HttpHandler {
 				   currentSLA.get("end_date").getAsString(), services) );
 	      }
 	    }
-	    int j = 0;
+	    
+	    //
+	    // Concatenate all preferences' priorities and sort them basing on the weight
+	    //
+	    /* Test with: curl -k -X POST -d \
+	     '{"preferences":[{"service_type":"compute","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f6","service_id":"4401ac5dc8cfbbb7a02575e8040f","weight":0.1},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b58","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","weight":0.9}],"id":"4401ac5dc8cfbbb737b0a02575ee0e55"},{"service_type":"storage","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f7","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","weight":0.7},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b60","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bd","weight":0.4}],"id":"4401ac5dc8cfbbb737b0a02575ee0e59"}],"sla":[{"customer":"indigo-demo","provider":"provider-UPV-GRyCAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b58"},{"customer":"indigo-demo","provider":"provider-PADOVA-CAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b60"},{"customer":"indigo-demo","provider":"provider-RECAS-BARI","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f6"},{"customer":"indigo-demo","provider":"provider-RECAS-TORINO","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f7"}]}'\
+	     http://localhost:8443/rank
+  	    */
+	    ArrayList<Priority> all_priorities = new ArrayList<Priority>();
+	    for (int i = 0; i < preferences.length; ++i) {
+	      Priority[] priorities_loc = preferences[i].priorities;
+	      for(int j = 0; j < priorities_loc.length; ++j) {
+	        all_priorities.add( priorities_loc[j] );
+	      }
+	    }
+	    Collections.sort(all_priorities);
+	    
+	    //
+	    // Build an Hashtable sla_id -> provider_name
+	    //
+	    Hashtable<String, String> slaid_to_provider = new Hashtable<String, String>();
 	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
 	      Sla sla = i.next( );
-	      System.err.println("SLA[" + j++ +"]={"+sla.toString()+"]");
+	      slaid_to_provider.put(sla.id, sla.provider);
 	    }
+	    
+	    //
+	    // if specified preferences, order the providers and immediately return them to the client
+	    //
+	    Vector<String> ranked_providers = new Vector<String>();
+	    if(specified_preferences && specified_sla) {
+	      int j = 0;
+	      for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
+	        Priority p = i.next( );
+	        //ranked_providers[j++] = slaid_to_provider.get( p.sla_id );
+		ranked_providers.add( "\"" + slaid_to_provider.get( p.sla_id ) + "\":" + (all_priorities.size() - j++) );
+	      }
+	      
+	      
+	      
+	      String response = "{" + String.join(",", ranked_providers) + "}";
+	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
+ 	      t.sendResponseHeaders(200, response.getBytes().length);
+ 	      OutputStream os = t.getResponseBody();
+ 	      os.write(response.getBytes());
+ 	      os.close();
+ 	      return;
+	    }
+/* 	    
+	    int j = 0;
+	    for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
+	      Priority prio = i.next( );
+	      System.err.println("Priority [" + j++ +"]={"+prio.toString()+"]");
+	    } 
+*/
+	    
+	    /**
+	     *
+	     * Order the providers basing on the preferences (if any)
+	     *
+	     */
+
 	    
 // 	    if ( obj.has("cloudproviders") ) {
 // 		cpvec = parse( obj.get("cloudproviders").getAsJsonArray( ) );
@@ -229,33 +295,33 @@ public class RankHandler implements HttpHandler {
 	}
 	return cpvec;
     } */
-   
-   /**
-    *
-    * Convert a JSON array "preferences" into a java array of Preference objects
-    *
-    */
-   private Preference[] parsePreferences( JsonArray array ) {
-   
-     Preference[] preferences = new Preference[array.size( )];
-     for(int i = 0; i < array.size( ); i++) {
-       try {
-	 JsonObject obj = array.get( i ).getAsJsonObject();
-	 System.err.println("\n[" + clientHostName + "] Processing preference " + obj.toString()+"\n");
-	 Gson gson = new GsonBuilder().create();
-	 //System.err.println("obj[" + i + "]=" + obj );
-	 Preference pref = gson.fromJson(obj, Preference.class);
-	 System.err.println("Preference={" + pref + "}\n\n" );
-       } catch(Exception e) {
-	 System.err.println("Exception: " + e.getMessage());
-       } catch(Throwable t) {
-	 System.err.println("Throwable: " + t.getMessage());
-       }
-     }
-     
-     return preferences;
-     
-   }
+   // 
+//    /**
+//     *
+//     * Convert a JSON array "preferences" into a java array of Preference objects
+//     *
+//     */
+//    private Preference[] parsePreferences( JsonArray array ) {
+//    
+//      Preference[] preferences = new Preference[array.size( )];
+//      for(int i = 0; i < array.size( ); i++) {
+//        try {
+// 	 JsonObject obj = array.get( i ).getAsJsonObject();
+// 	 System.err.println("\n[" + clientHostName + "] Processing preference " + obj.toString()+"\n");
+// 	 Gson gson = new GsonBuilder().create();
+// 	 //System.err.println("obj[" + i + "]=" + obj );
+// 	 Preference pref = gson.fromJson(obj, Preference.class);
+// 	 System.err.println("Preference={" + pref + "}\n\n" );
+//        } catch(Exception e) {
+// 	 System.err.println("Exception: " + e.getMessage());
+//        } catch(Throwable t) {
+// 	 System.err.println("Throwable: " + t.getMessage());
+//        }
+//      }
+//      
+//      return preferences;
+//      
+//    }
    
    /**
     *
@@ -298,7 +364,7 @@ public class RankHandler implements HttpHandler {
          System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
 	 Target[] targets = parseTarget( obj ); 
 	 services[i] = new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets);
-	 System.err.println("Service[" + i + "]=" + services[i]);
+	 //System.err.println("Service[" + i + "]=" + services[i]);
        } catch(Exception e) {
 	 System.err.println("Exception: " + e.getMessage());
        } catch(Throwable t) {

@@ -2,6 +2,7 @@ package org.indigo.cloudproviderruleengine;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.Headers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,23 +34,23 @@ public class RankHandler implements HttpHandler {
     private String clientHostName = "";
     
     @Override
-    public void handle(HttpExchange t) throws IOException {
+    public void handle(HttpExchange httpExchange) throws IOException {
 	
-	if(t.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
+	if(httpExchange.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
 	    String response = "API \"rank\" only supports POST method";
-	    t.sendResponseHeaders(405, response.getBytes().length);
-	    OutputStream os = t.getResponseBody();
+	    httpExchange.sendResponseHeaders(405, response.getBytes().length);
+	    OutputStream os = httpExchange.getResponseBody();
 	    os.write(response.getBytes());
 	    os.close();
 	    return;
 	}
 	
-	clientHostName = t.getRemoteAddress( ).getHostName( );
+	clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
 	
 	Preference[] preferences = null;
 	
 	try {
-	    InputStream is = t.getRequestBody();
+	    InputStream is = httpExchange.getRequestBody();
 	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
 	    BufferedReader buffReader = new BufferedReader(inputReader);
 	    String Line = "";
@@ -145,9 +146,7 @@ public class RankHandler implements HttpHandler {
 	      int j = 0;
 	      for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
 	        Priority p = i.next( );
-	        //ranked_providers[j++] = slaid_to_provider.get( p.sla_id );
-		//ranked_providers.add( "\"" + slaid_to_provider.get( p.sla_id ) + "\":" + (all_priorities.size() - j++) );
-		ranked_providers.add(new RankedCloudProvider( slaid_to_provider.get( p.sla_id ), 
+	        ranked_providers.add(new RankedCloudProvider( slaid_to_provider.get( p.sla_id ), 
 					 		      (all_priorities.size() - j++),
 					 		      true,
 					 		      "" ) );
@@ -164,8 +163,10 @@ public class RankHandler implements HttpHandler {
 	      
 	      
 	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
- 	      t.sendResponseHeaders(200, response.getBytes().length);
- 	      OutputStream os = t.getResponseBody();
+	      Headers responseHeaders = httpExchange.getResponseHeaders();
+	      responseHeaders.set("Content-Type", "application/json");
+ 	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
+ 	      OutputStream os = httpExchange.getResponseBody();
  	      os.write(response.getBytes());
  	      os.close();
  	      return;
@@ -223,23 +224,23 @@ public class RankHandler implements HttpHandler {
 // 	    }
  	    String response = "{ok}";
  	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
- 	    t.sendResponseHeaders(200, response.getBytes().length);
- 	    OutputStream os = t.getResponseBody();
+ 	    httpExchange.sendResponseHeaders(200, response.getBytes().length);
+ 	    OutputStream os = httpExchange.getResponseBody();
  	    os.write(response.getBytes());
  	    os.close();
  	    return;
 	} catch(Exception e) {
 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
-	    t.sendResponseHeaders(400, err.getBytes().length);
-	    OutputStream os = t.getResponseBody();
+	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
+	    OutputStream os = httpExchange.getResponseBody();
 	    os.write(err.getBytes());
 	    os.close();
 	    e.printStackTrace();
 	    return;
 	} catch(Throwable e) {
 	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
-	    t.sendResponseHeaders(400, err.getBytes().length);
-	    OutputStream os = t.getResponseBody();
+	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
+	    OutputStream os = httpExchange.getResponseBody();
 	    os.write(err.getBytes());
 	    os.close();
 	    e.printStackTrace();

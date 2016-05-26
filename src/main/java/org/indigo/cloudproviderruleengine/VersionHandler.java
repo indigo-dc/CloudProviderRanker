@@ -22,7 +22,7 @@ public class VersionHandler implements HttpHandler {
 	    os.write(response.getBytes());
 	    os.close();
 	} else {
-	    String response = "{\"version\": \"0.1\"}";
+	    String response = "{\"version\": \"0.2\"}";
 	    t.sendResponseHeaders(200, response.getBytes().length);
 	    OutputStream os = t.getResponseBody();
 	    os.write(response.getBytes());

@@ -1,6 +1,8 @@
 package org.indigo.cloudproviderruleengine;
 
 import java.util.List;
+import java.util.ArrayList;
+import com.google.gson.*;
 
 public class Sla {
   public String    	   id;
@@ -12,6 +14,9 @@ public class Sla {
   public SlaNormalizations slaNormalizations;
   public float             rank;
   
+  /**
+   *
+   */
   public Sla( String id, String customer, String provider, String start_date, String end_date, Service[] services ) {
     this.id                = id;
     this.customer          = customer;
@@ -56,6 +61,9 @@ public class Sla {
     }
   }
   
+  /**
+   *
+   */
   public String toString( ) {
     String[] services_strings = new String[services.length];
     for(int i = 0; i < services.length; ++i) {
@@ -64,8 +72,75 @@ public class Sla {
     return "id=" + id + ", customer=" + customer + ", provider=" + provider + ", start_date=" + start_date + ", end_date=" + end_date + ", services={"+ String.join(",", services_strings) + "}";
   }
   
+  /**
+   *
+   */
   public void reloadPriorityFile( ) {
     slaNormalizations = SlaNormalizations.fromFile( );
   }
   
+  /**
+   *
+   */
+  public static ArrayList<Sla> fromJsonObject( JsonObject obj ) {
+    JsonArray SLAS = obj.get("sla").getAsJsonArray( );
+    Service[] services = null;
+    ArrayList<Sla> SLAs = new ArrayList<Sla>();
+    for(int i=0; i < SLAS.size( ); ++i) {
+      JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
+      services = parseService( currentSLA );
+      SLAs.add( new Sla( currentSLA.get("id").getAsString(),
+     	 		 currentSLA.get("customer").getAsString(),
+      			 currentSLA.get("provider").getAsString(),
+      			 currentSLA.get("start_date").getAsString(),
+      			 currentSLA.get("end_date").getAsString(), services) );
+    }
+    return SLAs;
+  }
+  
+     
+   /**
+    *
+    *
+    * Extract (and convert to a Java array) the services from a SLA json element
+    *
+    *
+    */
+   private static Service[] parseService( JsonObject sla ) {
+     JsonArray Services = sla.get("services").getAsJsonArray( );
+     Service[] services = new Service[Services.size()];
+     for(int i = 0; i < Services.size( ); i++) {
+       try {
+         JsonObject obj = Services.get( i ).getAsJsonObject();
+         //System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
+	 Target[] targets = parseTarget( obj ); 
+	 services[i] = new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets);
+	 //System.err.println("Service[" + i + "]=" + services[i]);
+       } catch(Exception e) {
+	 System.err.println("Exception: " + e.getMessage());
+       } catch(Throwable t) {
+	 System.err.println("Throwable: " + t.getMessage());
+       }
+     }
+     return services;
+   }
+   
+   /**
+    *
+    *
+    * Extract (and convert to a Java array) the targets from a service json element
+    *
+    *
+    */
+   private static Target[] parseTarget( JsonObject service ) {
+     JsonArray Targets = service.get("targets").getAsJsonArray( );
+     Target[] targets = new Target[Targets.size( )];
+     Gson gson = new GsonBuilder().create();
+     for(int i = 0; i < Targets.size( ); i++) {
+       targets[i] = gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class);
+
+     }
+     return targets;
+   }
+   
 }

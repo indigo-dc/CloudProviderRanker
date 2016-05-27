@@ -59,8 +59,6 @@ public class RESTEngine {
 		server = HttpServer.create(new InetSocketAddress(TCPPORT), 0);
 	    } catch (IOException e) {
 	    	throw new ServerException("Error in HttpServer.create: " + e.getMessage( ) );
-//		System.err.println("Error in HttpServer.create: " + e.getMessage( ) );
-//		System.exit(1);
 	    }
 	} else {
 
@@ -71,17 +69,12 @@ public class RESTEngine {
 		server = HttpsServer.create(new InetSocketAddress(TCPPORT), 0);
 	    } catch (IOException e) {
 	    	throw new ServerException("Error in HttpServer.create: " + e.getMessage( ) );
-//		System.err.println("Error in HttpsServer.create: " + e.getMessage( ) );
-//		System.exit(1);
 	    }
 	    SSLContext sslContext = null;
 	    try {
 		sslContext = SSLContext.getInstance("TLS");
 	    } catch( NoSuchAlgorithmException e ) {
-	        throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): " + e.getMessage( ) );
-//		System.err.println("Error in SSLContext.getInstance(\"TLS\"): " + e.getMessage( ) );
-//		System.exit(1);
-	    }
+	        throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): " + e.getMessage( ) );	    }
 	    
 	    char[] keystorePassword = password.toCharArray( );
 	    KeyStore ks = null;
@@ -89,27 +82,17 @@ public class RESTEngine {
 		ks = KeyStore.getInstance("JKS");
 	    } catch( KeyStoreException e ) {
 	        throw new ServerException("Error in KeyStore.getInstance(\"JKS\"): " + e.getMessage( ) );
-//		System.err.println("Error in KeyStore.getInstance(\"JKS\"): " + e.getMessage( ) );
-//		System.exit(1);
 	    }
 	    try {
 		ks.load(new FileInputStream(keystorepath), keystorePassword);
 	    } catch(FileNotFoundException e) {
 	        throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.exit(1);
 	    } catch(IOException e) {
 	        throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.exit(1);
 	    } catch(NoSuchAlgorithmException e){
 	        throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.exit(1);
 	    } catch(CertificateException e){
 	        throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.err.println("Error in KeyStore.load: " + e.getMessage( ) );
-		//System.exit(1);
 	    }
 
 	    KeyManagerFactory kmf = null;
@@ -117,31 +100,21 @@ public class RESTEngine {
 		kmf = KeyManagerFactory.getInstance("SunX509");
 	    } catch(NoSuchAlgorithmException e) {
 	        throw new ServerException("Error in KeyManagerFactory.getInstance(\"SunX509\"): " + e.getMessage( ) );
-		//System.err.println("Error in KeyManagerFactory.getInstance(\"SunX509\"): " + e.getMessage( ) );
-		//System.exit(1);
 	    }
 	    try {
 		kmf.init(ks, keystorePassword);
 	    } catch(KeyStoreException e) {
 	        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.exit(1);
 	    } catch(NoSuchAlgorithmException e) {
 	        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.exit(1);
 	    } catch(UnrecoverableKeyException e) {
 	        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.err.println("Error in KeyManagerFactory.init: " + e.getMessage( ) );
-		//System.exit(1);
 	    }
 	    
 	    try {
 		sslContext.init(kmf.getKeyManagers(), null, null);
 	    } catch(KeyManagementException e) {
 	        throw new ServerException("Error in SSLContext.init: " + e.getMessage( ) );
-		//System.err.println("Error in SSLContext.init: " + e.getMessage( ) );
-		//System.exit(1);
 	    }
 
 	    ((HttpsServer)server).setHttpsConfigurator(new HttpsConfigurator(sslContext));

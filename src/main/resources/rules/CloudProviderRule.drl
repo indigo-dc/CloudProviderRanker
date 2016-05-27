@@ -2,37 +2,46 @@ package org.indigo.cloudproviderruleengine;
  
 import org.indigo.cloudproviderruleengine.CloudProvider;
 
-rule "VEPHDISK"
-	when
-		$cp : CloudProvider( inUseVEPHDISK < totalVEPHDISK )
-	then
-		$cp.addToTotalRank( ((float)($cp.getTotalVEPHDISK() - $cp.getInUseVEPHDISK())) /((float) $cp.getTotalVEPHDISK()) );
-end
+// rule "VEPHDISK"
+// 	when
+// 		$cp : CloudProvider( inUseVEPHDISK < totalVEPHDISK )
+// 	then
+// 		$cp.addToTotalRank( ((float)($cp.getTotalVEPHDISK() - $cp.getInUseVEPHDISK())) /((float) $cp.getTotalVEPHDISK()) );
+// end
+// 
+// rule "VDISK"
+// 	when
+// 		$cp : CloudProvider( inUseVDISK < totalVDISK )
+// 	then
+// 		$cp.addToTotalRank( ((float)($cp.getTotalVDISK() - $cp.getInUseVDISK())) /((float) $cp.getTotalVDISK()) );
+// end
+// 
+// rule "VCPU"
+//     when
+//         $cp : CloudProvider( inUseVCPU < totalVCPU )
+//     then
+//         $cp.addToTotalRank( ((float)($cp.getTotalVCPU() - $cp.getInUseVCPU()))/((float)$cp.getTotalVCPU()) );
+// end
+// 
+// rule "VRAM"
+// 	when 
+// 		$cp : CloudProvider( inUseVRAM < totalVRAM )
+// 	then
+// 		$cp.addToTotalRank( ((float)($cp.getTotalVRAM()-$cp.getInUseVRAM()))/((float)$cp.getTotalVRAM()) );
+// end
+// 
+// rule "ZERO"
+//     when
+// 	$cp : CloudProvider( inUseVCPU >= totalVCPU || inUseVRAM >= totalVRAM || inUseVEPHDISK >= totalVEPHDISK || inUseVDISK >= totalVDISK  )
+//     then
+// 	$cp.zeroRank( );
+// end
 
-rule "VDISK"
-	when
-		$cp : CloudProvider( inUseVDISK < totalVDISK )
-	then
-		$cp.addToTotalRank( ((float)($cp.getTotalVDISK() - $cp.getInUseVDISK())) /((float) $cp.getTotalVDISK()) );
-end
 
-rule "VCPU"
-    when
-        $cp : CloudProvider( inUseVCPU < totalVCPU )
-    then
-        $cp.addToTotalRank( ((float)($cp.getTotalVCPU() - $cp.getInUseVCPU()))/((float)$cp.getTotalVCPU()) );
-end
+//rule "SLA_rank_public_ip"
+//  when
+//    $sla : Sla( $sla.total_limit < Double.INFINITY
+//  then
+//
+//end
 
-rule "VRAM"
-	when 
-		$cp : CloudProvider( inUseVRAM < totalVRAM )
-	then
-		$cp.addToTotalRank( ((float)($cp.getTotalVRAM()-$cp.getInUseVRAM()))/((float)$cp.getTotalVRAM()) );
-end
-
-rule "ZERO"
-    when
-	$cp : CloudProvider( inUseVCPU >= totalVCPU || inUseVRAM >= totalVRAM || inUseVEPHDISK >= totalVEPHDISK || inUseVDISK >= totalVDISK  )
-    then
-	$cp.zeroRank( );
-end

@@ -14,6 +14,5 @@ public class RankedCloudProviderTest {
     assertEquals("TestRanked", rcp.getName( ) );
     assertEquals(true, rcp.isRanked( ) );
     assertEquals("No error", rcp.getRankError( ) );
-    //assertEquals(1, rcp.getID() );
   }
 }

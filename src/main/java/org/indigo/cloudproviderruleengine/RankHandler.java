@@ -58,7 +58,7 @@ public class RankHandler implements HttpHandler {
 	    while( (line = buffReader.readLine()) != null) {
        		Line += line;
 	    }
-	    System.err.println("DEBUG - Line="+Line);
+	    
 	    Gson gson = new Gson();
 	    JsonElement E = gson.fromJson(Line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
@@ -105,6 +105,8 @@ public class RankHandler implements HttpHandler {
 	      }
 	    }
 	    
+	    
+	    
 	    //
 	    //
 	    // Concatenate all preferences' priorities and sort them basing on the weight
@@ -117,14 +119,15 @@ public class RankHandler implements HttpHandler {
 	    // see http://pastebin.com/TnRWU2cj for pretty formatted version
 	    
 	    ArrayList<Priority> all_priorities = new ArrayList<Priority>();
-	    for (int i = 0; i < preferences.length; ++i) {
-	      Priority[] priorities_loc = preferences[i].priorities;
-	      for(int j = 0; j < priorities_loc.length; ++j) {
-	        all_priorities.add( priorities_loc[j] );
+	    if(specified_preferences) {
+	      for (int i = 0; i < preferences.length; ++i) {
+	        Priority[] priorities_loc = preferences[i].priorities;
+	        for(int j = 0; j < priorities_loc.length; ++j) {
+	          all_priorities.add( priorities_loc[j] );
+	        }
 	      }
+	      Collections.sort(all_priorities);
 	    }
-	    Collections.sort(all_priorities);
-	    
 	    //
 	    //
 	    // Build an Hashtable sla_id -> provider_name
@@ -133,6 +136,7 @@ public class RankHandler implements HttpHandler {
 	    Hashtable<String, String> slaid_to_provider = new Hashtable<String, String>();
 	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
 	      Sla sla = i.next( );
+	      //System.err.println("SLA="+sla);
 	      slaid_to_provider.put(sla.id, sla.provider);
 	    }
 	    
@@ -171,13 +175,36 @@ public class RankHandler implements HttpHandler {
  	      os.close();
  	      return;
 	    }
+	    
+	    //
+	    //
+	    // if specified only sla, exploit rule implemented in Sla class
+	    //
+	    //
+	    //Vector<RankedCloudProvider> rcp = new Vector<RankedCloudProvider>();
+	    Vector<String> respVec = new Vector<String>();
+	    if(specified_sla) {
+	      for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
+	        Sla sla = i.next( );
+	        //System.err.println("SLA="+sla);
+	        //slaid_to_provider.put(sla.id, sla.provider);
+		//rcp.add(new RankedCloudProvider( slaid_to_provider.get(sla.id), sla.rank, true, "" ) );
+		String json = gson.toJson(new RankedCloudProvider( slaid_to_provider.get(sla.id), sla.rank, true, "" ));
+ 		respVec.add(json);
+	      }
+	      
+	      String response = "[" + String.join(",", respVec) + "]";
+ 	      //System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
+ 	      Headers responseHeaders = httpExchange.getResponseHeaders();
+	      responseHeaders.set("Content-Type", "application/json");
+	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
+ 	      OutputStream os = httpExchange.getResponseBody();
+ 	      os.write(response.getBytes());
+ 	      os.close();
+ 	      return;
+	    }
 
 	    
-	    /**
-	     *
-	     * Order the providers basing on the preferences (if any)
-	     *
-	     */
 
 	    
 // 	    if ( obj.has("cloudproviders") ) {

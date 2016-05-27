@@ -18,8 +18,8 @@ public class RankedCloudProvider {
 	this.ranked      = ranked;
     }
     
-    public String getName() { return name; }
-    public float getRank( ) { return rank; }
-    public boolean isRanked( ) { return ranked; }
-    public String getRankError( ) { return errorReason; }
+    public String  getName( )      { return name; }
+    public float   getRank( )      { return rank; }
+    public boolean isRanked( )     { return ranked; }
+    public String  getRankError( ) { return errorReason; }
 }

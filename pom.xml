@@ -9,7 +9,25 @@
 
   <properties>
     <droolsVersion>6.3.0.Final</droolsVersion>
+    <monitoring.pillar.domain.version>1.8.0-FINAL</monitoring.pillar.domain.version>
   </properties>
+
+    <distributionManagement>
+    <!-- Publish versioned releases here -->
+    <repository>
+      <id>concept-reply-nexus-repository</id>
+      <name>Concept Reply Releases Repository</name>
+      <url>http://nexusconcept.cloud.reply.eu/content/repositories/releases</url>
+    </repository>
+    </distributionManagement>
+
+    <repositories>
+      <repository>
+        <id>concept-reply-nexus-repository</id>
+        <name>Concept Reply Nexus</name>
+        <url>http://nexusconcept.cloud.reply.eu/content/groups/public</url>
+      </repository>
+    </repositories>
 
   <dependencies>
   
@@ -18,6 +36,12 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>it.reply</groupId>
+      <artifactId>monitoring-pillar-domain</artifactId>
+      <version>${monitoring.pillar.domain.version}</version>
     </dependency>
   
     <dependency>

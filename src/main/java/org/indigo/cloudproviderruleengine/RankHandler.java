@@ -77,7 +77,7 @@ public class RankHandler implements HttpHandler {
 	    
 	    
 	    Service[] services = null;
-	    ArrayList<Sla> SLAs = null;//new ArrayList<Sla>();
+	    ArrayList<Sla> SLAs = null;
 	    
 	    //
 	    //
@@ -110,7 +110,7 @@ public class RankHandler implements HttpHandler {
 	          all_priorities.add( priorities_loc[j] );
 	        }
 	      }
-	      Collections.sort(all_priorities);
+	      Collections.sort(all_priorities); // Sorting based on Priority.weight
 	    }
 	    
 	    //
@@ -121,13 +121,12 @@ public class RankHandler implements HttpHandler {
 	    Hashtable<String, String> slaid_to_provider = new Hashtable<String, String>();
 	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
 	      Sla sla = i.next( );
-	      //System.err.println("SLA="+sla);
 	      slaid_to_provider.put(sla.id, sla.provider);
 	    }
 	    
 	    //
 	    //
-	    // if specified preferences, order the providers and immediately return them to the client
+	    // if preferences are specified, order the providers basing on the priorities and return them to the client
 	    //
 	    //
 	    Vector<RankedCloudProvider> ranked_providers = new Vector<RankedCloudProvider>();
@@ -170,15 +169,11 @@ public class RankHandler implements HttpHandler {
 	    if(specified_sla) {
 	      for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
 	        Sla sla = i.next( );
-	        //System.err.println("SLA="+sla);
-	        //slaid_to_provider.put(sla.id, sla.provider);
-		//rcp.add(new RankedCloudProvider( slaid_to_provider.get(sla.id), sla.rank, true, "" ) );
-		String json = gson.toJson(new RankedCloudProvider( slaid_to_provider.get(sla.id), sla.rank, true, "" ));
+	        String json = gson.toJson(new RankedCloudProvider( slaid_to_provider.get(sla.id), sla.rank, true, "" ));
  		respVec.add(json);
 	      }
 	      
 	      String response = "[" + String.join(",", respVec) + "]";
- 	      //System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
  	      Headers responseHeaders = httpExchange.getResponseHeaders();
 	      responseHeaders.set("Content-Type", "application/json");
 	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
@@ -188,13 +183,14 @@ public class RankHandler implements HttpHandler {
  	      return;
 	    }
 
- 	    String response = "{ok}";
- 	    System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
- 	    httpExchange.sendResponseHeaders(200, response.getBytes().length);
- 	    OutputStream os = httpExchange.getResponseBody();
- 	    os.write(response.getBytes());
- 	    os.close();
+/* 	    String response = "{ok}";
+ 	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
+ 	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
+ 	    OutputStream os = httpExchange.getResponseBody( );
+ 	    os.write( response.getBytes() );
+ 	    os.close( );
  	    return;
+*/	    
 	} catch(Exception e) {
 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);

@@ -47,7 +47,7 @@ public class RankHandler implements HttpHandler {
 	
 	clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
 	
-	Preference[] preferences = null;
+	ArrayList<Preference> preferences = new ArrayList<Preference>();
 	
 	try {
 	    InputStream is = httpExchange.getRequestBody();
@@ -74,6 +74,11 @@ public class RankHandler implements HttpHandler {
 	        specified_preferences = true;
 		preferences = Preference.fromJsonObject( obj );
 	    }
+	    
+// 	    for(Iterator<Preference> it = preferences.iterator(); it.hasNext( ) ; ) {
+// 	      Preference P = it.next( );
+// 	      System.out.println(P);
+// 	    }
 	    
 	    
 	    Service[] services = null;
@@ -104,10 +109,10 @@ public class RankHandler implements HttpHandler {
 	    
 	    ArrayList<Priority> all_priorities = new ArrayList<Priority>();
 	    if(specified_preferences) {
-	      for (int i = 0; i < preferences.length; ++i) {
-	        Priority[] priorities_loc = preferences[i].priorities;
-	        for(int j = 0; j < priorities_loc.length; ++j) {
-	          all_priorities.add( priorities_loc[j] );
+	      for (int i = 0; i < preferences.size(); ++i) {
+	        ArrayList<Priority> priorities_loc = preferences.get(i).priorities;
+	        for(int j = 0; j < priorities_loc.size(); ++j) {
+	          all_priorities.add( priorities_loc.get(j) );
 	        }
 	      }
 	      Collections.sort(all_priorities); // Sorting based on Priority.weight
@@ -178,10 +183,17 @@ public class RankHandler implements HttpHandler {
 	      responseHeaders.set("Content-Type", "application/json");
 	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
  	      OutputStream os = httpExchange.getResponseBody();
- 	      os.write(response.getBytes());
- 	      os.close();
+ 	      os.write( response.getBytes() );
+ 	      os.close( );
  	      return;
 	    }
+	    
+	    ArrayList<PaaSMetricRanked> paasMetricRanked = null;//new ArrayList<PaasMetricRanked>();
+	    if(obj.has("monitoring")) {
+	      paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
+	    }
+	    
+	    
 
 /* 	    String response = "{ok}";
  	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );

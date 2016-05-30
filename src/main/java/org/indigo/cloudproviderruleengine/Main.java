@@ -14,25 +14,26 @@
 	String keystorepath = null;
 	String password = null;
 
-	if(args.length==0) {
-	  System.err.println("Must specify at least the SLA priority file as first argument");
+	if(args.length<2) {
+	  System.err.println("Must specify at least the SLA priority file as first argument and monitoring normalization file as second argument");
 	  System.exit(1);
 	}
 	
 //	String sla_priority_file = args[0];
 
 	SlaNormalizations.priority_file = args[0];
+	PaaSMetricRanked.normalization_file = args[1];
 
-	if(args.length>1)
-	    TCPPORT = Integer.parseInt( args[1] );
-	if(args.length>=3 && args.length <4) {
+	if(args.length>2)
+	    TCPPORT = Integer.parseInt( args[2] );
+	if(args.length>=4 && args.length <5) {
 	    System.err.println("If a keystore path is specified then must specify also a password. STOP!");
 	    System.exit(1);
 	}
-	if(args.length == 4) {
+	if(args.length == 5) {
 	    usessl = true;
-	    keystorepath = args[2];
-	    password = args[3];
+	    keystorepath = args[3];
+	    password = args[4];
 	}
 	
 	RESTEngine re = new RESTEngine();

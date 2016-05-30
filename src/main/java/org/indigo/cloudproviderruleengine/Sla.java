@@ -4,20 +4,22 @@ import java.util.List;
 import java.util.ArrayList;
 import com.google.gson.*;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Sla {
-  public String    	   id;
-  public String    	   customer;
-  public String    	   provider;
-  public String    	   start_date;
-  public String    	   end_date;
-  public Service[] 	   services;
-  public SlaNormalizations slaNormalizations;
-  public float             rank;
+  public String    	    id;
+  public String    	    customer;
+  public String    	    provider;
+  public String    	    start_date;
+  public String    	    end_date;
+  public ArrayList<Service> services;
+  public SlaNormalizations  slaNormalizations;
+  public float              rank;
   
   /**
    *
    */
-  public Sla( String id, String customer, String provider, String start_date, String end_date, Service[] services ) {
+  public Sla( String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services ) {
     this.id                = id;
     this.customer          = customer;
     this.provider          = provider;
@@ -28,9 +30,9 @@ public class Sla {
     this.rank              = (float)0.0;
     
     // for now let's assume there's only one service: "compute".
-    Target[] targets = services[0].targets;
-    for(int i = 0; i < targets.length; ++i) {
-      Target t = targets[i];
+    ArrayList<Target> targets = services.get(0).targets;
+    for(int i = 0; i < targets.size( ); ++i) {
+      Target t = targets.get(i);
       
       float normalization_factor = (float)0.0;
       if(0==t.type.compareTo("public_ip"))
@@ -64,12 +66,14 @@ public class Sla {
   /**
    *
    */
+  @Override
   public String toString( ) {
-    String[] services_strings = new String[services.length];
-    for(int i = 0; i < services.length; ++i) {
-      services_strings[i] = services[i].toString( );
-    }
-    return "id=" + id + ", customer=" + customer + ", provider=" + provider + ", start_date=" + start_date + ", end_date=" + end_date + ", services={"+ String.join(",", services_strings) + "}";
+//     String[] services_strings = new String[services.size()];
+//     for(int i = 0; i < services.size() ; ++i) {
+//       services_strings[i] = services.get(i).toString( );
+//     }
+    //return "id=" + id + ", customer=" + customer + ", provider=" + provider + ", start_date=" + start_date + ", end_date=" + end_date + ", services={"+ String.join(",", services_strings) + "}";
+    return ToStringBuilder.reflectionToString(this);
   }
   
   /**
@@ -84,7 +88,7 @@ public class Sla {
    */
   public static ArrayList<Sla> fromJsonObject( JsonObject obj ) {
     JsonArray SLAS = obj.get("sla").getAsJsonArray( );
-    Service[] services = null;
+    ArrayList<Service> services = new ArrayList<Service>();
     ArrayList<Sla> SLAs = new ArrayList<Sla>();
     for(int i=0; i < SLAS.size( ); ++i) {
       JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
@@ -106,15 +110,15 @@ public class Sla {
     *
     *
     */
-   private static Service[] parseService( JsonObject sla ) {
+   private static ArrayList<Service> parseService( JsonObject sla ) {
      JsonArray Services = sla.get("services").getAsJsonArray( );
-     Service[] services = new Service[Services.size()];
+     ArrayList<Service> services = new ArrayList<Service>();
      for(int i = 0; i < Services.size( ); i++) {
        try {
          JsonObject obj = Services.get( i ).getAsJsonObject();
          //System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
-	 Target[] targets = parseTarget( obj ); 
-	 services[i] = new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets);
+	 ArrayList<Target> targets = parseTarget( obj ); 
+	 services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
 	 //System.err.println("Service[" + i + "]=" + services[i]);
        } catch(Exception e) {
 	 System.err.println("Exception: " + e.getMessage());
@@ -132,12 +136,12 @@ public class Sla {
     *
     *
     */
-   private static Target[] parseTarget( JsonObject service ) {
+   private static ArrayList<Target> parseTarget( JsonObject service ) {
      JsonArray Targets = service.get("targets").getAsJsonArray( );
-     Target[] targets = new Target[Targets.size( )];
+     ArrayList<Target> targets = new ArrayList<Target>();
      Gson gson = new GsonBuilder().create();
      for(int i = 0; i < Targets.size( ); i++) {
-       targets[i] = gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class);
+       targets.add( gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class) );
 
      }
      return targets;

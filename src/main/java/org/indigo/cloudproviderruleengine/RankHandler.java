@@ -60,6 +60,7 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    Gson gson = new Gson();
+	    //System.err.println("JSON=["+Line+"]");
 	    JsonElement E = gson.fromJson(Line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
 	     
@@ -178,14 +179,14 @@ public class RankHandler implements HttpHandler {
  		respVec.add(json);
 	      }
 	      
-	      String response = "[" + String.join(",", respVec) + "]";
- 	      Headers responseHeaders = httpExchange.getResponseHeaders();
-	      responseHeaders.set("Content-Type", "application/json");
-	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
- 	      OutputStream os = httpExchange.getResponseBody();
- 	      os.write( response.getBytes() );
- 	      os.close( );
- 	      return;
+// 	      String response = "[" + String.join(",", respVec) + "]";
+//  	      Headers responseHeaders = httpExchange.getResponseHeaders();
+// 	      responseHeaders.set("Content-Type", "application/json");
+// 	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
+//  	      OutputStream os = httpExchange.getResponseBody();
+//  	      os.write( response.getBytes() );
+//  	      os.close( );
+ 	      //return;
 	    }
 	    
 	    ArrayList<PaaSMetricRanked> paasMetricRanked = null;//new ArrayList<PaasMetricRanked>();
@@ -193,16 +194,21 @@ public class RankHandler implements HttpHandler {
 	      paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
 	    }
 	    
+	    for(Iterator<PaaSMetricRanked> it = paasMetricRanked.iterator(); it.hasNext( ); ) {
+	      PaaSMetricRanked P = it.next( );
+	      System.err.println("PaaSMetric="+P);
+	    }
+	    
 	    
 
-/* 	    String response = "{ok}";
+	    String response = "{ok}";
  	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
  	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
  	    OutputStream os = httpExchange.getResponseBody( );
  	    os.write( response.getBytes() );
  	    os.close( );
  	    return;
-*/	    
+	    
 	} catch(Exception e) {
 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);

@@ -1,0 +1,250 @@
+{  
+    "preferences":[  
+        {  
+            "service_type":"compute",
+            "priority":[  
+                {  
+                    "sla_id":"4401ac5dc8cfbbb737b0a02575ee53f6",
+                    "service_id":"4401ac5dc8cfbbb7a02575e8040f",
+                    "weight":0.1
+                },
+                {  
+                    "sla_id":"4401ac5dc8cfbbb737b0a02575ee3b58",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc",
+                    "weight":0.9
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee0e55"
+        },
+        {  
+            "service_type":"storage",
+            "priority":[  
+                {  
+                    "sla_id":"4401ac5dc8cfbbb737b0a02575ee53f7",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e8040f",
+                    "weight":0.7
+                },
+                {  
+                    "sla_id":"4401ac5dc8cfbbb737b0a02575ee3b60",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e6f4bd",
+                    "weight":0.4
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee0e59"
+        }
+    ],
+    "sla":[  
+        {  
+            "customer":"indigo-demo",
+            "provider":"provider-UPV-GRyCAP",
+            "start_date":"11.01.2016+15:50:00",
+            "end_date":"11.02.2016+15:50:00",
+            "services":[  
+                {  
+                    "type":"compute",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc",
+                    "targets":[  
+                        {  
+                            "type":"public_ip",
+                            "unit":"none",
+                            "restrictions":{  
+                                "total_limit":100,
+                                "total_guaranteed":10
+                            }
+                        }
+                    ]
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee3b58"
+        },
+        {  
+            "customer":"indigo-demo",
+            "provider":"provider-PADOVA-CAP",
+            "start_date":"11.01.2016+15:50:00",
+            "end_date":"11.02.2016+15:50:00",
+            "services":[  
+                {  
+                    "type":"compute",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc",
+                    "targets":[  
+                        {  
+                            "type":"public_ip",
+                            "unit":"none",
+                            "restrictions":{  
+                                "total_limit":100,
+                                "total_guaranteed":10
+                            }
+                        }
+                    ]
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee3b60"
+        },
+        {  
+            "customer":"indigo-demo",
+            "provider":"provider-RECAS-BARI",
+            "start_date":"11.01.2016+15:50:00",
+            "end_date":"11.02.2016+15:50:00",
+            "services":[  
+                {  
+                    "type":"compute",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e8040f",
+                    "targets":[  
+                        {  
+                            "type":"computing_time",
+                            "unit":"h",
+                            "restrictions":{  
+                                "total_guaranteed":200
+                            }
+                        }
+                    ]
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee53f6"
+        },
+        {  
+            "customer":"indigo-demo",
+            "provider":"provider-RECAS-TORINO",
+            "start_date":"11.01.2016+15:50:00",
+            "end_date":"11.02.2016+15:50:00",
+            "services":[  
+                {  
+                    "type":"compute",
+                    "service_id":"4401ac5dc8cfbbb737b0a02575e8040f",
+                    "targets":[  
+                        {  
+                            "type":"computing_time",
+                            "unit":"h",
+                            "restrictions":{  
+                                "total_guaranteed":200
+                            }
+                        }
+                    ]
+                }
+            ],
+            "id":"4401ac5dc8cfbbb737b0a02575ee53f7"
+        }
+    ],
+    "monitoring": [
+                  {
+                    "metricName": "OCCI Create VM availability",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Create VM availability",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI CreateVM Response Time",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI CreateVM Response Time",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "ms",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI CreateVM Result",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI CreateVM Result",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI Delete VM Availability",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Delete VM Availability",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI DeleteVM Response Time",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI DeleteVM Response Time",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "ms",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI DeleteVM Result",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI DeleteVM Result",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "General OCCI API Availability",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Availability",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "General OCCI API Response Time",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Response Time",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "ms",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "General OCCI API Result",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Result",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI Inspect VM availability",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Inspect VM availability",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI InspectVM Response Time",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI InspectVM Response Time",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "ms",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  },
+                  {
+                    "metricName": "OCCI InspectVM Result",
+                    "metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI InspectVM Result",
+                    "metricValue": 0,
+                    "metricTime": "Instant null because no metrics were returned in the last 24hs",
+                    "metricUnit": "bit",
+                    "paasThresholds": [],
+                    "historyClocks": [],
+                    "historyValues": []
+                  }
+                ]
+}

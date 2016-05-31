@@ -7,8 +7,10 @@ import com.sun.net.httpserver.Headers;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Vector;
 import java.util.Iterator;
+import java.util.HashMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -189,17 +191,25 @@ public class RankHandler implements HttpHandler {
  	      //return;
 	    }
 	    
-	    ArrayList<PaaSMetricRanked> paasMetricRanked = null;//new ArrayList<PaasMetricRanked>();
+	    HashMap<String, ArrayList<PaaSMetricRanked>> paasMetricRanked = null;//new ArrayList<PaasMetricRanked>();
 	    if(obj.has("monitoring")) {
-	      //paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
-	      
+	      paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
 	    }
-	    
+
+	    Set<String> keys = paasMetricRanked.keySet( );
+   	    for(Iterator<String> it = keys.iterator( ); it.hasNext( ); ) {
+	      String provider = it.next( );
+	      System.err.println("provider[" + provider + "]");
+	      for(Iterator<PaaSMetricRanked> i2t = paasMetricRanked.get(provider).iterator( ); i2t.hasNext( ); ) {
+		System.err.println("    "+ i2t.next().toString( ));
+  	      } 
+	    }
+	    /* 
 	    for(Iterator<PaaSMetricRanked> it = paasMetricRanked.iterator(); it.hasNext( ); ) {
 	      PaaSMetricRanked P = it.next( );
 	      System.err.println("PaaSMetric="+P);
 	    }
-	    
+	    */
 	    
 
 	    String response = "{ok}";

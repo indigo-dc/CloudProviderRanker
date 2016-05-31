@@ -191,7 +191,8 @@ public class RankHandler implements HttpHandler {
 	    
 	    ArrayList<PaaSMetricRanked> paasMetricRanked = null;//new ArrayList<PaasMetricRanked>();
 	    if(obj.has("monitoring")) {
-	      paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
+	      //paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
+	      
 	    }
 	    
 	    for(Iterator<PaaSMetricRanked> it = paasMetricRanked.iterator(); it.hasNext( ); ) {

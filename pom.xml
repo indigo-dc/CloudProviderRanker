@@ -8,7 +8,7 @@
   <version>0.3</version>
 
   <properties>
-    <droolsVersion>6.3.0.Final</droolsVersion>
+    <droolsVersion>6.4.0.Final</droolsVersion>
     <monitoring.pillar.domain.version>1.8.0-FINAL</monitoring.pillar.domain.version>
   </properties>
 

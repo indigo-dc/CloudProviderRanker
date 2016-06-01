@@ -1,6 +1,6 @@
 package org.indigo.cloudproviderruleengine;
  
-import org.indigo.cloudproviderruleengine.CloudProvider;
+import org.indigo.cloudproviderruleengine.PaaSMetricRanked;
 
 // rule "VEPHDISK"
 // 	when
@@ -45,3 +45,10 @@ import org.indigo.cloudproviderruleengine.CloudProvider;
 //
 //end
 
+// For the moment the Rule is trivial. It'll be enhanced later
+rule "PAASMETRIC"
+	when
+		$cp : PaaSMetricRanked( 1 == 1 )
+	then
+		$cp.addToRank( $cp.getMetricValue( ) );
+end

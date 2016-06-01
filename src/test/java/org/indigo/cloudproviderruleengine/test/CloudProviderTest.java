@@ -19,7 +19,7 @@ public class CloudProviderTest {
     JsonElement E = gson.fromJson(jsonBlob, JsonElement.class);
     JsonObject obj = E.getAsJsonObject( );
     CloudProvider cp = gson.fromJson(obj, CloudProvider.class);
-    System.out.println("rank=" + cp.getTotalRank());
+    //System.out.println("rank=" + cp.getTotalRank());
     assertEquals(1, cp.getID());
     assertEquals("TestSite", cp.getName());
     assertEquals(10, cp.getTotalVCPU());

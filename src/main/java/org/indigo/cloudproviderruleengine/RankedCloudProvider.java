@@ -22,4 +22,5 @@ public class RankedCloudProvider {
     public float   getRank( )      { return rank; }
     public boolean isRanked( )     { return ranked; }
     public String  getRankError( ) { return errorReason; }
+    public void    addToRank( float f ) { rank+= f; }
 }

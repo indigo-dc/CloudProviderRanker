@@ -27,7 +27,7 @@ public class Sla {
     this.end_date          = end_date;
     this.services          = services;
     this.slaNormalizations = SlaNormalizations.fromFile( );
-    this.rank              = (float)0.0;
+    this.rank              = 0.0f;
     
     // for now let's assume there's only one service: "compute".
     ArrayList<Target> targets = services.get(0).targets;

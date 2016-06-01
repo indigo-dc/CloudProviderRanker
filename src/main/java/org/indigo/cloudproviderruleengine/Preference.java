@@ -15,18 +15,6 @@ public class Preference {
   /**
    *
    */
-//   public String toString( ) {
-//     String[] prioStrings = new String[priorities.size()];
-//     int i = 0;
-//     for (Priority prio : priorities) {
-//       prioStrings[i++] = prio.toString( );
-//     }
-//     return "type=" + service_type + "; Priorities=[" + String.join(",", prioStrings) + "]";
-//   }
-  
-  /**
-   *
-   */
   public Preference(String service_type, String id, ArrayList<Priority> priorities ) {
     this.service_type = service_type;
     this.priorities   = priorities;
@@ -34,19 +22,29 @@ public class Preference {
   
   /**
    *
+   *
+   *
+   *
    */
   public static ArrayList<Preference> fromJsonObject( JsonObject obj ) {
     ArrayList<Preference> preferences = new ArrayList<Preference>();
-    ArrayList<Priority> priorities = new ArrayList<Priority>( );
-    JsonArray Preferences = obj.get("preferences").getAsJsonArray( );
-    for(int i = 0; i< Preferences.size(); ++i) {
-    JsonObject pref = Preferences.get(i).getAsJsonObject( );
-      priorities = parsePriorities( Preferences.get(i).getAsJsonObject( ).get("priority").getAsJsonArray( ) );
-      preferences.add( new Preference( pref.get("service_type").getAsString( ), pref.get("id").getAsString( ), priorities ) );
+    //ArrayList<Priority> priorities = new ArrayList<Priority>( );
+    JsonArray preferencesArray = obj.get("preferences").getAsJsonArray( );
+    //System.err.println("preferences size="+Preferences.size());
+    for(int i = 0; i< preferencesArray.size(); ++i) {
+      JsonObject prefJsonObj = preferencesArray.get(i).getAsJsonObject( );
+      //System.err.println("prefJsonObj=" + prefJsonObj.getAsJsonObject().getAsString( ) );
+      ArrayList<Priority> priorities = parsePriorities( prefJsonObj.get("priority").getAsJsonArray( ) );
+      String service_type = prefJsonObj.get("service_type").getAsString( );
+      //String id           = prefJsonObj.get("id").getAsString( );
+      Preference prf = new Preference( service_type, "", priorities );
+      if(preferences==null)
+        System.err.println("preferences NULL!!!");
+      else
+        preferences.add( prf );
     }
     return preferences;
   }
-  
    
    /**
     *
@@ -71,7 +69,13 @@ public class Preference {
      return priorities;
      
    }
-   
+  
+  /**
+   *
+   *
+   *
+   *
+   */   
    @Override
    public String toString( ) { 
     //return "{sla_id="+sla_id + " - service_id="+service_id+" - weight=" +weight+ "}"; 

@@ -116,14 +116,17 @@ public class RankHandler implements HttpHandler {
 	    
 	    //
 	    //
-	    // Build an Hashtable sla_id -> provider_name
+	    // Build an Hashtable sla_id -> provider_name and a map provider->SLA
 	    //
 	    //
-	    Hashtable<String, String> slaid_to_provider = new Hashtable<String, String>();
+	    HashMap<String, String> slaid_to_provider = new HashMap<String, String>();
+	    HashMap<String, Sla> providerToSLAMap = new HashMap<String, Sla>();
 	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
 	      Sla sla = i.next( );
 	      slaid_to_provider.put(sla.id, sla.provider);
+	      providerToSLAMap.put( sla.provider, sla );
 	    }
+	    
 	    
 	    //
 	    //
@@ -142,10 +145,10 @@ public class RankHandler implements HttpHandler {
 							    );
 	      }
 	      
-	      Vector<String> rcp_vec = new Vector<String>();
+	      Vector<String> rcp_vec = new Vector<String>( );
 	      for (Iterator<RankedCloudProvider> i = ranked_providers.iterator(); i.hasNext(); ) {
 	        RankedCloudProvider rcp = i.next( );
-	        rcp_vec.add(gson.toJson(rcp));
+	        rcp_vec.add( gson.toJson(rcp) );
 	      }
 	      
 	      String response = "[" + String.join(",", rcp_vec) + "]";
@@ -190,6 +193,7 @@ public class RankHandler implements HttpHandler {
 	        PaaSMetricRanked p = jt.next( );
 	        rcp.addToRank( p.getRank( ) );
 	      }
+	      rcp.addToRank( providerToSLAMap.get( provider ).rank );
 	      rankedCloudProviders.add( rcp );
 	    }
 	    
@@ -201,19 +205,8 @@ public class RankHandler implements HttpHandler {
 	    //ArrayList<RankedCloudProvider> rankedCloudProvider = new ArrayList<RankedCloudProvider>();
 	    Vector<String> respVec = new Vector<String>();
 	    for(Iterator<RankedCloudProvider> it = rankedCloudProviders.iterator( ); it.hasNext( ); ) {
-	      //String provider = it.next( );
-	      //ArrayList<PaaSMetricRanked> paaSMetricRankedArray = paasMetricRanked.get( provider ); 
-	      //float totalRank = 0.0f;
-	      //for(Iterator<PaaSMetricRanked> it2 = paaSMetricRankedArray.iterator( ); it2.hasNext( ); ) {
-	      //  PaaSMetricRanked p = it2.next( ) ;
-	      //  totalRank += p.getMetricValue( );
-	      //}
-	      
-	      //RankedCloudProvider rcp = new RankedCloudProvider( provider, totalRank, true, "" );
-	      
 	      String json = gson.toJson(it.next());
  	      respVec.add(json);
-	      //rankedCloudProvider.add( rcp );
 	    }
 	    
 	    String response = "{" + String.join("," , respVec)  + "}";

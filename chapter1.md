@@ -295,7 +295,7 @@ To test the server at the client side just use ```cURL``` to send a POST request
 
 You'll receive an output like this:
 
-```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}}```
+```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}} ```
 
 In the case of a JSON syntax error, the exception is reported to the client:
 

@@ -1,133 +1,325 @@
 # Install and run Cloud Provider Ranker
 
-To install the artifact (a single jar) just put it wherever you prefer. What you need are the two dependencies **gson** and **drools** runtime.
-
-They can be downloaded from:
-* Drools: http://download.jboss.org/drools/release/6.3.0.Final/droolsjbpm-tools-distribution-6.3.0.Final.zip
-* GSon: http://goo.gl/D0q3dl
-
-Uncompress the zip files and put the jars somewhere, e.g. ```/usr/local/share/java/drools``` and ```/usr/local/share/java/gson```.
+## Installation
+To install the artifact (a single jar) just put it wherever you prefer.
 
 To run the standalone WEB Server just issue the command:
 
 
-```java -cp [SOMEPATH]/CloudProviderRanker-[VERSION].jar:/usr/local/share/java/gson/gson-2.6.2.jar:/usr/local/share/java/drools/ant-1.8.2.jar:/usr/local/share/java/droo-launcher-1.8.2.jar:/usr/local/share/java/drools/antlr-runtime-3.5.jar:/usr/local/share/java/drools/commons-codec-1.4.jar:/usr/local/share/java/drools/commons-logging-1.1.1.jar:/usr/local/share/java/drools/dom4j-1.6.1.jar:/usr/local/share/java/drools/drools-beliefs-6.3.0.Final.jar:/usr/local/share/java/drools/drools-compiler-6.3.0.Final.jar:/usr/local/share/java/drools/drools-core-6.3.0.Final.jar:/usr/local/share/java/drools/drools-decisiontables-6.3.0.Final.jar:/usr/local/share/java/drools/drools-persistence-jpa-6.3.0.Final.jar:/usr/local/share/java/drools/drools-pmml-6.3.0.Final.jar:/usr/local/share/java/drools/drools-reteoo-6.3.0.Final.jar:/usr/local/share/java/drools/drools-scorecards-6.3.0.Final.jar:/usr/local/share/java/drools/drools-templates-6.3.0.Final.jar:/usr/local/share/java/drools/drools-verifier-6.3.0.Final.jar:/usr/local/share/java/drools/ecj-4.3.1.jar:/usr/local/share/java/drools/hibernate-jpa-2.0-api-1.0.1.Final.jar:/usr/local/share/java/drools/httpcore-4.3.3.jar:/usr/local/share/java/drools/javassist-3.18.1-GA.jar:/usr/local/share/java/drools/kie-api-6.3.0.Final.jar:/usr/local/share/java/drools/kie-ci-6.3.0.Final.jar:/usr/local/share/java/drools/kie-internal-6.3.0.Final.jar:/usr/local/share/java/drools/knowledge-api-6.3.0.Final.jar:/usr/local/share/java/drools/mvel2-2.2.6.Final.jar:/usr/local/share/java/drools/slf4j-api-1.7.2.jar:/usr/local/share/java/drools/xstream-1.4.7.jar org.indigo.cloudproviderruleengine.RESTEngine [TCPPORT] [KeystoreFile password]```
+```java -cp [SOMEPATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]```
 
-To generate a Keystore file, just issue the command:
+The meaning of the two files <SLA_PRIORITY_FILE> and <PAASMETRIC_NORMALIZATION_FILE> is explained in the algorithm section.
+
+By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
 
 ```keytool -genkey -alias webservice -keystore <filepath>```
 
+a password will be asked and must be used in the command line above.
+
 ----------------------------
-
-To test it at the client side just use ```cURL``` in this way:
-
-```curl -k -X POST -d '{"cloudproviders":[{"id":1, "totalVEPHDISK":10, "inUseVEPHDISK": 1, "name":"padova", "totalVCPU":10, "totalVRAM":32, "totalVDISK":10, "inUseVCPU":7, "inUseVRAM":8, "inUseVDISK":1 }, {"id":2, "totalVEPHDISK":10, "inUseVEPHDISK": 9, "name":"legnaro", "totalVCPU":5, "totalVRAM":7, "totalVDISK":5, "inUseVCPU":1, "inUseVRAM":4, "inUseVDISK":2 }, {"id":3, "totalVEPHDISK":10, "inUseVEPHDISK": 10, "name":"torino", "totalVCPU":10, "totalVRAM":16, "totalVDISK":10, "inUseVCPU":3, "inUseVRAM":8, "inUseVDISK":3}]}' http://localhost:8443/rank```
-
-The JSON request must be an array of cloud providers. Each cloud provider must contain a certain number of mandatory fields:
-
-```{  
-    "cloudproviders":[  
-        {  
-            "id":1,
-            "name":"padova",
-	    "totalVEPHDISK":10,
-            "totalVCPU":10,
-            "totalVRAM":32,
-            "totalVDISK":10,
-	    "inUseVEPHDISK":1,
-            "inUseVCPU":3,
-            "inUseVRAM":8,
-            "inUseVDISK":1
-        },
-        { 
-		... 
-        },
-	...
-    ]
-}```
-
+## Testing the server
+To test the server at the client side just use ```cURL``` to send a POST request with additional payload data:
+```
+{
+	"preferences": [{
+		"service_type": "compute",
+		"priority": [{
+			"sla_id": "4401ac5dc8cfbbb737b0a02575ee53f6",
+			"service_id": "4401ac5dc8cfbbb737b0a02575e8040f",
+			"weight": 0.5
+		}, {
+			"sla_id": "4401ac5dc8cfbbb737b0a02575ee3b58",
+			"service_id": "4401ac5dc8cfbbb737b0a02575e6f4bc",
+			"weight": 0.5
+		}]
+	}],
+	"sla": [{
+		"customer": "indigo-dc",
+		"provider": "provider-UPV-GRyCAP",
+		"start_date": "11.01.2016+15:50:00",
+		"end_date": "11.02.2016+15:50:00",
+		"services": [{
+			"type": "compute",
+			"service_id": "4401ac5dc8cfbbb737b0a02575e6f4bc",
+			"targets": [{
+				"type": "public_ip",
+				"unit": "none",
+				"restrictions": {
+					"total_guaranteed": 10
+				}
+			}]
+		}],
+		"id": "4401ac5dc8cfbbb737b0a02575ee3b58"
+	}, {
+		"customer": "indigo-dc",
+		"provider": "provider-RECAS-BARI",
+		"start_date": "11.01.2016+15:50:00",
+		"end_date": "11.02.2016+15:50:00",
+		"services": [{
+			"type": "compute",
+			"service_id": "4401ac5dc8cfbbb737b0a02575e8040f",
+			"targets": [{
+				"type": "computing_time",
+				"unit": "h",
+				"restrictions": {
+					"total_guaranteed": 200
+				}
+			}]
+		}],
+		"id": "4401ac5dc8cfbbb737b0a02575ee53f6"
+	}],
+	"monitoring": [{
+		"provider": "provider-RECAS-BARI",
+		"metrics": [{
+			"metricName": "OCCI Create VM availability",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI Create VM availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI CreateVM Response Time",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI CreateVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI CreateVM Result",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI CreateVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI Delete VM Availability",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI Delete VM Availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI DeleteVM Response Time",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI DeleteVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI DeleteVM Result",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI DeleteVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Availability",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..General OCCI API Availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Response Time",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..General OCCI API Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Result",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..General OCCI API Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI Inspect VM availability",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI Inspect VM availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI InspectVM Response Time",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI InspectVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI InspectVM Result",
+			"metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI InspectVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}]
+	}, {
+		"provider": "provider-UPV-GRyCAP",
+		"metrics": [{
+			"metricName": "OCCI Create VM availability",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Create VM availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI CreateVM Response Time",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI CreateVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI CreateVM Result",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI CreateVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI Delete VM Availability",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Delete VM Availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI DeleteVM Response Time",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI DeleteVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI DeleteVM Result",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI DeleteVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Availability",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Response Time",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "General OCCI API Result",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..General OCCI API Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI Inspect VM availability",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI Inspect VM availability",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI InspectVM Response Time",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI InspectVM Response Time",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "ms",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}, {
+			"metricName": "OCCI InspectVM Result",
+			"metricKey": "Cloud_Providers.provider-UPV-GRyCAP..OCCI InspectVM Result",
+			"metricValue": 0.0,
+			"metricTime": "Instant null because no metrics were returned in the last 24hs",
+			"metricUnit": "bit",
+			"paasThresholds": [],
+			"historyClocks": [],
+			"historyValues": []
+		}]
+	}]
+}
+```
 You'll receive an output like this:
-```{  
-    "rankedcloudproviders":[  
-        {  
-            "id":1,
-            "name":"padova",
-            "rank":2.85,
-            "ranked":true,
-            "errorReason":""
-        },
-        {  
-            "id":2,
-            "name":"legnaro",
-            "rank":1.9285715,
-            "ranked":true,
-            "errorReason":""
-        },
-        ...
-    ]
-}```
+
+[TODO]
 
 In case of a missing field in the user's request, an output like this will be returned:
 
-```{  
-    "rankedcloudproviders":[  
-        {  
-            ...
-        },
-	...
-        {  
-            "id":3,
-            "name":"torino",
-            "rank":0.0,
-	    "ranked":false,
-            "errorReason":"Not ranked provider: Missing inUseVDISK field"
-        }
-    ]
-}```
-
+[TODO]
 --------------------
 
 
 ## Making a Docker container
 To build a docker image which can spawn a container running the server, you have to build CloudProviderRanker before, by issuing the command
 
-	mvn install
+	mvn package
 
 then issue the command:
 
-	docker build -t [IMAGE_NAME]
+	docker build -t <IMAGE_NAME> .
 
 To run the container:
 
-	docker run -t -d -p 7443:7443 -p 8443:8443 dorigoa/cloudprovider-ranker
+	docker run -t -d -p 7443:7443 -p 8443:8443 <IMAGE_NAME>
 
-To change the TCP port used inside the container, edit the ```startup-cpre``` script and re-build the docker image and also the file ```Dockerfile``` in the ```EXPOSE``` section.
-
-To debug the server, an SSHD daemon is started by the ```startup-cpre``` script. It also sets the user "centos" with password "centos".
+To change the TCP port used inside the container edit the file ```Dockerfile``` in the ```EXPOSE``` section.
 
 ------------------------------
 
 ## Basic current ranking algorithm
-Current ranking logic is quite trivial and can be used as proof of concept.
-The higher the ranking, the better the provider.
-The rank is equal to the sum of the following pieces
 
-
-
-* ```(TOTAL VCPU - USED VCPU)/TOTAL VCPU```
-* ```(TOTAL VDISK - USED VDISK)/TOTAL VDISK```
-* ```(TOTAL VRAM - USED VRAM)/TOTAL VRAM```
-* ```(TOTAL VEPHDISK - USED VEPHDISK)/TOTAL VEPHDISK```
-
-```VDISK``` is the block storage (Cinder), ```VEPHDISK``` is the ephemeral storage disk available for instances.
-
-If at least one of the couples
-
-* ```(TOTAL VCPU - USED VCPU)```
-* ```(TOTAL VDISK - USED VDISK)```
-* ```(TOTAL VRAM - USED VRAM)```
-* ```(TOTAL VEPHDISK - USED VEPHDISK)```
-
-is zero (a particular virtual resource is exhausted), then the provider receives a ZERO rank.
-
-The ranking is implemented in the rule file (and not in the Java code) which is handled by the Drools runtime framework.
+[TODO]

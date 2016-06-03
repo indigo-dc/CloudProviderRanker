@@ -62,7 +62,6 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    Gson gson = new Gson();
-	    //System.err.println("JSON=["+Line+"]");
 	    JsonElement E = gson.fromJson(Line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
 	     
@@ -90,7 +89,11 @@ public class RankHandler implements HttpHandler {
 	      specified_sla = true;
 	      SLAs = Sla.fromJsonObject( obj );
 	    }
-	    
+// 	    KieServices kieServices      = KieServices.Factory.get( );
+// 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
+// 	    StatelessKieSession kSession = kContainer.newStatelessKieSession( );
+// 	    kSession.execute( SLAs );
+	    	    
 	    //
 	    //
 	    // Concatenate all preferences' priorities and sort them basing on the weight
@@ -121,8 +124,6 @@ public class RankHandler implements HttpHandler {
 	    HashMap<String, String> slaid_to_provider = new HashMap<String, String>();
 	    HashMap<String, Sla> providerToSLAMap = new HashMap<String, Sla>();
 	    for( Sla sla : SLAs ) {
-//	    for (Iterator<Sla> i = SLAs.iterator(); i.hasNext(); ) {
-	      //Sla sla = i.next( );
 	      slaid_to_provider.put(sla.id, sla.provider);
 	      providerToSLAMap.put( sla.provider, sla );
 	    }
@@ -137,8 +138,6 @@ public class RankHandler implements HttpHandler {
 	    if(specified_preferences && specified_sla) {
 	      int j = 0;
 	      for( Priority p : all_priorities ) {
-	      //for (Iterator<Priority> i = all_priorities.iterator(); i.hasNext(); ) {
-	        //Priority p = i.next( );
 	        ranked_providers.add(new RankedCloudProvider( slaid_to_provider.get( p.sla_id ), 
 					 		      (all_priorities.size() - j++),
 					 		      true,
@@ -148,8 +147,6 @@ public class RankHandler implements HttpHandler {
 	      
 	      Vector<String> rcp_vec = new Vector<String>( );
 	      for(RankedCloudProvider rcp : ranked_providers ) {
-	      //for (Iterator<RankedCloudProvider> i = ranked_providers.iterator(); i.hasNext(); ) {
-	        //RankedCloudProvider rcp = i.next( );
 	        rcp_vec.add( gson.toJson(rcp) );
 	      }
 	      
@@ -171,19 +168,14 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    Set<String> providers = paasMetricRanked.keySet( );
-// 	    ArrayList<PaaSMetricRanked> paaSMetricRankerArrayList = new ArrayList<PaaSMetricRanked>( );
-    	    //for(Iterator<String> it = providers.iterator( ); it.hasNext( ); ) {
-	    for( String provider : providers ) {
- 	      //String provider = it.next( );
- 	      System.err.println("Provider[" + provider + "]");
-	      System.err.println("    Provider SLA rank=" + providerToSLAMap.get( provider ).rank );
- 	      for( PaaSMetricRanked P : paasMetricRanked.get(provider) ) {
-	      //for(Iterator<PaaSMetricRanked> i2t = paasMetricRanked.get(provider).iterator( ); i2t.hasNext( ); ) {
- 	        //PaaSMetricRanked P = i2t.next( );
- 		System.err.println("    " + P );
- 		//paaSMetricRankerArrayList.add( P );
-   	      } 
- 	    }
+// 	    for( String provider : providers ) {
+//  	      //String provider = it.next( );
+//  	      System.err.println("Provider[" + provider + "]");
+// 	      System.err.println("    Provider SLA rank=" + providerToSLAMap.get( provider ).rank );
+//  	      for( PaaSMetricRanked P : paasMetricRanked.get(provider) ) {
+//  		System.err.println("    " + P );
+//    	      } 
+//  	    }
 	    
 // 	    KieServices kieServices      = KieServices.Factory.get( );
 // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
@@ -191,8 +183,6 @@ public class RankHandler implements HttpHandler {
 // 	    kSession.execute( paaSMetricRankerArrayList );
 	    ArrayList<RankedCloudProvider> rankedCloudProviders = new ArrayList<RankedCloudProvider>();
 	    for( String provider : providers ) {
-	    //for(Iterator<String> it = providers.iterator(); it.hasNext( ); ) {
-	      //String provider = it.next( ) ;
 	      RankedCloudProvider rcp = new RankedCloudProvider( provider, 0.0f, true, "" );
 	      for(Iterator<PaaSMetricRanked> jt = paasMetricRanked.get(provider).iterator( ); jt.hasNext( ); ) {
 	        PaaSMetricRanked p = jt.next( );
@@ -207,10 +197,8 @@ public class RankHandler implements HttpHandler {
 	    // Iterate over rankedCloudProviders and build up 
 	    // a JSON response
 	    //
-	    //ArrayList<RankedCloudProvider> rankedCloudProvider = new ArrayList<RankedCloudProvider>();
 	    Vector<String> respVec = new Vector<String>();
 	    for( RankedCloudProvider rcp : rankedCloudProviders ) {
-//	    for(Iterator<RankedCloudProvider> it = rankedCloudProviders.iterator( ); it.hasNext( ); ) {
 	      String json = gson.toJson( rcp/*it.next()*/);
  	      respVec.add(json);
 	    }

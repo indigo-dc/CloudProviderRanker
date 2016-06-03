@@ -1,6 +1,8 @@
 package org.indigo.cloudproviderruleengine;
  
 import org.indigo.cloudproviderruleengine.PaaSMetricRanked;
+import org.indigo.cloudproviderruleengine.Sla;
+import org.indigo.cloudproviderruleengine.Target;
 
 // rule "VEPHDISK"
 // 	when
@@ -46,9 +48,23 @@ import org.indigo.cloudproviderruleengine.PaaSMetricRanked;
 //end
 
 // For the moment the Rule is trivial. It'll be enhanced later
-rule "PAASMETRIC"
+//rule "PAASMETRIC"
+//	when
+//		$cp : PaaSMetricRanked( 1 == 1 )
+//	then
+//		$cp.addToRank( $cp.getMetricValue( ) );
+//end
+
+rule "SLA"
 	when
-		$cp : PaaSMetricRanked( 1 == 1 )
+		$cp : Sla( 1 <= 1 )
 	then
-		$cp.addToRank( $cp.getMetricValue( ) );
+		for( Target t : $cp.services.get(0).targets ) {
+		  $cp.rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : $cp.infinity_value) 
+                		+ t.restrictions.total_guaranteed
+      	        		+ (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : $cp.infinity_value) 
+				+ t.restrictions.user_guaranteed
+				+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : $cp.infinity_value) 
+				+ t.restrictions.instance_guaranteed ) * normalization_factor; 
+		} 
 end

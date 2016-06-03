@@ -15,6 +15,7 @@ public class Sla {
   public ArrayList<Service> services;
   public SlaNormalizations  slaNormalizations;
   public float              rank;
+  private float 	    infinity_value;
   
   /**
    *
@@ -29,13 +30,10 @@ public class Sla {
     this.slaNormalizations = SlaNormalizations.fromFile( );
     this.rank              = 0.0f;
     
-    // for now let's assume there's only one service: "compute".
-    ArrayList<Target> targets = services.get(0).targets;
-    for(int i = 0; i < targets.size( ); ++i) {
-      Target t = targets.get(i);
+    for( Target t : services.get(0).targets ) {
       
       float normalization_factor = 0.0f;
-      float inf = slaNormalizations.infinity_value;
+      infinity_value = slaNormalizations.infinity_value;
       if(0==t.type.compareTo("public_ip"))
         normalization_factor = slaNormalizations.public_ip;
       if(0==t.type.compareTo("computing_time"))
@@ -55,11 +53,11 @@ public class Sla {
       if(0==t.type.compareTo("download_aggregated"))
         normalization_factor = slaNormalizations.download_aggregated;
       
-      rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : inf) 
+      rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinity_value) 
                 + t.restrictions.total_guaranteed
-      	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : inf) 
+      	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinity_value) 
 		+ t.restrictions.user_guaranteed
-		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : inf) 
+		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinity_value) 
 		+ t.restrictions.instance_guaranteed ) * normalization_factor;
     }
   }
@@ -69,11 +67,6 @@ public class Sla {
    */
   @Override
   public String toString( ) {
-//     String[] services_strings = new String[services.size()];
-//     for(int i = 0; i < services.size() ; ++i) {
-//       services_strings[i] = services.get(i).toString( );
-//     }
-    //return "id=" + id + ", customer=" + customer + ", provider=" + provider + ", start_date=" + start_date + ", end_date=" + end_date + ", services={"+ String.join(",", services_strings) + "}";
     return ToStringBuilder.reflectionToString(this);
   }
   
@@ -120,7 +113,6 @@ public class Sla {
          //System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
 	 ArrayList<Target> targets = parseTarget( obj ); 
 	 services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
-	 //System.err.println("Service[" + i + "]=" + services[i]);
        } catch(Exception e) {
 	 System.err.println("Exception: " + e.getMessage());
        } catch(Throwable t) {

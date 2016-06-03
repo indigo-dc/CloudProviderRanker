@@ -1,20 +1,20 @@
 # Install and run Cloud Provider Ranker
 
 ## Installation
-To install the artifact (a single jar) just put it wherever you prefer.
+The CloudProviderRanker WEB Service is made of a single .jar file containing a Main class which implements the main method. It's about a stand-alone server, so no WEB container (JBOSS, Tomcat, ...) is needed. The WEB server is implemented using the HttpServer Java library (http://goo.gl/QLBjiP). To install the artifact just put it wherever you prefer.
 
 To run the standalone WEB Server just issue the command:
 
 
-```java -cp [SOMEPATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]```
+```java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]```
 
-The meaning of the two files <SLA_PRIORITY_FILE> and <PAASMETRIC_NORMALIZATION_FILE> is explained in the algorithm section.
+The meaning of the two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
 
-By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
+By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server, it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
 
 ```keytool -genkey -alias webservice -keystore <filepath>```
 
-a password will be asked and must be used in the command line above.
+a password will be asked, and must be used in the command line above.
 
 ----------------------------
 ## Testing the server
@@ -295,9 +295,17 @@ To test the server at the client side just use ```cURL``` to send a POST request
 ```
 You'll receive an output like this:
 
-[TODO]
+```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}}```
 
-In case of a missing field in the user's request, an output like this will be returned:
+In the case of a JSON syntax error, the exception is reported to the client:
+
+```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unterminated object at line 1 column 6141 path $.monitoring[1].metrics[3].paasThresholds```
+
+```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unexpected value at line 1 column 6338 path $.monitoring[1].metrics[4].metricValue```
+
+```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unterminated array at line 1 column 4835 path $.monitoring[2]```
+
+```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 8 path $```
 
 [TODO]
 --------------------

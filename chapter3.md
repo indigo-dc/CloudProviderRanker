@@ -1,4 +1,5 @@
 # Ranking algorithm
+## Ranking protocolo overview
 The CloudProviderRanker follows this protocol to rank the providers coming from the orchestrator:
 1. It check if preferences have been specified; if they have, then they have absolute priority over any other provider's status (like monitoring data). 
 2. Otherwise a rank will be calculated for each provider inserted in the "sla" JSON block coming from the orchestrator

@@ -7,5 +7,6 @@
     "upload_bandwidth":1,
     "download_bandwidth":1,
     "upload_aggregated":1,
-    "download_aggregated":1
+    "download_aggregated":1,
+    "infinity_value":1000
 }

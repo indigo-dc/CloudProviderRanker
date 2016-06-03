@@ -8,7 +8,7 @@ import org.indigo.cloudproviderruleengine.SlaNormalizations;
 public class SlaNormalizationsTest {
   @Test
   public void test( ) {
-    SlaNormalizations sn = new SlaNormalizations( (float)1.0, (float)1.0, (float)1.0, (float)1.0, (float)1.0, (float)1.0, (float)1.0, (float)1.0, (float)1.0 );    
+    SlaNormalizations sn = new SlaNormalizations( 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1000.0f );    
     assertTrue(null!=sn);
   }
 }

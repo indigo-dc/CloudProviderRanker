@@ -18,6 +18,7 @@ public class SlaNormalizations {
   public float download_bandwidth;
   public float upload_aggregated;
   public float download_aggregated;
+  public float infinity_value;
   
   public static String priority_file = null;
   
@@ -35,7 +36,8 @@ public class SlaNormalizations {
 			    float upload_bandwidth,
 			    float download_bandwidth,
 			    float upload_aggregated,
-			    float download_aggregated )
+			    float download_aggregated,
+			    float infinity_value )
   {
 	this.computing_time	 = computing_time;
 	this.num_cpus		 = num_cpus;
@@ -45,7 +47,8 @@ public class SlaNormalizations {
 	this.upload_bandwidth    = upload_bandwidth;
 	this.download_bandwidth  = download_bandwidth;
 	this.upload_aggregated   = upload_aggregated;
-	this.download_aggregated = download_aggregated;  
+	this.download_aggregated = download_aggregated; 
+	this.infinity_value      = infinity_value; 
   }
   
   /**
@@ -70,14 +73,17 @@ public class SlaNormalizations {
         Line += line;
       }
     } catch(Exception e) {
-	return new SlaNormalizations(1,2,3,4,5,6,7,8,9);
+	return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);
     } catch(Throwable t) {
-        return new SlaNormalizations(1,2,3,4,5,6,7,8,9);  
+        return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);  
     }
+    
     Gson gson = new Gson();
-    //System.err.println("SlaPriorities - Line="+Line);
+    
     JsonElement E = gson.fromJson(Line, JsonElement.class);
+    
     return (SlaNormalizations)gson.fromJson(E.getAsJsonObject( ), SlaNormalizations.class);
+  
   }
   
 }

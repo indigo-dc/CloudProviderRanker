@@ -34,7 +34,8 @@ public class Sla {
     for(int i = 0; i < targets.size( ); ++i) {
       Target t = targets.get(i);
       
-      float normalization_factor = (float)0.0;
+      float normalization_factor = 0.0f;
+      float inf = slaNormalizations.infinity_value;
       if(0==t.type.compareTo("public_ip"))
         normalization_factor = slaNormalizations.public_ip;
       if(0==t.type.compareTo("computing_time"))
@@ -54,11 +55,11 @@ public class Sla {
       if(0==t.type.compareTo("download_aggregated"))
         normalization_factor = slaNormalizations.download_aggregated;
       
-      rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : 1000000.0) 
+      rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : inf) 
                 + t.restrictions.total_guaranteed
-      	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : 1000000.0) 
+      	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : inf) 
 		+ t.restrictions.user_guaranteed
-		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : 1000000.0) 
+		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : inf) 
 		+ t.restrictions.instance_guaranteed ) * normalization_factor;
     }
   }

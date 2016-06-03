@@ -141,7 +141,7 @@ public class PaaSMetricRanked extends PaaSMetric {
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_InspectVM_Result );
 	      }
 	    
-	      System.err.println(" ****  PaaSMetricRanked=" +paaSMetricRanked);
+	      //System.err.println(" ****  PaaSMetricRanked=" +paaSMetricRanked);
 	    
 	      //paaSMetricRankedArray.add( paaSMetricRanked );
 	    

@@ -1,3 +1,4 @@
+# Building a Docker container
 To build a docker image which can spawn a container running the server, you have to build CloudProviderRanker before, by issuing the command
 
 	mvn package

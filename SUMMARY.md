@@ -1,5 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* [Installation, test and Configuration](chapter1.md)
+* [Installation, test and configuration](chapter1.md)
 

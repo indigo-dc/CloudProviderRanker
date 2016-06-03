@@ -122,6 +122,6 @@ The only thing to know is that the SLA's rank is calculated in this way:
         
 and norm_factor is specified by the admin for each kind of target. Remember that _limit is the actual value or the "infinity_value" specified in the SLA prioritization file in case it was missing in the JSON request.
         
-        
+### TO BE CONTINUED
 
 

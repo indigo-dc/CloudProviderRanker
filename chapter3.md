@@ -76,7 +76,15 @@ In addition to the SLA, the JSON can have monitoring information that is used fo
         "metrics": [{ ...
         
         }]```
-        
+   
+
+---
+
+## Ranking without "preferences"
+If preferences are not specified, for each provider the rank is calculated as sum of SLA's rank and a combination of monitoring data.
+
+### SLA's rank
+Each SLA's rank is calculated as sum of its field specified in this document: https://goo.gl/GZnl8P 
 
         
         

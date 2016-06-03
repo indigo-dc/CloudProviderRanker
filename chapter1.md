@@ -307,7 +307,6 @@ In the case of a JSON syntax error, the exception is reported to the client:
 
 ```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 8 path $```
 
-[TODO]
 --------------------
 
 
@@ -325,9 +324,3 @@ To run the container:
 	docker run -t -d -p 7443:7443 -p 8443:8443 <IMAGE_NAME>
 
 To change the TCP port used inside the container edit the file ```Dockerfile``` in the ```EXPOSE``` section.
-
-------------------------------
-
-## Basic current ranking algorithm
-
-[TODO]

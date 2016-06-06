@@ -11,7 +11,8 @@ public class PriorityTest {
     P.sla_id="sla_id";
     P.service_id="service_id";
     P.weight=(float)0.15;
-    String checkString = "{sla_id=sla_id - service_id=service_id - weight=0.15}";
-    assertTrue( null != P );
+    //String checkString = "{sla_id=sla_id - service_id=service_id - weight=0.15}";
+    if(P!=null)
+      assertTrue( P.sla_id.compareTo("sla_id") == 0 );
   }
 }

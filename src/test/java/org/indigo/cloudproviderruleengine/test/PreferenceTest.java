@@ -18,7 +18,7 @@ public class PreferenceTest {
     Preference pref = new Preference( "type", "id", P );
     
     //String checkString = "type=type; Priorities=[{sla_id=sla_id - service_id=service_id - weight=0.15}]";
-    
-    assertTrue( null != pref );
+    if(pref!=null)
+      assertTrue( pref.service_type.compareTo("type") == 0 );
   }
 }

@@ -19,15 +19,26 @@ public class SlaTest {
     r.user_limit = 5;
     r.user_guaranteed = 1;
     
+    if(r!=null)
+      assertTrue(r.total_limit==10);
+     
     ArrayList<Target> t = new ArrayList<Target>();
     Target T = new Target();
     T.type = "type";
     T.unit = "unit";
     T.restrictions = r;
     t.add(T);
+    
+    if(T!=null)
+      assertTrue(T.type.compareTo("type")==0);   
+       
     //Service S = new Service();
-    ArrayList<Service> s = new ArrayList<Service>();
+    ArrayList<Service> s = new ArrayList<Service>( );
+    
     Service S = new Service("id", "type", t);
+    if(S!=null)
+      assertTrue(S.type.compareTo("type")==0);
+      
     s.add(S);
     //Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
     //System.err.println(s);

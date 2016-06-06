@@ -10,9 +10,11 @@ public class RankedCloudProviderTest {
   @Test
   public void test( ) {
     RankedCloudProvider rcp = new RankedCloudProvider( "TestRanked", (float)2.5, true, "No error");
-    assertEquals((float)2.5, rcp.getRank( ), DELTA );
-    assertEquals("TestRanked", rcp.getName( ) );
-    assertEquals(true, rcp.isRanked( ) );
-    assertEquals("No error", rcp.getRankError( ) );
+    if(rcp!=null) {
+      assertEquals((float)2.5, rcp.getRank( ), DELTA );
+      assertEquals("TestRanked", rcp.getName( ) );
+      assertEquals(true, rcp.isRanked( ) );
+      assertEquals("No error", rcp.getRankError( ) );
+    }
   }
 }

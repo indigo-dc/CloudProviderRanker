@@ -45,7 +45,7 @@
 	}
 	re.addHandlerToContext("/version", new VersionHandler());
 	re.addHandlerToContext("/rank", new RankHandler());
-	re.addHandlerToContext("/checkprovider", new CheckProviderHandler());
+//	re.addHandlerToContext("/checkprovider", new CheckProviderHandler());
 	re.startServer( );
 	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
     }

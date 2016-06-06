@@ -9,6 +9,8 @@ public class SlaNormalizationsTest {
   @Test
   public void test( ) {
     SlaNormalizations sn = new SlaNormalizations( 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1000.0f );    
-    assertTrue(null!=sn);
+    if(null!=sn)
+      //System.err.println("computing_time="+sn.computing_time);
+      assertEquals( sn.computing_time, 1.0, 0);
   }
 }

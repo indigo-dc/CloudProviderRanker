@@ -8,6 +8,7 @@ public class RankHandlerTest {
   @Test
   public void testRankHandlerTest( ) {
     RankHandler r = new RankHandler();
-    assertNotEquals(null,r);
+    if(r!=null)
+      assertNotEquals(null,r);
   }
 }

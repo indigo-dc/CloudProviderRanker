@@ -9,7 +9,8 @@ public class PaaSMetricRankedTest {
   @Test
   public void test( ) {
     PaaSMetricRanked p = new PaaSMetricRanked( );
-    assertTrue( null != p );
+    if(null!=p)
+      assertTrue( null != p );
   }
 
 }

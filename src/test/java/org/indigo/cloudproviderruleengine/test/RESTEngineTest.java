@@ -11,6 +11,7 @@ public class RESTEngineTest {
     RESTEngine re = new RESTEngine( );
     try {
       re.initHttpServer( false, 30000, "", "" );
+      
     } catch(ServerException se) {
       assertEquals("a", "z");
     }

@@ -6,7 +6,8 @@ The CloudProviderRanker follows this protocol to rank the providers coming from 
 
 In the following an example of "preferences":
 
-```"preferences": [{
+```
+"preferences": [{
        "service_type": "compute",
        "priority": [{
           "sla_id": "4401ac5dc8cfbbb737b0a02575ee53f6",
@@ -17,10 +18,12 @@ In the following an example of "preferences":
           "service_id": "4401ac5dc8cfbbb737b0a02575e6f4bc",
           "weight": 0.5
        }]
-     }]```
+     }]
+     ```
     
 In the following an example of "sla":
-```"sla": [{
+```
+"sla": [{
 		"customer": "indigo-dc",
 		"provider": "provider-UPV-GRyCAP",
 		"start_date": "11.01.2016+15:50:00",
@@ -54,7 +57,8 @@ In the following an example of "sla":
 			}]
 		}],
 		"id": "4401ac5dc8cfbbb737b0a02575ee53f6"
-	}]```
+	}]
+    ```
     
 In addition to the SLAs, the JSON can have monitoring information that may be used for the providers' ranking. In the following an example:
 
@@ -137,6 +141,7 @@ To sum up, the java implementation is:
         
 where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>``` (not shown  in the above formula).
         
-### TO BE CONTINUED
+### Monitoring based rank
+[TODO]
 
 

@@ -184,6 +184,7 @@ In the following the content of the normalization file:
   "OCCI_InspectVM_Result":1
 }
 ```
+
 For each metrics of one particular provider, the metricValue fields are normalized  multiplying them by the normalization factor which relates to the metricName (as specified in the ```<PAASMETRIC_NORMALIZATION_FILE>```. Then all the normalized metricValue are added (or subtracted in the case of ```*_Response_time```) to calculate the final rank for the current provider.
 
 

@@ -1,20 +1,24 @@
 # Install and run Cloud Provider Ranker
 
 ## Installation
-The CloudProviderRanker WEB Service is made of a single .jar file containing a Main class which implements the main method. It's about a stand-alone server, so no WEB container (JBOSS, Tomcat, ...) is needed. The WEB server is implemented using the HttpServer Java library (http://goo.gl/QLBjiP). To install the artifact just put it wherever you prefer.
-
+The CloudProviderRanker WEB Service is made of a single .jar file containing a Main class which implements the ```main``` method. It's about a stand-alone server, so no WEB container (JBOSS, Tomcat, ...) is required. The WEB server is implemented using the HttpServer Java library (http://goo.gl/QLBjiP).
+To install the artifact just put it wherever you prefer.
+## Launch the server
 To run the standalone WEB Server just issue the command:
 
 
 ```java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]```
 
-The meaning of the two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
+The meaning of the content of two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
 
 By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server, it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
 
 ```keytool -genkey -alias webservice -keystore <filepath>```
 
 a password will be asked, and must be used in the command line above.
+
+If the ```TCPPORT``` parameter is not specified, the default port will be 8080.
+If the couple of parameters ```KeystoreFile``` and ```password``` are not specified, the server will start listening on plain HTTP, otherwise it will start with HTTPS.
 
 ----------------------------
 ## Testing the server

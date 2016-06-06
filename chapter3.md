@@ -135,7 +135,7 @@ To sum up, the java implementation is:
          sla_rank = ( (total_limit < Double.POSITIVE_INFINITY ? total_limit : infinity_value) + total_guaranteed + (user_limit < Double.POSITIVE_INFINITY ? user_limit : infinity_value) + user_guaranteed
         + (instance_total < Double.POSITIVE_INFINITY ? instance_total : infinity_value ) + instance_guaranteed ) * norm_factor
         
-where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>```.
+where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>``` (not shown  in the above formula).
         
 ### TO BE CONTINUED
 

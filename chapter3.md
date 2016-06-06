@@ -102,7 +102,7 @@ instance_limit
 
 If a ```*_guaranteed``` is missing in the request JSON, it is assumed to be 0. If a ```*_limit``` restriction is missing in the JSON request, it is assumed to be infinity.
 
-Each restriction's value can be prioritized in an input file fed to the CloudProviderRanker when launching it; furthermore the ranker's admin must valorize the "infinity" value, which of course would be not usable as a number. In the following an example of priority file <> (see the "Installation, test and configuration" chapter) for the SLA:
+Each restriction's value can be prioritized in an input file fed to the CloudProviderRanker when launching it; furthermore the ranker's admin must valorize the "infinity" value, which of course would be not usable as a number. In the following an example of priority file ```<SLA_PRIORITY_FILE>``` (see the [Installation, test and configuration](chapter1.md) chapter) for the SLA:
 
 ```
 {
@@ -116,15 +116,26 @@ Each restriction's value can be prioritized in an input file fed to the CloudPro
     "upload_aggregated":1,
     "download_aggregated":1,
     "infinity_value":1000
-}```
+}
+```
 
-Prioritization can be conceived even as a "normalization" factor; the choice is up to the ranker's admin. 
-The only thing to know is that the SLA's rank is calculated in this way:
+Prioritization can be conceived even as a "normalization"; the choice is up to the ranker's admin. 
+The only thing to know is that the SLA's rank, for a single target, is calculated in this way:
 
-```rank = (total_limit + total_guaranteed + user_limit + user_guaranteed
-        + instance_total + instance_guaranteed ) * norm_factor```
+    sla_rank = (total_limit + total_guaranteed + user_limit + user_guaranteed
+        + instance_total + instance_guaranteed ) * norm_factor
         
-and norm_factor is specified by the admin for each kind of target. Remember that _limit is the actual value or the "infinity_value" specified in the SLA prioritization file in case it was missing in the JSON request.
+and ```norm_factor``` is specified by the admin for each kind of target. If a SLA contains multiple targets, all the ```sla_rank``` are added for a final SLA's rank.
+
+Remember that each ```*_limit``` is the actual value specified in the JSON request or the ```infinity_value``` specified in the SLA prioritization file in case it was missing in the JSON request.
+
+To sum up, the java implementation is:
+
+    foreach( Target target : all_sla_targets )
+         sla_rank = ( (total_limit < Double.POSITIVE_INFINITY ? total_limit : infinity_value) + total_guaranteed + (user_limit < Double.POSITIVE_INFINITY ? user_limit : infinity_value) + user_guaranteed
+        + (instance_total < Double.POSITIVE_INFINITY ? instance_total : infinity_value ) + instance_guaranteed ) * norm_factor
+        
+where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>```.
         
 ### TO BE CONTINUED
 

@@ -1,8 +1,8 @@
 # Ranking algorithm
 ## Ranking protocolo overview
 The CloudProviderRanker follows this protocol to rank the providers coming from the orchestrator:
-1. It check if preferences have been specified; if they have, then they have absolute priority over any other provider's status (like monitoring data). 
-2. Otherwise a rank will be calculated for each provider inserted in the "sla" JSON block coming from the orchestrator
+1. It checks if preferences have been specified; if they have, then they have absolute priority over any other provider's status (like monitoring data). 
+2. Otherwise a rank will be calculated for each provider inserted in the "sla" JSON block coming from the orchestrator.
 
 In the following an example of "preferences":
 
@@ -56,9 +56,10 @@ In the following an example of "sla":
 		"id": "4401ac5dc8cfbbb737b0a02575ee53f6"
 	}]```
     
-In addition to the SLA, the JSON can have monitoring information that is used for the providers' ranking. In the following an example:
+In addition to the SLAs, the JSON can have monitoring information that may be used for the providers' ranking. In the following an example:
 
-```"monitoring": [{
+```
+"monitoring": [{
 		"provider": "provider-RECAS-BARI",
 		"metrics": [{
 			"metricName": "OCCI Create VM availability",
@@ -75,8 +76,8 @@ In addition to the SLA, the JSON can have monitoring information that is used fo
         "provider": "..."
         "metrics": [{ ...
         
-        }]```
-   
+        }]
+```   
 
 ---
 
@@ -84,24 +85,27 @@ In addition to the SLA, the JSON can have monitoring information that is used fo
 If preferences are not specified, for each provider the rank is calculated as sum of SLA's rank and a combination of monitoring data.
 
 ### SLA's rank
-Each SLA in the JSON corresponds to one and only one cloud provider to rank.
+Each SLA in the JSON corresponds to **one and only one** cloud provider to rank.
 
 SLA's rank is calculated as sum of its fields specified in this document: https://goo.gl/GZnl8P.
 
-Each SLA can specify multiple type of services, and each type of service can specify an array of targets ("public_ip",  "num_cpu", "computing_time", etc..). Each target's has six restrictions:
+Each SLA can specify multiple type of services, and each type of service can specify an array of targets (```public_ip```, ```num_cpu```, ```computing_time```, etc..). Each target's has six restrictions:
 
-```total_guaranteed,
+```
+total_guaranteed,
 total_limit,
 user_guaranteed,
 user_limit,
 instance_guaranteed,
-instance_limit```
+instance_limit
+```
 
-If a _guaranteed is missing in the request JSON, it is assumed to be 0. If limit is missing in the JSON request, it is assumed to be infinity.
+If a ```*_guaranteed``` is missing in the request JSON, it is assumed to be 0. If a ```*_limit``` restriction is missing in the JSON request, it is assumed to be infinity.
 
-Each restriction's value can be prioritized in an input file fed to the CloudProviderRanker when launching it; furthermore the ranker's admin must valorize the "infinity" value, which of course would be not usable as a number. In the following an example of priority file for the SLA:
+Each restriction's value can be prioritized in an input file fed to the CloudProviderRanker when launching it; furthermore the ranker's admin must valorize the "infinity" value, which of course would be not usable as a number. In the following an example of priority file <> (see the "Installation, test and configuration" chapter) for the SLA:
 
-```{
+```
+{
     "computing_time":0.0166,
     "num_cpus":1,
     "mem_size":1,

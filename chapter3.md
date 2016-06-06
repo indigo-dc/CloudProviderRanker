@@ -163,7 +163,7 @@ Each metrics is a flat structure like this:
             "historyValues": []
         }
 ```
-For each metrics the relevant information is the ```metricValue```. As in the case of the SLAs' target types, for each metricName the Ranker needs to know the normalization factor. All the normalization factors must be specified in a file whose name is a mandatory command line argument when launching the CloudProviderRanker server (see 
+For each metrics the relevant information is the ```metricValue```. As in the case of the SLAs' target types, for each metricName the Ranker needs to know the normalization factor. All the normalization factors must be specified in a file  whose name is a mandatory command line argument when launching the CloudProviderRanker server (see [Installation, test and configuration](chapter1.md))
 [TODO]
 
 

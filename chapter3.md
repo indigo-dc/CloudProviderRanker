@@ -142,6 +142,28 @@ To sum up, the java implementation is:
 where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>``` (not shown  in the above formula).
         
 ### Monitoring based rank
+If the JSON request contains also monitoring data, they are used (together with the SLA information) to vote each cloud provider.
+The monitoring information is an array of couple (```provider```, ```metrics```). The provider must be the same string ID as specified in each SLA. The metrics is in turn an array of status information:
+```
+"monitoring": [{
+        "provider": "provider-RECAS-BARI",
+        "metrics": [...] },
+        ...
+ ```
+Each metrics is a flat structure like this:
+```
+{
+            "metricName": "OCCI Create VM availability",
+            "metricKey": "Cloud_Providers.provider-RECAS-BARI..OCCI Create VM availability",
+            "metricValue": 1.0,
+            "metricTime": "Instant null because no metrics were returned in the last 24hs",
+            "metricUnit": "bit",
+            "paasThresholds": [],
+            "historyClocks": [],
+            "historyValues": []
+        }
+```
+For each metrics the relevant information is the ```metricValue```. As in the case of the SLAs' target types, for each metricName the Ranker needs to know the normalization factor. All the normalization factors must be specified in a file whose name is a mandatory command line argument when launching the CloudProviderRanker server (see 
 [TODO]
 
 

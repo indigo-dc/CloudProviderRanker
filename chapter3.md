@@ -163,7 +163,24 @@ Each metrics is a flat structure like this:
             "historyValues": []
         }
 ```
-For each metrics the relevant information is the ```metricValue```. As in the case of the SLAs' target types, for each metricName the Ranker needs to know the normalization factor. All the normalization factors must be specified in a file  whose name is a mandatory command line argument when launching the CloudProviderRanker server (see [Installation, test and configuration](chapter1.md))
+For each metrics the relevant information is the ```metricValue```. As in the case of the SLAs' target types, for each ```metricName``` the Ranker needs to know the normalization factor. All the normalization factors must be specified in a file (```<PAASMETRIC_NORMALIZATION_FILE>```) whose name is a mandatory command line argument when launching the CloudProviderRanker server (see [Installation, test and configuration](chapter1.md)).
+In the following the content of the normalization file:
+```
+{
+  "OCCI_Create_VM_availability":1,
+  "OCCI_CreateVM_Response_Time":0.001,
+  "OCCI_CreateVM_Result":1,
+  "OCCI_Delete_VM_Availability":1,
+  "OCCI_DeleteVM_Response_Time":0.001,
+  "OCCI_DeleteVM_Result":1,
+  "General_OCCI_API_Availability":1,
+  "General_OCCI_API_Response_Time":0.001,
+  "General_OCCI_API_Result":1,
+  "OCCI_Inspect_VM_availability":1,
+  "OCCI_InspectVM_Response_Time":0.001,
+  "OCCI_InspectVM_Result":1
+}
+```
 [TODO]
 
 

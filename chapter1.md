@@ -6,14 +6,13 @@ To install the artifact just put it wherever you prefer.
 ## Launch the server
 To run the standalone WEB Server just issue the command:
 
-
-```java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]```
+    java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]
 
 The meaning of the content of two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
 
 By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server, it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
 
-```keytool -genkey -alias webservice -keystore <filepath>```
+    keytool -genkey -alias webservice -keystore <filepath>
 
 a password will be asked, and must be used in the command line above.
 
@@ -299,7 +298,7 @@ To test the server at the client side just use ```cURL``` to send a POST request
 
 You'll receive an output like this:
 
-```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}} ```
+    ```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}} ```
 
 In the case of a JSON syntax error, the exception is reported to the client:
 

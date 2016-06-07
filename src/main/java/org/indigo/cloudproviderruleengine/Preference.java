@@ -38,10 +38,7 @@ public class Preference {
       String service_type = prefJsonObj.get("service_type").getAsString( );
       //String id           = prefJsonObj.get("id").getAsString( );
       Preference prf = new Preference( service_type, "", priorities );
-      if(preferences==null)
-        System.err.println("preferences NULL!!!");
-      else
-        preferences.add( prf );
+      preferences.add( prf );
     }
     return preferences;
   }

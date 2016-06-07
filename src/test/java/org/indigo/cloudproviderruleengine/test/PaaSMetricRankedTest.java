@@ -41,7 +41,9 @@ public class PaaSMetricRankedTest {
 	  //JsonObject 
 	  result = PaaSMetricRanked.fromJsonArray( array );
       }
-      
+      //System.err.println(result.get("provider-RECAS-BARI"));
+      String checkString = "[rank=-0.010000001,providerName=,metricName=OCCI CreateVM Response Time,metricKey=Cloud_Providers.provider-RECAS-BARI..OCCI CreateVM Response Time,metricValue=10.0,metricTime=Instant null because no metrics were returned in the last 24hs,metricUnit=ms,paasThresholds=[],historyClocks=[],historyValues=[]]]";
+      assertTrue( result.get("provider-RECAS-BARI").toString().endsWith(checkString) );
     }
   }
 

@@ -33,6 +33,7 @@ public class ServiceTest {
     if(S!=null) {
       assertTrue(S.type.compareTo("type")==0);
     }
+    assertTrue(S.toString( ).compareTo("") != 0);
     //String checkString="service_id=id, type=type, targets=[type=type, unit=unit, restritions={total_limit=10.0, total_guaranteed=1, instance_guaranteed=1, instance_limit=100.0,user_guaranteed=1, user_limit=5.0}]";
     //if(null!=S)
     //  assertTrue( S.targets.get(0).type.compareTo("type") == 0 );

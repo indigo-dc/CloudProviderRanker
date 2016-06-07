@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class PaaSMetricRanked extends PaaSMetric {
-	private float  rank = (float)0.0;
+	private float  rank = 0.0f;
 	private String providerName = "";
 	
 	/**
@@ -56,9 +56,9 @@ public class PaaSMetricRanked extends PaaSMetric {
     	        Line += line;
     	      }
    	    } catch(Exception e) {
-	      paaSMetricNormalization = new PaaSMetricNormalization(1,(float)0.001,1,1,(float)0.001,1,1,(float)0.001,1,1,(float)0.001,1);
+	      paaSMetricNormalization = new PaaSMetricNormalization(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
    	    } catch(Throwable t) {
-              paaSMetricNormalization = new PaaSMetricNormalization(1,(float)0.001,1,1,(float)0.001,1,1,(float)0.001,1,1,(float)0.001,1);
+              paaSMetricNormalization = new PaaSMetricNormalization(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
    	    }
 	  }
 	  Gson gson = new Gson();

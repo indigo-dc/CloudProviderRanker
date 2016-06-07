@@ -7,6 +7,7 @@ import org.indigo.cloudproviderruleengine.Sla;
 import org.indigo.cloudproviderruleengine.Service;
 import org.indigo.cloudproviderruleengine.Target;
 import org.indigo.cloudproviderruleengine.Restrictions;
+import org.indigo.cloudproviderruleengine.SlaNormalizations;
 
 public class SlaTest {
   @Test
@@ -40,7 +41,9 @@ public class SlaTest {
       assertTrue(S.type.compareTo("type")==0);
       
     s.add(S);
-    //Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
+    SlaNormalizations.priority_file = "sla_priorities.json";
+    Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
+    sla.reloadPriorityFile( );
     //System.err.println(s);
     //String checkString="id=id, customer=customer, provider=provider, start_date=start_date, end_date=end_date, services={service_id=id, type=type, targets=[type=type, unit=unit, restritions={total_limit=10.0, total_guaranteed=1, instance_guaranteed=1, instance_limit=100.0,user_guaranteed=1, user_limit=5.0}]}";
     //String output = s.toString( );

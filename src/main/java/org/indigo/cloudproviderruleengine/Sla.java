@@ -7,17 +7,19 @@ import com.google.gson.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Sla {
-  public String    	    id;
-  public String    	    customer;
-  public String    	    provider;
-  public String    	    start_date;
-  public String    	    end_date;
-  public ArrayList<Service> services;
-  public SlaNormalizations  slaNormalizations;
-  public float              rank;
-  private float 	    infinity_value;
+  public  String    	     id;
+  public  String    	     customer;
+  public  String    	     provider;
+  public  String    	     start_date;
+  public  String    	     end_date;
+  public  ArrayList<Service> services;
+  public  SlaNormalizations  slaNormalizations;
+  public  float              rank;
+  private float 	     infinity_value;
   
   /**
+   *
+   *
    *
    */
   public Sla( String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services ) {

@@ -34,10 +34,20 @@ import org.kie.api.runtime.StatelessKieSession;
 public class RankHandler implements HttpHandler {
     
     private String clientHostName = "";
-    
+    //HttpExchange httpExchange = null;
+ 
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */   
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-	
+	//this.httpExchange = _httpExchange;
 	if(httpExchange.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
 	    String response = "API \"rank\" only supports POST method";
 	    httpExchange.sendResponseHeaders(405, response.getBytes().length);
@@ -48,23 +58,44 @@ public class RankHandler implements HttpHandler {
 	}
 	
 	clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
-	
-	ArrayList<Preference> preferences = new ArrayList<Preference>();
-	
+	String Line = "";
 	try {
 	    InputStream is = httpExchange.getRequestBody();
 	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
 	    BufferedReader buffReader = new BufferedReader(inputReader);
-	    String Line = "";
 	    String line = "";
 	    while( (line = buffReader.readLine()) != null) {
        		Line += line;
 	    }
+	} catch(IOException ioe) {
+
+	}
+
+	String responseToClient = parseRequest( Line );
+	httpExchange.sendResponseHeaders(400, responseToClient.getBytes().length);
+	OutputStream os = httpExchange.getResponseBody();
+	os.write(responseToClient.getBytes());
+	os.close();
+	//e.printStackTrace();
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    public String parseRequest( String Line ) {
+	ArrayList<Preference> preferences = new ArrayList<Preference>();
+	try{
 	    
 	    Gson gson = new Gson();
 	    JsonElement E = gson.fromJson(Line, JsonElement.class);
 	    JsonObject obj = E.getAsJsonObject( );
-	     
+	    
 	    boolean specified_preferences = false, specified_sla = false;
 	    
 	    //
@@ -76,7 +107,7 @@ public class RankHandler implements HttpHandler {
 	        specified_preferences = true;
 		preferences = Preference.fromJsonObject( obj );
 	    }
-	
+	    
 	    Service[] services = null;
 	    ArrayList<Sla> SLAs = null;
 	    
@@ -150,16 +181,16 @@ public class RankHandler implements HttpHandler {
 	        rcp_vec.add( gson.toJson(rcp) );
 	      }
 	      
-	      String response = "[" + String.join(",", rcp_vec) + "]";
-	      
-	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
-	      Headers responseHeaders = httpExchange.getResponseHeaders();
-	      responseHeaders.set("Content-Type", "application/json");
- 	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
- 	      OutputStream os = httpExchange.getResponseBody();
- 	      os.write(response.getBytes());
- 	      os.close();
- 	      return;
+	      return "[" + String.join(",", rcp_vec) + "]";
+	      //	      return response;
+// 	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
+// 	      Headers responseHeaders = httpExchange.getResponseHeaders();
+// 	      responseHeaders.set("Content-Type", "application/json");
+//  	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
+//  	      OutputStream os = httpExchange.getResponseBody();
+//  	      os.write(response.getBytes());
+//  	      os.close();
+//  	      return;
 	    }
 	    
 	    HashMap<String, ArrayList<PaaSMetricRanked>> paasMetricRanked = null;
@@ -203,30 +234,33 @@ public class RankHandler implements HttpHandler {
  	      respVec.add(json);
 	    }
 	    
-	    String response = "{" + String.join("," , respVec)  + "}";
- 	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
- 	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
- 	    OutputStream os = httpExchange.getResponseBody( );
- 	    os.write( response.getBytes() );
- 	    os.close( );
- 	    return;
+	    return "{" + String.join("," , respVec)  + "}";
+// 	    String response = "{" + String.join("," , respVec)  + "}";
+//  	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
+//  	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
+//  	    OutputStream os = httpExchange.getResponseBody( );
+//  	    os.write( response.getBytes() );
+//  	    os.close( );
+//  	    return;
 	    
 	} catch(Exception e) {
-	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
-	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
-	    OutputStream os = httpExchange.getResponseBody();
-	    os.write(err.getBytes());
-	    os.close();
-	    e.printStackTrace();
-	    return;
+	    return "Exception parsing JSON client request: " + e.getMessage() + "\n";
+// 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
+// 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
+// 	    OutputStream os = httpExchange.getResponseBody();
+// 	    os.write(err.getBytes());
+// 	    os.close();
+// 	    e.printStackTrace();
+// 	    return;
 	} catch(Throwable e) {
-	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
-	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
-	    OutputStream os = httpExchange.getResponseBody();
-	    os.write(err.getBytes());
-	    os.close();
-	    e.printStackTrace();
-	    return;
+	    return "Throwable parsing JSON client request: " + e.getMessage() + "\n";
+// 	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
+// 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
+// 	    OutputStream os = httpExchange.getResponseBody();
+// 	    os.write(err.getBytes());
+// 	    os.close();
+// 	    e.printStackTrace();
+// 	    return;
 	}
     }
 }

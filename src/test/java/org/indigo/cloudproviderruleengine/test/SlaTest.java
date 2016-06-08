@@ -19,36 +19,46 @@ public class SlaTest {
     r.instance_guaranteed = 1;
     r.user_limit = 5;
     r.user_guaranteed = 1;
-    
+
     if(r!=null)
       assertTrue(r.total_limit==10);
-     
-    ArrayList<Target> t = new ArrayList<Target>();
-    Target T = new Target();
-    T.type = "type";
-    T.unit = "unit";
-    T.restrictions = r;
-    t.add(T);
     
-    if(T!=null)
-      assertTrue(T.type.compareTo("type")==0);   
+    ArrayList<String> targetTypes = new ArrayList<String>();
+    targetTypes.add( "public_ip" );
+    targetTypes.add( "computing_time" );
+    targetTypes.add( "num_cpus" );
+    targetTypes.add( "mem_size" );
+    targetTypes.add( "disk_size" );
+    targetTypes.add( "upload_bandwidth" );
+    targetTypes.add( "download_bandwidth" );
+    targetTypes.add( "upload_aggregated" );
+    targetTypes.add( "download_aggregated" );    
+
+    for(String type : targetTypes) {
+
+	ArrayList<Target> t = new ArrayList<Target>();
+	Target T = new Target();
+	T.type = type;
+	T.unit = "unit";
+	T.restrictions = r;
+	t.add(T);
+    
+	if(T!=null)
+	    assertTrue(T.type.compareTo("")!=0);   
        
-    //Service S = new Service();
-    ArrayList<Service> s = new ArrayList<Service>( );
-    
-    Service S = new Service("id", "type", t);
-    if(S!=null)
-      assertTrue(S.type.compareTo("type")==0);
-      
-    s.add(S);
-    SlaNormalizations.priority_file = "sla_priorities.json";
-    Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
-    sla.reloadPriorityFile( );
-    //System.err.println(s);
-    //String checkString="id=id, customer=customer, provider=provider, start_date=start_date, end_date=end_date, services={service_id=id, type=type, targets=[type=type, unit=unit, restritions={total_limit=10.0, total_guaranteed=1, instance_guaranteed=1, instance_limit=100.0,user_guaranteed=1, user_limit=5.0}]}";
-    //String output = s.toString( );
-    //System.err.println(checkString);
-    //System.err.println("Compare result="+s.toString( ).compareTo(checkString));
-    //assertTrue( null != s );
+	//Service S = new Service();
+	ArrayList<Service> s = new ArrayList<Service>( );
+	
+	Service S = new Service("id", "type", t);
+	if(S!=null)
+	    assertTrue(S.type.compareTo("type")==0);
+	
+	s.add(S);
+	SlaNormalizations.priority_file = "sla_priorities.json";
+	//sla.reloadPriorityFile( );
+	Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
+	sla.reloadPriorityFile( );
+	assertTrue( sla.toString().compareTo("") != 0);
+    }
   }
 }

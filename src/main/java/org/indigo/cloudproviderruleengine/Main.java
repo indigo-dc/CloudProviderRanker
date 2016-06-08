@@ -43,7 +43,7 @@
 	  System.err.println(se.getMessage( ) );
 	  System.exit(1);
 	}
-	re.addHandlerToContext("/version", new VersionHandler());
+	//re.addHandlerToContext("/version", new VersionHandler());
 	re.addHandlerToContext("/rank", new RankHandler());
 //	re.addHandlerToContext("/checkprovider", new CheckProviderHandler());
 	re.startServer( );

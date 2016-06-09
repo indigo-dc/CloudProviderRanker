@@ -34,7 +34,7 @@ public class PaaSMetricRankedTest {
       HashMap<String, ArrayList<PaaSMetricRanked>> result = null;
       for(String type : metricNames ) {
 	  jsonTest = "[{\"provider\": \"provider-RECAS-BARI\",\"metrics\": [{\"metricName\": \"" + type + "\",\"metricKey\":\"Cloud_Providers.provider-RECAS-BARI..OCCI Create VM availability\",\"metricValue\": 1.0,\"metricTime\": \"Instant null because no metrics were returned in the last 24hs\",\"metricUnit\": \"bit\",\"paasThresholds\": [],\"historyClocks\": [],\"historyValues\": []}, {\"metricName\": \"OCCI CreateVM Response Time\",\"metricKey\":\"Cloud_Providers.provider-RECAS-BARI..OCCI CreateVM Response Time\",\"metricValue\": 10.0,\"metricTime\":\"Instant null because no metrics were returned in the last 24hs\",\"metricUnit\": \"ms\",\"paasThresholds\": [],\"historyClocks\": [],\"historyValues\": []}]}]";
-	  //PaaSMetricRanked.normalization_file = "paasmetric_normalization.json";
+	  PaaSMetricRanked.normalization_file = "paasmetric_normalization.json";
 	  
 	  JsonElement jsonElement = parser.parse( jsonTest );
 	  JsonArray array = jsonElement.getAsJsonArray( );
@@ -44,7 +44,7 @@ public class PaaSMetricRankedTest {
       //System.err.println(result.get("provider-RECAS-BARI"));
       String checkString = "[rank=-0.010000001,providerName=,metricName=OCCI CreateVM Response Time,metricKey=Cloud_Providers.provider-RECAS-BARI..OCCI CreateVM Response Time,metricValue=10.0,metricTime=Instant null because no metrics were returned in the last 24hs,metricUnit=ms,paasThresholds=[],historyClocks=[],historyValues=[]]]";
       assertTrue( result.get("provider-RECAS-BARI").toString().endsWith(checkString) );
+      
     }
   }
-
 }

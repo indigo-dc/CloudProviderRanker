@@ -32,7 +32,7 @@ import java.security.KeyManagementException;
  */
 public class RESTEngine {
 
-    private HttpServer	server       = null;
+    private HttpServer server = null;
     
     
     
@@ -60,6 +60,7 @@ public class RESTEngine {
 	    } catch (IOException e) {
 	    	throw new ServerException("Error in HttpServer.create: " + e.getMessage( ) );
 	    }
+	    
 	} else {
 
 	    // Use: keytool -genkey -alias webservice -keystore server_keystore.ks

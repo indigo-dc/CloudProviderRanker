@@ -54,13 +54,13 @@ public class Preference {
    
      ArrayList<Priority> priorities = new ArrayList<Priority>();
      for(int i = 0; i < array.size( ); i++) {
-       try {
+       //try {
  	 priorities.add( (new GsonBuilder().create()).fromJson(array.get( i ).getAsJsonObject(), Priority.class) );
-       } catch(Exception e) {
-	 System.err.println("Exception: " + e.getMessage());
-       } catch(Throwable t) {
-	 System.err.println("Throwable: " + t.getMessage());
-       }
+       //} catch(Exception e) {
+	// System.err.println("Exception: " + e.getMessage());
+       //} catch(Throwable t) {
+	// System.err.println("Throwable: " + t.getMessage());
+       //}
      }
      
      return priorities;

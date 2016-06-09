@@ -32,6 +32,8 @@ public class Sla {
     this.slaNormalizations = SlaNormalizations.fromFile( );
     this.rank              = 0.0f;
     
+    
+    
     for( Target t : services.get(0).targets ) {
       
       float normalization_factor = 0.0f;
@@ -86,9 +88,11 @@ public class Sla {
     JsonArray SLAS = obj.get("sla").getAsJsonArray( );
     ArrayList<Service> services = new ArrayList<Service>();
     ArrayList<Sla> SLAs = new ArrayList<Sla>();
+    
     for(int i=0; i < SLAS.size( ); ++i) {
       JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
       services = parseService( currentSLA );
+      //System.err.println("Adding SLA");
       SLAs.add( new Sla( currentSLA.get("id").getAsString(),
      	 		 currentSLA.get("customer").getAsString(),
       			 currentSLA.get("provider").getAsString(),

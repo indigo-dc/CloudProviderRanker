@@ -117,9 +117,14 @@ public class RankHandler implements HttpHandler {
 	    //
 	    //
 	    if( obj.has("sla") ) {
+	      //System.err.println("SLA Present!");
 	      specified_sla = true;
 	      SLAs = Sla.fromJsonObject( obj );
+	      //System.err.println("SLA PARSED!");
 	    }
+	    
+	    System.err.println("SLA#="+SLAs.size());
+	    
 // 	    KieServices kieServices      = KieServices.Factory.get( );
 // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
 // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession( );

@@ -28,5 +28,6 @@ public class PreferenceTest {
     ArrayList<Preference> preferences = Preference.fromJsonObject( obj );
     assertTrue(null!=preferences);
     assertTrue(preferences.get(0).toString( ).compareTo("")!=0);
+    
   }
 }

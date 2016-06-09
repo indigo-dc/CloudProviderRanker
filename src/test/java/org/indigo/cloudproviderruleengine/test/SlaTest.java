@@ -8,6 +8,8 @@ import org.indigo.cloudproviderruleengine.Service;
 import org.indigo.cloudproviderruleengine.Target;
 import org.indigo.cloudproviderruleengine.Restrictions;
 import org.indigo.cloudproviderruleengine.SlaNormalizations;
+import com.google.gson.*;
+
 
 public class SlaTest {
   @Test
@@ -55,10 +57,16 @@ public class SlaTest {
 	
 	s.add(S);
 	SlaNormalizations.priority_file = "sla_priorities.json";
-	//sla.reloadPriorityFile( );
 	Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
 	sla.reloadPriorityFile( );
 	assertTrue( sla.toString().compareTo("") != 0);
+/*
+  	String slaTestString = "{\"sla\":[{\"customer\":\"customer1\", \"provider\":\"provider1\",\"id\":\"1\",\"services\":[{\"type\":\"compute\",\"service_id\":\"1\",\"targets\": [{\"type\":\"computing_time\",\"unit\":\"h\", \"restrictions\": {}}]}]}]}";
+	JsonParser parser = new JsonParser();
+	JsonElement jsonElement = parser.parse( slaTestString );
+        JsonObject obj = jsonElement.getAsJsonObject( );
+        SlaNormalizations.priority_file = "sla_priorities.json";
+ 	ArrayList<Sla> _slas = Sla.fromJsonObject( obj );	*/
     }
   }
 }

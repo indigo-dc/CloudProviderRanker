@@ -34,7 +34,6 @@ import org.kie.api.runtime.StatelessKieSession;
 public class RankHandler implements HttpHandler {
     
     private String clientHostName = "";
-    //HttpExchange httpExchange = null;
  
     /**
      *
@@ -47,7 +46,6 @@ public class RankHandler implements HttpHandler {
      */   
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-	//this.httpExchange = _httpExchange;
 	if(httpExchange.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
 	    String response = "API \"rank\" only supports POST method";
 	    httpExchange.sendResponseHeaders(405, response.getBytes().length);
@@ -75,10 +73,10 @@ public class RankHandler implements HttpHandler {
  	Headers responseHeaders = httpExchange.getResponseHeaders();
 	responseHeaders.set("Content-Type", "application/json");
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
+	System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
 	OutputStream os = httpExchange.getResponseBody();
 	os.write(responseToClient.getMessage().getBytes());
 	os.close();
-	//e.printStackTrace();
     }
 
     /**
@@ -119,13 +117,9 @@ public class RankHandler implements HttpHandler {
 	    //
 	    //
 	    if( obj.has("sla") ) {
-	      //System.err.println("SLA Present!");
 	      specified_sla = true;
 	      SLAs = Sla.fromJsonObject( obj );
-	      //System.err.println("SLA PARSED!");
 	    }
-	    
-	    //System.err.println("SLA#="+SLAs.size());
 	    
 // 	    KieServices kieServices      = KieServices.Factory.get( );
 // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
@@ -137,12 +131,7 @@ public class RankHandler implements HttpHandler {
 	    // Concatenate all preferences' priorities and sort them basing on the weight
 	    //
 	    //
-	    /* Test with: curl -k -X POST -d \
-	     '{"preferences":[{"service_type":"compute","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f6","service_id":"4401ac5dc8cfbbb7a02575e8040f","weight":0.1},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b58","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","weight":0.9}],"id":"4401ac5dc8cfbbb737b0a02575ee0e55"},{"service_type":"storage","priority":[{"sla_id":"4401ac5dc8cfbbb737b0a02575ee53f7","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","weight":0.7},{"sla_id":"4401ac5dc8cfbbb737b0a02575ee3b60","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bd","weight":0.4}],"id":"4401ac5dc8cfbbb737b0a02575ee0e59"}],"sla":[{"customer":"indigo-demo","provider":"provider-UPV-GRyCAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b58"},{"customer":"indigo-demo","provider":"provider-PADOVA-CAP","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e6f4bc","targets":[{"type":"public_ip","unit":"none","restrictions":{"total_limit":100,"total_guaranteed":10}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee3b60"},{"customer":"indigo-demo","provider":"provider-RECAS-BARI","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f6"},{"customer":"indigo-demo","provider":"provider-RECAS-TORINO","start_date":"11.01.2016+15:50:00","end_date":"11.02.2016+15:50:00","services":[{"type":"compute","service_id":"4401ac5dc8cfbbb737b0a02575e8040f","targets":[{"type":"computing_time","unit":"h","restrictions":{"total_guaranteed":200}}]}],"id":"4401ac5dc8cfbbb737b0a02575ee53f7"}]}'\
-	     http://localhost:8443/rank
-  	    */
-	    // see http://pastebin.com/TnRWU2cj for pretty formatted version
-	    
+	    //
 	    ArrayList<Priority> all_priorities = new ArrayList<Priority>();
 	    if(specified_preferences) {
 	      for (int i = 0; i < preferences.size(); ++i) {
@@ -166,7 +155,6 @@ public class RankHandler implements HttpHandler {
 	      providerToSLAMap.put( sla.provider, sla );
 	    }
 	    
-	    
 	    //
 	    //
 	    // If preferences are specified, order the providers basing on the priorities and return them to the client
@@ -189,15 +177,6 @@ public class RankHandler implements HttpHandler {
 	      }
 	      
 	      return new ParseResult("[" + String.join(",", rcp_vec) + "]", 200);
-	      //	      return response;
-// 	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
-// 	      Headers responseHeaders = httpExchange.getResponseHeaders();
-// 	      responseHeaders.set("Content-Type", "application/json");
-//  	      httpExchange.sendResponseHeaders(200, response.getBytes().length);
-//  	      OutputStream os = httpExchange.getResponseBody();
-//  	      os.write(response.getBytes());
-//  	      os.close();
-//  	      return;
 	    }
 	    
 	    HashMap<String, ArrayList<PaaSMetricRanked>> paasMetricRanked = null;
@@ -206,14 +185,6 @@ public class RankHandler implements HttpHandler {
 	    }
 	    
 	    Set<String> providers = paasMetricRanked.keySet( );
-// 	    for( String provider : providers ) {
-//  	      //String provider = it.next( );
-//  	      System.err.println("Provider[" + provider + "]");
-// 	      System.err.println("    Provider SLA rank=" + providerToSLAMap.get( provider ).rank );
-//  	      for( PaaSMetricRanked P : paasMetricRanked.get(provider) ) {
-//  		System.err.println("    " + P );
-//    	      } 
-//  	    }
 	    
 // 	    KieServices kieServices      = KieServices.Factory.get( );
 // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
@@ -235,39 +206,17 @@ public class RankHandler implements HttpHandler {
 	    // Iterate over rankedCloudProviders and build up 
 	    // a JSON response
 	    //
+	    //
 	    Vector<String> respVec = new Vector<String>();
 	    for( RankedCloudProvider rcp : rankedCloudProviders ) {
 	      String json = gson.toJson( rcp/*it.next()*/);
  	      respVec.add(json);
 	    }
-	    
 	    return  new ParseResult("{" + String.join("," , respVec)  + "}", 200);
-// 	    String response = "{" + String.join("," , respVec)  + "}";
-//  	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
-//  	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
-//  	    OutputStream os = httpExchange.getResponseBody( );
-//  	    os.write( response.getBytes() );
-//  	    os.close( );
-//  	    return;
-	    
 	} catch(Exception e) {
 	    return new ParseResult("Exception parsing JSON client request: " + e.getMessage() + "\n", 400);
-// 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
-// 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
-// 	    OutputStream os = httpExchange.getResponseBody();
-// 	    os.write(err.getBytes());
-// 	    os.close();
-// 	    e.printStackTrace();
-// 	    return;
 	} catch(Throwable e) {
 	    return new ParseResult("Throwable parsing JSON client request: " + e.getMessage() + "\n", 400);
-// 	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
-// 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
-// 	    OutputStream os = httpExchange.getResponseBody();
-// 	    os.write(err.getBytes());
-// 	    os.close();
-// 	    e.printStackTrace();
-// 	    return;
 	}
     }
 }

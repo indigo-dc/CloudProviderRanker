@@ -72,7 +72,7 @@ public class RankHandler implements HttpHandler {
 	}
 
 	String responseToClient = parseRequest( Line );
-	httpExchange.sendResponseHeaders(400, responseToClient.getBytes().length);
+	httpExchange.sendResponseHeaders(200, responseToClient.getBytes().length);
 	OutputStream os = httpExchange.getResponseBody();
 	os.write(responseToClient.getBytes());
 	os.close();

@@ -71,10 +71,10 @@ public class RankHandler implements HttpHandler {
 
 	}
 
-	String responseToClient = parseRequest( Line );
-	httpExchange.sendResponseHeaders(200, responseToClient.getBytes().length);
+	ParseResult responseToClient = parseRequest( Line );
+	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
 	OutputStream os = httpExchange.getResponseBody();
-	os.write(responseToClient.getBytes());
+	os.write(responseToClient.getMessage().getBytes());
 	os.close();
 	//e.printStackTrace();
     }
@@ -88,7 +88,7 @@ public class RankHandler implements HttpHandler {
      *
      *
      */
-    public String parseRequest( String Line ) {
+    public ParseResult parseRequest( String Line ) {
 	ArrayList<Preference> preferences = new ArrayList<Preference>();
 	try{
 	    
@@ -186,7 +186,7 @@ public class RankHandler implements HttpHandler {
 	        rcp_vec.add( gson.toJson(rcp) );
 	      }
 	      
-	      return "[" + String.join(",", rcp_vec) + "]";
+	      return new ParseResult("[" + String.join(",", rcp_vec) + "]", 200);
 	      //	      return response;
 // 	      System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n");
 // 	      Headers responseHeaders = httpExchange.getResponseHeaders();
@@ -239,7 +239,7 @@ public class RankHandler implements HttpHandler {
  	      respVec.add(json);
 	    }
 	    
-	    return "{" + String.join("," , respVec)  + "}";
+	    return  new ParseResult("{" + String.join("," , respVec)  + "}", 200);
 // 	    String response = "{" + String.join("," , respVec)  + "}";
 //  	    System.err.println( "[" + clientHostName + "] Returning ranked provider to the client: "+ response + "\n\n" );
 //  	    httpExchange.sendResponseHeaders( 200, response.getBytes().length );
@@ -249,7 +249,7 @@ public class RankHandler implements HttpHandler {
 //  	    return;
 	    
 	} catch(Exception e) {
-	    return "Exception parsing JSON client request: " + e.getMessage() + "\n";
+	    return new ParseResult("Exception parsing JSON client request: " + e.getMessage() + "\n", 400);
 // 	    String err = "Exception parsing JSON client request: " + e.getMessage() + "\n";
 // 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
 // 	    OutputStream os = httpExchange.getResponseBody();
@@ -258,7 +258,7 @@ public class RankHandler implements HttpHandler {
 // 	    e.printStackTrace();
 // 	    return;
 	} catch(Throwable e) {
-	    return "Throwable parsing JSON client request: " + e.getMessage() + "\n";
+	    return new ParseResult("Throwable parsing JSON client request: " + e.getMessage() + "\n", 400);
 // 	    String err = "Throwable parsing JSON client request: " + e.getMessage() + "\n";
 // 	    httpExchange.sendResponseHeaders(400, err.getBytes().length);
 // 	    OutputStream os = httpExchange.getResponseBody();

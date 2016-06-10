@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.Iterator;
 import java.util.HashMap;
+
+import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -68,14 +70,17 @@ public class RankHandler implements HttpHandler {
 	} catch(IOException ioe) {
 
 	}
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	System.err.println(timeStamp + " [" + clientHostName + "] New request from this client... ");
 
 	ParseResult responseToClient = parseRequest( Line );
  	Headers responseHeaders = httpExchange.getResponseHeaders();
 	responseHeaders.set("Content-Type", "application/json");
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
-	System.err.println("[" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
+	timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	System.err.println(timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
 	OutputStream os = httpExchange.getResponseBody();
-	os.write(responseToClient.getMessage().getBytes());
+	os.write( responseToClient.getMessage().getBytes() );
 	os.close();
     }
 

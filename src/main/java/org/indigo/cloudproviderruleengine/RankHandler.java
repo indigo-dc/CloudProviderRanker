@@ -123,7 +123,7 @@ public class RankHandler implements HttpHandler {
 	      //System.err.println("SLA PARSED!");
 	    }
 	    
-	    System.err.println("SLA#="+SLAs.size());
+	    //System.err.println("SLA#="+SLAs.size());
 	    
 // 	    KieServices kieServices      = KieServices.Factory.get( );
 // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );

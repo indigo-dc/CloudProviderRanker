@@ -72,6 +72,8 @@ public class RankHandler implements HttpHandler {
 	}
 
 	ParseResult responseToClient = parseRequest( Line );
+ 	Headers responseHeaders = httpExchange.getResponseHeaders();
+	responseHeaders.set("Content-Type", "application/json");
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
 	OutputStream os = httpExchange.getResponseBody();
 	os.write(responseToClient.getMessage().getBytes());

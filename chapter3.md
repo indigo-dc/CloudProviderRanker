@@ -1,5 +1,5 @@
 # Ranking algorithm
-## Ranking protocolo overview
+## Ranking protocol overview
 The CloudProviderRanker follows this protocol to rank the providers coming from the orchestrator:
 1. It checks if preferences have been specified; if they have, then they have absolute priority over any other provider's status (like monitoring data). 
 2. Otherwise a rank will be calculated for each provider inserted in the "sla" JSON block coming from the orchestrator.
@@ -123,7 +123,7 @@ Each restriction's value can be prioritized in an input file fed to the CloudPro
 }
 ```
 
-Prioritization can be conceived even as a "normalization"; the choice is up to the ranker's admin. 
+Prioritization can be conceived even as a "normalization"; the choice is up to the ranker's admin.
 The only thing to know is that the SLA's rank, for a single target, is calculated in this way:
 
     sla_rank = (total_limit + total_guaranteed + user_limit + user_guaranteed
@@ -135,9 +135,8 @@ Remember that each ```*_limit``` is the actual value specified in the JSON reque
 
 To sum up, the java implementation is:
 
-    foreach( Target target : all_sla_targets )
-         sla_rank = ( (total_limit < Double.POSITIVE_INFINITY ? total_limit : infinity_value) + total_guaranteed + (user_limit < Double.POSITIVE_INFINITY ? user_limit : infinity_value) + user_guaranteed
-        + (instance_total < Double.POSITIVE_INFINITY ? instance_total : infinity_value ) + instance_guaranteed ) * norm_factor
+    for( Target target : all_sla_targets )
+         sla_rank = ( (total_limit < Double.POSITIVE_INFINITY ? total_limit : infinity_value) + total_guaranteed + (user_limit < Double.POSITIVE_INFINITY ? user_limit : infinity_value) + user_guaranteed + (instance_total < Double.POSITIVE_INFINITY ? instance_total : infinity_value ) + instance_guaranteed ) * norm_factor
         
 where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>``` (not shown  in the above formula).
         

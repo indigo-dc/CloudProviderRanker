@@ -1,69 +1,71 @@
-Summary: Ranker for Clour Providers
-Name: CloudProviderRanker
-Version: %{extversion}
-Release: %{extage}.%{extdist}
-License: ASL 2.0
-Vendor: Indigo
-URL: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/
-Group: Applications/Internet
-BuildArch: %{_arch}
-Requires: maven
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
-BuildRequires: %{!?extbuilddir: /usr/share/java/cpr/, } maven
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-AutoReqProv: yes
-Source: %{name}-%{version}-%{release}.tar.gz
+# Comments start with hash sign. Caution: macros in comments are still
+ # expanded, which can lead to unexpected results. To stop macro from expanding,
+ # double its percent sign (e.g. %%mvn_install)
 
-%global debug_package %{nil}
+ # First part usually consists of metadata such as package name, version, and
+ # much more
+Name: CloudProviderRanker
+Version: 0.3.0
+Release: 0%{?dist}
+Summary: This is a minimal spec file example
+
+License: GPLv2+
+# Homepage URL of the project
+URL: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content
+
+# Our source archive. %{name} expands to 'helloworld' so the resulting
+# tarball name would be 'helloworld.tar.gz'.
+Source0: /home/centos/%{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-${version}-%{release}-root-%(%{__id_u} -n)
+#Prefix: /usr/share/java/cpr
+
+# Packages that contain only architecture independent files, such as shell
+# scripts or regular Java programs (not JNI libraries), should be marked as 'noarch'
+BuildArch: noarch
+
+# Project's build time dependency. We don't really need JUnit, it just
+# serves as and example
+BuildRequires: maven
+BuildRequires: junit
+BuildRequires: java-1.8.0-openjdk-devel
+BuildRequires: coreutils
+
+Provides: cloudprovider-ranker = %{version}
 
 %description
-Ranker for Clour Providers
+Ranker for Clour Providers selected by Indigo's Orchestrator
 
 %prep
- 
-
-%setup -c -q
+# section for preparation of sources, applying patches
+# or other things which can be done before running the build
+# The macro setup is used to unpack sources
+#%setup -q
 
 %build
-%{!?extbuilddir:%define extbuilddir "--"}
-if test "x%{extbuilddir}" == "x--" ; then
-  mvn site
-  mvn compile
-  mvn package
-  mvn install
-fi
+# Section for compiling and generally assembling the final pieces.
+# Our Makefile builds the project JAR file
+#make {?_smp_flags}
+mvn -DskipTests -U package
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}
-%{!?extbuilddir:%define extbuilddir "--"}
-if test "x%{extbuilddir}" == "x--" ; then
-  mvn install
-  cp target/CloudProviderRanker-0.3.0-SNAPSHOT-jar-with-dependencies.jar /usr/share/java/cpr/
-else
-  cp -R %{extbuilddir}/* %{buildroot}
-fi
-export QA_SKIP_BUILD_ROOT=yes
+# Installation into directory prepared by RPM expressed as %{buildroot}
+rm -rf $RPM_BUILD_ROOT
+install -p -m 644 sla_priorities.json $RPM_BUILD_ROOT%{_javadir}
+install -p -m 644 paasmetric_normalization.json $RPM_BUILD_ROOT%{_javadir}
+install -p -m 644 CloudProviderRanker-jar-with-dependencies.jar $RPM_BUILD_ROOT%{_javadir}
+
+# We use macro %jpackage_script to generate wrapper script for our JAR
+# Will be explained in later sections
+#%jpackage_script org.fedoraproject.helloworld.HelloWorld "" "" %{name} helloworld true
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
-%post 
-/sbin/chkconfig --add glite-wms-ice
 
-%preun
-if [ $1 -eq 0 ] ; then
-    /sbin/service glite-wms-ice stop >/dev/null 2>&1
-    /sbin/chkconfig --del glite-wms-ice
-fi
+# List of files that this package installs on the system
+#%files
+#%{_javadir}/CloudProviderRanker-0.3.0-SNAPSHOT-jar-with-dependencies.jar
+#%{_javadir}/sla_priorities.json
+#%{_javadir}/paasmetric_normalization.json
+# %{_bindir}/helloworld
 
-%files
-%defattr(-,root,root)
-/etc/rc.d/init.d/glite-wms-ice
-/usr/share/java/cpr/CloudProviderRanker-0.3.0-SNAPSHOT-jar-with-dependencies.jar
-
-%changelog
-* %{extcdate} Alvise Dorigo <dorigoa@pd.infn.it> - %{extversion}-%{extage}.%{extdist}
-- %{extclog}

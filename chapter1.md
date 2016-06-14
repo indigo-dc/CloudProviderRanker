@@ -6,7 +6,7 @@ To install the artifact just put it wherever you prefer.
 ## Launch the server
 To run the standalone WEB Server just issue the command:
 
-    java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-[VERSION]-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]
+    java -cp [YOUR_PREFERRED_PATH]/CloudProviderRanker-jar-with-dependencies.jar org.indigo.cloudproviderruleengine.Main <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]
 
 The meaning of the content of two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
 

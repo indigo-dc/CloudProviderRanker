@@ -6,7 +6,7 @@ pid_file=/var/run/CloudProviderRanker.pid
 logfile=/var/log/CloudProviderRanker.log
 jar_name=CloudProviderRanker-jar-with-dependencies.jar
 jar_path=/usr/share/java/cpr
-class_name=org.indigo.cloudproviderruleengine.Main
+class_name=org.indigo.cloudproviderranker.Main
 
 
 running()

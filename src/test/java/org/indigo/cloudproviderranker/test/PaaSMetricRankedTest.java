@@ -1,9 +1,9 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.PaaSMetricRanked;
+import org.indigo.cloudproviderranker.PaaSMetricRanked;
 import com.google.gson.*;
 import java.util.HashMap;
 import java.util.ArrayList;

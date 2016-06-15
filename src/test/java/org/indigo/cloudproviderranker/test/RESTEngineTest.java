@@ -1,9 +1,9 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.RESTEngine;
-import org.indigo.cloudproviderruleengine.ServerException;
+import org.indigo.cloudproviderranker.RESTEngine;
+import org.indigo.cloudproviderranker.ServerException;
 
 public class RESTEngineTest {
   @Test

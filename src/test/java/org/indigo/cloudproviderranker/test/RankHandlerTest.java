@@ -1,9 +1,9 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.RankHandler;
-import org.indigo.cloudproviderruleengine.ParseResult;
+import org.indigo.cloudproviderranker.RankHandler;
+import org.indigo.cloudproviderranker.ParseResult;
 
 public class RankHandlerTest {
   @Test

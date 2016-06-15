@@ -1,4 +1,4 @@
-package org.indigo.cloudproviderruleengine;
+package org.indigo.cloudproviderranker;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

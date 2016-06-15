@@ -1,9 +1,9 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.SlaNormalizations;
+import org.indigo.cloudproviderranker.SlaNormalizations;
 
 public class SlaNormalizationsTest {
   @Test

@@ -1,13 +1,13 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.Sla;
-import org.indigo.cloudproviderruleengine.Service;
-import org.indigo.cloudproviderruleengine.Target;
-import org.indigo.cloudproviderruleengine.Restrictions;
-import org.indigo.cloudproviderruleengine.SlaNormalizations;
+import org.indigo.cloudproviderranker.Sla;
+import org.indigo.cloudproviderranker.Service;
+import org.indigo.cloudproviderranker.Target;
+import org.indigo.cloudproviderranker.Restrictions;
+import org.indigo.cloudproviderranker.SlaNormalizations;
 import com.google.gson.*;
 
 

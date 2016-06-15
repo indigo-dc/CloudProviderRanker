@@ -1,8 +1,8 @@
-package org.indigo.cloudproviderruleengine.test;
+package org.indigo.cloudproviderranker.test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.indigo.cloudproviderruleengine.Priority;
+import org.indigo.cloudproviderranker.Priority;
 
 public class PriorityTest {
   @Test

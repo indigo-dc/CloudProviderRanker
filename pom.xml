@@ -135,7 +135,9 @@
 
 
 
-
+<!--
+	DOC HERE: http://www.mojohaus.org/rpm-maven-plugin/index.html
+-->
 
 
       <plugin>
@@ -217,14 +219,22 @@
             </mapping>
 
           </mappings>
+
           <preinstallScriptlet>
             <script>echo "Installing Cloud Provider Ranker..."</script>
           </preinstallScriptlet>
-         <postinstallScriptlet>
-            <script>mv /usr/share/java/cpr/cloudproviderranker /etc/init.d/</script>
-            <script>/etc/init.d/cloudproviderranker stop</script>
- 	    <script>/etc/init.d/cloudproviderranker start</script>
+       
+	  <postinstallScriptlet>
+            <script>cp /usr/share/java/cpr/cloudproviderranker /etc/init.d/; /etc/init.d/cloudproviderranker stop; /etc/init.d/cloudproviderranker start</script>
           </postinstallScriptlet>
+
+          <preremoveScriptlet>
+	    <script>/etc/init.d/cloudproviderranker stop</script>
+          </preremoveScriptlet>
+
+	  <postremoveScriptlet>
+	    <script>rm -f /etc/init.d/cloudproviderranker</script>
+	  </postremoveScriptlet>
 
         </configuration>
       </plugin>

@@ -1,4 +1,4 @@
-package org.indigo.cloudproviderruleengine;
+ package org.indigo.cloudproviderranker;
 
 public class ParseResult {
   private String messageJson;

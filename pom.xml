@@ -44,7 +44,15 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-    
+
+<!--    
+    <dependency>
+      <groupId>net.sf.debian-maven</groupId>
+      <artifactId>debian-maven-plugin</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+-->
+
     <dependency>
       <groupId>it.reply</groupId>
       <artifactId>monitoring-pillar-domain</artifactId>
@@ -136,6 +144,7 @@
 
 
 <!--
+        Included plugin to generate RPM when launching "mvn package"
 	DOC HERE: http://www.mojohaus.org/rpm-maven-plugin/index.html
 -->
 
@@ -157,8 +166,6 @@
           <distribution>Indigo-dc</distribution>
          <group>Application/WebServers</group>
           <packager>Alvise Dorigo [dorigoa@pd.infn.it]</packager>
-<!--          <prefix>/usr/local</prefix> -->
-<!--          <changelogFile>src/changelog</changelogFile> -->
           <defineStatements>
             <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
           </defineStatements>
@@ -238,6 +245,8 @@
 
         </configuration>
       </plugin>
+
+
 
 
 

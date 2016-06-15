@@ -1,4 +1,4 @@
-package org.indigo.cloudproviderruleengine;
+ package org.indigo.cloudproviderranker;
 
 import java.util.List;
 import java.util.ArrayList;

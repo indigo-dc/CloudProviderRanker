@@ -1,4 +1,4 @@
- package org.indigo.cloudproviderruleengine;
+ package org.indigo.cloudproviderranker;
  
  import java.util.Map;
  
@@ -18,14 +18,13 @@
 	  System.err.println("Must specify at least the SLA priority file as first argument and monitoring normalization file as second argument");
 	  System.exit(1);
 	}
-	
-//	String sla_priority_file = args[0];
 
 	SlaNormalizations.priority_file = args[0];
 	PaaSMetricRanked.normalization_file = args[1];
 
-	if(args.length>2)
+	if(args.length>2) {
 	    TCPPORT = Integer.parseInt( args[2] );
+	}	
 	if(args.length>=4 && args.length <5) {
 	    System.err.println("If a keystore path is specified then must specify also a password. STOP!");
 	    System.exit(1);
@@ -43,9 +42,7 @@
 	  System.err.println(se.getMessage( ) );
 	  System.exit(1);
 	}
-	//re.addHandlerToContext("/version", new VersionHandler());
 	re.addHandlerToContext("/rank", new RankHandler());
-//	re.addHandlerToContext("/checkprovider", new CheckProviderHandler());
 	re.startServer( );
 	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
     }

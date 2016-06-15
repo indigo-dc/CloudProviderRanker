@@ -1,4 +1,4 @@
-package org.indigo.cloudproviderruleengine;
+ package org.indigo.cloudproviderranker;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Target {

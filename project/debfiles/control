@@ -7,6 +7,6 @@ Standards-Version:  3.9.1
 Homepage: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/
 Package: cloudproviderranker
 Version: 0.3.0
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Architecture: noarch
+Depends: 
 Description: An Indigo ranker rest web service for cloud providers

@@ -7,6 +7,7 @@ Standards-Version:  3.9.1
 Homepage: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/
 Package: cloudproviderranker
 Version: 0.3.0
-Architecture: noarch
-Depends: 
+Architecture: all
+Depends: jdk (>= 1.8)
 Description: An Indigo ranker rest web service for cloud providers
+Depends: default-jre | java8-runtime

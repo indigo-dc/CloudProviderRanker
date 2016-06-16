@@ -326,14 +326,44 @@
             </goals>
             <configuration>
               <dataSet>
+
                 <data>
                   <src>${project.build.directory}/CloudProviderRanker-jar-with-dependencies.jar</src>
                   <type>file</type>
                   <mapper>
                     <type>perm</type>
-                    <prefix>/usr/share/jdeb/lib</prefix>
+                    <prefix>/usr/share/java/cpr/</prefix>
                   </mapper>
                 </data>
+
+                <data>
+                  <src>${project.build.directory}/../sla_priorities.json</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/usr/share/java/cpr/</prefix>
+                  </mapper>
+                </data>
+
+                <data>
+                  <src>${project.build.directory}/../paasmetric_normalization.json</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/usr/share/java/cpr/</prefix>
+                  </mapper>
+                </data>
+
+                <data>
+                  <src>${project.build.directory}/../project/cloudproviderranker</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/etc/init.d/</prefix>
+		    <filemode>755</filemode>
+                  </mapper>
+                </data>
+
               </dataSet>
             </configuration>
           </execution>

@@ -1,14 +1,11 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
  
- import java.util.Map;
+import java.util.Map;
  
- public class Main {
-
-    public static final void main(String[] args) {
-    	
+public class Main {
+    public static final void main(String[] args) {    	
 	Map<String, String> env = System.getenv();
 	String home = env.get("HOME");
-
 	int TCPPORT = 8080;
 	boolean usessl = false;
 	String keystorepath = null;

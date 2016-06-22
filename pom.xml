@@ -13,6 +13,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+<!--
+  <settings>
+    <activeProfiles>
+      <activeProfile>packaging</activeProfile>
+    </activeProfiles>
+  </settings>
+
+  <profiles>
+    <profile>
+      <activation>
+        <jdk>1.4</jdk>
+      </activation>
+   </profile>
+  </profiles>
+-->
     <distributionManagement>
     <!-- Publish versioned releases here -->
     <repository>
@@ -97,34 +112,7 @@
   <build>
   <finalName>${artifactId}</finalName>
   <plugins>
-<!--
-    <plugin>
-	<configuration><controlDir>${basedir}/project/debfiles</controlDir></configuration>
-        <artifactId>jdeb</artifactId>
-        <groupId>org.vafer</groupId>
-        <version>1.5</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jdeb</goal>
-            </goals>
-            <configuration>
-              <dataSet>
-                <data>
-                  <src>${project.build.directory}/CloudProviderRanker-jar-with-dependencies.jar</src>
-                  <type>file</type>
-                  <mapper>
-                    <type>perm</type>
-                    <prefix>/usr/share/jdeb/lib</prefix>
-                  </mapper>
-                </data>
-              </dataSet>
-            </configuration>
-          </execution>
-        </executions>
-    </plugin>
--->
+
 	<plugin>
 	  <groupId>org.apache.maven.plugins</groupId>
 	  <artifactId>maven-compiler-plugin</artifactId>
@@ -154,7 +142,7 @@
             <executions>
                 <execution>
                     <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                    <phase>package</phase> <!--  bind to the packaging phase -->
+                    <phase>compile</phase> <!--  bind to the packaging phase -->
                     <goals>
                         <goal>single</goal>
                     </goals>
@@ -182,14 +170,17 @@
         <version>2.1.5</version>
 	
         <executions>
+   
           <execution>
             <id>generate-rpm</id>
             <goals>
               <goal>rpm</goal>
             </goals>
+<!--            <phase>package</phase> -->
           </execution>
         </executions>
         <configuration>
+	  <skip>${maven.exec.skip}</skip>
 	  <name>CloudProviderRanker</name>
 	  <workarea>target</workarea>
           <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses) </license>
@@ -321,7 +312,7 @@
 	
         <executions>
           <execution>
-            <phase>package</phase>
+<!--            <phase>package</phase> -->
             <goals>
               <goal>jdeb</goal>
             </goals>

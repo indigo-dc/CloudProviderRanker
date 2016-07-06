@@ -3,6 +3,9 @@
 import java.util.List;
 import java.util.ArrayList;
 import com.google.gson.*;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -32,8 +35,13 @@ public class Sla {
     this.slaNormalizations = SlaNormalizations.fromFile( );
     this.rank              = 0.0f;
     
-    
-    
+    KieServices kieServices = KieServices.Factory.get();
+    KieContainer kContainer = kieServices.getKieClasspathContainer();
+    KieSession ksession = kContainer.newKieSession();
+    ksession.insert( this );
+    int totRules = ksession.fireAllRules( );
+    ksession.dispose( );
+
     for( Target t : services.get(0).targets ) {
       
       float normalization_factor = 0.0f;

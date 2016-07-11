@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/java -jar /root/CloudProviderRanker-jar-with-dependencies.jar /root/sla_priorities.json /root/paasmetric_normalization.json 7443 >> /var/log/CloudProviderRanker.log 2>&1 &

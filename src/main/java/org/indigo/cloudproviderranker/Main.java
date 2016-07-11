@@ -1,9 +1,14 @@
 package org.indigo.cloudproviderranker;
  
 import java.util.Map;
- 
+import java.util.logging.Logger;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.Level;
+import java.io.IOException;
+
 public class Main {
-    public static final void main(String[] args) {    	
+    public static final void main(String[] args) throws IOException {    	
 	Map<String, String> env = System.getenv();
 	String home = env.get("HOME");
 	int TCPPORT = 8080;
@@ -41,6 +46,17 @@ public class Main {
 	}
 	re.addHandlerToContext("/rank", new RankHandler());
 	re.startServer( );
-	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
+
+	Logger rootLogger = Logger.getLogger(""); 
+	FileHandler logHandler = new FileHandler("/var/log/CloudProviderRanker.log", 
+                             						     10*1024*1024, 
+                            						     10, 
+									     false);
+
+	logHandler.setFormatter(new SimpleFormatter()); 
+	logHandler.setLevel(Level.FINEST); 
+	rootLogger.addHandler(logHandler);
+	rootLogger.log(Level.INFO, "HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
+//	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
     }
 }

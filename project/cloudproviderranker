@@ -6,7 +6,7 @@ pid_file=/var/run/CloudProviderRanker.pid
 logfile=/var/log/CloudProviderRanker.log
 jar_name=CloudProviderRanker-jar-with-dependencies.jar
 jar_path=/usr/share/java/cpr
-class_name=org.indigo.cloudproviderranker.Main
+#class_name=org.indigo.cloudproviderranker.Main
 
 
 running()
@@ -33,8 +33,8 @@ start()
         rm -f ${pid_file}
 	touch ${pid_file}
 	touch ${logfile}
-	cmd="su root -c \"${java_path} -cp ${jar_path}/${jar_name} ${class_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &\""
-	su root -c "${java_path} -cp ${jar_path}/${jar_name} ${class_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &"
+#	cmd="su root -c \"${java_path} -cp ${jar_path}/${jar_name} ${class_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &\""
+	su root -c "${java_path} -jar ${jar_path}/${jar_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &"
 	sleep 2
 	local pid=`ps -ef|grep ${java_name}|grep CloudProviderRanker|awk '{print $2}'`
 	echo $pid > ${pid_file}

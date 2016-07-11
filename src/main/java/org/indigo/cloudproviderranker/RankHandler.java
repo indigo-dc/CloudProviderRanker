@@ -19,6 +19,10 @@ import java.io.OutputStream;
 import java.util.Hashtable;
 import java.util.Collections;
 
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import com.google.gson.*;
 
 //import org.kie.api.KieServices;
@@ -71,14 +75,15 @@ public class RankHandler implements HttpHandler {
 
 	}
 	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	System.err.println(timeStamp + " [" + clientHostName + "] New request from this client... ");
-
+	//System.err.println(timeStamp + " [" + clientHostName + "] New request from this client... ");
+	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request from this client... "); 
 	ParseResult responseToClient = parseRequest( Line );
  	Headers responseHeaders = httpExchange.getResponseHeaders();
 	responseHeaders.set("Content-Type", "application/json");
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
 	timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	System.err.println(timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
+	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n"); 
+	//System.err.println(timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
 	OutputStream os = httpExchange.getResponseBody();
 	os.write( responseToClient.getMessage().getBytes() );
 	os.close();

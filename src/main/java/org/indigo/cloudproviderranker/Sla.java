@@ -7,6 +7,11 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import java.text.SimpleDateFormat;
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Sla {
@@ -35,12 +40,12 @@ public class Sla {
     this.slaNormalizations = SlaNormalizations.fromFile( );
     this.rank              = 0.0f;
     
-    KieServices kieServices = KieServices.Factory.get();
-    KieContainer kContainer = kieServices.getKieClasspathContainer();
-    KieSession ksession = kContainer.newKieSession();
-    ksession.insert( this );
-    int totRules = ksession.fireAllRules( );
-    ksession.dispose( );
+//    KieServices kieServices = KieServices.Factory.get();
+  //  KieContainer kContainer = kieServices.getKieClasspathContainer();
+   // KieSession ksession = kContainer.newKieSession();
+    //ksession.insert( this );
+    //int totRules = ksession.fireAllRules( );
+    //ksession.dispose( );
 
     for( Target t : services.get(0).targets ) {
       
@@ -124,13 +129,19 @@ public class Sla {
      for(int i = 0; i < Services.size( ); i++) {
        try {
          JsonObject obj = Services.get( i ).getAsJsonObject();
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	//Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Processing Service " + obj.toString()+"\n" ); 
          //System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
 	 ArrayList<Target> targets = parseTarget( obj ); 
 	 services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
        } catch(Exception e) {
-	 System.err.println("Exception: " + e.getMessage());
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
+	 //System.err.println("Exception: " + e.getMessage());
        } catch(Throwable t) {
-	 System.err.println("Throwable: " + t.getMessage());
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
+	 //System.err.println("Throwable: " + t.getMessage());
        }
      }
      return services;

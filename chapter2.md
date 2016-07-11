@@ -1,5 +1,5 @@
-# Building a Docker container
-To build a docker image which can spawn a container running the server, you have to build CloudProviderRanker before, by issuing the command
+# Building and run a Docker container
+To build a docker image which can spawn a container running the server, you have to build CloudProviderRanker before, by issuing the command:
 
 	mvn compile
 
@@ -9,7 +9,7 @@ then issue the command:
 
 To run the container:
 
-	docker run -t -d -p 7443:7443 -p 8443:8443 <IMAGE_NAME>
+	run --name CloudProviderRanker -p 8443:7443 -t -d -i <IMAGE_NAME> /usr/bin/java -jar /root/CloudProviderRanker-jar-with-dependencies.jar /root/sla_priorities.json /root/paasmetric_normalization.json 7443
 
-To change the TCP port used inside the container edit the file ```Dockerfile``` in the ```EXPOSE``` section.
+The files '''/root/sla_priorities.json''' and '''/root/sla_priorities.json''' should be customized before the build phase.
 

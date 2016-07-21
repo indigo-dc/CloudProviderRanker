@@ -5,9 +5,11 @@
 
   <groupId>cloudproviderranker</groupId>
   <artifactId>CloudProviderRanker</artifactId>
-  <version>0.4.0-SNAPSHOT</version>
+  <version>0.4.1-SNAPSHOT</version>
 
   <properties>
+<!--    <hostName>myhostname.com</hostName>
+    <programName>Cloud Provider Ranker</programName> -->
     <droolsVersion>6.4.0.Final</droolsVersion>
     <monitoring.pillar.domain.version>1.8.0-FINAL</monitoring.pillar.domain.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -102,9 +104,13 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12</version>
         <configuration>
+	  <environmentVariables>
+   	    <versionName>0.4</versionName>
+	  </environmentVariables>
           <systemPropertyVariables>
             <xml.test.config.file>${project.build.directory}/myconfig.xml</xml.test.config.file>
             <log4j.output.file>${project.build.directory}/testsuite.log</log4j.output.file>
+	    <environment>0.4</environment>
           </systemPropertyVariables>
         </configuration>
 	</plugin>

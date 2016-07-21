@@ -56,7 +56,7 @@ public class Main {
 	logHandler.setFormatter(new SimpleFormatter()); 
 	logHandler.setLevel(Level.FINEST); 
 	rootLogger.addHandler(logHandler);
-	rootLogger.log(Level.INFO, "HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
+	rootLogger.log(Level.INFO, "Cloud Provider Ranker is listening on TCP port "+TCPPORT+" with " + (usessl ? "SSL" : "plain") + " HTTP protocol \n");
 //	System.out.println("HTTP" + (usessl ? "S" : "") + " Server is listening on port "+TCPPORT+"\n");
     }
 }

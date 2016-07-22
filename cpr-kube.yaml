@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cpr
+spec:
+  containers:
+  - name: cpr
+    image: indigodatacloud/cloudproviderranker
+    args: ["/usr/bin/java", "-jar", "/root/CloudProviderRanker-jar-with-dependencies.jar", "/root/sla_priorities.json", "/root/paasmetric_normalization.json", "8080" ]
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: cpr
+spec:
+  replicas: 1
+  selector:
+    name: cpr
+  template:
+    metadata:
+      labels:
+        name: cpr
+    spec:
+      containers:
+      - name: im
+        image: indigodatacloud/cloudproviderranker
+        args: ["/usr/bin/java", "-jar", "/root/CloudProviderRanker-jar-with-dependencies.jar", "/root/sla_priorities.json", "/root/paasmetric_normalization.json", "8080" ]
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cpr
+  labels:
+    name: cpr
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    nodePort: 31359
+  selector:
+    name: cpr
+

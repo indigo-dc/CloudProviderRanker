@@ -21,7 +21,7 @@ If the couple of parameters ```KeystoreFile``` and ```password``` are not specif
 
 ----------------------------
 ## Testing the server
-To test the server at the client side just use ```cURL``` to send a POST request with additional payload data:
+To test the server (which responds at the address ```http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank```) at the client side just use ```cURL``` or Postaman to send a POST request with the following payload data (body):
 ```
 {
 	"preferences": [{

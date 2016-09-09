@@ -1,1 +1,1 @@
-https://www.gitbook.com/book/alvise72/cloudproviderranker/details
+https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/

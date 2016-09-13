@@ -13,3 +13,9 @@ To run the container:
 
 The files ```/root/sla_priorities.json``` and ```/root/paasmetric_normalization.json``` should be customized before the build phase.
 
+# Run container from DockerHub
+The container can be pulled from the central Docker Hub:
+```
+docker pull indigodatacloud/cloudproviderranker
+```
+and then run as explained above.

@@ -293,7 +293,7 @@
             </goals>
             <configuration>
 	      <verbose>true</verbose>
-              <deb>${project.build.directory}/${artifactId}-${version}_all.deb</deb>
+              <deb>${project.build.directory}/${artifactId}-${version}-1_all.deb</deb>
               <dataSet>
 
                 <data>

@@ -287,11 +287,13 @@
 	
         <executions>
           <execution>
+	    <phase>package</phase>
             <goals>
               <goal>jdeb</goal>
             </goals>
             <configuration>
-              <deb>${project.build.directory}/${artifactId}-${version}.deb</deb>
+	      <verbose>true</verbose>
+              <deb>${project.build.directory}/${artifactId}-${version}_all.deb</deb>
               <dataSet>
 
                 <data>

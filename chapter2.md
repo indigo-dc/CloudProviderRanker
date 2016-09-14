@@ -53,7 +53,7 @@ Install the rpm/deb package as usual:
 yum install CloudProviderRanker
 ```
 ```
-apt-get install CloudProviderRanker
+apt-get install cloudproviderranker
 ```
 The RPM should automatically invoke the start script (which is located in `/etc/init.d/cloudproviderranker`). In Ubuntu the admin should invoke it manually:
 ```

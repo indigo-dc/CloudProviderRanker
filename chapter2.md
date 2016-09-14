@@ -47,3 +47,15 @@ In the case of a JSON syntax error, the exception is reported to the client:
 
 ```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 8 path $```
 
+## Installing the RPM/DEB packages and launch the CloudProviderRanker
+Install the rpm/deb package as usual:
+```
+yum install CloudProviderRanker
+```
+```
+apt-get install CloudProviderRanker
+```
+The RPM should automatically invoke the start script (which is located in `/etc/init.d/cloudproviderranker`). In Ubuntu the admin should invoke it manually:
+```
+/etc/init.d/cloudproviderranker start
+```

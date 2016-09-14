@@ -1,6 +1,7 @@
 # Build from source
 
-To build the JAR artifact, you need JDK, Maven and Git installed on your desktop. 
+To build the JAR artifact, you need JDK, Maven and Git installed on your system. 
+
 First Step - Download the code from GIT:
 * git clone git@github.com:indigo-dc/CloudProviderRanker.git
 

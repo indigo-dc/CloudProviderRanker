@@ -59,3 +59,5 @@ The RPM should automatically invoke the start script (which is located in `/etc/
 ```
 /etc/init.d/cloudproviderranker start
 ```
+The start/stop script set the service listening on port 8443 (without opening an SSL socket, but a plain one).
+The the port 8443 should be exposed to, at least, the host running the Orchestrator.

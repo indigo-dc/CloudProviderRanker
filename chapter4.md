@@ -91,7 +91,7 @@ If preferences are not specified, for each provider the rank is calculated as su
 ### SLA's rank
 Each SLA in the JSON corresponds to **one and only one** cloud provider to rank.
 
-SLA's rank is calculated as sum of its fields specified in this document: https://goo.gl/GZnl8P.
+SLA's rank is calculated as sum of its fields specified in this document: https://indigo-dc.gitbooks.io/slam/content/rest.html .
 
 Each SLA can specify multiple type of services, and each type of service can specify an array of targets (```public_ip```, ```num_cpu```, ```computing_time```, etc..). Each target's has six restrictions:
 

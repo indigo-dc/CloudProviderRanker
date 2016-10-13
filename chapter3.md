@@ -13,8 +13,8 @@ To run the container:
 
 The sources of the parameter files ```/root/sla_priorities.json``` and ```/root/paasmetric_normalization.json``` should be customized before the build phase; those sources can be found in the cloned git repo:
 
-* CloudProviderRanker/paasmetric_normalization.json
-* CloudProviderRanker/sla_priorities.json
+* ```CloudProviderRanker/paasmetric_normalization.json```
+* ```CloudProviderRanker/sla_priorities.json```
 
 
 # Run container from DockerHub

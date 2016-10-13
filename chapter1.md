@@ -4,9 +4,10 @@ To build the JAR artifact, you need JDK, Maven and Git installed on your system.
 
 First Step - Download the code from GIT:
 * git clone git@github.com:indigo-dc/CloudProviderRanker.git
+* cd CloudProviderRanker
+* git checkout tags/v0.4.2-1
 
 Second Step - Produce the JAR
-* cd CloudProviderRanker
 * mvn compile
 
 The artifact is written in the `target/` subdirectory:

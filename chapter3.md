@@ -22,4 +22,5 @@ The container can be pulled from the central Docker Hub:
 ```
 docker pull indigodatacloud/cloudproviderranker
 ```
-and then run as explained above.
+
+and then run as explained above.Consider that the image retrieved from the Dockerhub has embedded normalization files which cannot be customized.

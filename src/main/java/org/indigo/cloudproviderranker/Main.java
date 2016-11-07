@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class Main {
     public static final void main(String[] args) throws IOException {    	
-	Map<String, String> env = System.getenv();
-	String home = env.get("HOME");
+	//Map<String, String> env = System.getenv();
+	//String home = env.get("HOME");
 	int TCPPORT = 8080;
 	boolean usessl = false;
 	String keystorepath = null;
@@ -22,7 +22,7 @@ public class Main {
 	}
 
 	SlaNormalizations.priority_file = args[0];
-	PaaSMetricRanked.normalization_file = args[1];
+	PaaSMetricNormalization.normalization_file = args[1];
 
 	if(args.length>2) {
 	    TCPPORT = Integer.parseInt( args[2] );

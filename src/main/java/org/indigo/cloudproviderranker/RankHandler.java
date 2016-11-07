@@ -75,7 +75,7 @@ public class RankHandler implements HttpHandler {
 
 	}
 	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	//System.err.println(timeStamp + " [" + clientHostName + "] New request from this client... ");
+
 	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request from this client... "); 
 	ParseResult responseToClient = parseRequest( Line );
  	Headers responseHeaders = httpExchange.getResponseHeaders();
@@ -83,7 +83,7 @@ public class RankHandler implements HttpHandler {
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
 	timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
 	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n"); 
-	//System.err.println(timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n");
+	
 	OutputStream os = httpExchange.getResponseBody();
 	os.write( responseToClient.getMessage().getBytes() );
 	os.close();
@@ -191,7 +191,7 @@ public class RankHandler implements HttpHandler {
 	    
 	    HashMap<String, ArrayList<PaaSMetricRanked>> paasMetricRanked = null;
 	    if(obj.has("monitoring")) {
-	      paasMetricRanked = PaaSMetricRanked.fromJsonArray( obj.getAsJsonArray("monitoring") );
+	      paasMetricRanked = (new PaaSMetricRanked()).fromJsonArray( obj.getAsJsonArray("monitoring") );
 	    }
 	    
 	    Set<String> providers = paasMetricRanked.keySet( );
@@ -205,6 +205,7 @@ public class RankHandler implements HttpHandler {
 	      RankedCloudProvider rcp = new RankedCloudProvider( provider, 0.0f, true, "" );
 	      for(Iterator<PaaSMetricRanked> jt = paasMetricRanked.get(provider).iterator( ); jt.hasNext( ); ) {
 	        PaaSMetricRanked p = jt.next( );
+		p.setClientIP( clientHostName );
 	        rcp.addToRank( p.getRank( ) );
 	      }
 	      rcp.addToRank( providerToSLAMap.get( provider ).rank );
@@ -219,10 +220,10 @@ public class RankHandler implements HttpHandler {
 	    //
 	    Vector<String> respVec = new Vector<String>();
 	    for( RankedCloudProvider rcp : rankedCloudProviders ) {
-	      String json = gson.toJson( rcp/*it.next()*/);
+	      String json = gson.toJson( rcp);
  	      respVec.add(json);
 	    }
-	    return  new ParseResult("{" + String.join("," , respVec)  + "}", 200);
+	    return  new ParseResult("[" + String.join("," , respVec)  + "]", 200);
 	} catch(Exception e) {
 	    return new ParseResult("Exception parsing JSON client request: " + e.getMessage() + "\n", 400);
 	} catch(Throwable e) {

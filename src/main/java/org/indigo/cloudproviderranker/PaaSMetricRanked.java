@@ -4,23 +4,26 @@ import it.reply.monitoringpillar.domain.dsl.monitoring.pillar.wrapper.paas.PaaSM
 import com.google.gson.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.io.FileInputStream;
+/*import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
+import java.io.InputStreamReader;*/
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class PaaSMetricRanked extends PaaSMetric {
 	private float  rank = 0.0f;
 	private String providerName = "";
-	
+	private String clientHostName = "";
+
 	/**
 	 *
 	 *
 	 */
-	public static String normalization_file = null;
+        public void setClientIP( String ip ) {
+          clientHostName = ip;
+        }
 	
 	/**
 	 *
@@ -38,10 +41,10 @@ public class PaaSMetricRanked extends PaaSMetric {
 	 *
 	 *
 	 */
-	public static HashMap<String, ArrayList<PaaSMetricRanked>> fromJsonArray( JsonArray array ) {
- 	  String Line = "";
-	  PaaSMetricNormalization paaSMetricNormalization = null;
-	  if(normalization_file != null) {
+	public HashMap<String, ArrayList<PaaSMetricRanked>> fromJsonArray( JsonArray array ) {
+ 	  
+	  PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization();
+/*	  if(normalization_file != null) {
 	    InputStream is = null;
     	    
     	    try {
@@ -50,7 +53,6 @@ public class PaaSMetricRanked extends PaaSMetric {
     
 	      InputStreamReader inputReader = new InputStreamReader(is);
      	      BufferedReader buffReader     = new BufferedReader(inputReader);
-    	      //String Line = "";
     	      String line = "";
     	      while( (line = buffReader.readLine()) != null) {
     	        Line += line;
@@ -64,7 +66,10 @@ public class PaaSMetricRanked extends PaaSMetric {
 	  Gson gson = new Gson();
    	  JsonElement E = gson.fromJson(Line, JsonElement.class);
 	  
-	  paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
+	  paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class); */
+
+	  paaSMetricNormalization.updateFromFile( );
+	  //paaSMetricNormalization.toCustomFile( clientHostName );
 	  
 	  HashMap<String, ArrayList<PaaSMetricRanked>> providerMonitor = new HashMap<String, ArrayList<PaaSMetricRanked>>();
 	  for( int i = 0; i< array.size(); ++i ) { // loop over the array monitoring[]
@@ -75,76 +80,55 @@ public class PaaSMetricRanked extends PaaSMetric {
 	      
 	      JsonObject currentMetricJsonObject = metricsArray.get( j ).getAsJsonObject();
 	      
-	      //System.err.println("METRIC="+currentMetricJsonObject.getAsString( ) );
-	      
 	      PaaSMetricRanked paaSMetricRanked = (PaaSMetricRanked)(new GsonBuilder().create()).fromJson(currentMetricJsonObject, PaaSMetricRanked.class);
 	      
-	      //System.err.println(" ****  PaaSMetricRanked=" +paaSMetricRanked);
-	      
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI Create VM availability")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Create_VM_availability );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Create_VM_availability );
 	      }
 	      
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI CreateVM Response Time")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_CreateVM_Response_Time );
 	        paaSMetricRanked.addToRank( 0 - paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_CreateVM_Response_Time );
 	      }
 	      
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI CreateVM Result")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_CreateVM_Result );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_CreateVM_Result );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI Delete VM Availability")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Delete_VM_Availability );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Delete_VM_Availability );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI DeleteVM Response Time")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_DeleteVM_Response_Time );
 	        paaSMetricRanked.addToRank( 0 - paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_DeleteVM_Response_Time );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI DeleteVM Result")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_DeleteVM_Result );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_DeleteVM_Result );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("General OCCI API Availability")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Availability );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Availability );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("General OCCI API Response Time")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Response_Time );
 	        paaSMetricRanked.addToRank( 0 - paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Response_Time );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("General OCCI API Result")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Result );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.General_OCCI_API_Result );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI Inspect VM availability")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Inspect_VM_availability );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_Inspect_VM_availability );
 	      }
 	      
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI InspectVM Response Time")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_InspectVM_Response_Time );
 	        paaSMetricRanked.addToRank( 0 - paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_InspectVM_Response_Time );
 	      }
 	    
 	      if(paaSMetricRanked.getMetricName().compareTo("OCCI InspectVM Result")==0) {
-	        //paaSMetricRanked.setMetricValue( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_InspectVM_Result );
 	        paaSMetricRanked.addToRank( paaSMetricRanked.getMetricValue() * paaSMetricNormalization.OCCI_InspectVM_Result );
 	      }
-	    
-	      //System.err.println(" ****  PaaSMetricRanked=" +paaSMetricRanked);
-	    
-	      //paaSMetricRankedArray.add( paaSMetricRanked );
-	    
 	      
 	      if(providerMonitor.containsKey(providerName)) {
 	        providerMonitor.get(providerName).add( paaSMetricRanked );

@@ -74,9 +74,7 @@ public class SlaNormalizations {
       }
     } catch(Exception e) {
 	return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);
-    } //catch(Throwable t) {
-//        return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);  
-//    }
+    }
     
     Gson gson = new Gson();
     

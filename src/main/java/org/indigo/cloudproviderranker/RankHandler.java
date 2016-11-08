@@ -1,4 +1,4 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -76,7 +76,7 @@ public class RankHandler implements HttpHandler {
 	}
 	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
 
-	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request from this client... "); 
+	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /rank API from this client... "); 
 	ParseResult responseToClient = parseRequest( Line );
  	Headers responseHeaders = httpExchange.getResponseHeaders();
 	responseHeaders.set("Content-Type", "application/json");

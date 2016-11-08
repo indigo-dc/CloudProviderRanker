@@ -68,7 +68,7 @@ public class PaaSMetricRanked extends PaaSMetric {
 	  
 	  paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class); */
 
-	  paaSMetricNormalization.updateFromFile( );
+	  paaSMetricNormalization.updateFromDefaultFile( );
 	  //paaSMetricNormalization.toCustomFile( clientHostName );
 	  
 	  HashMap<String, ArrayList<PaaSMetricRanked>> providerMonitor = new HashMap<String, ArrayList<PaaSMetricRanked>>();

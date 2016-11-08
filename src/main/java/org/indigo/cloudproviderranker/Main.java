@@ -45,6 +45,8 @@ public class Main {
 	  System.exit(1);
 	}
 	re.addHandlerToContext("/rank", new RankHandler());
+	re.addHandlerToContext("/customparam", new CustomParamHandler());
+
 	re.startServer( );
 
 	Logger rootLogger = Logger.getLogger(""); 

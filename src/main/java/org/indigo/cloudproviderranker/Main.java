@@ -46,6 +46,7 @@ public class Main {
 	}
 	re.addHandlerToContext("/rank", new RankHandler());
 	re.addHandlerToContext("/customparam", new CustomParamHandler());
+	re.addHandlerToContext("/getparams", new GetParamHandler());
 
 	re.startServer( );
 

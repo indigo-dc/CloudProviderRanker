@@ -26,18 +26,20 @@ public class PaaSMetricNormalization {
 
   public static String normalization_file = null;
 
-  public int   OCCI_Create_VM_availability 	= 1;
-  public float OCCI_CreateVM_Response_Time 	= (float)0.001;
-  public int   OCCI_CreateVM_Result 		= 1;
-  public int   OCCI_Delete_VM_Availability 	= 1;
-  public float OCCI_DeleteVM_Response_Time 	= (float)0.001;
-  public int   OCCI_DeleteVM_Result 		= 1;
-  public int   General_OCCI_API_Availability	= 1;
-  public float General_OCCI_API_Response_Time 	= (float)0.001;
-  public int   General_OCCI_API_Result 		= 1;
-  public int   OCCI_Inspect_VM_availability 	= 1;
-  public float OCCI_InspectVM_Response_Time 	= (float)0.001;
-  public int   OCCI_InspectVM_Result 		= 1;
+  //friend class PaasMetricRanker;
+
+  protected int   OCCI_Create_VM_availability 	 = 1;
+  protected float OCCI_CreateVM_Response_Time 	 = (float)0.001;
+  protected int   OCCI_CreateVM_Result 		 = 1;
+  protected int   OCCI_Delete_VM_Availability 	 = 1;
+  protected float OCCI_DeleteVM_Response_Time 	 = (float)0.001;
+  protected int   OCCI_DeleteVM_Result 		 = 1;
+  protected int   General_OCCI_API_Availability	 = 1;
+  protected float General_OCCI_API_Response_Time = (float)0.001;
+  protected int   General_OCCI_API_Result 	 = 1;
+  protected int   OCCI_Inspect_VM_availability 	 = 1;
+  protected float OCCI_InspectVM_Response_Time 	 = (float)0.001;
+  protected int   OCCI_InspectVM_Result 	 = 1;
 
   public void setOCCI_Create_VM_availability( int OCCI_Create_VM_availability ) {
 	this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
@@ -76,24 +78,31 @@ public class PaaSMetricNormalization {
 	this.OCCI_InspectVM_Result=OCCI_InspectVM_Result;
   }
 
+  private PaaSMetricNormalization() {}
+
   //----------------------------------------------------------------------------------------
-  public PaaSMetricNormalization( ) {
-    this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
+  public PaaSMetricNormalization( boolean update ) {
+    if(update) {
+      try {updateFromDefaultFile( );}
+      catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, " - updateFromDefaultFile failed: " + e);} 
+      try {updateFromCustomFile( );}
+      catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, " - updateFromCustomFile failed: " + e);} 
+    }
   }
 
   //----------------------------------------------------------------------------------------
-  public PaaSMetricNormalization( int   OCCI_Create_VM_availability,
-				  float OCCI_CreateVM_Response_Time,
-				  int   OCCI_CreateVM_Result,
-				  int   OCCI_Delete_VM_Availability,
-				  float OCCI_DeleteVM_Response_Time,
-				  int   OCCI_DeleteVM_Result,
-				  int   General_OCCI_API_Availability,
-				  float General_OCCI_API_Response_Time,
-				  int   General_OCCI_API_Result,
-				  int   OCCI_Inspect_VM_availability,
-				  float OCCI_InspectVM_Response_Time,
-				  int   OCCI_InspectVM_Result )
+/*  private PaaSMetricNormalization( int   OCCI_Create_VM_availability,
+				   float OCCI_CreateVM_Response_Time,
+				   int   OCCI_CreateVM_Result,
+				   int   OCCI_Delete_VM_Availability,
+				   float OCCI_DeleteVM_Response_Time,
+				   int   OCCI_DeleteVM_Result,
+				   int   General_OCCI_API_Availability,
+				   float General_OCCI_API_Response_Time,
+				   int   General_OCCI_API_Result,
+				   int   OCCI_Inspect_VM_availability,
+				   float OCCI_InspectVM_Response_Time,
+				   int   OCCI_InspectVM_Result )
   { 
     this.OCCI_Create_VM_availability    = OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = OCCI_CreateVM_Response_Time;
@@ -108,6 +117,7 @@ public class PaaSMetricNormalization {
     this.OCCI_InspectVM_Response_Time   = OCCI_InspectVM_Response_Time;
     this.OCCI_InspectVM_Result 		= OCCI_InspectVM_Result;
   }
+*/
   
   //----------------------------------------------------------------------------------------
   @Override
@@ -116,35 +126,54 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void updateFromDefaultFile( ) {
-    String Line = "";
-    if(normalization_file != null) {
-      InputStream is = null;
-      try {
-        is = new FileInputStream(new File(normalization_file));
-        InputStreamReader inputReader = new InputStreamReader(is);
-        BufferedReader buffReader     = new BufferedReader(inputReader);
-        String line = "";
-        while( (line = buffReader.readLine()) != null) {
-          Line += line;
-        }
-      } catch(Exception e) {
-        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
-      } catch(Throwable t) {
-        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
-      }
-      Gson gson = new Gson();
-      JsonElement E = gson.fromJson(Line, JsonElement.class);	  
-      PaaSMetricNormalization paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
-      updateFromObject( paaSMetricNormalization );
-
-    } else {
-      this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
-    }
+  private void updateFromDefaultFile( ) {
+    updateFromFile( normalization_file );
   }
 
   //----------------------------------------------------------------------------------------
-  public void update(int   OCCI_Create_VM_availability,
+  private void updateFromCustomFile( ) {
+    String customNormalizationFile = "/usr/share/java/cpr";
+    if(normalization_file!=null) {
+      customNormalizationFile = (new File(normalization_file)).getParent();
+      if(customNormalizationFile==null || customNormalizationFile.equalsIgnoreCase("")) {
+        customNormalizationFile = ".";
+      }
+    }
+    customNormalizationFile = customNormalizationFile + "/paasmetric_normalization-custom.json";
+    updateFromFile( customNormalizationFile );
+  }
+
+  //----------------------------------------------------------------------------------------
+  private void updateFromFile( String filename ) {
+
+    //Logger.getLogger("").log(Level.INFO, "updateFromFile [" + filename + "]"); 
+
+    String Line = "";
+    
+    InputStream is = null;
+    try {
+      is = new FileInputStream(new File(filename));
+      InputStreamReader inputReader = new InputStreamReader(is);
+      BufferedReader buffReader     = new BufferedReader(inputReader);
+      String line = "";
+      while( (line = buffReader.readLine()) != null) {
+        Line += line;
+      }
+    } catch(Exception e) {
+        Logger.getLogger("").log(Level.SEVERE, "updateFromFile Exception: "+e); 
+        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
+    } catch(Throwable t) {
+	Logger.getLogger("").log(Level.SEVERE, "updateFromFile Throwable: "+t); 
+        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
+    }
+    Gson gson = new Gson();
+    JsonElement E = gson.fromJson(Line, JsonElement.class);	  
+    PaaSMetricNormalization paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
+    updateFromObject( paaSMetricNormalization );
+  }
+
+  //----------------------------------------------------------------------------------------
+  private void update(int   OCCI_Create_VM_availability,
 				  float OCCI_CreateVM_Response_Time,
 				  int   OCCI_CreateVM_Result,
 				  int   OCCI_Delete_VM_Availability,
@@ -194,7 +223,7 @@ public class PaaSMetricNormalization {
       //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]"); 
       customNormalizationFile = (new File(normalization_file)).getParent();
       //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
-      if(customNormalizationFile==null || customNormalizationFile.equalsIgnoreCase("")) {
+      if(customNormalizationFile==null || customNormalizationFile.compareToIgnoreCase("")==0) {
         customNormalizationFile = ".";
       }
 
@@ -215,10 +244,16 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void printDefaultParams( ) {
+  public void printParams( ) {
     Gson gson = new Gson();
     String params = gson.toJson( this );
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
     Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
+  }
+  
+  //----------------------------------------------------------------------------------------
+  public String getParams( ) {
+    Gson gson = new Gson();
+    return gson.toJson( this );
   }
 }

@@ -43,39 +43,15 @@ public class PaaSMetricRanked extends PaaSMetric {
 	 */
 	public HashMap<String, ArrayList<PaaSMetricRanked>> fromJsonArray( JsonArray array ) {
  	  
-	  PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization();
-/*	  if(normalization_file != null) {
-	    InputStream is = null;
-    	    
-    	    try {
-      	      is = new FileInputStream(new File(normalization_file));
-    
-    
-	      InputStreamReader inputReader = new InputStreamReader(is);
-     	      BufferedReader buffReader     = new BufferedReader(inputReader);
-    	      String line = "";
-    	      while( (line = buffReader.readLine()) != null) {
-    	        Line += line;
-    	      }
-   	    } catch(Exception e) {
-	      paaSMetricNormalization = new PaaSMetricNormalization(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
-   	    } catch(Throwable t) {
-              paaSMetricNormalization = new PaaSMetricNormalization(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
-   	    }
-	  }
-	  Gson gson = new Gson();
-   	  JsonElement E = gson.fromJson(Line, JsonElement.class);
+	  PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization(true);
 	  
-	  paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class); */
+	  paaSMetricNormalization.printParams( );
 
-	  paaSMetricNormalization.updateFromDefaultFile( );
-	  //paaSMetricNormalization.toCustomFile( clientHostName );
-	  
 	  HashMap<String, ArrayList<PaaSMetricRanked>> providerMonitor = new HashMap<String, ArrayList<PaaSMetricRanked>>();
 	  for( int i = 0; i< array.size(); ++i ) { // loop over the array monitoring[]
 	    JsonObject obj = array.get(i).getAsJsonObject( );
 	    String providerName = obj.get("provider").getAsString();
-	    JsonArray metricsArray = obj.get("metrics").getAsJsonArray(); 
+	    JsonArray metricsArray = obj.get("metrics").getAsJsonArray();
 	    for(int j = 0; j < metricsArray.size(); ++j ) { // loop over the array metrics[]
 	      
 	      JsonObject currentMetricJsonObject = metricsArray.get( j ).getAsJsonObject();

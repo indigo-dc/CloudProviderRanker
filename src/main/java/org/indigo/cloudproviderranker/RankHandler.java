@@ -37,9 +37,7 @@ import com.google.gson.*;
  * @author dorigoa
  *
  */
-public class RankHandler implements HttpHandler {
-    
-    private String clientHostName = "";
+public class RankHandler extends RequestHandler {
  
     /**
      *

@@ -81,17 +81,12 @@ public class SlaNormalizations {
   public void fromCustomFile( ) {
     String customPriorityFile = "/usr/share/java/cpr";
     if(priority_file!=null) {
-      //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]"); 
       customPriorityFile = (new File(priority_file)).getParent();
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
       if(customPriorityFile==null || customPriorityFile.compareToIgnoreCase("")==0) {
         customPriorityFile = ".";
       }
-
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
     }
     customPriorityFile = customPriorityFile + "/sla_priorities-custom.json";
-    Logger.getLogger("").log(Level.INFO, "priority file = [" + customPriorityFile + "]"); 
     fromFile( customPriorityFile );
   }
 
@@ -128,7 +123,6 @@ public class SlaNormalizations {
       }
       Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
     } catch(Exception e) {
-	//return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);
 	computing_time 	    = 0.0166f;
   	num_cpus	    = 1.0f;
   	mem_size	    = 1.0f;

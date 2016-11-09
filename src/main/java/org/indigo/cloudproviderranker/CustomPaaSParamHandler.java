@@ -9,13 +9,13 @@ import java.util.Date;
 import com.google.gson.*;
 import java.text.SimpleDateFormat;
 
-public class CustomParamHandler extends RequestHandler {
+public class CustomPaaSParamHandler extends RequestHandler {
 
   //_________________________________________________________________________________________
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
     if(httpExchange.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
-      String response = "API \"customparam\" only supports POST method";
+      String response = "API \"custom-monitoring-parameters\" only supports POST method";
 	httpExchange.sendResponseHeaders(405, response.getBytes().length);
 	OutputStream os = httpExchange.getResponseBody();
 	os.write(response.getBytes());
@@ -39,7 +39,7 @@ public class CustomParamHandler extends RequestHandler {
 
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
 
-	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /customparam API from this client... "); 
+	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /custom-monitoring-parameters API from this client... "); 
 	PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization( true );
 	
 

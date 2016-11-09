@@ -3,9 +3,9 @@
 import java.util.List;
 import java.util.ArrayList;
 import com.google.gson.*;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+//import org.kie.api.KieServices;
+//import org.kie.api.runtime.KieContainer;
+//import org.kie.api.runtime.KieSession;
 
 import java.text.SimpleDateFormat;
 
@@ -37,7 +37,9 @@ public class Sla {
     this.start_date        = start_date;
     this.end_date          = end_date;
     this.services          = services;
-    this.slaNormalizations = SlaNormalizations.fromFile( );
+    this.slaNormalizations = new SlaNormalizations( );
+    this.slaNormalizations.fromDefaultFile( );
+    this.slaNormalizations.fromCustomFile( );
     this.rank              = 0.0f;
     
 //    KieServices kieServices = KieServices.Factory.get();
@@ -90,10 +92,11 @@ public class Sla {
   /**
    *
    */
-  public void reloadPriorityFile( ) {
-    slaNormalizations = SlaNormalizations.fromFile( );
+/*  public void reloadPriorityFile( ) {
+    slaNormalizations.fromDefaultFile( );
+    slaNormalizations.fromCustomFile( );
   }
-  
+  */
   /**
    *
    */
@@ -105,7 +108,6 @@ public class Sla {
     for(int i=0; i < SLAS.size( ); ++i) {
       JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
       services = parseService( currentSLA );
-      //System.err.println("Adding SLA");
       SLAs.add( new Sla( currentSLA.get("id").getAsString(),
      	 		 currentSLA.get("customer").getAsString(),
       			 currentSLA.get("provider").getAsString(),
@@ -116,32 +118,28 @@ public class Sla {
   }
   
      
-   /**
-    *
-    *
-    * Extract (and convert to a Java array) the services from a SLA json element
-    *
-    *
-    */
-   private static ArrayList<Service> parseService( JsonObject sla ) {
+  /**
+   *
+   *
+   * Extract (and convert to a Java array) the services from a SLA json element
+   *
+   *
+   */
+  private static ArrayList<Service> parseService( JsonObject sla ) {
      JsonArray Services = sla.get("services").getAsJsonArray( );
      ArrayList<Service> services = new ArrayList<Service>();
      for(int i = 0; i < Services.size( ); i++) {
        try {
          JsonObject obj = Services.get( i ).getAsJsonObject();
-	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	//Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Processing Service " + obj.toString()+"\n" ); 
-         //System.err.println("\n[" + clientHostName + "] Processing Service " + obj.toString()+"\n");
+	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
 	 ArrayList<Target> targets = parseTarget( obj ); 
 	 services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
        } catch(Exception e) {
-	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
-	 //System.err.println("Exception: " + e.getMessage());
+	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	 Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
        } catch(Throwable t) {
-	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
-	 //System.err.println("Throwable: " + t.getMessage());
+	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	 Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
        }
      }
      return services;
@@ -154,7 +152,7 @@ public class Sla {
     *
     *
     */
-   private static ArrayList<Target> parseTarget( JsonObject service ) {
+  private static ArrayList<Target> parseTarget( JsonObject service ) {
      JsonArray Targets = service.get("targets").getAsJsonArray( );
      ArrayList<Target> targets = new ArrayList<Target>();
      Gson gson = new GsonBuilder().create();
@@ -163,6 +161,5 @@ public class Sla {
 
      }
      return targets;
-   }
-   
+  }
 }

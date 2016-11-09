@@ -18,16 +18,16 @@ import java.text.SimpleDateFormat;
 
 public class SlaNormalizations {
 
-  public float computing_time;
-  public float num_cpus;
-  public float mem_size;
-  public float disk_size;
-  public float public_ip;
-  public float upload_bandwidth;
-  public float download_bandwidth;
-  public float upload_aggregated;
-  public float download_aggregated;
-  public float infinity_value;
+  protected float computing_time;
+  protected float num_cpus;
+  protected float mem_size;
+  protected float disk_size;
+  protected float public_ip;
+  protected float upload_bandwidth;
+  protected float download_bandwidth;
+  protected float upload_aggregated;
+  protected float download_aggregated;
+  protected float infinity_value;
   
   public static String priority_file = null;
   
@@ -91,6 +91,7 @@ public class SlaNormalizations {
       //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
     }
     customPriorityFile = customPriorityFile + "/sla_priorities-custom.json";
+    Logger.getLogger("").log(Level.INFO, "priority file = [" + customPriorityFile + "]"); 
     fromFile( customPriorityFile );
   }
 
@@ -118,13 +119,14 @@ public class SlaNormalizations {
     InputStream is = null;
     String Line = "";
     try {
-      is = new FileInputStream(new File(priority_file));
+      is = new FileInputStream(new File(filename));
       InputStreamReader inputReader = new InputStreamReader(is);
       BufferedReader buffReader     = new BufferedReader(inputReader);
       String line = "";
       while( (line = buffReader.readLine()) != null) {
         Line += line;
       }
+      Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
     } catch(Exception e) {
 	//return new SlaNormalizations(1f,2f,3f,4f,5f,6f,7f,8f,9f,1000f);
 	computing_time 	    = 0.0166f;
@@ -145,7 +147,7 @@ public class SlaNormalizations {
   }
 
   private void fromJsonObject( SlaNormalizations aSla ) {
-    this.computing_time	 = aSla.computing_time;
+    this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
     this.mem_size	     = aSla.mem_size;
     this.disk_size	     = aSla.disk_size;

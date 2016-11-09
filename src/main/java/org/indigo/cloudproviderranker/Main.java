@@ -48,6 +48,8 @@ public class Main {
 	re.addHandlerToContext("/custom-monitoring-parameters", new CustomPaaSParamHandler());
 	re.addHandlerToContext("/get-monitoring-parameters", new GetPaaSParamHandler());
 	re.addHandlerToContext("/get-sla-parameters", new GetSLAParamHandler());
+	re.addHandlerToContext("/custom-sla-parameters", new CustomSLAParamHandler());
+
 
 	re.startServer( );
 

@@ -45,8 +45,8 @@ public class Main {
 	  System.exit(1);
 	}
 	re.addHandlerToContext("/rank", new RankHandler());
-	re.addHandlerToContext("/custom-monitoring-parameters", new CustomPaaSParamHandler());
-	re.addHandlerToContext("/get-monitoring-parameters", new GetPaaSParamHandler());
+	re.addHandlerToContext("/custom-paas-parameters", new CustomPaaSParamHandler());
+	re.addHandlerToContext("/get-paas-parameters", new GetPaaSParamHandler());
 	re.addHandlerToContext("/get-sla-parameters", new GetSLAParamHandler());
 	re.addHandlerToContext("/custom-sla-parameters", new CustomSLAParamHandler());
 

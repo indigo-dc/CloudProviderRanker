@@ -15,7 +15,7 @@ public class GetPaaSParamHandler extends RequestHandler {
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
     if(httpExchange.getRequestMethod( ).compareToIgnoreCase("GET")!=0) {
-      String response = "API \"get-monitoring-parameters\" only supports GET method";
+      String response = "API \"get-paas-parameters\" only supports GET method";
       httpExchange.sendResponseHeaders(405, response.getBytes().length);
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
@@ -26,7 +26,7 @@ public class GetPaaSParamHandler extends RequestHandler {
     clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date( ) );
 
-    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /get-monitoring-parameters API from this client... "); 
+    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /get-paas-parameters API from this client... "); 
     PaaSMetricNormalization paaSMetricNormalization = null;
     try {paaSMetricNormalization = new PaaSMetricNormalization( true );}
     catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, timeStamp + " - PaaSMetricNormalization object initialization failed: "+e);}

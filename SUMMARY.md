@@ -6,4 +6,5 @@
 * [Building and run a Docker container](chapter3.md)
 * [Service Configuration](chapter5.md)
 * [Ranking Algorithm](chapter4.md)
+* Service Reference Card
 

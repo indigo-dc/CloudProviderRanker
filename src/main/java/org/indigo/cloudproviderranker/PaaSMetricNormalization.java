@@ -41,6 +41,43 @@ public class PaaSMetricNormalization {
   protected float OCCI_InspectVM_Response_Time 	 = (float)0.001;
   protected int   OCCI_InspectVM_Result 	 = 1;
 
+  public int getOCCI_Create_VM_availability( ) {
+    return OCCI_Create_VM_availability;
+  }
+  public float getOCCI_CreateVM_Response_Time( ) {
+    return OCCI_CreateVM_Response_Time;
+  }  
+  public int getOCCI_CreateVM_Result( ) {
+    return OCCI_CreateVM_Result;
+  }  
+  public int getOCCI_Delete_VM_Availability( ) {
+    return OCCI_Delete_VM_Availability;
+  }  
+  public float getOCCI_DeleteVM_Response_Time( ) {
+    return OCCI_DeleteVM_Response_Time;
+  }  
+  public int getOCCI_DeleteVM_Result( ) {
+    return OCCI_DeleteVM_Result;
+  }  
+  public int getGeneral_OCCI_API_Availability( ) {
+    return General_OCCI_API_Availability;
+  }  
+  public float getGeneral_OCCI_API_Response_Time( ) {
+    return General_OCCI_API_Response_Time;
+  }  
+  public int getGeneral_OCCI_API_Result( ) {
+    return General_OCCI_API_Result;
+  }
+  public int getOCCI_Inspect_VM_availability( ) {
+    return OCCI_Inspect_VM_availability;
+  }
+  public float getOCCI_InspectVM_Response_Time( ) {
+    return OCCI_InspectVM_Response_Time;
+  }
+  public int getOCCI_InspectVM_Result( ) {
+    return OCCI_InspectVM_Result;
+  }
+
   public void setOCCI_Create_VM_availability( int OCCI_Create_VM_availability ) {
 	this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
   }
@@ -248,7 +285,7 @@ public class PaaSMetricNormalization {
     Gson gson = new Gson();
     String params = gson.toJson( this );
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-    Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
+    //Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
   }
   
   //----------------------------------------------------------------------------------------

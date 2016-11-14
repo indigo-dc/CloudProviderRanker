@@ -88,15 +88,7 @@ public class Sla {
   public String toString( ) {
     return ToStringBuilder.reflectionToString(this);
   }
-  
-  /**
-   *
-   */
-/*  public void reloadPriorityFile( ) {
-    slaNormalizations.fromDefaultFile( );
-    slaNormalizations.fromCustomFile( );
-  }
-  */
+ 
   /**
    *
    */

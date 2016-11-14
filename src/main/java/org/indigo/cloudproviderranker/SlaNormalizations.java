@@ -28,6 +28,8 @@ public class SlaNormalizations {
   protected float upload_aggregated;
   protected float download_aggregated;
   protected float infinity_value;
+
+  public float get_computing_time( ) { return computing_time; }
   
   public static String priority_file = null;
   
@@ -121,7 +123,7 @@ public class SlaNormalizations {
       while( (line = buffReader.readLine()) != null) {
         Line += line;
       }
-      Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
+      //Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
     } catch(Exception e) {
 	computing_time 	    = 0.0166f;
   	num_cpus	    = 1.0f;

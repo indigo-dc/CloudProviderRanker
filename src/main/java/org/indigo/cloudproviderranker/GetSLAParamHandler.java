@@ -30,9 +30,7 @@ public class GetSLAParamHandler extends RequestHandler {
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type", "application/json");
     httpExchange.sendResponseHeaders( pr.getHTTPCode(), pr.getMessage().getBytes().length);
-    //timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-    //Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning SLA priority parameters to the client: " + params + "\n\n"); 
-	
+    
     OutputStream os = httpExchange.getResponseBody();
     os.write( pr.getMessage().getBytes() );
     os.close();

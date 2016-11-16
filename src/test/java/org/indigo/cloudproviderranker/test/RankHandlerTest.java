@@ -26,6 +26,5 @@ public class RankHandlerTest {
 	
 	//System.err.println("response="+response);
     }
-
   }
 }

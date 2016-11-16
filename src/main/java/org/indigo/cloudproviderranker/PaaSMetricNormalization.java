@@ -276,8 +276,7 @@ public class PaaSMetricNormalization {
     } catch(java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
       Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File ["+customNormalizationFile+"] doesn't exist. Cannot write custom normalization parameters.."); 
-    }
-    
+    }    
   }
 
   //----------------------------------------------------------------------------------------
@@ -285,7 +284,7 @@ public class PaaSMetricNormalization {
     Gson gson = new Gson();
     String params = gson.toJson( this );
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-    //Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
+    Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
   }
   
   //----------------------------------------------------------------------------------------

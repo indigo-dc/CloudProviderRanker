@@ -45,7 +45,7 @@ public class PaaSMetricRanked extends PaaSMetric {
  	  
 	  PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization(true);
 	  
-	  paaSMetricNormalization.printParams( );
+//	  paaSMetricNormalization.printParams( );
 
 	  HashMap<String, ArrayList<PaaSMetricRanked>> providerMonitor = new HashMap<String, ArrayList<PaaSMetricRanked>>();
 	  for( int i = 0; i< array.size(); ++i ) { // loop over the array monitoring[]

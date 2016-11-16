@@ -41,7 +41,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  private SlaNormalizations( float computing_time,
+  public SlaNormalizations(  float computing_time,
   			     float num_cpus,
 			     float mem_size,
 			     float disk_size,
@@ -164,14 +164,10 @@ public class SlaNormalizations {
   public void toCustomFile( ) {
     String customPriorityFile = "/usr/share/java/cpr";
     if(priority_file!=null) {
-      //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]"); 
       customPriorityFile = (new File(priority_file)).getParent();
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
       if(customPriorityFile==null || customPriorityFile.compareToIgnoreCase("")==0) {
         customPriorityFile = ".";
       }
-
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
     }
     customPriorityFile = customPriorityFile + "/sla_priorities-custom.json";
     Gson gson = new Gson();
@@ -182,7 +178,7 @@ public class SlaNormalizations {
       out.close( );
     } catch(java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-      Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File ["+customPriorityFile+"] doesn't exist. Cannot write custom priority parameters.."); 
+      Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File [" + customPriorityFile + "] doesn't exist. Cannot write custom priority parameters.."); 
     }
   }
 

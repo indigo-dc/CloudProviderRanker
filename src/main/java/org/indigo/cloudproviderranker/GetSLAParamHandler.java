@@ -24,25 +24,29 @@ public class GetSLAParamHandler extends RequestHandler {
     }
 
     clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
+    
+    ParseResult pr = new ParseResult(getParams(), 200);
+
+    Headers responseHeaders = httpExchange.getResponseHeaders();
+    responseHeaders.set("Content-Type", "application/json");
+    httpExchange.sendResponseHeaders( pr.getHTTPCode(), pr.getMessage().getBytes().length);
+    //timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+    //Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning SLA priority parameters to the client: " + params + "\n\n"); 
+	
+    OutputStream os = httpExchange.getResponseBody();
+    os.write( pr.getMessage().getBytes() );
+    os.close();
+  }
+
+  public String getParams( ) {
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date( ) );
 
     Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /get-sla-parameters API from this client... "); 
     SlaNormalizations slaNormalizations = new SlaNormalizations( );
     slaNormalizations.fromDefaultFile( );
     slaNormalizations.fromCustomFile( );
-    //try {sla = new Sla( );}
-    //catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, timeStamp + " - Sla object initialization failed: "+e);}
     String params = slaNormalizations.getParams();
-    ParseResult pr = new ParseResult(params, 200);
-
-    Headers responseHeaders = httpExchange.getResponseHeaders();
-    responseHeaders.set("Content-Type", "application/json");
-    httpExchange.sendResponseHeaders( pr.getHTTPCode(), pr.getMessage().getBytes().length);
-    timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning SLA priority parameters to the client: " + params + "\n\n"); 
-	
-    OutputStream os = httpExchange.getResponseBody();
-    os.write( pr.getMessage().getBytes() );
-    os.close();
+    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning SLA priority parameters to the client: " + params + "\n\n");
+    return params;
   }
 }

@@ -60,26 +60,12 @@ public class RankHandler extends RequestHandler {
 	}
 	
 	clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
-	String Line = "";
-	try {
-	    InputStream is = httpExchange.getRequestBody();
-	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
-	    BufferedReader buffReader = new BufferedReader(inputReader);
-	    String line = "";
-	    while( (line = buffReader.readLine()) != null) {
-       		Line += line;
-	    }
-	} catch(IOException ioe) {
-
-	}
-	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-
-	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /rank API from this client... "); 
-	ParseResult responseToClient = parseRequest( Line );
+	
+	ParseResult responseToClient = parseRequest( httpExchange.getRequestBody()/*Line*/ );
  	Headers responseHeaders = httpExchange.getResponseHeaders();
 	responseHeaders.set("Content-Type", "application/json");
 	httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(), responseToClient.getMessage().getBytes().length);
-	timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
 	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning ranked provider to the client: "+ responseToClient.getMessage() + "\n\n"); 
 	
 	OutputStream os = httpExchange.getResponseBody();
@@ -96,7 +82,28 @@ public class RankHandler extends RequestHandler {
      *
      *
      */
-    public ParseResult parseRequest( String Line ) {
+    public ParseResult parseRequest( InputStream is /*String Line*/ ) {
+
+	String Line = "";
+	try {
+	    //InputStream is = httpExchange.getRequestBody();
+	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
+	    BufferedReader buffReader = new BufferedReader(inputReader);
+	    String line = "";
+	    while( (line = buffReader.readLine()) != null) {
+       		Line += line;
+	    }
+	    is.close( );
+	} catch(IOException ioe) {
+	  //is.close( );
+	}
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+
+	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /rank API from this client... "); 
+	//Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Line=... "); 
+
+	//System.out.println("\n\nLine="+Line+"\n\n");
+
 	ArrayList<Preference> preferences = new ArrayList<Preference>();
 	try{
 	    
@@ -113,6 +120,7 @@ public class RankHandler extends RequestHandler {
 	    //
 	    if( obj.has("preferences") ) {
 	        specified_preferences = true;
+		//System.out.println("OK Preferecens\n\n");
 		preferences = Preference.fromJsonObject( obj );
 	    }
 	    

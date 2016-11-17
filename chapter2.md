@@ -24,7 +24,7 @@ If the couple of parameters ```KeystoreFile``` and ```password``` are not specif
 To test the server (which responds at the address ```http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank```) at the client side just use ```cURL``` with the content saved at this URL:
 
 ```
-[http://pastebin.com/KRWhC1aS](http://pastebin.com/KRWhC1aS)
+http://pastebin.com/KRWhC1aS
 ```
 
 Save the content of the previous URL into a file ```cpr-test.json```, then execute the command:

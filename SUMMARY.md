@@ -7,4 +7,5 @@
 * [Service Configuration](chapter5.md)
 * [Ranking Algorithm](chapter4.md)
 * [Service Reference Card](chapter6.md)
+* [API](chapter7.md)
 

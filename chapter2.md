@@ -21,13 +21,7 @@ If the couple of parameters ```KeystoreFile``` and ```password``` are not specif
 
 ----------------------------
 ## Testing the server
-To test the server (which responds at the address ```http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank```) at the client side just use ```cURL``` with the content shown in the [Ranking JSON Request format](chapter8.md):
-
-```
-http://pastebin.com/KRWhC1aS
-```
-
-Save the content of the previous URL into a file ```cpr-test.json```, then execute the command:
+To test the server (which responds at the address ```http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank```) at the client side just use ```cURL``` with the content shown in the [Ranking JSON Request format](chapter8.md). Save that content into a file ```cpr-test.json```, then execute the command:
 
 ```
 curl -d @cpr-test.json http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank

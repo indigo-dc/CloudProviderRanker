@@ -8,24 +8,25 @@ A REST WEB Service which ranks cloud providers
 
 
 ### Daemons running:
-cloudproviderranker (Java Application): org.indigo.cloudproviderranker.Main
+```cloudproviderranker``` (Java Application): ```org.indigo.cloudproviderranker.Main```
 
 
 ### Init scripts and options:
-/etc/init.d/cloudproviderranker (start|stop|status)
+```/etc/init.d/cloudproviderranker (start|stop|status)```
 
 
 ### Configuration files location with example template:
-/usr/share/java/cpr/sla_priorities.json (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/sla_priorities.json)
-/usr/share/java/cpr/paasmetric_normalization.json (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/paasmetric_normalization.json)
+```/usr/share/java/cpr/sla_priorities.json``` (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/sla_priorities.json)
+```/usr/share/java/cpr/paasmetric_normalization.json``` (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/paasmetric_normalization.json)
 
 
 ### Logfile locations:
-/var/log/CloudProviderRanker.log
+```/var/log/CloudProviderRanker.log```
 
 
 ### Open ports:
 Default 8443
+
 The admin can change it by launching the daemon with custom options
 
 

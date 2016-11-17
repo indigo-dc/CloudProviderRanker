@@ -1,7 +1,7 @@
 
 ## API
 
-(work in progress)
+(work in progress, on current production version only ```/rank``` API is provided)
 
 The provided API are:
 * ```/rank```

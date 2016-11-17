@@ -8,4 +8,5 @@
 * [Ranking Algorithm](chapter4.md)
 * [Service Reference Card](chapter6.md)
 * [API](chapter7.md)
+* [Ranking JSON Request format](chapter8.md)
 

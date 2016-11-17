@@ -1,5 +1,5 @@
 # Ranking JSON response format
-Below the general format of a CloudProviderRanker's JSON response to a ranking request (performed by contacting the ```/rank``` API.
+Below the general format of a CloudProviderRanker's JSON response to a ranking request (performed by contacting the ```/rank``` API).
 ```
 [
   {

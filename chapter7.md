@@ -14,7 +14,7 @@ The provided API are:
 
 ### /rank
 This has been already introduced in the [Install and run Cloud Provider Ranker](chapter2.md) chapter.
-It performs the ranking of cloud providers based on an internal algorithm which uses weights and normalization parameters (described in the [Ranking Algorithm](chapter6.md) chapter).
+It performs the ranking of cloud providers based on an internal algorithm which uses weights and normalization parameters (described in the [Ranking Algorithm](chapter4.md) chapter).
 ### /get-sla-parameters
 ### /get-paas-parameters
 ### /custom-sla-parameters

@@ -16,3 +16,5 @@ Below the general format of a CloudProviderRanker's JSON response to a ranking r
   }
 ]
 ```
+
+If an error occurs and for a particular cloud provider the ranking cannot be done, the ```ranked``` field will be ```false``` and the reason will be inserted into the ```errorReason``` field of the above response. 

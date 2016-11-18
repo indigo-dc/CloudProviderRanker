@@ -60,5 +60,5 @@ The same considerations of the previous API apply to this one. The payload must 
 "OCCI_InspectVM_Result":"1"
 }
 ```
-Also in this case not all parameters need to be specified.
+Also in this case not all parameters must to be specified.
 

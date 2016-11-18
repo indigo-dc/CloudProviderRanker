@@ -1,9 +1,9 @@
 
 ## API
 
-(work in progress, on current production version only ```/rank``` API is provided)
+(work in progress: on current production version, only ```/rank``` API is provided)
 
-The provided API are:
+The provided APIs are:
 * ```/rank```
 * ```/get-sla-parameters```
 * ```/get-paas-parameters```

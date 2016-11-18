@@ -1,5 +1,5 @@
 # Ranking JSON Request format
-Below a general form of the JSON request (or payload) the user must send with a POST HTTP request to the CloudProviderRanker's ```/rank``` API. There're three main sections: "preferences", "sla", "monitoring". How they're handled by CloudProviderRanker to rank the cloud providers is described in the [Ranking Algorithm](chapter4.md) chapter.
+Below a general form of the JSON request (or payload) the user must send with a POST HTTP request to the CloudProviderRanker's ```/rank``` API. There're three main sections: ```preferences```, ```sla```, ```monitoring```. How they're handled by CloudProviderRanker to rank the cloud providers is described in the [Ranking Algorithm](chapter4.md) chapter.
 
 ```
 {

@@ -44,93 +44,93 @@ public class PaaSMetricNormalization {
   protected float OCCI_InspectVM_Response_Time 	 = (float)0.001;
   protected int   OCCI_InspectVM_Result 	 = 1;
 
-  public int getOCCI_Create_VM_availability( ) {
+  public int getOCCI_Create_VM_availability() {
     return OCCI_Create_VM_availability;
   }
-  public float getOCCI_CreateVM_Response_Time( ) {
+  public float getOCCI_CreateVM_Response_Time() {
     return OCCI_CreateVM_Response_Time;
   }  
-  public int getOCCI_CreateVM_Result( ) {
+  public int getOCCI_CreateVM_Result() {
     return OCCI_CreateVM_Result;
   }  
-  public int getOCCI_Delete_VM_Availability( ) {
+  public int getOCCI_Delete_VM_Availability() {
     return OCCI_Delete_VM_Availability;
   }  
-  public float getOCCI_DeleteVM_Response_Time( ) {
+  public float getOCCI_DeleteVM_Response_Time() {
     return OCCI_DeleteVM_Response_Time;
   }  
-  public int getOCCI_DeleteVM_Result( ) {
+  public int getOCCI_DeleteVM_Result() {
     return OCCI_DeleteVM_Result;
   }  
-  public int getGeneral_OCCI_API_Availability( ) {
+  public int getGeneral_OCCI_API_Availability() {
     return General_OCCI_API_Availability;
   }  
-  public float getGeneral_OCCI_API_Response_Time( ) {
+  public float getGeneral_OCCI_API_Response_Time() {
     return General_OCCI_API_Response_Time;
   }  
-  public int getGeneral_OCCI_API_Result( ) {
+  public int getGeneral_OCCI_API_Result() {
     return General_OCCI_API_Result;
   }
-  public int getOCCI_Inspect_VM_availability( ) {
+  public int getOCCI_Inspect_VM_availability() {
     return OCCI_Inspect_VM_availability;
   }
-  public float getOCCI_InspectVM_Response_Time( ) {
+  public float getOCCI_InspectVM_Response_Time() {
     return OCCI_InspectVM_Response_Time;
   }
-  public int getOCCI_InspectVM_Result( ) {
+  public int getOCCI_InspectVM_Result() {
     return OCCI_InspectVM_Result;
   }
 
-  public void setOCCI_Create_VM_availability( int OCCI_Create_VM_availability ) {
+  public void setOCCI_Create_VM_availability(int OCCI_Create_VM_availability) {
     this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
   }
-  public void setOCCI_CreateVM_Response_Time( float OCCI_CreateVM_Response_Time) {
+  public void setOCCI_CreateVM_Response_Time(float OCCI_CreateVM_Response_Time) {
     this.OCCI_CreateVM_Response_Time=OCCI_CreateVM_Response_Time;
   }
-  public void setOCCI_CreateVM_Result( int OCCI_CreateVM_Result) {
+  public void setOCCI_CreateVM_Result(int OCCI_CreateVM_Result) {
     this.OCCI_CreateVM_Result=OCCI_CreateVM_Result;
   }
-  public void setOCCI_Delete_VM_Availability( int OCCI_Delete_VM_Availability) {
+  public void setOCCI_Delete_VM_Availability(int OCCI_Delete_VM_Availability) {
     this.OCCI_Delete_VM_Availability=OCCI_Delete_VM_Availability;
   }
-  public void setOCCI_DeleteVM_Response_Time( float OCCI_DeleteVM_Response_Time) {
+  public void setOCCI_DeleteVM_Response_Time(float OCCI_DeleteVM_Response_Time) {
     this.OCCI_DeleteVM_Response_Time=OCCI_DeleteVM_Response_Time;
   }
-  public void setOCCI_DeleteVM_Result( int OCCI_DeleteVM_Result) {
+  public void setOCCI_DeleteVM_Result(int OCCI_DeleteVM_Result) {
     this.OCCI_DeleteVM_Result=OCCI_DeleteVM_Result;
   }
-  public void setGeneral_OCCI_API_Availability( int General_OCCI_API_Availability) {
+  public void setGeneral_OCCI_API_Availability(int General_OCCI_API_Availability) {
     this.General_OCCI_API_Availability=General_OCCI_API_Availability;
   }
-  public void setGeneral_OCCI_API_Response_Time( float General_OCCI_API_Response_Time) {
+  public void setGeneral_OCCI_API_Response_Time(float General_OCCI_API_Response_Time) {
     this.General_OCCI_API_Response_Time=General_OCCI_API_Response_Time;
   }
-  public void setGeneral_OCCI_API_Result( int General_OCCI_API_Result) {
+  public void setGeneral_OCCI_API_Result(int General_OCCI_API_Result) {
     this.General_OCCI_API_Result=General_OCCI_API_Result;
   }
-  public void setOCCI_Inspect_VM_availability( int OCCI_Inspect_VM_availability) {
+  public void setOCCI_Inspect_VM_availability(int OCCI_Inspect_VM_availability) {
     this.OCCI_Inspect_VM_availability=OCCI_Inspect_VM_availability;
   }
-  public void setOCCI_InspectVM_Response_Time( float OCCI_InspectVM_Response_Time) {
+  public void setOCCI_InspectVM_Response_Time(float OCCI_InspectVM_Response_Time) {
     this.OCCI_InspectVM_Response_Time=OCCI_InspectVM_Response_Time;
   }
-  public void setOCCI_InspectVM_Result( int OCCI_InspectVM_Result) {
+  public void setOCCI_InspectVM_Result(int OCCI_InspectVM_Result) {
     this.OCCI_InspectVM_Result=OCCI_InspectVM_Result;
   }
 
   private PaaSMetricNormalization() {}
 
   //----------------------------------------------------------------------------------------
-  public PaaSMetricNormalization( boolean update ) {
+  public PaaSMetricNormalization(boolean update) {
     if(update) {
       try {
-        updateFromDefaultFile( );
+        updateFromDefaultFile();
       }
       catch(Exception e) {
         Logger.getLogger("").log(Level.SEVERE, " - updateFromDefaultFile failed: " + e);
       } 
       try {
-	updateFromCustomFile( );
+	updateFromCustomFile();
       }
       catch(Exception e) {
         Logger.getLogger("").log(Level.SEVERE, " - updateFromCustomFile failed: " + e);
@@ -140,17 +140,17 @@ public class PaaSMetricNormalization {
 
   //----------------------------------------------------------------------------------------
   @Override
-  public String toString( ) {
+  public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromDefaultFile( ) {
-    updateFromFile( normalization_file );
+  private void updateFromDefaultFile() {
+    updateFromFile(normalization_file);
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromCustomFile( ) {
+  private void updateFromCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if(normalization_file!=null) {
       customNormalizationFile = (new File(normalization_file)).getParent();
@@ -160,11 +160,11 @@ public class PaaSMetricNormalization {
     }
     customNormalizationFile = customNormalizationFile +
 	"/paasmetric_normalization-custom.json";
-    updateFromFile( customNormalizationFile );
+    updateFromFile(customNormalizationFile);
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromFile( String filename ) {
+  private void updateFromFile(String filename) {
 
     //Logger.getLogger("").log(Level.INFO, "updateFromFile [" + filename + "]"); 
 
@@ -176,7 +176,7 @@ public class PaaSMetricNormalization {
       InputStreamReader inputReader = new InputStreamReader(is);
       BufferedReader buffReader     = new BufferedReader(inputReader);
       String line = "";
-      while( (line = buffReader.readLine()) != null) {
+      while((line = buffReader.readLine()) != null) {
         Line += line;
       }
     } catch(Exception e) {
@@ -189,8 +189,8 @@ public class PaaSMetricNormalization {
     Gson gson = new Gson();
     JsonElement E = gson.fromJson(Line, JsonElement.class);	  
     PaaSMetricNormalization paaSMetricNormalization =
-	(PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
-    updateFromObject( paaSMetricNormalization );
+	(PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject(), PaaSMetricNormalization.class);
+    updateFromObject(paaSMetricNormalization);
   }
 
   //----------------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ public class PaaSMetricNormalization {
 		      int   General_OCCI_API_Result,
 		      int   OCCI_Inspect_VM_availability,
 		      float OCCI_InspectVM_Response_Time,
-		      int   OCCI_InspectVM_Result ) { 
+		      int   OCCI_InspectVM_Result) { 
     this.OCCI_Create_VM_availability    = OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = OCCI_CreateVM_Response_Time;
     this.OCCI_CreateVM_Result 		= OCCI_CreateVM_Result;
@@ -221,7 +221,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromObject( PaaSMetricNormalization obj ) {
+  private void updateFromObject(PaaSMetricNormalization obj) {
     this.OCCI_Create_VM_availability    = obj.OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = obj.OCCI_CreateVM_Response_Time;
     this.OCCI_CreateVM_Result 		= obj.OCCI_CreateVM_Result;
@@ -237,7 +237,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void toCustomFile( ) {
+  public void toCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if(normalization_file!=null) {
       //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]");
@@ -248,13 +248,13 @@ public class PaaSMetricNormalization {
     }
     customNormalizationFile = customNormalizationFile + "/paasmetric_normalization-custom.json";
     Gson gson = new Gson();
-    String params = gson.toJson( this );
+    String params = gson.toJson(this);
     try {
       PrintWriter out = new PrintWriter(customNormalizationFile);
       out.println(params);
-      out.close( );
+      out.close();
     } catch(java.io.FileNotFoundException e) {
-      String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+      String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
       Logger.getLogger("").log(Level.SEVERE, timeStamp +
 			       " - File ["+customNormalizationFile+
 			       "] doesn't exist. Cannot write custom normalization parameters..");
@@ -262,16 +262,16 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void printParams( ) {
+  public void printParams() {
     Gson gson = new Gson();
-    String params = gson.toJson( this );
-    String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+    String params = gson.toJson(this);
+    String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     Logger.getLogger("").log(Level.INFO, timeStamp + " - Default Params=["+params+"]"); 
   }
   
   //----------------------------------------------------------------------------------------
-  public String getParams( ) {
+  public String getParams() {
     Gson gson = new Gson();
-    return gson.toJson( this );
+    return gson.toJson(this);
   }
 }

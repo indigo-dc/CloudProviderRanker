@@ -32,13 +32,13 @@ public class SlaNormalizations {
   protected float download_aggregated;
   protected float infinity_value;
 
-  public float get_computing_time( ) {
+  public float get_computing_time() {
     return computing_time;
   }
   
   public static String priority_file = null;
   
-  public SlaNormalizations( ) {}
+  public SlaNormalizations() {}
 
   /**
    *
@@ -46,7 +46,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  public SlaNormalizations(  float computing_time,
+  public SlaNormalizations( float computing_time,
   			     float num_cpus,
 			     float mem_size,
 			     float disk_size,
@@ -55,7 +55,7 @@ public class SlaNormalizations {
 			     float download_bandwidth,
 			     float upload_aggregated,
 			     float download_aggregated,
-			     float infinity_value )
+			     float infinity_value)
   {
     this.computing_time	     = computing_time;
     this.num_cpus	     = num_cpus;
@@ -75,7 +75,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  public void fromDefaultFile( ) {
+  public void fromDefaultFile() {
     fromFile(priority_file);
   }
 
@@ -85,7 +85,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  public void fromCustomFile( ) {
+  public void fromCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
     if(priority_file!=null) {
       customPriorityFile = (new File(priority_file)).getParent();
@@ -94,7 +94,7 @@ public class SlaNormalizations {
       }
     }
     customPriorityFile = customPriorityFile + "/sla_priorities-custom.json";
-    fromFile( customPriorityFile );
+    fromFile(customPriorityFile);
   }
 
 
@@ -104,7 +104,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  private void fromFile( String filename ) {
+  private void fromFile(String filename) {
     if(filename==null) {
       computing_time 	    = 0.0166f;
       num_cpus	    	    = 1.0f;
@@ -125,7 +125,7 @@ public class SlaNormalizations {
       InputStreamReader inputReader = new InputStreamReader(is);
       BufferedReader buffReader     = new BufferedReader(inputReader);
       String line = "";
-      while( (line = buffReader.readLine()) != null) {
+      while((line = buffReader.readLine()) != null) {
         Line += line;
       }
       //Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
@@ -144,10 +144,10 @@ public class SlaNormalizations {
     }
     Gson gson = new Gson();
     JsonElement E = gson.fromJson(Line, JsonElement.class);
-    this.fromJsonObject( (SlaNormalizations)gson.fromJson(E.getAsJsonObject( ), SlaNormalizations.class) );  
+    this.fromJsonObject((SlaNormalizations)gson.fromJson(E.getAsJsonObject(), SlaNormalizations.class) );  
   }
 
-  private void fromJsonObject( SlaNormalizations aSla ) {
+  private void fromJsonObject(SlaNormalizations aSla) {
     this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
     this.mem_size	     = aSla.mem_size;
@@ -166,7 +166,7 @@ public class SlaNormalizations {
    * 
    *
    */
-  public void toCustomFile( ) {
+  public void toCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
     if(priority_file!=null) {
       customPriorityFile = (new File(priority_file)).getParent();
@@ -176,20 +176,20 @@ public class SlaNormalizations {
     }
     customPriorityFile = customPriorityFile + "/sla_priorities-custom.json";
     Gson gson = new Gson();
-    String params = gson.toJson( this );
+    String params = gson.toJson(this);
     try {
       PrintWriter out = new PrintWriter(customPriorityFile);
       out.println(params);
-      out.close( );
+      out.close();
     } catch(java.io.FileNotFoundException e) {
-      String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+      String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
       Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File [" + customPriorityFile + "] doesn't exist. Cannot write custom priority parameters.."); 
     }
   }
 
   //----------------------------------------------------------------------------------------
-  public String getParams( ) {
+  public String getParams() {
     Gson gson = new Gson();
-    return gson.toJson( this );
+    return gson.toJson(this);
   }
 }

@@ -24,7 +24,7 @@ public class Main {
     PaaSMetricNormalization.normalization_file = args[1];
     
     if(args.length>2) {
-      TCPPORT = Integer.parseInt( args[2] );
+      TCPPORT = Integer.parseInt(args[2]);
     }	
     if(args.length>=4 && args.length <5) {
       System.err.println("If a keystore path is specified" +
@@ -39,9 +39,9 @@ public class Main {
     
     RESTEngine re = new RESTEngine();
     try {
-      re.initHttpServer( usessl, TCPPORT, keystorepath, password );
+      re.initHttpServer(usessl, TCPPORT, keystorepath, password);
     } catch(ServerException se) {
-      System.err.println(se.getMessage( ) );
+      System.err.println(se.getMessage() );
       System.exit(1);
     }
     re.addHandlerToContext("/rank", new RankHandler());
@@ -50,7 +50,7 @@ public class Main {
     re.addHandlerToContext("/get-sla-parameters", new GetSLAParamHandler());
     re.addHandlerToContext("/custom-sla-parameters", new CustomSLAParamHandler());
     
-    re.startServer( );
+    re.startServer();
     
     Logger rootLogger = Logger.getLogger(""); 
     FileHandler logHandler = new FileHandler("/var/log/CloudProviderRanker.log", 

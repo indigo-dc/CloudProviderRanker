@@ -42,7 +42,7 @@ public class RankHandler extends RequestHandler {
  
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
-    if(httpExchange.getRequestMethod( ).compareToIgnoreCase("POST")!=0) {
+    if(httpExchange.getRequestMethod().compareToIgnoreCase("POST")!=0) {
       String response = "API \"rank\" only supports POST method";
       httpExchange.sendResponseHeaders(405, response.getBytes().length);
       OutputStream os = httpExchange.getResponseBody();
@@ -51,14 +51,14 @@ public class RankHandler extends RequestHandler {
       return;
     }
     
-    clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
+    clientHostName = httpExchange.getRemoteAddress().getHostName();
     
-    ParseResult responseToClient = parseRequest( httpExchange.getRequestBody()/*Line*/ );
+    ParseResult responseToClient = parseRequest(httpExchange.getRequestBody()/*Line*/);
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type", "application/json");
     httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(),
 				     responseToClient.getMessage().getBytes().length);
-    String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+    String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     Logger.getLogger("").log(Level.INFO, timeStamp +
 			     " [" +
 			     clientHostName +
@@ -66,24 +66,24 @@ public class RankHandler extends RequestHandler {
 			     responseToClient.getMessage() + "\n\n"); 
     
     OutputStream os = httpExchange.getResponseBody();
-    os.write( responseToClient.getMessage().getBytes() );
+    os.write(responseToClient.getMessage().getBytes());
     os.close();
   }
   
-  public ParseResult parseRequest( InputStream is ) {
+  public ParseResult parseRequest(InputStream is) {
     String Line = "";
     try {
       InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
       BufferedReader buffReader = new BufferedReader(inputReader);
       String line = "";
-      while( (line = buffReader.readLine()) != null) {
+      while((line = buffReader.readLine()) != null) {
         Line += line;
       }
-      is.close( );
+      is.close();
     } catch(IOException ioe) {
     }
     String timeStamp = new
-	SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     
     Logger.getLogger("").log(Level.INFO, timeStamp +
 			     " [" + clientHostName +
@@ -93,16 +93,16 @@ public class RankHandler extends RequestHandler {
     try{	
       Gson gson = new Gson();
       JsonElement E = gson.fromJson(Line, JsonElement.class);
-      JsonObject obj = E.getAsJsonObject( );
+      JsonObject obj = E.getAsJsonObject();
       
       boolean specified_preferences = false, specified_sla = false;
       
       //
       // convert preferences json block to Java Preference[] array
       //
-      if( obj.has("preferences") ) {
+      if(obj.has("preferences")) {
         specified_preferences = true;
-	preferences = Preference.fromJsonObject( obj );
+	preferences = Preference.fromJsonObject(obj);
       }
       
       Service[] services = null;
@@ -113,15 +113,15 @@ public class RankHandler extends RequestHandler {
       // Convert sla json blocks to Java Sla arraylist
       //
       //
-      if( obj.has("sla") ) {
+      if(obj.has("sla")) {
 	specified_sla = true;
-	SLAs = Sla.fromJsonObject( obj );
+	SLAs = Sla.fromJsonObject(obj);
       }
       
-      // 	    KieServices kieServices      = KieServices.Factory.get( );
-      // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
-      // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession( );
-      // 	    kSession.execute( SLAs );
+      // 	    KieServices kieServices      = KieServices.Factory.get();
+      // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer();
+      // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession();
+      // 	    kSession.execute(SLAs);
       
       //
       //
@@ -134,7 +134,7 @@ public class RankHandler extends RequestHandler {
         for (int i = 0; i < preferences.size(); ++i) {
 	  ArrayList<Priority> priorities_loc = preferences.get(i).priorities;
 	  for(int j = 0; j < priorities_loc.size(); ++j) {
-	    all_priorities.add( priorities_loc.get(j) );
+	    all_priorities.add(priorities_loc.get(j));
 	  }
 	}
 	Collections.sort(all_priorities); // Sorting based on Priority.weight
@@ -147,9 +147,9 @@ public class RankHandler extends RequestHandler {
       //
       HashMap<String, String> slaid_to_provider = new HashMap<String, String>();
       HashMap<String, Sla> providerToSLAMap = new HashMap<String, Sla>();
-      for( Sla sla : SLAs ) {
+      for(Sla sla : SLAs) {
         slaid_to_provider.put(sla.id, sla.provider);
-          providerToSLAMap.put( sla.provider, sla );
+          providerToSLAMap.put(sla.provider, sla);
 	}
 	
       //
@@ -161,17 +161,17 @@ public class RankHandler extends RequestHandler {
       Vector<RankedCloudProvider> ranked_providers = new Vector<RankedCloudProvider>();
       if(specified_preferences && specified_sla) {
         int j = 0;
-	for( Priority p : all_priorities ) {
-	  ranked_providers.add(new RankedCloudProvider( slaid_to_provider.get( p.sla_id ), 
+	for(Priority p : all_priorities) {
+	  ranked_providers.add(new RankedCloudProvider(slaid_to_provider.get( p.sla_id), 
 							(all_priorities.size() - j++),
 							true,
-							"" ) 
-			       );
+							"") 
+			      );
 	}
 	
-	Vector<String> rcp_vec = new Vector<String>( );
-	for(RankedCloudProvider rcp : ranked_providers ) {
-	  rcp_vec.add( gson.toJson(rcp) );
+	Vector<String> rcp_vec = new Vector<String>();
+	for(RankedCloudProvider rcp : ranked_providers) {
+	  rcp_vec.add(gson.toJson(rcp));
 	}
 	
 	return new ParseResult("[" + String.join(",", rcp_vec) + "]", 200);
@@ -180,27 +180,27 @@ public class RankHandler extends RequestHandler {
       HashMap<String, ArrayList<PaaSMetricRanked>> paasMetricRanked = null;
       if(obj.has("monitoring")) {
 	  JsonArray arrayTmp =  obj.getAsJsonArray("monitoring");
-	  paasMetricRanked = (new PaaSMetricRanked()).fromJsonArray( arrayTmp );
+	  paasMetricRanked = (new PaaSMetricRanked()).fromJsonArray(arrayTmp);
       }
       
-      Set<String> providers = paasMetricRanked.keySet( );
+      Set<String> providers = paasMetricRanked.keySet();
       
-      // 	    KieServices kieServices      = KieServices.Factory.get( );
-      // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer( );
-      // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession( );
-      // 	    kSession.execute( paaSMetricRankerArrayList );
+      // 	    KieServices kieServices      = KieServices.Factory.get();
+      // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer();
+      // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession();
+      // 	    kSession.execute(paaSMetricRankerArrayList);
       ArrayList<RankedCloudProvider> rankedCloudProviders =
 	  new ArrayList<RankedCloudProvider>();
-      for( String provider : providers ) {
-	RankedCloudProvider rcp = new RankedCloudProvider( provider, 0.0f, true, "" );
+      for(String provider : providers) {
+	RankedCloudProvider rcp = new RankedCloudProvider(provider, 0.0f, true, "");
 	ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
-	for(Iterator<PaaSMetricRanked> jt = psmr.iterator( ); jt.hasNext( ); ) {
-	  PaaSMetricRanked p = jt.next( );
-	  p.setClientIP( clientHostName );
-	  rcp.addToRank( p.getRank( ) );
+	for(Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext(); ) {
+	  PaaSMetricRanked p = jt.next();
+	  p.setClientIP(clientHostName);
+	  rcp.addToRank(p.getRank() );
 	}
-	rcp.addToRank( providerToSLAMap.get( provider ).rank );
-	rankedCloudProviders.add( rcp );
+	rcp.addToRank(providerToSLAMap.get( provider).rank );
+	rankedCloudProviders.add(rcp);
       }
       
       //
@@ -210,8 +210,8 @@ public class RankHandler extends RequestHandler {
       //
       //
       Vector<String> respVec = new Vector<String>();
-      for( RankedCloudProvider rcp : rankedCloudProviders ) {
-        String json = gson.toJson( rcp);
+      for(RankedCloudProvider rcp : rankedCloudProviders) {
+        String json = gson.toJson(rcp);
 	respVec.add(json);
       }
       return  new ParseResult("[" + String.join("," , respVec)  + "]", 200);

@@ -29,26 +29,26 @@ public class Sla {
   public  float              rank;
   private float 	     infinity_value;
   
-  public Sla( String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services ) {
+  public Sla(String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services) {
     this.id                = id;
     this.customer          = customer;
     this.provider          = provider;
     this.start_date        = start_date;
     this.end_date          = end_date;
     this.services          = services;
-    this.slaNormalizations = new SlaNormalizations( );
-    this.slaNormalizations.fromDefaultFile( );
-    this.slaNormalizations.fromCustomFile( );
+    this.slaNormalizations = new SlaNormalizations();
+    this.slaNormalizations.fromDefaultFile();
+    this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
     
 //    KieServices kieServices = KieServices.Factory.get();
   //  KieContainer kContainer = kieServices.getKieClasspathContainer();
    // KieSession ksession = kContainer.newKieSession();
-    //ksession.insert( this );
-    //int totRules = ksession.fireAllRules( );
-    //ksession.dispose( );
+    //ksession.insert(this);
+    //int totRules = ksession.fireAllRules();
+    //ksession.dispose();
 
-    for( Target t : services.get(0).targets ) {
+    for(Target t : services.get(0).targets) {
       
       float normalization_factor = 0.0f;
       infinity_value = slaNormalizations.infinity_value;
@@ -71,33 +71,33 @@ public class Sla {
       if(0==t.type.compareTo("download_aggregated"))
         normalization_factor = slaNormalizations.download_aggregated;
       
-      rank += ( (t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinity_value) 
+      rank += ((t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinity_value) 
                 + t.restrictions.total_guaranteed
       	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinity_value) 
 		+ t.restrictions.user_guaranteed
 		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinity_value) 
-		+ t.restrictions.instance_guaranteed ) * normalization_factor;
+		+ t.restrictions.instance_guaranteed) * normalization_factor;
     }
   }
   
   @Override
-  public String toString( ) {
+  public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
  
-  public static ArrayList<Sla> fromJsonObject( JsonObject obj ) {
-    JsonArray SLAS = obj.get("sla").getAsJsonArray( );
+  public static ArrayList<Sla> fromJsonObject(JsonObject obj) {
+    JsonArray SLAS = obj.get("sla").getAsJsonArray();
     ArrayList<Service> services = new ArrayList<Service>();
     ArrayList<Sla> SLAs = new ArrayList<Sla>();
     
-    for(int i=0; i < SLAS.size( ); ++i) {
-      JsonObject currentSLA = SLAS.get(i).getAsJsonObject( );
-      services = parseService( currentSLA );
-      SLAs.add( new Sla( currentSLA.get("id").getAsString(),
+    for(int i=0; i < SLAS.size(); ++i) {
+      JsonObject currentSLA = SLAS.get(i).getAsJsonObject();
+      services = parseService(currentSLA);
+      SLAs.add(new Sla( currentSLA.get("id").getAsString(),
      	 		 currentSLA.get("customer").getAsString(),
       			 currentSLA.get("provider").getAsString(),
       			 currentSLA.get("start_date").getAsString(),
-      			 currentSLA.get("end_date").getAsString(), services) );
+      			 currentSLA.get("end_date").getAsString(), services));
     }
     return SLAs;
   }
@@ -110,20 +110,20 @@ public class Sla {
    *
    *
    */
-  private static ArrayList<Service> parseService( JsonObject sla ) {
-    JsonArray Services = sla.get("services").getAsJsonArray( );
+  private static ArrayList<Service> parseService(JsonObject sla) {
+    JsonArray Services = sla.get("services").getAsJsonArray();
     ArrayList<Service> services = new ArrayList<Service>();
-    for(int i = 0; i < Services.size( ); i++) {
+    for(int i = 0; i < Services.size(); i++) {
       try {
-        JsonObject obj = Services.get( i ).getAsJsonObject();
-	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	ArrayList<Target> targets = parseTarget( obj ); 
-	services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
+        JsonObject obj = Services.get(i).getAsJsonObject();
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
+	ArrayList<Target> targets = parseTarget(obj); 
+	services.add(new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString() , targets) );
       } catch(Exception e) {
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
       } catch(Throwable t) {
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
       }
     }
@@ -137,12 +137,12 @@ public class Sla {
     *
     *
     */
-  private static ArrayList<Target> parseTarget( JsonObject service ) {
-    JsonArray Targets = service.get("targets").getAsJsonArray( );
+  private static ArrayList<Target> parseTarget(JsonObject service) {
+    JsonArray Targets = service.get("targets").getAsJsonArray();
     ArrayList<Target> targets = new ArrayList<Target>();
     Gson gson = new GsonBuilder().create();
-    for(int i = 0; i < Targets.size( ); i++) {
-      targets.add( gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class) );
+    for(int i = 0; i < Targets.size(); i++) {
+      targets.add(gson.fromJson(Targets.get(i).getAsJsonObject(), Target.class) );
     }
     return targets;
   }

@@ -8,11 +8,11 @@ public class Priority implements Comparable<Priority> {
   public float  weight;
   
   @Override
-  public String toString( ) { 
+  public String toString() { 
     return ToStringBuilder.reflectionToString(this);
   }
   
-  public int compareTo( Priority prio ) {
+  public int compareTo(Priority prio) {
     if(weight==prio.weight) return 0;
     int ret = weight>prio.weight ? -1 : 1;
     return ret;

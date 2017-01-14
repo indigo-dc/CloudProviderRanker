@@ -37,25 +37,25 @@ public class RESTEngine {
     
     
   //---------------------------------------------------------------------------------------
-  public void startServer( ) {
+  public void startServer() {
     server.setExecutor(Executors.newCachedThreadPool());
     server.start();
   } 
     
   //---------------------------------------------------------------------------------------
-  public void addHandlerToContext( String contextPath, HttpHandler handler ) {
+  public void addHandlerToContext(String contextPath, HttpHandler handler) {
     server.createContext(contextPath, handler);
   }
     
   //---------------------------------------------------------------------------------------
     
-  public void initHttpServer( boolean usessl,int TCPPORT,String keystorepath,String password )
+  public void initHttpServer(boolean usessl,int TCPPORT,String keystorepath,String password)
     throws ServerException {
       if(!usessl) {
         try {
 	  server = HttpServer.create(new InetSocketAddress(TCPPORT), 0);
         } catch (IOException e) {
-	  throw new ServerException("Error in HttpServer.create: " + e.getMessage( ) );
+	  throw new ServerException("Error in HttpServer.create: " + e.getMessage() );
 	}
 	
       } else {
@@ -66,34 +66,34 @@ public class RESTEngine {
 	try {
 	  server = HttpsServer.create(new InetSocketAddress(TCPPORT), 0);
 	} catch (IOException e) {
-	  throw new ServerException("Error in HttpServer.create: " + e.getMessage( ) );
+	  throw new ServerException("Error in HttpServer.create: " + e.getMessage() );
 	}
 	SSLContext sslContext = null;
 	try {
 	  sslContext = SSLContext.getInstance("TLS");
-	} catch( NoSuchAlgorithmException e ) {
+	} catch(NoSuchAlgorithmException e) {
 	  throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): " +
-				    e.getMessage( ) );
+				    e.getMessage() );
 	}
 	
-	char[] keystorePassword = password.toCharArray( );
+	char[] keystorePassword = password.toCharArray();
 	KeyStore ks = null;
 	try {
 	  ks = KeyStore.getInstance("JKS");
-	} catch( KeyStoreException e ) {
+	} catch(KeyStoreException e) {
 	  throw new ServerException("Error in KeyStore.getInstance(\"JKS\"): " +
-				    e.getMessage( ) );
+				    e.getMessage() );
 	}
 	try {
 	  ks.load(new FileInputStream(keystorepath), keystorePassword);
 	} catch(FileNotFoundException e) {
-	  throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyStore.load: " + e.getMessage() );
 	} catch(IOException e) {
-	  throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyStore.load: " + e.getMessage() );
 	} catch(NoSuchAlgorithmException e){
-	  throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyStore.load: " + e.getMessage() );
 	} catch(CertificateException e){
-	  throw new ServerException("Error in KeyStore.load: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyStore.load: " + e.getMessage() );
 	}
 	
 	KeyManagerFactory kmf = null;
@@ -101,22 +101,22 @@ public class RESTEngine {
 	  kmf = KeyManagerFactory.getInstance("SunX509");
 	} catch(NoSuchAlgorithmException e) {
 	  throw new ServerException("Error in KeyManagerFactory.getInstance(\"SunX509\"): " +
-				    e.getMessage( ) );
+				    e.getMessage() );
 	}
 	try {
 	  kmf.init(ks, keystorePassword);
 	} catch(KeyStoreException e) {
-	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage() );
 	} catch(NoSuchAlgorithmException e) {
-	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage() );
 	} catch(UnrecoverableKeyException e) {
-	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage( ) );
+	  throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage() );
 	}
 	
 	try {
 	  sslContext.init(kmf.getKeyManagers(), null, null);
 	} catch(KeyManagementException e) {
-	  throw new ServerException("Error in SSLContext.init: " + e.getMessage( ) );
+	  throw new ServerException("Error in SSLContext.init: " + e.getMessage() );
 	}
 	
 	((HttpsServer)server).setHttpsConfigurator(new HttpsConfigurator(sslContext));

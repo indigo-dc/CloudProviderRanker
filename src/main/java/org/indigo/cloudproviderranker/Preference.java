@@ -1,8 +1,11 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
-//import java.util.List;
 import java.util.ArrayList;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -54,13 +57,8 @@ public class Preference {
    
      ArrayList<Priority> priorities = new ArrayList<Priority>();
      for(int i = 0; i < array.size( ); i++) {
-       //try {
- 	 priorities.add( (new GsonBuilder().create()).fromJson(array.get( i ).getAsJsonObject(), Priority.class) );
-       //} catch(Exception e) {
-	// System.err.println("Exception: " + e.getMessage());
-       //} catch(Throwable t) {
-	// System.err.println("Throwable: " + t.getMessage());
-       //}
+	 JsonObject obj = array.get( i ).getAsJsonObject();
+       priorities.add( (new GsonBuilder().create()).fromJson(obj, Priority.class) );
      }
      
      return priorities;
@@ -75,7 +73,6 @@ public class Preference {
    */   
    @Override
    public String toString( ) { 
-    //return "{sla_id="+sla_id + " - service_id="+service_id+" - weight=" +weight+ "}"; 
     return ToStringBuilder.reflectionToString(this);
   }
 }

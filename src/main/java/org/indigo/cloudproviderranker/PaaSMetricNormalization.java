@@ -123,10 +123,18 @@ public class PaaSMetricNormalization {
   //----------------------------------------------------------------------------------------
   public PaaSMetricNormalization( boolean update ) {
     if(update) {
-      try {updateFromDefaultFile( );}
-      catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, " - updateFromDefaultFile failed: " + e);} 
-      try {updateFromCustomFile( );}
-      catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, " - updateFromCustomFile failed: " + e);} 
+      try {
+        updateFromDefaultFile( );
+      }
+      catch(Exception e) {
+        Logger.getLogger("").log(Level.SEVERE, " - updateFromDefaultFile failed: " + e);
+      } 
+      try {
+	updateFromCustomFile( );
+      }
+      catch(Exception e) {
+        Logger.getLogger("").log(Level.SEVERE, " - updateFromCustomFile failed: " + e);
+      } 
     }
   }
 
@@ -150,7 +158,8 @@ public class PaaSMetricNormalization {
         customNormalizationFile = ".";
       }
     }
-    customNormalizationFile = customNormalizationFile + "/paasmetric_normalization-custom.json";
+    customNormalizationFile = customNormalizationFile +
+	"/paasmetric_normalization-custom.json";
     updateFromFile( customNormalizationFile );
   }
 
@@ -179,7 +188,8 @@ public class PaaSMetricNormalization {
     }
     Gson gson = new Gson();
     JsonElement E = gson.fromJson(Line, JsonElement.class);	  
-    PaaSMetricNormalization paaSMetricNormalization = (PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
+    PaaSMetricNormalization paaSMetricNormalization =
+	(PaaSMetricNormalization)gson.fromJson(E.getAsJsonObject( ), PaaSMetricNormalization.class);
     updateFromObject( paaSMetricNormalization );
   }
 
@@ -230,14 +240,11 @@ public class PaaSMetricNormalization {
   public void toCustomFile( ) {
     String customNormalizationFile = "/usr/share/java/cpr";
     if(normalization_file!=null) {
-      //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]"); 
+      //Logger.getLogger("").log(Level.INFO, "normalization_file=[" + normalization_file + "]");
       customNormalizationFile = (new File(normalization_file)).getParent();
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
       if(customNormalizationFile==null || customNormalizationFile.compareToIgnoreCase("")==0) {
         customNormalizationFile = ".";
       }
-
-      //Logger.getLogger("").log(Level.INFO, "normalization_file parent=[" + customNormalizationFile + "]"); 
     }
     customNormalizationFile = customNormalizationFile + "/paasmetric_normalization-custom.json";
     Gson gson = new Gson();
@@ -248,7 +255,9 @@ public class PaaSMetricNormalization {
       out.close( );
     } catch(java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-      Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File ["+customNormalizationFile+"] doesn't exist. Cannot write custom normalization parameters.."); 
+      Logger.getLogger("").log(Level.SEVERE, timeStamp +
+			       " - File ["+customNormalizationFile+
+			       "] doesn't exist. Cannot write custom normalization parameters..");
     }    
   }
 

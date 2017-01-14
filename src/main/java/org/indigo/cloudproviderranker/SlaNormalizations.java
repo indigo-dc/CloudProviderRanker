@@ -1,11 +1,14 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -29,7 +32,9 @@ public class SlaNormalizations {
   protected float download_aggregated;
   protected float infinity_value;
 
-  public float get_computing_time( ) { return computing_time; }
+  public float get_computing_time( ) {
+    return computing_time;
+  }
   
   public static String priority_file = null;
   
@@ -52,16 +57,16 @@ public class SlaNormalizations {
 			     float download_aggregated,
 			     float infinity_value )
   {
-	this.computing_time	 = computing_time;
-	this.num_cpus		 = num_cpus;
-	this.mem_size		 = mem_size;
-	this.disk_size		 = disk_size;
-	this.public_ip		 = public_ip;
-	this.upload_bandwidth    = upload_bandwidth;
-	this.download_bandwidth  = download_bandwidth;
-	this.upload_aggregated   = upload_aggregated;
-	this.download_aggregated = download_aggregated; 
-	this.infinity_value      = infinity_value; 
+    this.computing_time	     = computing_time;
+    this.num_cpus	     = num_cpus;
+    this.mem_size	     = mem_size;
+    this.disk_size	     = disk_size;
+    this.public_ip	     = public_ip;
+    this.upload_bandwidth    = upload_bandwidth;
+    this.download_bandwidth  = download_bandwidth;
+    this.upload_aggregated   = upload_aggregated;
+    this.download_aggregated = download_aggregated; 
+    this.infinity_value      = infinity_value; 
   }
   
   /**
@@ -125,17 +130,17 @@ public class SlaNormalizations {
       }
       //Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
     } catch(Exception e) {
-	computing_time 	    = 0.0166f;
-  	num_cpus	    = 1.0f;
-  	mem_size	    = 1.0f;
-  	disk_size	    = 1.0f;
-  	public_ip	    = 1.0f;
-  	upload_bandwidth    = 1.0f;
-  	download_bandwidth  = 1.0f;
-  	upload_aggregated   = 1.0f;
-  	download_aggregated = 1.0f;
-  	infinity_value	    = 1000.0f;
-        return;
+      computing_time 	    = 0.0166f;
+      num_cpus	    = 1.0f;
+      mem_size	    = 1.0f;
+      disk_size	    = 1.0f;
+      public_ip	    = 1.0f;
+      upload_bandwidth    = 1.0f;
+      download_bandwidth  = 1.0f;
+      upload_aggregated   = 1.0f;
+      download_aggregated = 1.0f;
+      infinity_value	    = 1000.0f;
+      return;
     }
     Gson gson = new Gson();
     JsonElement E = gson.fromJson(Line, JsonElement.class);

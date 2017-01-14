@@ -1,4 +1,4 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -9,7 +9,6 @@ public class Priority implements Comparable<Priority> {
   
   @Override
   public String toString( ) { 
-    //return "{sla_id="+sla_id + " - service_id="+service_id+" - weight=" +weight+ "}"; 
     return ToStringBuilder.reflectionToString(this);
   }
   

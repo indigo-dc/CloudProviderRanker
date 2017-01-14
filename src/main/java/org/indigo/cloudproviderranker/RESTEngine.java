@@ -1,4 +1,4 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
 import java.io.IOException;
 import java.io.FileInputStream;

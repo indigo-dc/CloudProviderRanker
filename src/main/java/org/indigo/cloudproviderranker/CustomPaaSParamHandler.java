@@ -4,9 +4,17 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
 import java.util.Date;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
 
 public class CustomPaaSParamHandler extends RequestHandler {
@@ -26,7 +34,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
     clientHostName = httpExchange.getRemoteAddress( ).getHostName( );
 
 //    InputStream is = httpExchange.getRequestBody();
-    updateParams( httpExchange.getRequestBody() /*Line*/ );
+    updateParams( httpExchange.getRequestBody() );
 
 	 
     Headers responseHeaders = httpExchange.getResponseHeaders();

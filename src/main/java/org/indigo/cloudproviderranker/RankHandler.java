@@ -69,7 +69,7 @@ public class RankHandler extends RequestHandler {
     os.write( responseToClient.getMessage().getBytes() );
     os.close();
   }
-    
+  
   public ParseResult parseRequest( InputStream is ) {
     String Line = "";
     try {

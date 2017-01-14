@@ -29,77 +29,91 @@ public class CustomPaaSParamHandler extends RequestHandler {
     updateParams( httpExchange.getRequestBody() /*Line*/ );
 
 	 
-	Headers responseHeaders = httpExchange.getResponseHeaders();
-        responseHeaders.set("Content-Type", "application/json");
-        httpExchange.sendResponseHeaders( 200, 0);
+    Headers responseHeaders = httpExchange.getResponseHeaders();
+    responseHeaders.set("Content-Type", "application/json");
+    httpExchange.sendResponseHeaders( 200, 0);
 	
-        OutputStream os = httpExchange.getResponseBody();
-        os.write( "".getBytes() );
-        os.close();
-	
+    OutputStream os = httpExchange.getResponseBody();
+    os.write( "".getBytes() );
+    os.close();
+    
+    
+  }
+    
+  public void updateParams( InputStream is /*String line*/ ) {
+    String Line = "";
+    try {
+      //InputStream is = httpExchange.getRequestBody();
+      InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
+      BufferedReader buffReader = new BufferedReader(inputReader);
+      String line = "";
+      while( (line = buffReader.readLine()) != null) {
+	Line += line;
+      }
+    } catch(IOException ioe) {
 	
     }
-
-    public void updateParams( InputStream is /*String line*/ ) {
-
-        String Line = "";
-        try {
-	    //InputStream is = httpExchange.getRequestBody();
-	    InputStreamReader inputReader = new InputStreamReader(is,"utf-8");
-	    BufferedReader buffReader = new BufferedReader(inputReader);
-	    String line = "";
-	    while( (line = buffReader.readLine()) != null) {
-       		Line += line;
-            }
-        } catch(IOException ioe) {
-
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-
-	Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /custom-monitoring-parameters API from this client... "); 
-	PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization( true );
-
-	Gson gson = new Gson( );
-	
-        JsonObject obj = gson.fromJson( Line, JsonElement.class ).getAsJsonObject( );
-	if(obj.has("OCCI_Create_VM_availability")) {
-	  paaSMetricNormalization.setOCCI_Create_VM_availability( obj.get( "OCCI_Create_VM_availability" ).getAsInt( ) );
-	}
-	if(obj.has("OCCI_CreateVM_Response_Time")) {
-	  paaSMetricNormalization.setOCCI_CreateVM_Response_Time( obj.get( "OCCI_CreateVM_Response_Time" ).getAsFloat( ) );
-	}
-	if(obj.has("OCCI_CreateVM_Result")) {
-	  paaSMetricNormalization.setOCCI_CreateVM_Result( obj.get( "OCCI_CreateVM_Result" ).getAsInt( ) );
-	}
-	if(obj.has("OCCI_Delete_VM_Availability")) {
-	  paaSMetricNormalization.setOCCI_Delete_VM_Availability( obj.get( "OCCI_Delete_VM_Availability" ).getAsInt( ) );
-	}
-	if(obj.has("OCCI_DeleteVM_Response_Time")) {
-	  paaSMetricNormalization.setOCCI_DeleteVM_Response_Time( obj.get( "OCCI_DeleteVM_Response_Time" ).getAsFloat( ) );
-	}
-	if(obj.has("OCCI_DeleteVM_Result")) {
-	  paaSMetricNormalization.setOCCI_DeleteVM_Result( obj.get( "OCCI_DeleteVM_Result" ).getAsInt( ) );
-	}
-	if(obj.has("General_OCCI_API_Availability")) {
-	  paaSMetricNormalization.setGeneral_OCCI_API_Availability( obj.get( "General_OCCI_API_Availability" ).getAsInt( ) );
-	}
-	if(obj.has("General_OCCI_API_Response_Time")) {
-	  paaSMetricNormalization.setGeneral_OCCI_API_Response_Time( obj.get( "General_OCCI_API_Response_Time" ).getAsFloat( ) );
-	}
-	if(obj.has("General_OCCI_API_Result")) {
-	  paaSMetricNormalization.setGeneral_OCCI_API_Result( obj.get( "General_OCCI_API_Result" ).getAsInt( ) );
-	}
-	if(obj.has("OCCI_Inspect_VM_availability")) {
-	  paaSMetricNormalization.setOCCI_Inspect_VM_availability( obj.get( "OCCI_Inspect_VM_availability" ).getAsInt( ) );
-	}
-	if(obj.has("OCCI_InspectVM_Response_Time")) {
-	  paaSMetricNormalization.setOCCI_InspectVM_Response_Time( obj.get( "OCCI_InspectVM_Response_Time" ).getAsFloat( ) );
-	}
-	if(obj.has("OCCI_InspectVM_Result")) {
-	  paaSMetricNormalization.setOCCI_InspectVM_Result( obj.get( "OCCI_InspectVM_Result" ).getAsInt( ) );
-	}
-
-	paaSMetricNormalization.toCustomFile( );
+    
+    String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+    
+    Logger.getLogger("").log(Level.INFO, timeStamp +
+			     " [" + clientHostName +
+			     "] New request for /custom-monitoring-parameters" +
+			     " API from this client... "); 
+    PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization( true );
+    
+    Gson gson = new Gson( );
+    
+    JsonObject obj = gson.fromJson( Line, JsonElement.class ).getAsJsonObject( );
+    if(obj.has("OCCI_Create_VM_availability")) {
+      int vma = obj.get( "OCCI_Create_VM_availability" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_Create_VM_availability( vma );
     }
+    if(obj.has("OCCI_CreateVM_Response_Time")) {
+      float vmrt = obj.get( "OCCI_CreateVM_Response_Time" ).getAsFloat( );
+      paaSMetricNormalization.setOCCI_CreateVM_Response_Time( vmrt );
+    }
+    if(obj.has("OCCI_CreateVM_Result")) {
+      int vmr = obj.get( "OCCI_CreateVM_Result" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_CreateVM_Result( vmr );
+    }
+    if(obj.has("OCCI_Delete_VM_Availability")) {
+      int vma = obj.get( "OCCI_Delete_VM_Availability" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_Delete_VM_Availability( vma );
+    }
+    if(obj.has("OCCI_DeleteVM_Response_Time")) {
+      float vmrt = obj.get( "OCCI_DeleteVM_Response_Time" ).getAsFloat( );
+      paaSMetricNormalization.setOCCI_DeleteVM_Response_Time( vmrt );
+    }
+    if(obj.has("OCCI_DeleteVM_Result")) {
+      int vmr = obj.get( "OCCI_DeleteVM_Result" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_DeleteVM_Result( vmr );
+    }
+    if(obj.has("General_OCCI_API_Availability")) {
+      int vma = obj.get( "General_OCCI_API_Availability" ).getAsInt( );
+      paaSMetricNormalization.setGeneral_OCCI_API_Availability( vma );
+    }
+    if(obj.has("General_OCCI_API_Response_Time")) {
+      float vmrt = obj.get( "General_OCCI_API_Response_Time" ).getAsFloat( ) ;
+      paaSMetricNormalization.setGeneral_OCCI_API_Response_Time( vmrt );
+    }
+    if(obj.has("General_OCCI_API_Result")) {
+      int vmr = obj.get( "General_OCCI_API_Result" ).getAsInt( );
+      paaSMetricNormalization.setGeneral_OCCI_API_Result( vmr );
+    }
+    if(obj.has("OCCI_Inspect_VM_availability")) {
+      int vma = obj.get( "OCCI_Inspect_VM_availability" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_Inspect_VM_availability( vma );
+    }
+    if(obj.has("OCCI_InspectVM_Response_Time")) {
+      float vmrt = obj.get( "OCCI_InspectVM_Response_Time" ).getAsFloat( );
+      paaSMetricNormalization.setOCCI_InspectVM_Response_Time( vmrt );
+    }
+    if(obj.has("OCCI_InspectVM_Result")) {
+      int vmr = obj.get( "OCCI_InspectVM_Result" ).getAsInt( );
+      paaSMetricNormalization.setOCCI_InspectVM_Result( vmr );
+    }
+    
+    paaSMetricNormalization.toCustomFile( );
+  }
 }

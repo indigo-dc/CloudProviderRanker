@@ -4,9 +4,16 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.util.Date;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.text.SimpleDateFormat;
 
 public class GetPaaSParamHandler extends RequestHandler {
@@ -43,12 +50,24 @@ public class GetPaaSParamHandler extends RequestHandler {
   public String getParams( ) {
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date( ) );
 
-    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] New request for /get-paas-parameters API from this client... "); 
+    Logger.getLogger("").log(Level.INFO, timeStamp +
+			     " [" +
+			     clientHostName +
+			     "] New request for /get-paas-parameters API from this client... "); 
     PaaSMetricNormalization paaSMetricNormalization = null;
     try {paaSMetricNormalization = new PaaSMetricNormalization( true );}
-    catch(Exception e) { Logger.getLogger("").log(Level.SEVERE, timeStamp + " - PaaSMetricNormalization object initialization failed: "+e);}
+    catch(Exception e) {
+      Logger.getLogger("").log(Level.SEVERE, timeStamp +
+			       " - PaaSMetricNormalization object initialization failed: "+
+			       e);
+    }
     String params = paaSMetricNormalization.getParams();
-    Logger.getLogger("").log(Level.INFO, timeStamp + " [" + clientHostName + "] Returning normalization parameters to the client: " + params + "\n\n");
+    Logger.getLogger("").log(Level.INFO, timeStamp +
+			     " [" +
+			     clientHostName +
+			     "] Returning normalization parameters to the client: " +
+			     params +
+			     "\n\n");
     return params;
   }
 }

@@ -2,7 +2,10 @@ package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -79,40 +82,40 @@ public class PaaSMetricNormalization {
   }
 
   public void setOCCI_Create_VM_availability( int OCCI_Create_VM_availability ) {
-	this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
+    this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
   }
   public void setOCCI_CreateVM_Response_Time( float OCCI_CreateVM_Response_Time) {
-	this.OCCI_CreateVM_Response_Time=OCCI_CreateVM_Response_Time;
+    this.OCCI_CreateVM_Response_Time=OCCI_CreateVM_Response_Time;
   }
   public void setOCCI_CreateVM_Result( int OCCI_CreateVM_Result) {
-	this.OCCI_CreateVM_Result=OCCI_CreateVM_Result;
+    this.OCCI_CreateVM_Result=OCCI_CreateVM_Result;
   }
   public void setOCCI_Delete_VM_Availability( int OCCI_Delete_VM_Availability) {
-	this.OCCI_Delete_VM_Availability=OCCI_Delete_VM_Availability;
+    this.OCCI_Delete_VM_Availability=OCCI_Delete_VM_Availability;
   }
   public void setOCCI_DeleteVM_Response_Time( float OCCI_DeleteVM_Response_Time) {
-	this.OCCI_DeleteVM_Response_Time=OCCI_DeleteVM_Response_Time;
+    this.OCCI_DeleteVM_Response_Time=OCCI_DeleteVM_Response_Time;
   }
   public void setOCCI_DeleteVM_Result( int OCCI_DeleteVM_Result) {
-	this.OCCI_DeleteVM_Result=OCCI_DeleteVM_Result;
+    this.OCCI_DeleteVM_Result=OCCI_DeleteVM_Result;
   }
   public void setGeneral_OCCI_API_Availability( int General_OCCI_API_Availability) {
-	this.General_OCCI_API_Availability=General_OCCI_API_Availability;
+    this.General_OCCI_API_Availability=General_OCCI_API_Availability;
   }
   public void setGeneral_OCCI_API_Response_Time( float General_OCCI_API_Response_Time) {
-	this.General_OCCI_API_Response_Time=General_OCCI_API_Response_Time;
+    this.General_OCCI_API_Response_Time=General_OCCI_API_Response_Time;
   }
   public void setGeneral_OCCI_API_Result( int General_OCCI_API_Result) {
-	this.General_OCCI_API_Result=General_OCCI_API_Result;
+    this.General_OCCI_API_Result=General_OCCI_API_Result;
   }
   public void setOCCI_Inspect_VM_availability( int OCCI_Inspect_VM_availability) {
-	this.OCCI_Inspect_VM_availability=OCCI_Inspect_VM_availability;
+    this.OCCI_Inspect_VM_availability=OCCI_Inspect_VM_availability;
   }
   public void setOCCI_InspectVM_Response_Time( float OCCI_InspectVM_Response_Time) {
-	this.OCCI_InspectVM_Response_Time=OCCI_InspectVM_Response_Time;
+    this.OCCI_InspectVM_Response_Time=OCCI_InspectVM_Response_Time;
   }
   public void setOCCI_InspectVM_Result( int OCCI_InspectVM_Result) {
-	this.OCCI_InspectVM_Result=OCCI_InspectVM_Result;
+    this.OCCI_InspectVM_Result=OCCI_InspectVM_Result;
   }
 
   private PaaSMetricNormalization() {}
@@ -127,35 +130,6 @@ public class PaaSMetricNormalization {
     }
   }
 
-  //----------------------------------------------------------------------------------------
-/*  private PaaSMetricNormalization( int   OCCI_Create_VM_availability,
-				   float OCCI_CreateVM_Response_Time,
-				   int   OCCI_CreateVM_Result,
-				   int   OCCI_Delete_VM_Availability,
-				   float OCCI_DeleteVM_Response_Time,
-				   int   OCCI_DeleteVM_Result,
-				   int   General_OCCI_API_Availability,
-				   float General_OCCI_API_Response_Time,
-				   int   General_OCCI_API_Result,
-				   int   OCCI_Inspect_VM_availability,
-				   float OCCI_InspectVM_Response_Time,
-				   int   OCCI_InspectVM_Result )
-  { 
-    this.OCCI_Create_VM_availability    = OCCI_Create_VM_availability;
-    this.OCCI_CreateVM_Response_Time    = OCCI_CreateVM_Response_Time;
-    this.OCCI_CreateVM_Result 		= OCCI_CreateVM_Result;
-    this.OCCI_Delete_VM_Availability    = OCCI_Delete_VM_Availability;
-    this.OCCI_DeleteVM_Response_Time    = OCCI_DeleteVM_Response_Time;
-    this.OCCI_DeleteVM_Result 		= OCCI_DeleteVM_Result;
-    this.General_OCCI_API_Availability  = General_OCCI_API_Availability;
-    this.General_OCCI_API_Response_Time = General_OCCI_API_Response_Time;
-    this.General_OCCI_API_Result 	= General_OCCI_API_Result;
-    this.OCCI_Inspect_VM_availability   = OCCI_Inspect_VM_availability;
-    this.OCCI_InspectVM_Response_Time   = OCCI_InspectVM_Response_Time;
-    this.OCCI_InspectVM_Result 		= OCCI_InspectVM_Result;
-  }
-*/
-  
   //----------------------------------------------------------------------------------------
   @Override
   public String toString( ) {
@@ -197,11 +171,11 @@ public class PaaSMetricNormalization {
         Line += line;
       }
     } catch(Exception e) {
-        Logger.getLogger("").log(Level.SEVERE, "updateFromFile Exception: "+e); 
-        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
+      Logger.getLogger("").log(Level.SEVERE, "updateFromFile Exception: "+e); 
+      this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
     } catch(Throwable t) {
-	Logger.getLogger("").log(Level.SEVERE, "updateFromFile Throwable: "+t); 
-        this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
+      Logger.getLogger("").log(Level.SEVERE, "updateFromFile Throwable: "+t); 
+      this.update(1,0.001f,1,1,0.001f,1,1,0.001f,1,1,0.001f,1);
     }
     Gson gson = new Gson();
     JsonElement E = gson.fromJson(Line, JsonElement.class);	  
@@ -211,18 +185,17 @@ public class PaaSMetricNormalization {
 
   //----------------------------------------------------------------------------------------
   private void update(int   OCCI_Create_VM_availability,
-				  float OCCI_CreateVM_Response_Time,
-				  int   OCCI_CreateVM_Result,
-				  int   OCCI_Delete_VM_Availability,
-				  float OCCI_DeleteVM_Response_Time,
-				  int   OCCI_DeleteVM_Result,
-				  int   General_OCCI_API_Availability,
-				  float General_OCCI_API_Response_Time,
-				  int   General_OCCI_API_Result,
-				  int   OCCI_Inspect_VM_availability,
-				  float OCCI_InspectVM_Response_Time,
-				  int   OCCI_InspectVM_Result )
-  { 
+		      float OCCI_CreateVM_Response_Time,
+		      int   OCCI_CreateVM_Result,
+		      int   OCCI_Delete_VM_Availability,
+		      float OCCI_DeleteVM_Response_Time,
+		      int   OCCI_DeleteVM_Result,
+		      int   General_OCCI_API_Availability,
+		      float General_OCCI_API_Response_Time,
+		      int   General_OCCI_API_Result,
+		      int   OCCI_Inspect_VM_availability,
+		      float OCCI_InspectVM_Response_Time,
+		      int   OCCI_InspectVM_Result ) { 
     this.OCCI_Create_VM_availability    = OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = OCCI_CreateVM_Response_Time;
     this.OCCI_CreateVM_Result 		= OCCI_CreateVM_Result;

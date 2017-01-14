@@ -1,8 +1,12 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
-import java.util.List;
+//import java.util.List;
 import java.util.ArrayList;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 //import org.kie.api.KieServices;
 //import org.kie.api.runtime.KieContainer;
 //import org.kie.api.runtime.KieSession;
@@ -25,11 +29,6 @@ public class Sla {
   public  float              rank;
   private float 	     infinity_value;
   
-  /**
-   *
-   *
-   *
-   */
   public Sla( String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services ) {
     this.id                = id;
     this.customer          = customer;
@@ -81,17 +80,11 @@ public class Sla {
     }
   }
   
-  /**
-   *
-   */
   @Override
   public String toString( ) {
     return ToStringBuilder.reflectionToString(this);
   }
  
-  /**
-   *
-   */
   public static ArrayList<Sla> fromJsonObject( JsonObject obj ) {
     JsonArray SLAS = obj.get("sla").getAsJsonArray( );
     ArrayList<Service> services = new ArrayList<Service>();
@@ -118,24 +111,24 @@ public class Sla {
    *
    */
   private static ArrayList<Service> parseService( JsonObject sla ) {
-     JsonArray Services = sla.get("services").getAsJsonArray( );
-     ArrayList<Service> services = new ArrayList<Service>();
-     for(int i = 0; i < Services.size( ); i++) {
-       try {
-         JsonObject obj = Services.get( i ).getAsJsonObject();
-	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	 ArrayList<Target> targets = parseTarget( obj ); 
-	 services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
-       } catch(Exception e) {
-	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	 Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
-       } catch(Throwable t) {
-	 String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
-	 Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
-       }
-     }
-     return services;
-   }
+    JsonArray Services = sla.get("services").getAsJsonArray( );
+    ArrayList<Service> services = new ArrayList<Service>();
+    for(int i = 0; i < Services.size( ); i++) {
+      try {
+        JsonObject obj = Services.get( i ).getAsJsonObject();
+	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	ArrayList<Target> targets = parseTarget( obj ); 
+	services.add( new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString( ) , targets) );
+      } catch(Exception e) {
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
+      } catch(Throwable t) {
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format( new java.util.Date() );
+	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
+      }
+    }
+    return services;
+  }
    
    /**
     *
@@ -145,13 +138,12 @@ public class Sla {
     *
     */
   private static ArrayList<Target> parseTarget( JsonObject service ) {
-     JsonArray Targets = service.get("targets").getAsJsonArray( );
-     ArrayList<Target> targets = new ArrayList<Target>();
-     Gson gson = new GsonBuilder().create();
-     for(int i = 0; i < Targets.size( ); i++) {
-       targets.add( gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class) );
-
-     }
-     return targets;
+    JsonArray Targets = service.get("targets").getAsJsonArray( );
+    ArrayList<Target> targets = new ArrayList<Target>();
+    Gson gson = new GsonBuilder().create();
+    for(int i = 0; i < Targets.size( ); i++) {
+      targets.add( gson.fromJson(Targets.get(i).getAsJsonObject( ), Target.class) );
+    }
+    return targets;
   }
 }

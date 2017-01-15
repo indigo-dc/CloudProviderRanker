@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+//import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 //import org.kie.api.KieServices;
 //import org.kie.api.runtime.KieContainer;
@@ -28,8 +28,8 @@ public class Sla {
   public  SlaNormalizations  slaNormalizations;
   public  float              rank;
   private float 	     infinity_value;
-  
-  public Sla(String id, String customer, String provider, String start_date, String end_date, ArrayList<Service> services) {
+
+  public Sla(String id,  String customer,  String provider,  String start_date,  String end_date,  ArrayList<Service> services) {
     this.id                = id;
     this.customer          = customer;
     this.provider          = provider;
@@ -40,7 +40,7 @@ public class Sla {
     this.slaNormalizations.fromDefaultFile();
     this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
-    
+
 //    KieServices kieServices = KieServices.Factory.get();
   //  KieContainer kContainer = kieServices.getKieClasspathContainer();
    // KieSession ksession = kContainer.newKieSession();
@@ -48,61 +48,71 @@ public class Sla {
     //int totRules = ksession.fireAllRules();
     //ksession.dispose();
 
-    for(Target t : services.get(0).targets) {
-      
+    for (Target t : services.get(0).targets) {
+
       float normalization_factor = 0.0f;
       infinity_value = slaNormalizations.infinity_value;
-      if(0==t.type.compareTo("public_ip"))
+      if (0  ==  t.type.compareTo("public_ip")) {
         normalization_factor = slaNormalizations.public_ip;
-      if(0==t.type.compareTo("computing_time"))
+      }
+
+      if (0  ==  t.type.compareTo("computing_time")) {
         normalization_factor = slaNormalizations.computing_time;
-      if(0==t.type.compareTo("num_cpus"))
+      }
+      if (0  ==  t.type.compareTo("num_cpus")) {
         normalization_factor = slaNormalizations.num_cpus;
-      if(0==t.type.compareTo("mem_size"))
+      }
+      if (0  ==  t.type.compareTo("mem_size")) {
         normalization_factor = slaNormalizations.mem_size;
-      if(0==t.type.compareTo("disk_size"))
+      }
+      if (0  ==  t.type.compareTo("disk_size")) {
         normalization_factor = slaNormalizations.disk_size;
-      if(0==t.type.compareTo("upload_bandwidth"))
+      }
+      if (0  ==  t.type.compareTo("upload_bandwidth")) {
         normalization_factor = slaNormalizations.upload_bandwidth;
-      if(0==t.type.compareTo("download_bandwidth"))
+      }
+      if (0  ==  t.type.compareTo("download_bandwidth")) {
         normalization_factor = slaNormalizations.download_bandwidth;
-      if(0==t.type.compareTo("upload_aggregated"))
+      }
+      if (0  ==  t.type.compareTo("upload_aggregated")) {
         normalization_factor = slaNormalizations.upload_aggregated;
-      if(0==t.type.compareTo("download_aggregated"))
+      }
+      if (0  ==  t.type.compareTo("download_aggregated")) {
         normalization_factor = slaNormalizations.download_aggregated;
-      
-      rank += ((t.restrictions.total_limit<Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinity_value) 
+      }
+
+      rank += ((t.restrictions.total_limit < Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinity_value)
                 + t.restrictions.total_guaranteed
-      	        + (t.restrictions.user_limit<Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinity_value) 
+      	        + (t.restrictions.user_limit < Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinity_value)
 		+ t.restrictions.user_guaranteed
-		+ (t.restrictions.instance_limit<Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinity_value) 
+		+ (t.restrictions.instance_limit < Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinity_value)
 		+ t.restrictions.instance_guaranteed) * normalization_factor;
     }
   }
-  
+
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
- 
+
   public static ArrayList<Sla> fromJsonObject(JsonObject obj) {
     JsonArray SLAS = obj.get("sla").getAsJsonArray();
     ArrayList<Service> services = new ArrayList<Service>();
     ArrayList<Sla> SLAs = new ArrayList<Sla>();
-    
-    for(int i=0; i < SLAS.size(); ++i) {
+
+    for (int i = 0; i < SLAS.size(); ++i) {
       JsonObject currentSLA = SLAS.get(i).getAsJsonObject();
       services = parseService(currentSLA);
-      SLAs.add(new Sla( currentSLA.get("id").getAsString(),
-     	 		 currentSLA.get("customer").getAsString(),
-      			 currentSLA.get("provider").getAsString(),
-      			 currentSLA.get("start_date").getAsString(),
-      			 currentSLA.get("end_date").getAsString(), services));
+      SLAs.add(new Sla(currentSLA.get("id").getAsString(),
+		       currentSLA.get("customer").getAsString(),
+		       currentSLA.get("provider").getAsString(),
+		       currentSLA.get("start_date").getAsString(),
+		       currentSLA.get("end_date").getAsString(),  services));
     }
     return SLAs;
   }
-  
-     
+
+
   /**
    *
    *
@@ -113,23 +123,23 @@ public class Sla {
   private static ArrayList<Service> parseService(JsonObject sla) {
     JsonArray Services = sla.get("services").getAsJsonArray();
     ArrayList<Service> services = new ArrayList<Service>();
-    for(int i = 0; i < Services.size(); i++) {
+    for (int i = 0; i < Services.size(); i++) {
       try {
         JsonObject obj = Services.get(i).getAsJsonObject();
 	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
-	ArrayList<Target> targets = parseTarget(obj); 
-	services.add(new Service( obj.get("service_id").getAsString(), obj.get("type").getAsString() , targets) );
-      } catch(Exception e) {
+	ArrayList<Target> targets = parseTarget(obj);
+	services.add(new Service(obj.get("service_id").getAsString(), obj.get("type").getAsString(),  targets));
+      } catch (Exception e) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
-	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + e.getMessage()); 
-      } catch(Throwable t) {
+	Logger.getLogger("").log(Level.INFO,  timeStamp + "Exception: " + e.getMessage());
+      } catch (Throwable t) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
-	Logger.getLogger("").log(Level.INFO, timeStamp +"Exception: " + t.getMessage());
+	Logger.getLogger("").log(Level.INFO,  timeStamp + "Exception: " + t.getMessage());
       }
     }
     return services;
   }
-   
+
    /**
     *
     *
@@ -138,12 +148,12 @@ public class Sla {
     *
     */
   private static ArrayList<Target> parseTarget(JsonObject service) {
-    JsonArray Targets = service.get("targets").getAsJsonArray();
-    ArrayList<Target> targets = new ArrayList<Target>();
+    JsonArray targets = service.get("targets").getAsJsonArray();
+    ArrayList<Target> targetArray = new ArrayList<Target>();
     Gson gson = new GsonBuilder().create();
-    for(int i = 0; i < Targets.size(); i++) {
-      targets.add(gson.fromJson(Targets.get(i).getAsJsonObject(), Target.class) );
+    for (int i = 0; i < targets.size(); i++) {
+      targetArray.add(gson.fromJson(targets.get(i).getAsJsonObject(),  Target.class));
     }
-    return targets;
+    return targetArray;
   }
 }

@@ -9,7 +9,7 @@ public class Restrictions {
   public double instance_limit      = Double.POSITIVE_INFINITY;
   public long   user_guaranteed     = 0;
   public double user_limit          = Double.POSITIVE_INFINITY;
-  
+
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this);

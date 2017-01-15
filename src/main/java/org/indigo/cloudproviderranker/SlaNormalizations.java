@@ -35,18 +35,18 @@ public class SlaNormalizations {
   public float get_computing_time() {
     return computing_time;
   }
-  
+
   public static String priority_file = null;
-  
+
   public SlaNormalizations() {}
 
   /**
    *
    *
-   * 
+   *
    *
    */
-  public SlaNormalizations( float computing_time,
+  public SlaNormalizations(float computing_time,
   			     float num_cpus,
 			     float mem_size,
 			     float disk_size,
@@ -65,14 +65,14 @@ public class SlaNormalizations {
     this.upload_bandwidth    = upload_bandwidth;
     this.download_bandwidth  = download_bandwidth;
     this.upload_aggregated   = upload_aggregated;
-    this.download_aggregated = download_aggregated; 
-    this.infinity_value      = infinity_value; 
+    this.download_aggregated = download_aggregated;
+    this.infinity_value      = infinity_value;
   }
-  
+
   /**
    *
    *
-   * 
+   *
    *
    */
   public void fromDefaultFile() {
@@ -82,14 +82,14 @@ public class SlaNormalizations {
   /**
    *
    *
-   * 
+   *
    *
    */
   public void fromCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
-    if(priority_file!=null) {
+    if (priority_file!=null) {
       customPriorityFile = (new File(priority_file)).getParent();
-      if(customPriorityFile==null || customPriorityFile.compareToIgnoreCase("")==0) {
+      if (customPriorityFile  ==  null || customPriorityFile.compareToIgnoreCase("") == 0) {
         customPriorityFile = ".";
       }
     }
@@ -101,11 +101,11 @@ public class SlaNormalizations {
   /**
    *
    *
-   * 
+   *
    *
    */
   private void fromFile(String filename) {
-    if(filename==null) {
+    if (filename  ==  null) {
       computing_time 	    = 0.0166f;
       num_cpus	    	    = 1.0f;
       mem_size	    	    = 1.0f;
@@ -125,11 +125,11 @@ public class SlaNormalizations {
       InputStreamReader inputReader = new InputStreamReader(is);
       BufferedReader buffReader     = new BufferedReader(inputReader);
       String line = "";
-      while((line = buffReader.readLine()) != null) {
+      while ((line = buffReader.readLine()) != null) {
         Line += line;
       }
-      //Logger.getLogger("").log(Level.INFO, "loaded from [" + filename + "] params " + Line); 
-    } catch(Exception e) {
+      //Logger.getLogger("").log(Level.INFO,  "loaded from [" + filename + "] params " + Line);
+    } catch (Exception e) {
       computing_time 	    = 0.0166f;
       num_cpus	    = 1.0f;
       mem_size	    = 1.0f;
@@ -143,8 +143,8 @@ public class SlaNormalizations {
       return;
     }
     Gson gson = new Gson();
-    JsonElement E = gson.fromJson(Line, JsonElement.class);
-    this.fromJsonObject((SlaNormalizations)gson.fromJson(E.getAsJsonObject(), SlaNormalizations.class) );  
+    JsonElement E = gson.fromJson(Line,  JsonElement.class);
+    this.fromJsonObject((SlaNormalizations)gson.fromJson(E.getAsJsonObject(),  SlaNormalizations.class));
   }
 
   private void fromJsonObject(SlaNormalizations aSla) {
@@ -156,21 +156,21 @@ public class SlaNormalizations {
     this.upload_bandwidth    = aSla.upload_bandwidth;
     this.download_bandwidth  = aSla.download_bandwidth;
     this.upload_aggregated   = aSla.upload_aggregated;
-    this.download_aggregated = aSla.download_aggregated; 
-    this.infinity_value      = aSla.infinity_value; 
+    this.download_aggregated = aSla.download_aggregated;
+    this.infinity_value      = aSla.infinity_value;
   }
 
   /**
    *
    *
-   * 
+   *
    *
    */
   public void toCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
-    if(priority_file!=null) {
+    if (priority_file!=null) {
       customPriorityFile = (new File(priority_file)).getParent();
-      if(customPriorityFile==null || customPriorityFile.compareToIgnoreCase("")==0) {
+      if (customPriorityFile  ==  null || customPriorityFile.compareToIgnoreCase("") == 0) {
         customPriorityFile = ".";
       }
     }
@@ -181,9 +181,9 @@ public class SlaNormalizations {
       PrintWriter out = new PrintWriter(customPriorityFile);
       out.println(params);
       out.close();
-    } catch(java.io.FileNotFoundException e) {
+    } catch (java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
-      Logger.getLogger("").log(Level.SEVERE, timeStamp + " - File [" + customPriorityFile + "] doesn't exist. Cannot write custom priority parameters.."); 
+      Logger.getLogger("").log(Level.SEVERE,  timeStamp + " - File [" + customPriorityFile + "] doesn't exist. Cannot write custom priority parameters..");
     }
   }
 

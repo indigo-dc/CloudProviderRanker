@@ -2,26 +2,23 @@ package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.google.gson.JsonArray;
+//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+//import com.google.gson.JsonObject;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+//import java.io.FileOutputStream;
+//import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+//import java.io.OutputStreamWriter;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.io.PrintWriter;
-
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import java.text.SimpleDateFormat;
 
@@ -30,16 +27,16 @@ public class PaaSMetricNormalization {
   public static String normalization_file = null;
 
   protected int   OCCI_Create_VM_availability 	 = 1;
-  protected float OCCI_CreateVM_Response_Time 	 = (float)0.001;
+  protected float OCCI_CreateVM_Response_Time 	 = (float) 0.001;
   protected int   OCCI_CreateVM_Result 		 = 1;
   protected int   OCCI_Delete_VM_Availability 	 = 1;
-  protected float OCCI_DeleteVM_Response_Time 	 = (float)0.001;
+  protected float OCCI_DeleteVM_Response_Time 	 = (float) 0.001;
   protected int   OCCI_DeleteVM_Result 		 = 1;
   protected int   General_OCCI_API_Availability	 = 1;
-  protected float General_OCCI_API_Response_Time = (float)0.001;
+  protected float General_OCCI_API_Response_Time = (float) 0.001;
   protected int   General_OCCI_API_Result 	 = 1;
   protected int   OCCI_Inspect_VM_availability 	 = 1;
-  protected float OCCI_InspectVM_Response_Time 	 = (float)0.001;
+  protected float OCCI_InspectVM_Response_Time 	 = (float) 0.001;
   protected int   OCCI_InspectVM_Result 	 = 1;
 
   public int getOCCI_Create_VM_availability() {
@@ -115,7 +112,7 @@ public class PaaSMetricNormalization {
     this.OCCI_InspectVM_Result = OCCI_InspectVM_Result;
   }
 
-  private PaaSMetricNormalization() {}
+  private PaaSMetricNormalization() { }
 
   //----------------------------------------------------------------------------------------
   public PaaSMetricNormalization(boolean update) {
@@ -135,7 +132,7 @@ public class PaaSMetricNormalization {
 
   //----------------------------------------------------------------------------------------
   @Override
-  public String toString() {
+  public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 
@@ -214,7 +211,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromObject(PaaSMetricNormalization obj) {
+  private void updateFromObject(final PaaSMetricNormalization obj) {
     this.OCCI_Create_VM_availability    = obj.OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = obj.OCCI_CreateVM_Response_Time;
     this.OCCI_CreateVM_Result 		= obj.OCCI_CreateVM_Result;
@@ -230,7 +227,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void toCustomFile() {
+  public final void toCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
       //Logger.getLogger("").log(Level.INFO,  "normalization_file=[" + normalization_file + "]");
@@ -255,7 +252,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public void printParams() {
+  public final void printParams() {
     Gson gson = new Gson();
     String params = gson.toJson(this);
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
@@ -263,7 +260,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  public String getParams() {
+  public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);
   }

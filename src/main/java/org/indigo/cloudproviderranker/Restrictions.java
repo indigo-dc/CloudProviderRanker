@@ -11,7 +11,7 @@ public class Restrictions {
   public double user_limit          = Double.POSITIVE_INFINITY;
 
   @Override
-  public String toString() {
+  public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 }

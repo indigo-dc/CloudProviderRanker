@@ -42,19 +42,22 @@ public class RESTEngine {
   }
 
   //---------------------------------------------------------------------------------------
-  public void addHandlerToContext(String contextPath,  HttpHandler handler) {
+  public final void addHandlerToContext(final String contextPath,  final HttpHandler handler) {
     server.createContext(contextPath,  handler);
   }
 
   //---------------------------------------------------------------------------------------
 
-  public void initHttpServer(boolean usessl, int tcpport, String keystorepath, String password)
+  public final void initHttpServer(final boolean usessl,
+                                   final int tcpport,
+                                   final String keystorepath,
+                                   final String password)
     throws ServerException {
       if (!usessl) {
         try {
-	  server = HttpServer.create(new InetSocketAddress(tcpport),  0);
+          server = HttpServer.create(new InetSocketAddress(tcpport),  0);
         } catch (IOException e) {
-	  throw new ServerException("Error in HttpServer.create: " + e.getMessage());
+          throw new ServerException("Error in HttpServer.create: " + e.getMessage());
 	}
 
       } else {
@@ -117,8 +120,8 @@ public class RESTEngine {
 	} catch (KeyManagementException e) {
 	  throw new ServerException("Error in SSLContext.init: " + e.getMessage());
 	}
-
-	((HttpsServer)server).setHttpsConfigurator(new HttpsConfigurator(sslContext));
+        HttpsConfigurator httpsConfigurator = new HttpsConfigurator(sslContext);
+	((HttpsServer) server).setHttpsConfigurator(httpsConfigurator);
       }
   }
 }

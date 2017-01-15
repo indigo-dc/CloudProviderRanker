@@ -5,13 +5,11 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import com.google.gson.JsonArray;
+//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+//import com.google.gson.JsonObject;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.io.PrintWriter;
 
 import java.util.logging.Logger;
@@ -40,22 +38,16 @@ public class SlaNormalizations {
 
   public SlaNormalizations() {}
 
-  /**
-   *
-   *
-   *
-   *
-   */
   public SlaNormalizations(float computing_time,
-  			     float num_cpus,
-			     float mem_size,
-			     float disk_size,
-			     float public_ip,
-			     float upload_bandwidth,
-			     float download_bandwidth,
-			     float upload_aggregated,
-			     float download_aggregated,
-			     float infinity_value)
+                           float num_cpus,
+                           float mem_size,
+                           float disk_size,
+                           float public_ip,
+                           float upload_bandwidth,
+                           float download_bandwidth,
+                           float upload_aggregated,
+                           float download_aggregated,
+                           float infinity_value)
   {
     this.computing_time	     = computing_time;
     this.num_cpus	     = num_cpus;
@@ -87,7 +79,7 @@ public class SlaNormalizations {
    */
   public void fromCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
-    if (priority_file!=null) {
+    if (priority_file != null) {
       customPriorityFile = (new File(priority_file)).getParent();
       if (customPriorityFile  ==  null || customPriorityFile.compareToIgnoreCase("") == 0) {
         customPriorityFile = ".";
@@ -143,8 +135,9 @@ public class SlaNormalizations {
       return;
     }
     Gson gson = new Gson();
-    JsonElement E = gson.fromJson(Line,  JsonElement.class);
-    this.fromJsonObject((SlaNormalizations)gson.fromJson(E.getAsJsonObject(),  SlaNormalizations.class));
+    JsonElement element = gson.fromJson(Line,  JsonElement.class);
+    this.fromJsonObject((SlaNormalizations)gson.fromJson(element.getAsJsonObject(),  
+                                                         SlaNormalizations.class));
   }
 
   private void fromJsonObject(SlaNormalizations aSla) {
@@ -168,9 +161,9 @@ public class SlaNormalizations {
    */
   public void toCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
-    if (priority_file!=null) {
+    if (priority_file != null) {
       customPriorityFile = (new File(priority_file)).getParent();
-      if (customPriorityFile  ==  null || customPriorityFile.compareToIgnoreCase("") == 0) {
+      if (customPriorityFile == null || customPriorityFile.compareToIgnoreCase("") == 0) {
         customPriorityFile = ".";
       }
     }
@@ -183,12 +176,16 @@ public class SlaNormalizations {
       out.close();
     } catch (java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
-      Logger.getLogger("").log(Level.SEVERE,  timeStamp + " - File [" + customPriorityFile + "] doesn't exist. Cannot write custom priority parameters..");
+      Logger.getLogger("").log(Level.SEVERE, timeStamp
+                                             + " - File ["
+                                             + customPriorityFile
+                                             + "] doesn't exist. Cannot "
+                                             + "write custom priority parameters..");
     }
   }
 
   //----------------------------------------------------------------------------------------
-  public String getParams() {
+  public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);
   }

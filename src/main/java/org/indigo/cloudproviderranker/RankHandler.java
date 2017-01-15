@@ -32,8 +32,10 @@ import com.google.gson.JsonObject;
 
 /**
  *
- * This is the real ranker which receives the JSON text to be converted to CloudProvider's instances
- * each instance is ranked basing on the rule define in the file main/resources/rules/CloudProviderRule.drl
+ * This is the real ranker which receives the JSON text to be converted to
+ * CloudProvider's instances
+ * each instance is ranked basing on the rule define in the file
+ * main/resources/rules/CloudProviderRule.drl
  *
  * @author dorigoa
  *
@@ -41,7 +43,7 @@ import com.google.gson.JsonObject;
 public class RankHandler extends RequestHandler {
 
   @Override
-  public void handle(final HttpExchange httpExchange) throws IOException {
+  public final void handle(final HttpExchange httpExchange) throws IOException {
     if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
       String response = "API \"rank\" only supports POST method";
       httpExchange.sendResponseHeaders(405,  response.getBytes().length);
@@ -57,20 +59,20 @@ public class RankHandler extends RequestHandler {
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type",  "application/json");
     httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(),
-				     responseToClient.getMessage().getBytes().length);
+                                     responseToClient.getMessage().getBytes().length);
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     Logger.getLogger("").log(Level.INFO,  timeStamp
-			     + " ["
-			     + clientHostName
-			     + "] Returning ranked provider to the client: "
-			     + responseToClient.getMessage() + "\n\n");
+                             + " ["
+                             + clientHostName
+                             + "] Returning ranked provider to the client: "
+                             + responseToClient.getMessage() + "\n\n");
 
     OutputStream os = httpExchange.getResponseBody();
     os.write(responseToClient.getMessage().getBytes());
     os.close();
   }
 
-  public ParseResult parseRequest(final InputStream is) {
+  public final ParseResult parseRequest(final InputStream is) {
     String line = "";
     try {
       InputStreamReader inputReader = new InputStreamReader(is, "utf-8");
@@ -83,11 +85,11 @@ public class RankHandler extends RequestHandler {
     } catch (IOException ioe) {
     }
     String timeStamp = new
-	SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
+        SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 
     Logger.getLogger("").log(Level.INFO,  timeStamp
-			     + " [" + clientHostName
-			     + "] New request for /rank API from this client... ");
+                             + " [" + clientHostName
+                             + "] New request for /rank API from this client... ");
 
     ArrayList<Preference> preferences = new ArrayList<Preference>();
     try {
@@ -101,7 +103,7 @@ public class RankHandler extends RequestHandler {
       //
       if (obj.has("preferences")) {
         specifiedPreferences = true;
-	preferences = Preference.fromJsonObject(obj);
+        preferences = Preference.fromJsonObject(obj);
       }
 
       Service[] services = null;
@@ -113,7 +115,7 @@ public class RankHandler extends RequestHandler {
       //
       //
       if (obj.has("sla")) {
-	specifiedSla = true;
+        specifiedSla = true;
 	slaArray = Sla.fromJsonObject(obj);
       }
 
@@ -161,7 +163,7 @@ public class RankHandler extends RequestHandler {
       if (specifiedPreferences && specifiedSla) {
         int j = 0;
 	for (Priority p : allPriorities) {
-	  rankedProviders.add(new RankedCloudProvider(slaidToProvider.get(p.sla_id),
+	  rankedProviders.add(new RankedCloudProvider(slaidToProvider.get(p.slaId),
 						      (allPriorities.size() - j++),
 						      true,
 						      "")

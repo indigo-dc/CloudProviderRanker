@@ -6,12 +6,12 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.Level;
 import java.io.IOException;
 
-public class Main {
+public final class Main {
 
-  public Main() {
+  private Main() {
   }
 
-  public static final void main(final String[] args) throws IOException {
+  public static void main(final String[] args) throws IOException {
     int tcpport = 8080;
     boolean usessl = false;
     String keystorepath = null;
@@ -19,7 +19,7 @@ public class Main {
 
     if (args.length < 2) {
       System.err.println("Must specify at least the SLA priority file as "
-			 + "first argument and monitoring normalization file as second argument");
+                         + "first argument and monitoring normalization file as second argument");
       System.exit(1);
     }
 
@@ -31,7 +31,7 @@ public class Main {
     }
     if (args.length >= 4 && args.length < 5) {
       System.err.println("If a keystore path is specified"
-			 + " then must specify also a password. STOP!");
+                         + " then must specify also a password. STOP!");
       System.exit(1);
     }
     if (args.length   ==   5) {
@@ -57,14 +57,14 @@ public class Main {
 
     Logger rootLogger = Logger.getLogger("");
     FileHandler logHandler = new FileHandler("/var/log/CloudProviderRanker.log",
-					     10 * 1024 * 1024,
-					     10,
-					     false);
+                                             10 * 1024 * 1024,
+                                             10,
+                                             false);
 
     logHandler.setFormatter(new SimpleFormatter());
     logHandler.setLevel(Level.FINEST);
     rootLogger.addHandler(logHandler);
-    String plairOrSsl = (usessl ? "SSL" : "plain");
+    String plairOrSsl = usessl ? "SSL" : "plain";
     rootLogger.log(Level.INFO,  "Cloud Provider Ranker is listening on TCP port "
 		   + tcpport
 		   + " with "

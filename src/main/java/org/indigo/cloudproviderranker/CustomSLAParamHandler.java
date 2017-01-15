@@ -1,6 +1,7 @@
 package org.indigo.cloudproviderranker;
+
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
+//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -9,8 +10,8 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
-import java.util.Date;
-import com.google.gson.JsonArray;
+//import java.util.Date;
+//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -20,8 +21,8 @@ public class CustomSLAParamHandler extends RequestHandler {
 
   //_________________________________________________________________________________________
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
-    if (httpExchange.getRequestMethod().compareToIgnoreCase("POST")!=0) {
+  public final void handle(final HttpExchange httpExchange) throws IOException {
+    if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
       String response = "API \"custom-sla-parameters\" only supports POST method";
       httpExchange.sendResponseHeaders(405,  response.getBytes().length);
       OutputStream os = httpExchange.getResponseBody();
@@ -43,14 +44,14 @@ public class CustomSLAParamHandler extends RequestHandler {
     os.close();
   }
 
-  public void updateParams(InputStream is/*String line*/) {
-    String Line = "";
+  public final void updateParams(final InputStream is/*String line*/) {
+    String line = "";
     try {
       InputStreamReader inputReader = new InputStreamReader(is, "utf-8");
       BufferedReader buffReader = new BufferedReader(inputReader);
-      String line = "";
-      while ((line = buffReader.readLine()) != null) {
-	  Line += line;
+      String sline = "";
+      while ((sline = buffReader.readLine()) != null) {
+        line += sline;
       }
     } catch (IOException ioe) {
 
@@ -58,22 +59,23 @@ public class CustomSLAParamHandler extends RequestHandler {
 
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 
-    Logger.getLogger("").log(Level.INFO,  timeStamp +
-			     " [" +
-			     clientHostName +
-			     "] New request for /custom-sla-parameters API from this client... ");
+    Logger.getLogger("").log(Level.INFO,  timeStamp
+                             + " ["
+                             + clientHostName
+                             + "] New request for "
+                             + "/custom-sla-parameters API from this client... ");
     SlaNormalizations slaNormalizations = new SlaNormalizations();
     slaNormalizations.fromDefaultFile();
     slaNormalizations.fromCustomFile();
 
     Gson gson = new Gson();
 
-    JsonObject obj = gson.fromJson(Line,  JsonElement.class).getAsJsonObject();
+    JsonObject obj = gson.fromJson(line,  JsonElement.class).getAsJsonObject();
     if (obj.has("computing_time")) {
       slaNormalizations.computing_time = obj.get("computing_time").getAsFloat();
     }
     if (obj.has("num_cpus")) {
-      slaNormalizations.num_cpus = obj.get("num_cpus").getAsFloat() ;
+      slaNormalizations.num_cpus = obj.get("num_cpus").getAsFloat();
     }
     if (obj.has("mem_size")) {
       slaNormalizations.mem_size = obj.get("mem_size").getAsFloat();

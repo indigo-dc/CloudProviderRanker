@@ -2,9 +2,9 @@ package org.indigo.cloudproviderranker;
 
 import it.reply.monitoringpillar.domain.dsl.monitoring.pillar.wrapper.paas.PaaSMetric;
 import com.google.gson.JsonArray;
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+//import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,19 +16,19 @@ public class PaaSMetricRanked extends PaaSMetric {
   private String providerName = "";
   private String clientHostName = "";
 
-  public void setClientIP(String ip) {
+  public final void setClientIP(final String ip) {
     clientHostName = ip;
   }
 
-  public float getRank() {
+  public final float getRank() {
     return rank;
   }
 
-  public void addToRank(float f) {
+  public final void addToRank(final float f) {
     rank += f;
   }
 
-  public HashMap<String,  ArrayList<PaaSMetricRanked>> fromJsonArray(JsonArray array) {
+  public final HashMap<String,  ArrayList<PaaSMetricRanked>> fromJsonArray(final JsonArray array) {
 
     PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization(true);
 
@@ -42,7 +42,7 @@ public class PaaSMetricRanked extends PaaSMetric {
         JsonObject currentMetricJsonObject = metricsArray.get(j).getAsJsonObject();
 
 	PaaSMetricRanked paaSMetricRanked =
-	    (PaaSMetricRanked)(new
+	    (PaaSMetricRanked) (new
 			       GsonBuilder().create()).fromJson(currentMetricJsonObject,
 								PaaSMetricRanked.class);
 

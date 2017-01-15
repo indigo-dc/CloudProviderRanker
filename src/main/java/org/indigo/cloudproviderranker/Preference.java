@@ -2,8 +2,8 @@ package org.indigo.cloudproviderranker;
 
 import java.util.ArrayList;
 import com.google.gson.JsonArray;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+//import com.google.gson.Gson;
+//import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.GsonBuilder;
 
@@ -18,7 +18,9 @@ public class Preference {
   /**
    *
    */
-  public Preference(String serviceType,  String id,  ArrayList<Priority> priorities) {
+  public Preference(final String serviceType,
+                    final String id,
+                    final ArrayList<Priority> priorities) {
     this.serviceType = serviceType;
     this.priorities   = priorities;
   }
@@ -29,12 +31,12 @@ public class Preference {
    *
    *
    */
-  public static ArrayList<Preference> fromJsonObject(JsonObject obj) {
+  public static ArrayList<Preference> fromJsonObject(final JsonObject obj) {
     ArrayList<Preference> preferences = new ArrayList<Preference>();
     //ArrayList<Priority> priorities = new ArrayList<Priority>();
     JsonArray preferencesArray = obj.get("preferences").getAsJsonArray();
     //System.err.println("preferences size="+Preferences.size());
-    for (int i = 0; i< preferencesArray.size(); ++i) {
+    for (int i = 0; i < preferencesArray.size(); ++i) {
       JsonObject prefJsonObj = preferencesArray.get(i).getAsJsonObject();
       //System.err.println("prefJsonObj=" + prefJsonObj.getAsJsonObject().getAsString());
       ArrayList<Priority> priorities = parsePriorities(prefJsonObj.get("priority").getAsJsonArray());
@@ -53,7 +55,7 @@ public class Preference {
     *
     *
     */
-   private static ArrayList<Priority> parsePriorities(JsonArray array) {
+   private static ArrayList<Priority> parsePriorities(final JsonArray array) {
 
      ArrayList<Priority> priorities = new ArrayList<Priority>();
      for (int i = 0; i < array.size(); i++) {
@@ -72,7 +74,7 @@ public class Preference {
    *
    */
    @Override
-   public String toString() {
+   public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 }

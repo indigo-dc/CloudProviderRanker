@@ -1,6 +1,6 @@
 package org.indigo.cloudproviderranker;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
+//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -10,8 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
-import java.util.Date;
-import com.google.gson.JsonArray;
+//import java.util.Date;
+//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,19 +21,18 @@ public class CustomPaaSParamHandler extends RequestHandler {
 
   //_________________________________________________________________________________________
   @Override
-  public void handle(HttpExchange httpExchange) throws IOException {
-    if (httpExchange.getRequestMethod().compareToIgnoreCase("POST")!=0) {
+  public final void handle(final HttpExchange httpExchange) throws IOException {
+    if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
       String response = "API \"custom-monitoring-parameters\" only supports POST method";
-	httpExchange.sendResponseHeaders(405,  response.getBytes().length);
-	OutputStream os = httpExchange.getResponseBody();
-	os.write(response.getBytes());
-	os.close();
-	return;
+      httpExchange.sendResponseHeaders(405,  response.getBytes().length);
+      OutputStream os = httpExchange.getResponseBody();
+      os.write(response.getBytes());
+      os.close();
+      return;
     }
 
     clientHostName = httpExchange.getRemoteAddress().getHostName();
 
-//    InputStream is = httpExchange.getRequestBody();
     updateParams(httpExchange.getRequestBody());
 
 
@@ -44,11 +43,9 @@ public class CustomPaaSParamHandler extends RequestHandler {
     OutputStream os = httpExchange.getResponseBody();
     os.write("".getBytes());
     os.close();
-
-
   }
 
-  public void updateParams(InputStream is /*String line*/) {
+  public final void updateParams(final InputStream is /*String line*/) {
     String Line = "";
     try {
       //InputStream is = httpExchange.getRequestBody();
@@ -64,10 +61,10 @@ public class CustomPaaSParamHandler extends RequestHandler {
 
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 
-    Logger.getLogger("").log(Level.INFO,  timeStamp +
-			     " [" + clientHostName +
-			     "] New request for /custom-monitoring-parameters" +
-			     " API from this client... ");
+    Logger.getLogger("").log(Level.INFO,  timeStamp
+			     + " [" + clientHostName
+			     + "] New request for /custom-monitoring-parameters"
+			     + " API from this client... ");
     PaaSMetricNormalization paaSMetricNormalization = new PaaSMetricNormalization(true);
 
     Gson gson = new Gson();
@@ -102,7 +99,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
       paaSMetricNormalization.setGeneral_OCCI_API_Availability(vma);
     }
     if (obj.has("General_OCCI_API_Response_Time")) {
-      float vmrt = obj.get("General_OCCI_API_Response_Time").getAsFloat() ;
+      float vmrt = obj.get("General_OCCI_API_Response_Time").getAsFloat();
       paaSMetricNormalization.setGeneral_OCCI_API_Response_Time(vmrt);
     }
     if (obj.has("General_OCCI_API_Result")) {

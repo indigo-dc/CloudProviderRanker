@@ -4,11 +4,15 @@ public class ParseResult {
   private String messageJson;
   private int httpCode;
 
-  public ParseResult(String mex,  int code) {
+  public ParseResult(final String mex, final int code) {
     this.messageJson = mex;
     this.httpCode = code;
   }
 
-  public String getMessage() { return messageJson; }
-  public int getHTTPCode() { return httpCode; }
+  public final String getMessage() {
+    return messageJson;
+  }
+  public final int getHTTPCode() {
+    return httpCode;
+  }
 }

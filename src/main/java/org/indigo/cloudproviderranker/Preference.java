@@ -2,8 +2,6 @@ package org.indigo.cloudproviderranker;
 
 import java.util.ArrayList;
 import com.google.gson.JsonArray;
-//import com.google.gson.Gson;
-//import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.GsonBuilder;
 
@@ -15,9 +13,6 @@ public class Preference {
   public String     	     id;
   public ArrayList<Priority> priorities;
 
-  /**
-   *
-   */
   public Preference(final String serviceType,
                     final String id,
                     final ArrayList<Priority> priorities) {
@@ -25,12 +20,6 @@ public class Preference {
     this.priorities   = priorities;
   }
 
-  /**
-   *
-   *
-   *
-   *
-   */
   public static ArrayList<Preference> fromJsonObject(final JsonObject obj) {
     ArrayList<Preference> preferences = new ArrayList<Preference>();
     //ArrayList<Priority> priorities = new ArrayList<Priority>();
@@ -48,33 +37,18 @@ public class Preference {
     return preferences;
   }
 
-   /**
-    *
-    *
-    * Convert a JSON array "priority" into a java array of Priority objects
-    *
-    *
-    */
-   private static ArrayList<Priority> parsePriorities(final JsonArray array) {
+  private static ArrayList<Priority> parsePriorities(final JsonArray array) {
 
-     ArrayList<Priority> priorities = new ArrayList<Priority>();
-     for (int i = 0; i < array.size(); i++) {
-	 JsonObject obj = array.get(i).getAsJsonObject();
-       priorities.add((new GsonBuilder().create()).fromJson(obj,  Priority.class));
-     }
+    ArrayList<Priority> priorities = new ArrayList<Priority>();
+    for (int i = 0; i < array.size(); i++) {
+      JsonObject obj = array.get(i).getAsJsonObject();
+      priorities.add((new GsonBuilder().create()).fromJson(obj,  Priority.class));
+    }
+    return priorities;
+  }
 
-     return priorities;
-
-   }
-
-  /**
-   *
-   *
-   *
-   *
-   */
-   @Override
-   public final String toString() {
+  @Override
+  public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 }

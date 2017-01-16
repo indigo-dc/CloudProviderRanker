@@ -5,16 +5,11 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-//import com.google.gson.JsonObject;
-
 import java.io.PrintWriter;
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
-
 import java.text.SimpleDateFormat;
 
 public class SlaNormalizations {
@@ -38,16 +33,16 @@ public class SlaNormalizations {
 
   public SlaNormalizations() {}
 
-  public SlaNormalizations(float computing_time,
-                           float num_cpus,
-                           float mem_size,
-                           float disk_size,
-                           float public_ip,
-                           float upload_bandwidth,
-                           float download_bandwidth,
-                           float upload_aggregated,
-                           float download_aggregated,
-                           float infinity_value)
+  public SlaNormalizations(final float computing_time,
+                           final float num_cpus,
+                           final float mem_size,
+                           final float disk_size,
+                           final float public_ip,
+                           final float upload_bandwidth,
+                           final float download_bandwidth,
+                           final float upload_aggregated,
+                           final float download_aggregated,
+                           final float infinity_value)
   {
     this.computing_time	     = computing_time;
     this.num_cpus	     = num_cpus;
@@ -96,7 +91,7 @@ public class SlaNormalizations {
    *
    *
    */
-  private void fromFile(String filename) {
+  private void fromFile(final String filename) {
     if (filename  ==  null) {
       computing_time 	    = 0.0166f;
       num_cpus	    	    = 1.0f;
@@ -120,7 +115,7 @@ public class SlaNormalizations {
       while ((line = buffReader.readLine()) != null) {
         Line += line;
       }
-      //Logger.getLogger("").log(Level.INFO,  "loaded from [" + filename + "] params " + Line);
+      
     } catch (Exception e) {
       computing_time 	    = 0.0166f;
       num_cpus	    = 1.0f;
@@ -140,7 +135,7 @@ public class SlaNormalizations {
                                                          SlaNormalizations.class));
   }
 
-  private void fromJsonObject(SlaNormalizations aSla) {
+  private void fromJsonObject(final SlaNormalizations aSla) {
     this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
     this.mem_size	     = aSla.mem_size;

@@ -2,24 +2,16 @@ package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-//import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-//import com.google.gson.JsonObject;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
-//import java.io.FileOutputStream;
-//import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-//import java.io.OutputStreamWriter;
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.io.PrintWriter;
-
 import java.text.SimpleDateFormat;
 
 public class PaaSMetricNormalization {
@@ -75,47 +67,47 @@ public class PaaSMetricNormalization {
   public int getOCCI_InspectVM_Result() {
     return OCCI_InspectVM_Result;
   }
-  public void setOCCI_Create_VM_availability(int OCCI_Create_VM_availability) {
+  public void setOCCI_Create_VM_availability(final int OCCI_Create_VM_availability) {
     this.OCCI_Create_VM_availability = OCCI_Create_VM_availability;
   }
-  public void setOCCI_CreateVM_Response_Time(float OCCI_CreateVM_Response_Time) {
+  public void setOCCI_CreateVM_Response_Time(final float OCCI_CreateVM_Response_Time) {
     this.OCCI_CreateVM_Response_Time = OCCI_CreateVM_Response_Time;
   }
-  public void setOCCI_CreateVM_Result(int OCCI_CreateVM_Result) {
+  public void setOCCI_CreateVM_Result(final int OCCI_CreateVM_Result) {
     this.OCCI_CreateVM_Result = OCCI_CreateVM_Result;
   }
-  public void setOCCI_Delete_VM_Availability(int OCCI_Delete_VM_Availability) {
+  public void setOCCI_Delete_VM_Availability(final int OCCI_Delete_VM_Availability) {
     this.OCCI_Delete_VM_Availability = OCCI_Delete_VM_Availability;
   }
-  public void setOCCI_DeleteVM_Response_Time(float OCCI_DeleteVM_Response_Time) {
+  public void setOCCI_DeleteVM_Response_Time(final float OCCI_DeleteVM_Response_Time) {
     this.OCCI_DeleteVM_Response_Time = OCCI_DeleteVM_Response_Time;
   }
-  public void setOCCI_DeleteVM_Result(int OCCI_DeleteVM_Result) {
+  public void setOCCI_DeleteVM_Result(final int OCCI_DeleteVM_Result) {
     this.OCCI_DeleteVM_Result = OCCI_DeleteVM_Result;
   }
-  public void setGeneral_OCCI_API_Availability(int General_OCCI_API_Availability) {
+  public void setGeneral_OCCI_API_Availability(final int General_OCCI_API_Availability) {
     this.General_OCCI_API_Availability = General_OCCI_API_Availability;
   }
-  public void setGeneral_OCCI_API_Response_Time(float General_OCCI_API_Response_Time) {
+  public void setGeneral_OCCI_API_Response_Time(final float General_OCCI_API_Response_Time) {
     this.General_OCCI_API_Response_Time = General_OCCI_API_Response_Time;
   }
-  public void setGeneral_OCCI_API_Result(int General_OCCI_API_Result) {
+  public void setGeneral_OCCI_API_Result(final int General_OCCI_API_Result) {
     this.General_OCCI_API_Result = General_OCCI_API_Result;
   }
-  public void setOCCI_Inspect_VM_availability(int OCCI_Inspect_VM_availability) {
+  public void setOCCI_Inspect_VM_availability(final int OCCI_Inspect_VM_availability) {
     this.OCCI_Inspect_VM_availability = OCCI_Inspect_VM_availability;
   }
-  public void setOCCI_InspectVM_Response_Time(float OCCI_InspectVM_Response_Time) {
+  public void setOCCI_InspectVM_Response_Time(final float OCCI_InspectVM_Response_Time) {
     this.OCCI_InspectVM_Response_Time = OCCI_InspectVM_Response_Time;
   }
-  public void setOCCI_InspectVM_Result(int OCCI_InspectVM_Result) {
+  public void setOCCI_InspectVM_Result(final int OCCI_InspectVM_Result) {
     this.OCCI_InspectVM_Result = OCCI_InspectVM_Result;
   }
 
   private PaaSMetricNormalization() { }
 
   //----------------------------------------------------------------------------------------
-  public PaaSMetricNormalization(boolean update) {
+  public PaaSMetricNormalization(final boolean update) {
     if (update) {
       try {
         updateFromDefaultFile();
@@ -156,7 +148,7 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  private void updateFromFile(String filename) {
+  private void updateFromFile(final String filename) {
     String line = "";
 
     InputStream is = null;
@@ -184,18 +176,18 @@ public class PaaSMetricNormalization {
   }
 
   //----------------------------------------------------------------------------------------
-  private void update(int   OCCI_Create_VM_availability,
-		      float OCCI_CreateVM_Response_Time,
-		      int   OCCI_CreateVM_Result,
-		      int   OCCI_Delete_VM_Availability,
-		      float OCCI_DeleteVM_Response_Time,
-		      int   OCCI_DeleteVM_Result,
-		      int   General_OCCI_API_Availability,
-		      float General_OCCI_API_Response_Time,
-		      int   General_OCCI_API_Result,
-		      int   OCCI_Inspect_VM_availability,
-		      float OCCI_InspectVM_Response_Time,
-		      int   OCCI_InspectVM_Result) {
+  private void update(final int   OCCI_Create_VM_availability,
+		      final float OCCI_CreateVM_Response_Time,
+		      final int   OCCI_CreateVM_Result,
+		      final int   OCCI_Delete_VM_Availability,
+		      final float OCCI_DeleteVM_Response_Time,
+		      final int   OCCI_DeleteVM_Result,
+		      final int   General_OCCI_API_Availability,
+		      final float General_OCCI_API_Response_Time,
+		      final int   General_OCCI_API_Result,
+		      final int   OCCI_Inspect_VM_availability,
+		      final float OCCI_InspectVM_Response_Time,
+		      final int   OCCI_InspectVM_Result) {
     this.OCCI_Create_VM_availability    = OCCI_Create_VM_availability;
     this.OCCI_CreateVM_Response_Time    = OCCI_CreateVM_Response_Time;
     this.OCCI_CreateVM_Result 		= OCCI_CreateVM_Result;
@@ -230,7 +222,6 @@ public class PaaSMetricNormalization {
   public final void toCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
-      //Logger.getLogger("").log(Level.INFO,  "normalization_file=[" + normalization_file + "]");
       customNormalizationFile = (new File(normalization_file)).getParent();
       if (customNormalizationFile  ==  null || customNormalizationFile.compareToIgnoreCase("")  ==  0) {
         customNormalizationFile = ".";

@@ -5,12 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-//import org.kie.api.KieServices;
-//import org.kie.api.runtime.KieContainer;
-//import org.kie.api.runtime.KieSession;
-
 import java.text.SimpleDateFormat;
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -27,8 +22,9 @@ public class Sla {
   public  float              rank;
   private float 	     infinityValue;
 
-  public Sla(String id,  String customer,  String provider,  String startDate,
-             String endDate,  final ArrayList<Service> services) {
+  public Sla(final String id, final String customer, 
+             final String provider, final String startDate,
+             final String endDate,  final ArrayList<Service> services) {
     this.id                = id;
     this.customer          = customer;
     this.provider          = provider;
@@ -111,14 +107,6 @@ public class Sla {
     return slaArray;
   }
 
-
-  /**
-   *
-   *
-   * Extract (and convert to a Java array) the services from a SLA json element
-   *
-   *
-   */
   private static ArrayList<Service> parseService(final JsonObject sla) {
     JsonArray services = sla.get("services").getAsJsonArray();
     ArrayList<Service> serviceArray = new ArrayList<Service>();
@@ -139,13 +127,6 @@ public class Sla {
     return serviceArray;
   }
 
-   /**
-    *
-    *
-    * Extract (and convert to a Java array) the targets from a service json element
-    *
-    *
-    */
   private static ArrayList<Target> parseTarget(final JsonObject service) {
     JsonArray targets = service.get("targets").getAsJsonArray();
     ArrayList<Target> targetArray = new ArrayList<Target>();

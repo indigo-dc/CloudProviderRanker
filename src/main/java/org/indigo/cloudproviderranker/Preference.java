@@ -38,7 +38,6 @@ public class Preference {
   }
 
   private static ArrayList<Priority> parsePriorities(final JsonArray array) {
-
     ArrayList<Priority> priorities = new ArrayList<Priority>();
     for (int i = 0; i < array.size(); i++) {
       JsonObject obj = array.get(i).getAsJsonObject();

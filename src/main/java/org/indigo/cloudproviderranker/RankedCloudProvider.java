@@ -1,4 +1,4 @@
- package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker;
 
 /**
  *
@@ -6,21 +6,34 @@
  *
  */
 public class RankedCloudProvider {
-    private String  name;
-    private float   rank;
-    private boolean ranked;
-    private String  errorReason;
-    
-    public RankedCloudProvider( String name, float rank, boolean ranked, String error) {
-	this.name        = name;
-	this.rank        = rank;
-	this.errorReason = error;
-	this.ranked      = ranked;
-    }
-    
-    public String  getName( )      { return name; }
-    public float   getRank( )      { return rank; }
-    public boolean isRanked( )     { return ranked; }
-    public String  getRankError( ) { return errorReason; }
-    public void    addToRank( float f ) { rank+= f; }
+  private String  name;
+  private float   rank;
+  private boolean ranked;
+  private String  errorReason;
+
+  public RankedCloudProvider(final String name,  
+                             final float rank,
+                             final boolean ranked,
+                             final String error) {
+    this.name        = name;
+    this.rank        = rank;
+    this.errorReason = error;
+    this.ranked      = ranked;
+  }
+
+  public final String getName() {
+    return name;
+  }
+  public final float getRank() {
+    return rank;
+  }
+  public final boolean isRanked() {
+    return ranked;
+  }
+  public final String getRankError() {
+    return errorReason;
+  }
+  public final void addToRank(final float f) {
+    rank+= f;
+  }
 }

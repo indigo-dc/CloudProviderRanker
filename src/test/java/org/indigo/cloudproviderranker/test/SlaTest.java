@@ -48,7 +48,6 @@ public class SlaTest {
 	if(T!=null)
 	    assertTrue(T.type.compareTo("")!=0);   
        
-	//Service S = new Service();
 	ArrayList<Service> s = new ArrayList<Service>( );
 	
 	Service S = new Service("id", "type", t);
@@ -58,15 +57,15 @@ public class SlaTest {
 	s.add(S);
 	SlaNormalizations.priority_file = "sla_priorities.json";
 	Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
-	sla.reloadPriorityFile( );
-	assertTrue( sla.toString().compareTo("") != 0);
-/*
-  	String slaTestString = "{\"sla\":[{\"customer\":\"customer1\", \"provider\":\"provider1\",\"id\":\"1\",\"services\":[{\"type\":\"compute\",\"service_id\":\"1\",\"targets\": [{\"type\":\"computing_time\",\"unit\":\"h\", \"restrictions\": {}}]}]}]}";
-	JsonParser parser = new JsonParser();
-	JsonElement jsonElement = parser.parse( slaTestString );
-        JsonObject obj = jsonElement.getAsJsonObject( );
-        SlaNormalizations.priority_file = "sla_priorities.json";
- 	ArrayList<Sla> _slas = Sla.fromJsonObject( obj );	*/
+        assertTrue( sla.toString().compareTo("") != 0);
+
+	Gson gson = new Gson();
+	String line = "{\"sla\": [{\"customer\": \"indigo-dc\",\"provider\": \"provider-UPV-GRyCAP\",\"start_date\": \"11.01.2016+15:50:00\",\"end_date\": \"11.02.2016+15:50:00\", \"services\": [{\"type\": \"compute\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e6f4bc\",\"targets\": [{ \"type\": \"public_ip\", \"unit\": \"none\", \"restrictions\": { \"total_guaranteed\": 10 } }] }], \"id\": \"4401ac5dc8cfbbb737b0a02575ee3b58\" }, { \"customer\": \"indigo-dc\", \"provider\": \"provider-RECAS-BARI\", \"start_date\": \"11.01.2016+15:50:00\", \"end_date\": \"11.02.2016+15:50:00\", \"services\": [{ \"type\": \"compute\", \"service_id\": \"4401ac5dc8cfbbb737b0a02575e8040f\", \"targets\": [{ \"type\": \"computing_time\", \"unit\": \"h\", \"restrictions\": { \"total_guaranteed\": 200 } }]  }],\"id\": \"4401ac5dc8cfbbb737b0a02575ee53f6\"}]}";
+        JsonElement E = gson.fromJson(line, JsonElement.class);
+        JsonObject obj = E.getAsJsonObject( );
+	
+	ArrayList<Sla> slas = Sla.fromJsonObject( obj );
+	
     }
   }
 }

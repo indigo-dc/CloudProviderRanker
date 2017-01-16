@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: cpr
+spec:
+  replicas: 1
+  selector:
+    name: cpr
+  template:
+    metadata:
+      labels:
+        name: cpr
+    spec:
+      containers:
+      - name: im
+        image: indigodatacloud/cloudproviderranker
+        args: ["/usr/bin/java", "-jar", "/root/CloudProviderRanker-jar-with-dependencies.jar", "/root/sla_priorities.json", "/root/paasmetric_normalization.json", "8080" ]
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cpr
+  labels:
+    name: cpr
+spec:
+  type: ClusterIP
+  ports:
+  - name: cpr-http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    name: cpr

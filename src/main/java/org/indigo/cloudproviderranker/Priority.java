@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Priority implements Comparable<Priority> {
   public String slaId;
-  //public String serviceId;
+  public String serviceId;
   public float  weight;
 
   @Override

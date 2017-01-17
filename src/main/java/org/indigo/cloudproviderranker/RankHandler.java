@@ -1,25 +1,24 @@
 package org.indigo.cloudproviderranker;
 
-import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.Headers;
-//import com.sun.net.httpserver.HttpHandler;
-
+import com.sun.net.httpserver.HttpExchange;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
 import java.util.HashMap;
+import java.util.Set;
+
 //import java.util.Hashtable;
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Vector;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Iterator;
+import java.util.Vector;
 
 import com.google.gson.JsonArray;
 import com.google.gson.Gson;
@@ -82,6 +81,7 @@ public class RankHandler extends RequestHandler {
       }
       is.close();
     } catch (IOException ioe) {
+      // no need to do anything
     }
     String timeStamp = new
         SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
@@ -96,7 +96,8 @@ public class RankHandler extends RequestHandler {
       JsonElement element = gson.fromJson(line,  JsonElement.class);
       JsonObject obj = element.getAsJsonObject();
 
-      boolean specifiedPreferences = false,  specifiedSla = false;
+      boolean specifiedPreferences = false;
+      boolean specifiedSla = false;
       //
       // convert preferences json block to Java Preference[] array
       //
@@ -149,8 +150,8 @@ public class RankHandler extends RequestHandler {
       HashMap<String,  Sla> providerToSLAMap = new HashMap<String,  Sla>();
       for (Sla sla : slaArray) {
         slaidToProvider.put(sla.id,  sla.provider);
-          providerToSLAMap.put(sla.provider,  sla);
-	}
+        providerToSLAMap.put(sla.provider,  sla);
+      }
 
       //
       //
@@ -216,9 +217,12 @@ public class RankHandler extends RequestHandler {
       }
       return  new ParseResult("[" + String.join(", ",  respVec)  + "]",  200);
     } catch (Exception e) {
-      return new ParseResult("Exception parsing JSON client request: " + e.getMessage() + "\n",  400);
+      return new ParseResult("Exception parsing JSON client request: " 
+                             + e.getMessage() 
+                             + "\n",  400);
     } catch (Throwable e) {
-      return new ParseResult("Throwable parsing JSON client request: " + e.getMessage() + "\n",  400);
+      return new ParseResult("Throwable parsing JSON client request: " 
+                             + e.getMessage() + "\n",  400);
     }
   }
 }

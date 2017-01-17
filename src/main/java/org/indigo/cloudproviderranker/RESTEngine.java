@@ -25,10 +25,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.KeyManagementException;
 
 /**
- *
- * Entry point class (main loop) which setup an http listener and a thread pool
- * to execute it; then starts the Http server.
- *
+ * Doc TODO.
  */
 public class RESTEngine {
   /**
@@ -71,22 +68,22 @@ public class RESTEngine {
     // to create the keystore.
 
       try {
-	server = HttpsServer.create(new InetSocketAddress(tcpport),  0);
+        server = HttpsServer.create(new InetSocketAddress(tcpport),  0);
       } catch (IOException e) {
-	throw new ServerException("Error in HttpServer.create: " + e.getMessage());
+        throw new ServerException("Error in HttpServer.create: " + e.getMessage());
       }
       SSLContext sslContext = null;
       try {
-	sslContext = SSLContext.getInstance("TLS");
+        sslContext = SSLContext.getInstance("TLS");
       } catch (NoSuchAlgorithmException e) {
-	throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): "
-	                          + e.getMessage());
+        throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): "
+                                  + e.getMessage());
       }
 
       char[] keystorePassword = password.toCharArray();
       KeyStore ks = null;
       try {
-	ks = KeyStore.getInstance("JKS");
+        ks = KeyStore.getInstance("JKS");
       } catch (KeyStoreException e) {
         throw new ServerException("Error in KeyStore.getInstance(\"JKS\"): "
                                   + e.getMessage());

@@ -72,34 +72,34 @@ public class CustomSLAParamHandler extends RequestHandler {
 
     JsonObject obj = gson.fromJson(line,  JsonElement.class).getAsJsonObject();
     if (obj.has("computing_time")) {
-      slaNormalizations.computing_time = obj.get("computing_time").getAsFloat();
+      slaNormalizations.computingTime = obj.get("computing_time").getAsFloat();
     }
     if (obj.has("num_cpus")) {
-      slaNormalizations.num_cpus = obj.get("num_cpus").getAsFloat();
+      slaNormalizations.numCpus = obj.get("num_cpus").getAsFloat();
     }
     if (obj.has("mem_size")) {
-      slaNormalizations.mem_size = obj.get("mem_size").getAsFloat();
+      slaNormalizations.memSize = obj.get("mem_size").getAsFloat();
     }
     if (obj.has("disk_size")) {
-      slaNormalizations.disk_size = obj.get("disk_size").getAsFloat();
+      slaNormalizations.diskSize = obj.get("disk_size").getAsFloat();
     }
     if (obj.has("public_ip")) {
-      slaNormalizations.public_ip = obj.get("public_ip").getAsFloat();
+      slaNormalizations.publicIp = obj.get("public_ip").getAsFloat();
     }
     if (obj.has("upload_bandwidth")) {
-      slaNormalizations.upload_bandwidth = obj.get("upload_bandwidth").getAsFloat();
+      slaNormalizations.uploadBandwidth = obj.get("upload_bandwidth").getAsFloat();
     }
     if (obj.has("download_bandwidth")) {
-      slaNormalizations.download_bandwidth = obj.get("download_bandwidth").getAsFloat();
+      slaNormalizations.downloadBandwidth = obj.get("download_bandwidth").getAsFloat();
     }
     if (obj.has("upload_aggregated")) {
-      slaNormalizations.upload_aggregated = obj.get("upload_aggregated").getAsFloat();
+      slaNormalizations.uploadAggregated = obj.get("upload_aggregated").getAsFloat();
     }
     if (obj.has("download_aggregated")) {
-      slaNormalizations.download_aggregated = obj.get("download_aggregated").getAsFloat();
+      slaNormalizations.downloadAggregated = obj.get("download_aggregated").getAsFloat();
     }
     if (obj.has("infinity_value")) {
-      slaNormalizations.infinity_value = obj.get("infinity_value").getAsFloat();
+      slaNormalizations.infinityValue = obj.get("infinity_value").getAsFloat();
     }
 
     slaNormalizations.toCustomFile();

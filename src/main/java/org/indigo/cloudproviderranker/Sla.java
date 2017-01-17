@@ -11,17 +11,50 @@ import java.util.logging.Level;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Doc TODO.
+ */
 public class Sla {
+  /**
+   * Doc TODO.
+   */
   public  String    	     id;
+  /**
+   * Doc TODO.
+   */
   public  String    	     customer;
+  /**
+   * Doc TODO.
+   */
   public  String    	     provider;
+  /**
+   * Doc TODO.
+   */
   public  String    	     startDate;
+  /**
+   * Doc TODO.
+   */
   public  String    	     endDate;
+  /**
+   * Doc TODO.
+   */
   public  ArrayList<Service> services;
+  /**
+   * Doc TODO.
+   */
   public  SlaNormalizations  slaNormalizations;
+  /**
+   * Doc TODO.
+   */
   public  float              rank;
+  /**
+   * Doc TODO.
+   */
   private float 	     infinityValue;
 
+  /**
+   * Doc TODO.
+   */
   public Sla(final String id, final String customer,
              final String provider, final String startDate,
              final String endDate,  final ArrayList<Service> services) {
@@ -46,34 +79,33 @@ public class Sla {
     for (Target t : services.get(0).targets) {
 
       float normalizationFactor = 0.0f;
-      infinityValue = slaNormalizations.infinity_value;
+      infinityValue = slaNormalizations.infinityValue;
       if (0  ==  t.type.compareTo("public_ip")) {
-        normalizationFactor = slaNormalizations.public_ip;
+        normalizationFactor = slaNormalizations.publicIp;
       }
-
       if (0  ==  t.type.compareTo("computing_time")) {
-        normalizationFactor = slaNormalizations.computing_time;
+        normalizationFactor = slaNormalizations.computingTime;
       }
       if (0  ==  t.type.compareTo("num_cpus")) {
-        normalizationFactor = slaNormalizations.num_cpus;
+        normalizationFactor = slaNormalizations.numCpus;
       }
       if (0  ==  t.type.compareTo("mem_size")) {
-        normalizationFactor = slaNormalizations.mem_size;
+        normalizationFactor = slaNormalizations.memSize;
       }
       if (0  ==  t.type.compareTo("disk_size")) {
-        normalizationFactor = slaNormalizations.disk_size;
+        normalizationFactor = slaNormalizations.diskSize;
       }
       if (0  ==  t.type.compareTo("upload_bandwidth")) {
-        normalizationFactor = slaNormalizations.upload_bandwidth;
+        normalizationFactor = slaNormalizations.uploadBandwidth;
       }
       if (0  ==  t.type.compareTo("download_bandwidth")) {
-        normalizationFactor = slaNormalizations.download_bandwidth;
+        normalizationFactor = slaNormalizations.downloadBandwidth;
       }
       if (0  ==  t.type.compareTo("upload_aggregated")) {
-        normalizationFactor = slaNormalizations.upload_aggregated;
+        normalizationFactor = slaNormalizations.uploadAggregated;
       }
       if (0  ==  t.type.compareTo("download_aggregated")) {
-        normalizationFactor = slaNormalizations.download_aggregated;
+        normalizationFactor = slaNormalizations.downloadAggregated;
       }
 
       rank += ((t.restrictions.total_limit < Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
@@ -85,11 +117,17 @@ public class Sla {
     }
   }
 
+  /**
+   * Doc TODO.
+   */
   @Override
   public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 
+  /**
+   * Doc TODO.
+   */
   public static ArrayList<Sla> fromJsonObject(final JsonObject obj) {
     JsonArray slas = obj.get("sla").getAsJsonArray();
     ArrayList<Service> serviceArray = new ArrayList<Service>();
@@ -107,6 +145,9 @@ public class Sla {
     return slaArray;
   }
 
+  /**
+   * Doc TODO.
+   */
   private static ArrayList<Service> parseService(final JsonObject sla) {
     JsonArray services = sla.get("services").getAsJsonArray();
     ArrayList<Service> serviceArray = new ArrayList<Service>();
@@ -127,6 +168,9 @@ public class Sla {
     return serviceArray;
   }
 
+  /**
+   * Doc TODO.
+   */
   private static ArrayList<Target> parseTarget(final JsonObject service) {
     JsonArray targets = service.get("targets").getAsJsonArray();
     ArrayList<Target> targetArray = new ArrayList<Target>();

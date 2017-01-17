@@ -31,29 +31,33 @@ import java.security.KeyManagementException;
  *
  */
 public class RESTEngine {
-
+  /**
+   * Doc TODO.
+   */
   private HttpServer server = null;
 
-
-
-  //---------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public final void startServer() {
     server.setExecutor(Executors.newCachedThreadPool());
     server.start();
   }
 
-  //---------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public final void addHandlerToContext(final String contextPath,  final HttpHandler handler) {
     server.createContext(contextPath,  handler);
   }
 
-  //---------------------------------------------------------------------------------------
-
+  /**
+   * Doc TODO.
+   */
   public final void initHttpServer(final boolean usessl,
                                    final int tcpport,
                                    final String keystorepath,
-                                   final String password)
-    throws ServerException {
+                                   final String password) throws ServerException {
       if (!usessl) {
         try {
           server = HttpServer.create(new InetSocketAddress(tcpport),  0);

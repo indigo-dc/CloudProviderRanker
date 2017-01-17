@@ -73,51 +73,51 @@ public class CustomPaaSParamHandler extends RequestHandler {
     JsonObject obj = gson.fromJson(line,  JsonElement.class).getAsJsonObject();
     if (obj.has("occi_create_vm_availability")) {
       int vma = obj.get("occi_create_vm_availability").getAsInt();
-      paaSMetricNormalization.setocci_create_vm_availability(vma);
+      paaSMetricNormalization.setocciCreatevmAvailability(vma);
     }
     if (obj.has("occi_createvm_Response_Time")) {
       float vmrt = obj.get("occi_createvm_Response_Time").getAsFloat();
-      paaSMetricNormalization.setocci_createvm_Response_Time(vmrt);
+      paaSMetricNormalization.setocciCreatevmResponseTime(vmrt);
     }
     if (obj.has("occi_createvm_Result")) {
       int vmr = obj.get("occi_createvm_Result").getAsInt();
-      paaSMetricNormalization.setocci_createvm_Result(vmr);
+      paaSMetricNormalization.setocciCreatevmResult(vmr);
     }
     if (obj.has("occi_delete_vm_Availability")) {
       int vma = obj.get("occi_delete_vm_Availability").getAsInt();
-      paaSMetricNormalization.setocci_delete_vm_Availability(vma);
+      paaSMetricNormalization.setocciDeletevmAvailability(vma);
     }
     if (obj.has("occi_deletevm_Response_Time")) {
       float vmrt = obj.get("occi_deletevm_Response_Time").getAsFloat();
-      paaSMetricNormalization.setocci_deletevm_Response_Time(vmrt);
+      paaSMetricNormalization.setocciDeletevmResponseTime(vmrt);
     }
     if (obj.has("occi_deletevm_Result")) {
       int vmr = obj.get("occi_deletevm_Result").getAsInt();
-      paaSMetricNormalization.setocci_deletevm_Result(vmr);
+      paaSMetricNormalization.setocciDeletevmResult(vmr);
     }
     if (obj.has("general_occi_api_Availability")) {
       int vma = obj.get("general_occi_api_Availability").getAsInt();
-      paaSMetricNormalization.setgeneral_occi_api_Availability(vma);
+      paaSMetricNormalization.setgeneralOcciApiAvailability(vma);
     }
     if (obj.has("general_occi_api_Response_Time")) {
       float vmrt = obj.get("general_occi_api_Response_Time").getAsFloat();
-      paaSMetricNormalization.setgeneral_occi_api_Response_Time(vmrt);
+      paaSMetricNormalization.setgeneralOcciApiResponseTime(vmrt);
     }
     if (obj.has("general_occi_api_Result")) {
       int vmr = obj.get("general_occi_api_Result").getAsInt();
-      paaSMetricNormalization.setgeneral_occi_api_Result(vmr);
+      paaSMetricNormalization.setgeneralOcciApiResult(vmr);
     }
     if (obj.has("occi_inspect_vm_availability")) {
       int vma = obj.get("occi_inspect_vm_availability").getAsInt();
-      paaSMetricNormalization.setocci_inspect_vm_availability(vma);
+      paaSMetricNormalization.setocciInspectVmAvailability(vma);
     }
     if (obj.has("occi_inspectvm_Response_Time")) {
       float vmrt = obj.get("occi_inspectvm_Response_Time").getAsFloat();
-      paaSMetricNormalization.setocci_inspectvm_Response_Time(vmrt);
+      paaSMetricNormalization.setocciInspectVmResponseTime(vmrt);
     }
     if (obj.has("occi_inspectvm_Result")) {
       int vmr = obj.get("occi_inspectvm_Result").getAsInt();
-      paaSMetricNormalization.setocci_inspectvm_Result(vmr);
+      paaSMetricNormalization.setocciInspectVmResult(vmr);
     }
 
     paaSMetricNormalization.toCustomFile();

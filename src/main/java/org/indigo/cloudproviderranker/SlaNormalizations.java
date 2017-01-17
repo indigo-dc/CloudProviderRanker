@@ -12,28 +12,73 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.text.SimpleDateFormat;
 
+/**
+ * Doc TODO.
+ */
 public class SlaNormalizations {
 
+  /**
+   * Doc TODO.
+   */
   protected float computing_time;
+  /**
+   * Doc TODO.
+   */
   protected float num_cpus;
+  /**
+   * Doc TODO.
+   */
   protected float mem_size;
+  /**
+   * Doc TODO.
+   */
   protected float disk_size;
+  /**
+   * Doc TODO.
+   */
   protected float public_ip;
+  /**
+   * Doc TODO.
+   */
   protected float upload_bandwidth;
+  /**
+   * Doc TODO.
+   */
   protected float download_bandwidth;
+  /**
+   * Doc TODO.
+   */
   protected float upload_aggregated;
+  /**
+   * Doc TODO.
+   */
   protected float download_aggregated;
+  /**
+   * Doc TODO.
+   */
   protected float infinity_value;
 
+  /**
+   * Doc TODO.
+   */
   public final float get_computing_time() {
     return computing_time;
   }
 
+  /**
+   * Doc TODO.
+   */
   public static String priority_file = null;
 
+  /**
+   * Doc TODO.
+   */
   public SlaNormalizations() {
   }
 
+  /**
+   * Doc TODO.
+   */
   public SlaNormalizations(final float computing_time,
                            final float num_cpus,
                            final float mem_size,
@@ -135,6 +180,9 @@ public class SlaNormalizations {
                                                          SlaNormalizations.class));
   }
 
+  /**
+   * Doc TODO.
+   */
   private final void fromJsonObject(final SlaNormalizations aSla) {
     this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
@@ -179,7 +227,9 @@ public class SlaNormalizations {
     }
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);

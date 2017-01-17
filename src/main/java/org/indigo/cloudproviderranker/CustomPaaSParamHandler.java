@@ -47,14 +47,14 @@ public class CustomPaaSParamHandler extends RequestHandler {
   }
 
   public final void updateParams(final InputStream is /*String line*/) {
-    String Line = "";
+    String line = "";
     try {
       //InputStream is = httpExchange.getRequestBody();
       InputStreamReader inputReader = new InputStreamReader(is, "utf-8");
       BufferedReader buffReader = new BufferedReader(inputReader);
-      String line = "";
-      while ((line = buffReader.readLine()) != null) {
-        Line += line;
+      String sline = "";
+      while ((sline = buffReader.readLine()) != null) {
+        line += sline;
       }
     } catch (IOException ioe) {
 
@@ -70,7 +70,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
 
     Gson gson = new Gson();
 
-    JsonObject obj = gson.fromJson(Line,  JsonElement.class).getAsJsonObject();
+    JsonObject obj = gson.fromJson(line,  JsonElement.class).getAsJsonObject();
     if (obj.has("occi_create_vm_availability")) {
       int vma = obj.get("occi_create_vm_availability").getAsInt();
       paaSMetricNormalization.setocci_create_vm_availability(vma);

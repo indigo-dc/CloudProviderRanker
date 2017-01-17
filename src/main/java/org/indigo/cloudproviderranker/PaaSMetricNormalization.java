@@ -32,76 +32,76 @@ public class PaaSMetricNormalization {
   protected float occi_inspectvm_Response_Time 	 = (float) 0.001;
   protected int   occi_inspectvm_Result 	 = 1;
 
-  public int getocci_create_vm_availability() {
+  public final int getocci_create_vm_availability() {
     return occi_create_vm_availability;
   }
-  public float getocci_createvm_Response_Time() {
+  public final float getocci_createvm_Response_Time() {
     return occi_createvm_Response_Time;
   }
-  public int getocci_createvm_Result() {
+  public final int getocci_createvm_Result() {
     return occi_createvm_Result;
   }
-  public int getocci_delete_vm_Availability() {
+  public final int getocci_delete_vm_Availability() {
     return occi_delete_vm_Availability;
   }
-  public float getocci_deletevm_Response_Time() {
+  public final float getocci_deletevm_Response_Time() {
     return occi_deletevm_Response_Time;
   }
-  public int getocci_deletevm_Result() {
+  public final int getocci_deletevm_Result() {
     return occi_deletevm_Result;
   }
-  public int getgeneral_occi_api_Availability() {
+  public final int getgeneral_occi_api_Availability() {
     return general_occi_api_Availability;
   }
-  public float getgeneral_occi_api_Response_Time() {
+  public final float getgeneral_occi_api_Response_Time() {
     return general_occi_api_Response_Time;
   }
-  public int getgeneral_occi_api_Result() {
+  public final int getgeneral_occi_api_Result() {
     return general_occi_api_Result;
   }
-  public int getocci_inspect_vm_availability() {
+  public final int getocci_inspect_vm_availability() {
     return occi_inspect_vm_availability;
   }
-  public float getocci_inspectvm_Response_Time() {
+  public final float getocci_inspectvm_Response_Time() {
     return occi_inspectvm_Response_Time;
   }
-  public int getocci_inspectvm_Result() {
+  public final int getocci_inspectvm_Result() {
     return occi_inspectvm_Result;
   }
-  public void setocci_create_vm_availability(final int occi_create_vm_availability) {
+  public final void setocci_create_vm_availability(final int occi_create_vm_availability) {
     this.occi_create_vm_availability = occi_create_vm_availability;
   }
-  public void setocci_createvm_Response_Time(final float occi_createvm_Response_Time) {
+  public final void setocci_createvm_Response_Time(final float occi_createvm_Response_Time) {
     this.occi_createvm_Response_Time = occi_createvm_Response_Time;
   }
-  public void setocci_createvm_Result(final int occi_createvm_Result) {
+  public final void setocci_createvm_Result(final int occi_createvm_Result) {
     this.occi_createvm_Result = occi_createvm_Result;
   }
-  public void setocci_delete_vm_Availability(final int occi_delete_vm_Availability) {
+  public final void setocci_delete_vm_Availability(final int occi_delete_vm_Availability) {
     this.occi_delete_vm_Availability = occi_delete_vm_Availability;
   }
-  public void setocci_deletevm_Response_Time(final float occi_deletevm_Response_Time) {
+  public final void setocci_deletevm_Response_Time(final float occi_deletevm_Response_Time) {
     this.occi_deletevm_Response_Time = occi_deletevm_Response_Time;
   }
-  public void setocci_deletevm_Result(final int occi_deletevm_Result) {
+  public final void setocci_deletevm_Result(final int occi_deletevm_Result) {
     this.occi_deletevm_Result = occi_deletevm_Result;
   }
-  public void setgeneral_occi_api_Availability(final int general_occi_api_Availability) {
+  public final void setgeneral_occi_api_Availability(final int general_occi_api_Availability) {
     this.general_occi_api_Availability = general_occi_api_Availability;
   }
-  public void setgeneral_occi_api_Response_Time(final float general_occi_api_Response_Time) {
+  public final void setgeneral_occi_api_Response_Time(final float general_occi_api_Response_Time) {
     this.general_occi_api_Response_Time = general_occi_api_Response_Time;
   }
-  public void setgeneral_occi_api_Result(final int general_occi_api_Result) {
+  public final void setgeneral_occi_api_Result(final int general_occi_api_Result) {
     this.general_occi_api_Result = general_occi_api_Result;
   }
-  public void setocci_inspect_vm_availability(final int occi_inspect_vm_availability) {
+  public final void setocci_inspect_vm_availability(final int occi_inspect_vm_availability) {
     this.occi_inspect_vm_availability = occi_inspect_vm_availability;
   }
-  public void setocci_inspectvm_Response_Time(final float occi_inspectvm_Response_Time) {
+  public final void setocci_inspectvm_Response_Time(final float occi_inspectvm_Response_Time) {
     this.occi_inspectvm_Response_Time = occi_inspectvm_Response_Time;
   }
-  public void setocci_inspectvm_Result(final int occi_inspectvm_Result) {
+  public final void setocci_inspectvm_Result(final int occi_inspectvm_Result) {
     this.occi_inspectvm_Result = occi_inspectvm_Result;
   }
 
@@ -171,7 +171,7 @@ public class PaaSMetricNormalization {
     Gson gson = new Gson();
     JsonElement element = gson.fromJson(line,  JsonElement.class);
     PaaSMetricNormalization paaSMetricNormalization =
-        (PaaSMetricNormalization)gson.fromJson(element.getAsJsonObject(),
+        (PaaSMetricNormalization) gson.fromJson(element.getAsJsonObject(),
 					       PaaSMetricNormalization.class);
     updateFromObject(paaSMetricNormalization);
   }

@@ -116,7 +116,6 @@ public class SlaNormalizations {
       while ((sline = buffReader.readLine()) != null) {
         line += sline;
       }
-      
     } catch (Exception e) {
       computing_time 	    = 0.0166f;
       num_cpus	    = 1.0f;

@@ -27,31 +27,31 @@ public class PaaSMetricNormalization {
   /**
    * Doc TODO.
    */
-  protected int   occiCreatevmAvailability 	 = 1;
+  protected int   occiCreatevmAvailability = 1;
   /**
    * Doc TODO.
    */
-  protected float occiCreatevmResponseTime 	 = (float) 0.001;
+  protected float occiCreatevmResponseTime = (float) 0.001;
   /**
    * Doc TODO.
    */
-  protected int   occiCreatevmResult 		 = 1;
+  protected int   occiCreatevmResult = 1;
   /**
    * Doc TODO.
    */
-  protected int   occiDeletevmAvailability 	 = 1;
+  protected int   occiDeletevmAvailability = 1;
   /**
    * Doc TODO.
    */
-  protected float occiDeletevmResponseTime 	 = (float) 0.001;
+  protected float occiDeletevmResponseTime = (float) 0.001;
   /**
    * Doc TODO.
    */
-  protected int   occiDeletevmResult 		 = 1;
+  protected int   occiDeletevmResult = 1;
   /**
    * Doc TODO.
    */
-  protected int   generalOcciApiAvailability	 = 1;
+  protected int   generalOcciApiAvailability = 1;
   /**
    * Doc TODO.
    */
@@ -59,19 +59,19 @@ public class PaaSMetricNormalization {
   /**
    * Doc TODO.
    */
-  protected int   generalOcciApiResult 	 = 1;
+  protected int   generalOcciApiResult = 1;
   /**
    * Doc TODO.
    */
-  protected int   occiInspectVmAvailability 	 = 1;
+  protected int   occiInspectVmAvailability = 1;
   /**
    * Doc TODO.
    */
-  protected float occiInspectVmResponseTime 	 = (float) 0.001;
+  protected float occiInspectVmResponseTime = (float) 0.001;
   /**
    * Doc TODO.
    */
-  protected int   occiInspectVmResult 	 = 1;
+  protected int   occiInspectVmResult = 1;
   /**
    * Doc TODO.
    */
@@ -222,7 +222,7 @@ public class PaaSMetricNormalization {
   private PaaSMetricNormalization() { }
 
   /**
-   * TODO
+   * Doc TODO.
    */
   public PaaSMetricNormalization(final boolean update) {
     if (update) {
@@ -241,7 +241,7 @@ public class PaaSMetricNormalization {
 
 
   /**
-   * TODO
+   * Doc TODO.
    */
   @Override
   public final String toString() {
@@ -304,58 +304,59 @@ public class PaaSMetricNormalization {
    * Doc TODO.
    */
   private void update(final int   occi_create_vm_availability,
-		      final float occiCreatevmResponseTime,
-		      final int   occiCreatevmResult,
-		      final int   occiDeletevmAvailability,
-		      final float occiDeletevmResponseTime,
-		      final int   occiDeletevmResult,
-		      final int   generalOcciApiAvailability,
-		      final float generalOcciApiResponseTime,
-		      final int   generalOcciApiResult,
-		      final int   occiInspectVmAvailability,
-		      final float occiInspectVmResponseTime,
-		      final int   occiInspectVmResult) {
-    this.occiCreatevmAvailability       = occi_create_vm_availability;
-    this.occiCreatevmResponseTime    = occiCreatevmResponseTime;
-    this.occiCreatevmResult 		= occiCreatevmResult;
-    this.occiDeletevmAvailability    = occiDeletevmAvailability;
-    this.occiDeletevmResponseTime    = occiDeletevmResponseTime;
-    this.occiDeletevmResult 		= occiDeletevmResult;
-    this.generalOcciApiAvailability  = generalOcciApiAvailability;
+                      final float occiCreatevmResponseTime,
+                      final int   occiCreatevmResult,
+                      final int   occiDeletevmAvailability,
+                      final float occiDeletevmResponseTime,
+                      final int   occiDeletevmResult,
+                      final int   generalOcciApiAvailability,
+                      final float generalOcciApiResponseTime,
+                      final int   generalOcciApiResult,
+                      final int   occiInspectVmAvailability,
+                      final float occiInspectVmResponseTime,
+                      final int   occiInspectVmResult) {
+    this.occiCreatevmAvailability   = occi_create_vm_availability;
+    this.occiCreatevmResponseTime   = occiCreatevmResponseTime;
+    this.occiCreatevmResult         = occiCreatevmResult;
+    this.occiDeletevmAvailability   = occiDeletevmAvailability;
+    this.occiDeletevmResponseTime   = occiDeletevmResponseTime;
+    this.occiDeletevmResult         = occiDeletevmResult;
+    this.generalOcciApiAvailability = generalOcciApiAvailability;
     this.generalOcciApiResponseTime = generalOcciApiResponseTime;
-    this.generalOcciApiResult 	= generalOcciApiResult;
-    this.occiInspectVmAvailability   = occiInspectVmAvailability;
-    this.occiInspectVmResponseTime   = occiInspectVmResponseTime;
-    this.occiInspectVmResult 		= occiInspectVmResult;
+    this.generalOcciApiResult       = generalOcciApiResult;
+    this.occiInspectVmAvailability  = occiInspectVmAvailability;
+    this.occiInspectVmResponseTime  = occiInspectVmResponseTime;
+    this.occiInspectVmResult        = occiInspectVmResult;
   }
 
   /**
    * Doc TODO.
    */
   private void updateFromObject(final PaaSMetricNormalization obj) {
-    this.occiCreatevmAvailability       = obj.occiCreatevmAvailability;
+    this.occiCreatevmAvailability    = obj.occiCreatevmAvailability;
     this.occiCreatevmResponseTime    = obj.occiCreatevmResponseTime;
-    this.occiCreatevmResult 		= obj.occiCreatevmResult;
+    this.occiCreatevmResult          = obj.occiCreatevmResult;
     this.occiDeletevmAvailability    = obj.occiDeletevmAvailability;
     this.occiDeletevmResponseTime    = obj.occiDeletevmResponseTime;
-    this.occiDeletevmResult 		= obj.occiDeletevmResult;
+    this.occiDeletevmResult          = obj.occiDeletevmResult;
     this.generalOcciApiAvailability  = obj.generalOcciApiAvailability;
-    this.generalOcciApiResponseTime = obj.generalOcciApiResponseTime;
-    this.generalOcciApiResult 	= obj.generalOcciApiResult;
+    this.generalOcciApiResponseTime  = obj.generalOcciApiResponseTime;
+    this.generalOcciApiResult        = obj.generalOcciApiResult;
     this.occiInspectVmAvailability   = obj.occiInspectVmAvailability;
     this.occiInspectVmResponseTime   = obj.occiInspectVmResponseTime;
-    this.occiInspectVmResult 		= obj.occiInspectVmResult;
+    this.occiInspectVmResult         = obj.occiInspectVmResult;
   }
 
   
   /**
-   * TODO
+   * Doc TODO.
    */
   public final void toCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
       customNormalizationFile = (new File(normalization_file)).getParent();
-      if (customNormalizationFile  ==  null || customNormalizationFile.compareToIgnoreCase("")  ==  0) {
+      if (customNormalizationFile  ==  null 
+          || customNormalizationFile.compareToIgnoreCase("") == 0) {
         customNormalizationFile = ".";
       }
     }
@@ -369,14 +370,14 @@ public class PaaSMetricNormalization {
     } catch (java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
       Logger.getLogger("").log(Level.SEVERE,  timeStamp
-			       + " - File [" + customNormalizationFile
-			       + "] doesn't exist. Cannot write custom normalization parameters..");
+                               + " - File [" + customNormalizationFile
+                               + "] doesn't exist. Cannot write custom normalization parameters..");
     }
   }
 
   
   /**
-   * TODO
+   * Doc TODO.
    */
   public final void printParams() {
     Gson gson = new Gson();
@@ -387,7 +388,7 @@ public class PaaSMetricNormalization {
 
   
   /**
-   * TODO
+   * Doc TODO.
    */
   public final String getParams() {
     Gson gson = new Gson();

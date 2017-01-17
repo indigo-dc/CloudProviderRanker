@@ -152,7 +152,7 @@ public class SlaNormalizations {
         line += sline;
       }
     } catch (Exception e) {
-      computingTime 	    = 0.0166f;
+      computingTime      = 0.0166f;
       numCpus            = 1.0f;
       memSize            = 1.0f;
       diskSize           = 1.0f;

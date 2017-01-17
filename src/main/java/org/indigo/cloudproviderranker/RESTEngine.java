@@ -58,7 +58,7 @@ public class RESTEngine {
           server = HttpServer.create(new InetSocketAddress(tcpport),  0);
         } catch (IOException e) {
           throw new ServerException("Error in HttpServer.create: " + e.getMessage());
-	}
+        }
 
       } else {
 

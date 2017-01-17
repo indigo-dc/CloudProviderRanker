@@ -7,7 +7,7 @@ public class Target {
   public Restrictions restrictions;
 
   @Override
-  public String toString() {
+  public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 }

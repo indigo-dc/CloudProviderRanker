@@ -41,7 +41,7 @@ public class PaaSMetricRanked extends PaaSMetric {
       for (int j = 0; j < metricsArray.size(); ++j) { // loop over the array metrics[]
         JsonObject currentMetricJsonObject = metricsArray.get(j).getAsJsonObject();
 
-	PaaSMetricRanked paaSMetricRanked =
+        PaaSMetricRanked paaSMetricRanked =
 	    (PaaSMetricRanked) (new
 			       GsonBuilder().create()).fromJson(currentMetricJsonObject,
 								PaaSMetricRanked.class);

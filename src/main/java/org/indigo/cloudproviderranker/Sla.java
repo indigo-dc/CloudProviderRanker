@@ -22,7 +22,7 @@ public class Sla {
   public  float              rank;
   private float 	     infinityValue;
 
-  public Sla(final String id, final String customer, 
+  public Sla(final String id, final String customer,
              final String provider, final String startDate,
              final String endDate,  final ArrayList<Service> services) {
     this.id                = id;

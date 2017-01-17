@@ -116,7 +116,7 @@ public class RankHandler extends RequestHandler {
       //
       if (obj.has("sla")) {
         specifiedSla = true;
-	slaArray = Sla.fromJsonObject(obj);
+        slaArray = Sla.fromJsonObject(obj);
       }
 
       // 	    KieServices kieServices      = KieServices.Factory.get();

@@ -170,7 +170,7 @@ public class PaaSMetricNormalization {
     Gson gson = new Gson();
     JsonElement element = gson.fromJson(line,  JsonElement.class);
     PaaSMetricNormalization paaSMetricNormalization =
-	(PaaSMetricNormalization)gson.fromJson(element.getAsJsonObject(),
+        (PaaSMetricNormalization)gson.fromJson(element.getAsJsonObject(),
 					       PaaSMetricNormalization.class);
     updateFromObject(paaSMetricNormalization);
   }

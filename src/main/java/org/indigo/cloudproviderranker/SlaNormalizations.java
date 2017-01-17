@@ -25,13 +25,14 @@ public class SlaNormalizations {
   protected float download_aggregated;
   protected float infinity_value;
 
-  public float get_computing_time() {
+  public final float get_computing_time() {
     return computing_time;
   }
 
   public static String priority_file = null;
 
-  public SlaNormalizations() {}
+  public SlaNormalizations() {
+  }
 
   public SlaNormalizations(final float computing_time,
                            final float num_cpus,
@@ -62,7 +63,7 @@ public class SlaNormalizations {
    *
    *
    */
-  public void fromDefaultFile() {
+  public final void fromDefaultFile() {
     fromFile(priority_file);
   }
 
@@ -72,7 +73,7 @@ public class SlaNormalizations {
    *
    *
    */
-  public void fromCustomFile() {
+  public final void fromCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
     if (priority_file != null) {
       customPriorityFile = (new File(priority_file)).getParent();
@@ -91,7 +92,7 @@ public class SlaNormalizations {
    *
    *
    */
-  private void fromFile(final String filename) {
+  private final void fromFile(final String filename) {
     if (filename  ==  null) {
       computing_time 	    = 0.0166f;
       num_cpus	    	    = 1.0f;
@@ -106,14 +107,14 @@ public class SlaNormalizations {
       return;
     }
     InputStream is = null;
-    String Line = "";
+    String line = "";
     try {
       is = new FileInputStream(new File(filename));
       InputStreamReader inputReader = new InputStreamReader(is);
       BufferedReader buffReader     = new BufferedReader(inputReader);
-      String line = "";
-      while ((line = buffReader.readLine()) != null) {
-        Line += line;
+      String sline = "";
+      while ((sline = buffReader.readLine()) != null) {
+        line += sline;
       }
       
     } catch (Exception e) {
@@ -130,12 +131,12 @@ public class SlaNormalizations {
       return;
     }
     Gson gson = new Gson();
-    JsonElement element = gson.fromJson(Line,  JsonElement.class);
-    this.fromJsonObject((SlaNormalizations)gson.fromJson(element.getAsJsonObject(),  
+    JsonElement element = gson.fromJson(line,  JsonElement.class);
+    this.fromJsonObject((SlaNormalizations) gson.fromJson(element.getAsJsonObject(),
                                                          SlaNormalizations.class));
   }
 
-  private void fromJsonObject(final SlaNormalizations aSla) {
+  private final void fromJsonObject(final SlaNormalizations aSla) {
     this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
     this.mem_size	     = aSla.mem_size;
@@ -154,7 +155,7 @@ public class SlaNormalizations {
    *
    *
    */
-  public void toCustomFile() {
+  public final void toCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
     if (priority_file != null) {
       customPriorityFile = (new File(priority_file)).getParent();

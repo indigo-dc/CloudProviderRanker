@@ -1,16 +1,17 @@
 package org.indigo.cloudproviderranker;
 
+import java.io.BufferedReader
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import java.io.PrintWriter;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.text.SimpleDateFormat;
 
 /**
  * Doc TODO.
@@ -88,8 +89,7 @@ public class SlaNormalizations {
                            final float download_bandwidth,
                            final float upload_aggregated,
                            final float download_aggregated,
-                           final float infinity_value)
-  {
+                           final float infinity_value) {
     this.computing_time	     = computing_time;
     this.num_cpus	     = num_cpus;
     this.mem_size	     = mem_size;

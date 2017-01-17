@@ -1,77 +1,116 @@
 package org.indigo.cloudproviderranker;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import java.io.PrintWriter;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.text.SimpleDateFormat;
 
+/**
+ * Doc TODO.
+ */
 public class SlaNormalizations {
 
-  protected float computing_time;
-  protected float num_cpus;
-  protected float mem_size;
-  protected float disk_size;
-  protected float public_ip;
-  protected float upload_bandwidth;
-  protected float download_bandwidth;
-  protected float upload_aggregated;
-  protected float download_aggregated;
-  protected float infinity_value;
+  /**
+   * Doc TODO.
+   */
+  protected float computingTime;
+  /**
+   * Doc TODO.
+   */
+  protected float numCpus;
+  /**
+   * Doc TODO.
+   */
+  protected float memSize;
+  /**
+   * Doc TODO.
+   */
+  protected float diskSize;
+  /**
+   * Doc TODO.
+   */
+  protected float publicIp;
+  /**
+   * Doc TODO.
+   */
+  protected float uploadBandwidth;
+  /**
+   * Doc TODO.
+   */
+  protected float downloadBandwidth;
+  /**
+   * Doc TODO.
+   */
+  protected float uploadAggregated;
+  /**
+   * Doc TODO.
+   */
+  protected float downloadAggregated;
+  /**
+   * Doc TODO.
+   */
+  protected float infinityValue;
 
+  /**
+   * Doc TODO.
+   */
   public final float get_computing_time() {
-    return computing_time;
-  }
-
-  public static String priority_file = null;
-
-  public SlaNormalizations() {
-  }
-
-  public SlaNormalizations(final float computing_time,
-                           final float num_cpus,
-                           final float mem_size,
-                           final float disk_size,
-                           final float public_ip,
-                           final float upload_bandwidth,
-                           final float download_bandwidth,
-                           final float upload_aggregated,
-                           final float download_aggregated,
-                           final float infinity_value)
-  {
-    this.computing_time	     = computing_time;
-    this.num_cpus	     = num_cpus;
-    this.mem_size	     = mem_size;
-    this.disk_size	     = disk_size;
-    this.public_ip	     = public_ip;
-    this.upload_bandwidth    = upload_bandwidth;
-    this.download_bandwidth  = download_bandwidth;
-    this.upload_aggregated   = upload_aggregated;
-    this.download_aggregated = download_aggregated;
-    this.infinity_value      = infinity_value;
+    return computingTime;
   }
 
   /**
-   *
-   *
-   *
-   *
+   * Doc TODO.
+   */
+  public static String priority_file = null;
+
+  /**
+   * Doc TODO.
+   */
+  public SlaNormalizations() {
+  }
+
+  /**
+   * Doc TODO.
+   */
+  public SlaNormalizations(final float computingtime,
+                           final float numcpus,
+                           final float memsize,
+                           final float disksize,
+                           final float publicip,
+                           final float uploadbandwidth,
+                           final float downloadbandwidth,
+                           final float uploadaggregated,
+                           final float downloadaggregated,
+                           final float infinityvalue) {
+    this.computingTime      = computingtime;
+    this.numCpus            = numcpus;
+    this.memSize            = memsize;
+    this.diskSize           = disksize;
+    this.publicIp           = publicip;
+    this.uploadBandwidth    = uploadbandwidth;
+    this.downloadBandwidth  = downloadbandwidth;
+    this.uploadAggregated   = uploadaggregated;
+    this.downloadAggregated = downloadaggregated;
+    this.infinityValue      = infinityvalue;
+  }
+
+  /**
+   * Doc TODO.
    */
   public final void fromDefaultFile() {
     fromFile(priority_file);
   }
 
   /**
-   *
-   *
-   *
-   *
+   * Doc TODO.
    */
   public final void fromCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
@@ -85,25 +124,21 @@ public class SlaNormalizations {
     fromFile(customPriorityFile);
   }
 
-
   /**
-   *
-   *
-   *
-   *
+   * Doc TODO.
    */
   private final void fromFile(final String filename) {
     if (filename  ==  null) {
-      computing_time 	    = 0.0166f;
-      num_cpus	    	    = 1.0f;
-      mem_size	    	    = 1.0f;
-      disk_size	    	    = 1.0f;
-      public_ip	    	    = 1.0f;
-      upload_bandwidth      = 1.0f;
-      download_bandwidth    = 1.0f;
-      upload_aggregated     = 1.0f;
-      download_aggregated   = 1.0f;
-      infinity_value	    = 1000.0f;
+      computingTime      = 0.0166f;
+      numCpus            = 1.0f;
+      memSize            = 1.0f;
+      diskSize           = 1.0f;
+      publicIp           = 1.0f;
+      uploadBandwidth    = 1.0f;
+      downloadBandwidth  = 1.0f;
+      uploadAggregated   = 1.0f;
+      downloadAggregated = 1.0f;
+      infinityValue      = 1000.0f;
       return;
     }
     InputStream is = null;
@@ -117,16 +152,16 @@ public class SlaNormalizations {
         line += sline;
       }
     } catch (Exception e) {
-      computing_time 	    = 0.0166f;
-      num_cpus	    = 1.0f;
-      mem_size	    = 1.0f;
-      disk_size	    = 1.0f;
-      public_ip	    = 1.0f;
-      upload_bandwidth    = 1.0f;
-      download_bandwidth  = 1.0f;
-      upload_aggregated   = 1.0f;
-      download_aggregated = 1.0f;
-      infinity_value	    = 1000.0f;
+      computingTime      = 0.0166f;
+      numCpus            = 1.0f;
+      memSize            = 1.0f;
+      diskSize           = 1.0f;
+      publicIp           = 1.0f;
+      uploadBandwidth    = 1.0f;
+      downloadBandwidth  = 1.0f;
+      uploadAggregated   = 1.0f;
+      downloadAggregated = 1.0f;
+      infinityValue      = 1000.0f;
       return;
     }
     Gson gson = new Gson();
@@ -135,24 +170,25 @@ public class SlaNormalizations {
                                                          SlaNormalizations.class));
   }
 
+  /**
+   * Doc TODO.
+   */
   private final void fromJsonObject(final SlaNormalizations aSla) {
-    this.computing_time	     = aSla.computing_time;
-    this.num_cpus	     = aSla.num_cpus;
-    this.mem_size	     = aSla.mem_size;
-    this.disk_size	     = aSla.disk_size;
-    this.public_ip	     = aSla.public_ip;
-    this.upload_bandwidth    = aSla.upload_bandwidth;
-    this.download_bandwidth  = aSla.download_bandwidth;
-    this.upload_aggregated   = aSla.upload_aggregated;
-    this.download_aggregated = aSla.download_aggregated;
-    this.infinity_value      = aSla.infinity_value;
+    this.computingTime      = aSla.computingTime;
+    this.numCpus            = aSla.numCpus;
+    this.memSize            = aSla.memSize;
+    this.diskSize           = aSla.diskSize;
+    this.publicIp           = aSla.publicIp;
+    this.uploadBandwidth    = aSla.uploadBandwidth;
+    this.downloadBandwidth  = aSla.downloadBandwidth;
+    this.uploadAggregated   = aSla.uploadAggregated;
+    this.downloadAggregated = aSla.downloadAggregated;
+    this.infinityValue      = aSla.infinityValue;
   }
 
+
   /**
-   *
-   *
-   *
-   *
+   * Doc TODO.
    */
   public final void toCustomFile() {
     String customPriorityFile = "/usr/share/java/cpr";
@@ -167,7 +203,7 @@ public class SlaNormalizations {
     String params = gson.toJson(this);
     try {
       PrintWriter out = new PrintWriter(customPriorityFile);
-      out.println(params);
+      out.println(params); 
       out.close();
     } catch (java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
@@ -179,7 +215,9 @@ public class SlaNormalizations {
     }
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);

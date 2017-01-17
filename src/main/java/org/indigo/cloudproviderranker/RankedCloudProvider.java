@@ -1,16 +1,29 @@
 package org.indigo.cloudproviderranker;
 
 /**
- *
- * Class for a cloud provider which has been ranked (less info required comparing to CloudProvider)
- *
+ * Doc TODO.
  */
 public class RankedCloudProvider {
+  /**
+   * Doc TODO.
+   */
   private String  name;
+  /**
+   * Doc TODO.
+   */
   private float   rank;
+  /**
+   * Doc TODO.
+   */
   private boolean ranked;
+  /**
+   * Doc TODO.
+   */
   private String  errorReason;
 
+  /**
+   * Doc TODO.
+   */
   public RankedCloudProvider(final String name,  
                              final float rank,
                              final boolean ranked,
@@ -21,18 +34,33 @@ public class RankedCloudProvider {
     this.ranked      = ranked;
   }
 
+  /**
+   * Doc TODO.
+   */
   public final String getName() {
     return name;
   }
+  /**
+   * Doc TODO.
+   */
   public final float getRank() {
     return rank;
   }
+  /**
+   * Doc TODO.
+   */
   public final boolean isRanked() {
     return ranked;
   }
+  /**
+   * Doc TODO.
+   */
   public final String getRankError() {
     return errorReason;
   }
+  /**
+   * Doc TODO.
+   */
   public final void addToRank(final float f) {
     rank+= f;
   }

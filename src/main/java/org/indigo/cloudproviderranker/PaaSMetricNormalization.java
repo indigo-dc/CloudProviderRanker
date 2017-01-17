@@ -2,112 +2,228 @@ package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+/**
+ * Doc TODO.
+ */
 public class PaaSMetricNormalization {
-
+  /**
+   * Doc TODO.
+   */
   public static String normalization_file = null;
-
-  protected int   occi_create_vm_availability 	 = 1;
-  protected float occi_createvm_Response_Time 	 = (float) 0.001;
-  protected int   occi_createvm_Result 		 = 1;
-  protected int   occi_delete_vm_Availability 	 = 1;
-  protected float occi_deletevm_Response_Time 	 = (float) 0.001;
-  protected int   occi_deletevm_Result 		 = 1;
-  protected int   general_occi_api_Availability	 = 1;
-  protected float general_occi_api_Response_Time = (float) 0.001;
-  protected int   general_occi_api_Result 	 = 1;
-  protected int   occi_inspect_vm_availability 	 = 1;
-  protected float occi_inspectvm_Response_Time 	 = (float) 0.001;
-  protected int   occi_inspectvm_Result 	 = 1;
-
+  /**
+   * Doc TODO.
+   */
+  protected int   occiCreatevmAvailability = 1;
+  /**
+   * Doc TODO.
+   */
+  protected float occiCreatevmResponseTime = (float) 0.001;
+  /**
+   * Doc TODO.
+   */
+  protected int   occiCreatevmResult = 1;
+  /**
+   * Doc TODO.
+   */
+  protected int   occiDeletevmAvailability = 1;
+  /**
+   * Doc TODO.
+   */
+  protected float occiDeletevmResponseTime = (float) 0.001;
+  /**
+   * Doc TODO.
+   */
+  protected int   occiDeletevmResult = 1;
+  /**
+   * Doc TODO.
+   */
+  protected int   generalOcciApiAvailability = 1;
+  /**
+   * Doc TODO.
+   */
+  protected float generalOcciApiResponseTime = (float) 0.001;
+  /**
+   * Doc TODO.
+   */
+  protected int   generalOcciApiResult = 1;
+  /**
+   * Doc TODO.
+   */
+  protected int   occiInspectVmAvailability = 1;
+  /**
+   * Doc TODO.
+   */
+  protected float occiInspectVmResponseTime = (float) 0.001;
+  /**
+   * Doc TODO.
+   */
+  protected int   occiInspectVmResult = 1;
+  /**
+   * Doc TODO.
+   */
   public final int getocci_create_vm_availability() {
-    return occi_create_vm_availability;
+    return occiCreatevmAvailability;
   }
-  public final float getocci_createvm_Response_Time() {
-    return occi_createvm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final float getocciCreatevmResponseTime() {
+    return occiCreatevmResponseTime;
   }
-  public final int getocci_createvm_Result() {
-    return occi_createvm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final int getocciCreatevmResult() {
+    return occiCreatevmResult;
   }
-  public final int getocci_delete_vm_Availability() {
-    return occi_delete_vm_Availability;
+  /**
+   * Doc TODO.
+   */
+  public final int getocciDeletevmAvailability() {
+    return occiDeletevmAvailability;
   }
-  public final float getocci_deletevm_Response_Time() {
-    return occi_deletevm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final float getocciDeletevmResponseTime() {
+    return occiDeletevmResponseTime;
   }
-  public final int getocci_deletevm_Result() {
-    return occi_deletevm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final int getocciDeletevmResult() {
+    return occiDeletevmResult;
   }
-  public final int getgeneral_occi_api_Availability() {
-    return general_occi_api_Availability;
+  /**
+   * Doc TODO.
+   */
+  public final int getgeneralOcciApiAvailability() {
+    return generalOcciApiAvailability;
   }
-  public final float getgeneral_occi_api_Response_Time() {
-    return general_occi_api_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final float getgeneralOcciApiResponseTime() {
+    return generalOcciApiResponseTime;
   }
-  public final int getgeneral_occi_api_Result() {
-    return general_occi_api_Result;
+  /**
+   * Doc TODO.
+   */
+  public final int getgeneralOcciApiResult() {
+    return generalOcciApiResult;
   }
-  public final int getocci_inspect_vm_availability() {
-    return occi_inspect_vm_availability;
+  /**
+   * Doc TODO.
+   */
+  public final int getocciInspectVmAvailability() {
+    return occiInspectVmAvailability;
   }
-  public final float getocci_inspectvm_Response_Time() {
-    return occi_inspectvm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final float getocciInspectVmResponseTime() {
+    return occiInspectVmResponseTime;
   }
-  public final int getocci_inspectvm_Result() {
-    return occi_inspectvm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final int getocciInspectVmResult() {
+    return occiInspectVmResult;
   }
-  public final void setocci_create_vm_availability(final int occi_create_vm_availability) {
-    this.occi_create_vm_availability = occi_create_vm_availability;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciCreatevmAvailability(final int occi_create_vm_availability) {
+    this.occiCreatevmAvailability = occi_create_vm_availability;
   }
-  public final void setocci_createvm_Response_Time(final float occi_createvm_Response_Time) {
-    this.occi_createvm_Response_Time = occi_createvm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciCreatevmResponseTime(final float occiCreatevmResponseTime) {
+    this.occiCreatevmResponseTime = occiCreatevmResponseTime;
   }
-  public final void setocci_createvm_Result(final int occi_createvm_Result) {
-    this.occi_createvm_Result = occi_createvm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciCreatevmResult(final int occiCreatevmResult) {
+    this.occiCreatevmResult = occiCreatevmResult;
   }
-  public final void setocci_delete_vm_Availability(final int occi_delete_vm_Availability) {
-    this.occi_delete_vm_Availability = occi_delete_vm_Availability;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciDeletevmAvailability(final int occiDeletevmAvailability) {
+    this.occiDeletevmAvailability = occiDeletevmAvailability;
   }
-  public final void setocci_deletevm_Response_Time(final float occi_deletevm_Response_Time) {
-    this.occi_deletevm_Response_Time = occi_deletevm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciDeletevmResponseTime(final float occiDeletevmResponseTime) {
+    this.occiDeletevmResponseTime = occiDeletevmResponseTime;
   }
-  public final void setocci_deletevm_Result(final int occi_deletevm_Result) {
-    this.occi_deletevm_Result = occi_deletevm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciDeletevmResult(final int occiDeletevmResult) {
+    this.occiDeletevmResult = occiDeletevmResult;
   }
-  public final void setgeneral_occi_api_Availability(final int general_occi_api_Availability) {
-    this.general_occi_api_Availability = general_occi_api_Availability;
+  /**
+   * Doc TODO.
+   */
+  public final void setgeneralOcciApiAvailability(final int generalOcciApiAvailability) {
+    this.generalOcciApiAvailability = generalOcciApiAvailability;
   }
-  public final void setgeneral_occi_api_Response_Time(final float general_occi_api_Response_Time) {
-    this.general_occi_api_Response_Time = general_occi_api_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final void setgeneralOcciApiResponseTime(final float generalOcciApiResponseTime) {
+    this.generalOcciApiResponseTime = generalOcciApiResponseTime;
   }
-  public final void setgeneral_occi_api_Result(final int general_occi_api_Result) {
-    this.general_occi_api_Result = general_occi_api_Result;
+  /**
+   * Doc TODO.
+   */
+  public final void setgeneralOcciApiResult(final int generalOcciApiResult) {
+    this.generalOcciApiResult = generalOcciApiResult;
   }
-  public final void setocci_inspect_vm_availability(final int occi_inspect_vm_availability) {
-    this.occi_inspect_vm_availability = occi_inspect_vm_availability;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciInspectVmAvailability(final int occiInspectVmAvailability) {
+    this.occiInspectVmAvailability = occiInspectVmAvailability;
   }
-  public final void setocci_inspectvm_Response_Time(final float occi_inspectvm_Response_Time) {
-    this.occi_inspectvm_Response_Time = occi_inspectvm_Response_Time;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciInspectVmResponseTime(final float occiInspectVmResponseTime) {
+    this.occiInspectVmResponseTime = occiInspectVmResponseTime;
   }
-  public final void setocci_inspectvm_Result(final int occi_inspectvm_Result) {
-    this.occi_inspectvm_Result = occi_inspectvm_Result;
+  /**
+   * Doc TODO.
+   */
+  public final void setocciInspectVmResult(final int occiInspectVmResult) {
+    this.occiInspectVmResult = occiInspectVmResult;
   }
-
+  /**
+   * Doc TODO.
+   */
   private PaaSMetricNormalization() { }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public PaaSMetricNormalization(final boolean update) {
     if (update) {
       try {
@@ -123,18 +239,24 @@ public class PaaSMetricNormalization {
     }
   }
 
-  //----------------------------------------------------------------------------------------
+
+  /**
+   * Doc TODO.
+   */
   @Override
   public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
-
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   private void updateFromDefaultFile() {
     updateFromFile(normalization_file);
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   private void updateFromCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
@@ -148,7 +270,9 @@ public class PaaSMetricNormalization {
     updateFromFile(customNormalizationFile);
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   private void updateFromFile(final String filename) {
     String line = "";
 
@@ -176,55 +300,63 @@ public class PaaSMetricNormalization {
     updateFromObject(paaSMetricNormalization);
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   private void update(final int   occi_create_vm_availability,
-		      final float occi_createvm_Response_Time,
-		      final int   occi_createvm_Result,
-		      final int   occi_delete_vm_Availability,
-		      final float occi_deletevm_Response_Time,
-		      final int   occi_deletevm_Result,
-		      final int   general_occi_api_Availability,
-		      final float general_occi_api_Response_Time,
-		      final int   general_occi_api_Result,
-		      final int   occi_inspect_vm_availability,
-		      final float occi_inspectvm_Response_Time,
-		      final int   occi_inspectvm_Result) {
-    this.occi_create_vm_availability    = occi_create_vm_availability;
-    this.occi_createvm_Response_Time    = occi_createvm_Response_Time;
-    this.occi_createvm_Result 		= occi_createvm_Result;
-    this.occi_delete_vm_Availability    = occi_delete_vm_Availability;
-    this.occi_deletevm_Response_Time    = occi_deletevm_Response_Time;
-    this.occi_deletevm_Result 		= occi_deletevm_Result;
-    this.general_occi_api_Availability  = general_occi_api_Availability;
-    this.general_occi_api_Response_Time = general_occi_api_Response_Time;
-    this.general_occi_api_Result 	= general_occi_api_Result;
-    this.occi_inspect_vm_availability   = occi_inspect_vm_availability;
-    this.occi_inspectvm_Response_Time   = occi_inspectvm_Response_Time;
-    this.occi_inspectvm_Result 		= occi_inspectvm_Result;
+                      final float occiCreatevmResponseTime,
+                      final int   occiCreatevmResult,
+                      final int   occiDeletevmAvailability,
+                      final float occiDeletevmResponseTime,
+                      final int   occiDeletevmResult,
+                      final int   generalOcciApiAvailability,
+                      final float generalOcciApiResponseTime,
+                      final int   generalOcciApiResult,
+                      final int   occiInspectVmAvailability,
+                      final float occiInspectVmResponseTime,
+                      final int   occiInspectVmResult) {
+    this.occiCreatevmAvailability   = occi_create_vm_availability;
+    this.occiCreatevmResponseTime   = occiCreatevmResponseTime;
+    this.occiCreatevmResult         = occiCreatevmResult;
+    this.occiDeletevmAvailability   = occiDeletevmAvailability;
+    this.occiDeletevmResponseTime   = occiDeletevmResponseTime;
+    this.occiDeletevmResult         = occiDeletevmResult;
+    this.generalOcciApiAvailability = generalOcciApiAvailability;
+    this.generalOcciApiResponseTime = generalOcciApiResponseTime;
+    this.generalOcciApiResult       = generalOcciApiResult;
+    this.occiInspectVmAvailability  = occiInspectVmAvailability;
+    this.occiInspectVmResponseTime  = occiInspectVmResponseTime;
+    this.occiInspectVmResult        = occiInspectVmResult;
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   private void updateFromObject(final PaaSMetricNormalization obj) {
-    this.occi_create_vm_availability    = obj.occi_create_vm_availability;
-    this.occi_createvm_Response_Time    = obj.occi_createvm_Response_Time;
-    this.occi_createvm_Result 		= obj.occi_createvm_Result;
-    this.occi_delete_vm_Availability    = obj.occi_delete_vm_Availability;
-    this.occi_deletevm_Response_Time    = obj.occi_deletevm_Response_Time;
-    this.occi_deletevm_Result 		= obj.occi_deletevm_Result;
-    this.general_occi_api_Availability  = obj.general_occi_api_Availability;
-    this.general_occi_api_Response_Time = obj.general_occi_api_Response_Time;
-    this.general_occi_api_Result 	= obj.general_occi_api_Result;
-    this.occi_inspect_vm_availability   = obj.occi_inspect_vm_availability;
-    this.occi_inspectvm_Response_Time   = obj.occi_inspectvm_Response_Time;
-    this.occi_inspectvm_Result 		= obj.occi_inspectvm_Result;
+    this.occiCreatevmAvailability    = obj.occiCreatevmAvailability;
+    this.occiCreatevmResponseTime    = obj.occiCreatevmResponseTime;
+    this.occiCreatevmResult          = obj.occiCreatevmResult;
+    this.occiDeletevmAvailability    = obj.occiDeletevmAvailability;
+    this.occiDeletevmResponseTime    = obj.occiDeletevmResponseTime;
+    this.occiDeletevmResult          = obj.occiDeletevmResult;
+    this.generalOcciApiAvailability  = obj.generalOcciApiAvailability;
+    this.generalOcciApiResponseTime  = obj.generalOcciApiResponseTime;
+    this.generalOcciApiResult        = obj.generalOcciApiResult;
+    this.occiInspectVmAvailability   = obj.occiInspectVmAvailability;
+    this.occiInspectVmResponseTime   = obj.occiInspectVmResponseTime;
+    this.occiInspectVmResult         = obj.occiInspectVmResult;
   }
 
-  //----------------------------------------------------------------------------------------
+  
+  /**
+   * Doc TODO.
+   */
   public final void toCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
       customNormalizationFile = (new File(normalization_file)).getParent();
-      if (customNormalizationFile  ==  null || customNormalizationFile.compareToIgnoreCase("")  ==  0) {
+      if (customNormalizationFile  ==  null 
+          || customNormalizationFile.compareToIgnoreCase("") == 0) {
         customNormalizationFile = ".";
       }
     }
@@ -238,12 +370,15 @@ public class PaaSMetricNormalization {
     } catch (java.io.FileNotFoundException e) {
       String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
       Logger.getLogger("").log(Level.SEVERE,  timeStamp
-			       + " - File [" + customNormalizationFile
-			       + "] doesn't exist. Cannot write custom normalization parameters..");
+                               + " - File [" + customNormalizationFile
+                               + "] doesn't exist. Cannot write custom normalization parameters..");
     }
   }
 
-  //----------------------------------------------------------------------------------------
+  
+  /**
+   * Doc TODO.
+   */
   public final void printParams() {
     Gson gson = new Gson();
     String params = gson.toJson(this);
@@ -251,7 +386,10 @@ public class PaaSMetricNormalization {
     Logger.getLogger("").log(Level.INFO,  timeStamp + " - Default Params=[" + params + "]");
   }
 
-  //----------------------------------------------------------------------------------------
+  
+  /**
+   * Doc TODO.
+   */
   public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);

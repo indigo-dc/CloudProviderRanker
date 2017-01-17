@@ -1,39 +1,85 @@
 package org.indigo.cloudproviderranker;
 
+import java.io.BufferedReader
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import java.io.PrintWriter;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.text.SimpleDateFormat;
 
+/**
+ * Doc TODO.
+ */
 public class SlaNormalizations {
 
+  /**
+   * Doc TODO.
+   */
   protected float computing_time;
+  /**
+   * Doc TODO.
+   */
   protected float num_cpus;
+  /**
+   * Doc TODO.
+   */
   protected float mem_size;
+  /**
+   * Doc TODO.
+   */
   protected float disk_size;
+  /**
+   * Doc TODO.
+   */
   protected float public_ip;
+  /**
+   * Doc TODO.
+   */
   protected float upload_bandwidth;
+  /**
+   * Doc TODO.
+   */
   protected float download_bandwidth;
+  /**
+   * Doc TODO.
+   */
   protected float upload_aggregated;
+  /**
+   * Doc TODO.
+   */
   protected float download_aggregated;
+  /**
+   * Doc TODO.
+   */
   protected float infinity_value;
 
+  /**
+   * Doc TODO.
+   */
   public final float get_computing_time() {
     return computing_time;
   }
 
+  /**
+   * Doc TODO.
+   */
   public static String priority_file = null;
 
+  /**
+   * Doc TODO.
+   */
   public SlaNormalizations() {
   }
 
+  /**
+   * Doc TODO.
+   */
   public SlaNormalizations(final float computing_time,
                            final float num_cpus,
                            final float mem_size,
@@ -43,8 +89,7 @@ public class SlaNormalizations {
                            final float download_bandwidth,
                            final float upload_aggregated,
                            final float download_aggregated,
-                           final float infinity_value)
-  {
+                           final float infinity_value) {
     this.computing_time	     = computing_time;
     this.num_cpus	     = num_cpus;
     this.mem_size	     = mem_size;
@@ -135,6 +180,9 @@ public class SlaNormalizations {
                                                          SlaNormalizations.class));
   }
 
+  /**
+   * Doc TODO.
+   */
   private final void fromJsonObject(final SlaNormalizations aSla) {
     this.computing_time	     = aSla.computing_time;
     this.num_cpus	     = aSla.num_cpus;
@@ -179,7 +227,9 @@ public class SlaNormalizations {
     }
   }
 
-  //----------------------------------------------------------------------------------------
+  /**
+   * Doc TODO.
+   */
   public final String getParams() {
     Gson gson = new Gson();
     return gson.toJson(this);

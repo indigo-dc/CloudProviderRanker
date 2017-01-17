@@ -31,17 +31,13 @@ import com.google.gson.JsonObject;
 //import org.kie.api.runtime.StatelessKieSession;
 
 /**
- *
- * This is the real ranker which receives the JSON text to be converted to
- * CloudProvider's instances
- * each instance is ranked basing on the rule define in the file
- * main/resources/rules/CloudProviderRule.drl
- *
- * @author dorigoa
- *
+ * Doc TODO.
  */
 public class RankHandler extends RequestHandler {
 
+  /**
+   * Doc TODO.
+   */
   @Override
   public final void handle(final HttpExchange httpExchange) throws IOException {
     if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
@@ -72,6 +68,9 @@ public class RankHandler extends RequestHandler {
     os.close();
   }
 
+  /**
+   * Doc TODO.
+   */
   public final ParseResult parseRequest(final InputStream is) {
     String line = "";
     try {

@@ -11,17 +11,50 @@ import java.util.logging.Level;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Doc TODO.
+ */
 public class Sla {
+  /**
+   * Doc TODO.
+   */
   public  String    	     id;
+  /**
+   * Doc TODO.
+   */
   public  String    	     customer;
+  /**
+   * Doc TODO.
+   */
   public  String    	     provider;
+  /**
+   * Doc TODO.
+   */
   public  String    	     startDate;
+  /**
+   * Doc TODO.
+   */
   public  String    	     endDate;
+  /**
+   * Doc TODO.
+   */
   public  ArrayList<Service> services;
+  /**
+   * Doc TODO.
+   */
   public  SlaNormalizations  slaNormalizations;
+  /**
+   * Doc TODO.
+   */
   public  float              rank;
+  /**
+   * Doc TODO.
+   */
   private float 	     infinityValue;
 
+  /**
+   * Doc TODO.
+   */
   public Sla(final String id, final String customer,
              final String provider, final String startDate,
              final String endDate,  final ArrayList<Service> services) {
@@ -85,11 +118,17 @@ public class Sla {
     }
   }
 
+  /**
+   * Doc TODO.
+   */
   @Override
   public final String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
 
+  /**
+   * Doc TODO.
+   */
   public static ArrayList<Sla> fromJsonObject(final JsonObject obj) {
     JsonArray slas = obj.get("sla").getAsJsonArray();
     ArrayList<Service> serviceArray = new ArrayList<Service>();
@@ -107,6 +146,9 @@ public class Sla {
     return slaArray;
   }
 
+  /**
+   * Doc TODO.
+   */
   private static ArrayList<Service> parseService(final JsonObject sla) {
     JsonArray services = sla.get("services").getAsJsonArray();
     ArrayList<Service> serviceArray = new ArrayList<Service>();
@@ -127,6 +169,9 @@ public class Sla {
     return serviceArray;
   }
 
+  /**
+   * Doc TODO.
+   */
   private static ArrayList<Target> parseTarget(final JsonObject service) {
     JsonArray targets = service.get("targets").getAsJsonArray();
     ArrayList<Target> targetArray = new ArrayList<Target>();

@@ -144,7 +144,7 @@ public class RankHandler extends RequestHandler {
       HashMap<String,  Sla> providerToSlaMap = new HashMap<String,  Sla>();
       for (Sla sla : slaArray) {
         slaidToProvider.put(sla.id,  sla.provider);
-        providerToSLAMap.put(sla.provider,  sla);
+        providerToSlaMap.put(sla.provider,  sla);
       }
 
       //
@@ -191,10 +191,10 @@ public class RankHandler extends RequestHandler {
         ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
         for (Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext();) {
           PaaSMetricRanked paas = jt.next();
-          paas.setClientIP(clientHostName);
+          paas.setClientIp(clientHostName);
           rcp.addToRank(paas.getRank());
         }
-        rcp.addToRank(providerToSLAMap.get(provider).rank);
+        rcp.addToRank(providerToSlaMap.get(provider).rank);
         rankedCloudProviders.add(rcp);
       }
 

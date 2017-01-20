@@ -109,14 +109,14 @@ public class Sla {
         normalizationFactor = slaNormalizations.downloadAggregated;
       }
 
-      rank += ((t.restrictions.total_limit <
-                Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
+      rank += ((t.restrictions.total_limit
+                < Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
                 + t.restrictions.total_guaranteed
-                + (t.restrictions.user_limit <
-                   Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinityValue)
+                + (t.restrictions.user_limit
+                   < Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinityValue)
                 + t.restrictions.user_guaranteed
-                + (t.restrictions.instance_limit <
-		   Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinityValue)
+                + (t.restrictions.instance_limit
+                   < Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinityValue)
                 + t.restrictions.instance_guaranteed) * normalizationFactor;
     }
   }
@@ -161,7 +161,7 @@ public class Sla {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
         ArrayList<Target> targets = parseTarget(obj);
         serviceArray.add(new Service(obj.get("service_id").getAsString(), 
-	                             obj.get("type").getAsString(),  targets));
+                                     obj.get("type").getAsString(),  targets));
       } catch (Exception e) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
         Logger.getLogger("").log(Level.INFO,  timeStamp + "Exception: " + e.getMessage());

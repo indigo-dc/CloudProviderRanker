@@ -3,7 +3,7 @@ package org.indigo.cloudproviderranker;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 
@@ -12,22 +12,22 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.net.InetSocketAddress;
+
 import javax.net.ssl.SSLContext;
 import com.sun.net.httpserver.HttpsConfigurator;
-import java.security.KeyStore;
-import javax.net.ssl.KeyManagerFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.KeyStoreException;
 
-import java.security.cert.CertificateException;
-import java.security.UnrecoverableKeyException;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import javax.net.ssl.KeyManagerFactory;
 
 /**
  * Doc TODO.
  */
-public class RESTEngine {
+public class RestEngine {
   /**
    * Doc TODO.
    */
@@ -64,8 +64,8 @@ public class RESTEngine {
 
     } else {
 
-    // Use: keytool -genkey -alias webservice -keystore server_keystore.ks
-    // to create the keystore.
+      // Use: keytool -genkey -alias webservice -keystore server_keystore.ks
+      // to create the keystore.
 
       try {
         server = HttpsServer.create(new InetSocketAddress(tcpport),  0);

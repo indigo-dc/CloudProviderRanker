@@ -40,7 +40,7 @@ public final class Main {
       password = args[4];
     }
 
-    RESTEngine re = new RESTEngine();
+    RestEngine re = new RestEngine();
     try {
       re.initHttpServer(usessl,  tcpport,  keystorepath,  password);
     } catch (ServerException se) {

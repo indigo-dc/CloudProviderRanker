@@ -72,7 +72,7 @@ public class PaaSMetricRanked extends PaaSMetric {
           paaSMetricRanked.addToRank(val);
         }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi createvm Response Time")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("occi createvm Response Time")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmResponseTime;
           paaSMetricRanked.addToRank(0 - val);

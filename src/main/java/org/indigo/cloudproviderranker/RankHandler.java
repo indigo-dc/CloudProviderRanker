@@ -12,11 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import com.google.gson.JsonArray;
 import com.google.gson.Gson;
@@ -126,9 +127,9 @@ public class RankHandler extends RequestHandler {
       ArrayList<Priority> allPriorities = new ArrayList<Priority>();
       if (specifiedPreferences) {
         for (int i = 0; i < preferences.size(); ++i) {
-	  ArrayList<Priority> prioritiesLoc = preferences.get(i).priorities;
-	  for (int j = 0; j < prioritiesLoc.size(); ++j) {
-	    allPriorities.add(prioritiesLoc.get(j));
+          ArrayList<Priority> prioritiesLoc = preferences.get(i).priorities;
+          for (int j = 0; j < prioritiesLoc.size(); ++j) {
+            allPriorities.add(prioritiesLoc.get(j));
           }
         }
         Collections.sort(allPriorities); // Sorting based on Priority.weight
@@ -140,7 +141,7 @@ public class RankHandler extends RequestHandler {
       //
       //
       HashMap<String,  String> slaidToProvider = new HashMap<String,  String>();
-      HashMap<String,  Sla> providerToSLAMap = new HashMap<String,  Sla>();
+      HashMap<String,  Sla> providerToSlaMap = new HashMap<String,  Sla>();
       for (Sla sla : slaArray) {
         slaidToProvider.put(sla.id,  sla.provider);
         providerToSLAMap.put(sla.provider,  sla);
@@ -154,14 +155,14 @@ public class RankHandler extends RequestHandler {
       //
       Vector<RankedCloudProvider> rankedProviders = new Vector<RankedCloudProvider>();
       if (specifiedPreferences && specifiedSla) {
-        int j = 0;
+        int jCounter = 0;
         for (Priority p : allPriorities) {
           rankedProviders.add(new RankedCloudProvider(slaidToProvider.get(p.slaId),
-						      (allPriorities.size() - j++),
-						      true,
-						      "")
-			       );
-	}
+                                                      (allPriorities.size() - jCounter++),
+                                                      true,
+                                                      "")
+                              );
+        }
 
         Vector<String> rcpVec = new Vector<String>();
         for (RankedCloudProvider rcp : rankedProviders) {
@@ -179,19 +180,19 @@ public class RankHandler extends RequestHandler {
 
       Set<String> providers = paasMetricRanked.keySet();
 
-      // 	    KieServices kieServices      = KieServices.Factory.get();
-      // 	    KieContainer kContainer      = kieServices.getKieClasspathContainer();
-      // 	    StatelessKieSession kSession = kContainer.newStatelessKieSession();
-      // 	    kSession.execute(paaSMetricRankerArrayList);
+      // KieServices kieServices = KieServices.Factory.get();
+      // KieContainer kContainer = kieServices.getKieClasspathContainer();
+      // StatelessKieSession kSession = kContainer.newStatelessKieSession();
+      // kSession.execute(paaSMetricRankerArrayList);
       ArrayList<RankedCloudProvider> rankedCloudProviders =
           new ArrayList<RankedCloudProvider>();
       for (String provider : providers) {
-	RankedCloudProvider rcp = new RankedCloudProvider(provider,  0.0f,  true,  "");
-	ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
-	for (Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext();) {
-          PaaSMetricRanked p = jt.next();
-          p.setClientIP(clientHostName);
-         rcp.addToRank(p.getRank());
+        RankedCloudProvider rcp = new RankedCloudProvider(provider,  0.0f,  true,  "");
+        ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
+        for (Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext();) {
+          PaaSMetricRanked paas = jt.next();
+          paas.setClientIP(clientHostName);
+          rcp.addToRank(paas.getRank());
         }
         rcp.addToRank(providerToSLAMap.get(provider).rank);
         rankedCloudProviders.add(rcp);

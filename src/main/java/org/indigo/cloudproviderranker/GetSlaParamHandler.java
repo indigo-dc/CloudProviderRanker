@@ -37,7 +37,7 @@ public class GetSlaParamHandler extends RequestHandler {
   }
 
   /**
-   * Doc TODO
+   * Doc TODO.
    */
   public final String getParams() {
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());

@@ -28,7 +28,7 @@ public class ParseResult {
   /**
    * Doc TODO.
    */
-  public final int getHTTPCode() {
+  public final int getHttpCode() {
     return httpCode;
   }
 }

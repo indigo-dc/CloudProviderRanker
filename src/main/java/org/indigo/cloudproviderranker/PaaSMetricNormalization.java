@@ -147,8 +147,8 @@ public class PaaSMetricNormalization {
   /**
    * Doc TODO.
    */
-  public final void setocciCreatevmAvailability(final int occi_create_vm_availability) {
-    this.occiCreatevmAvailability = occi_create_vm_availability;
+  public final void setocciCreatevmAvailability(final int occicreatevmavailability) {
+    this.occiCreatevmAvailability = occicreatevmavailability;
   }
   /**
    * Doc TODO.
@@ -232,7 +232,7 @@ public class PaaSMetricNormalization {
         Logger.getLogger("").log(Level.SEVERE,  " - updateFromDefaultFile failed: " + e);
       }
       try {
-	updateFromCustomFile();
+        updateFromCustomFile();
       } catch (Exception e) {
         Logger.getLogger("").log(Level.SEVERE,  " - updateFromCustomFile failed: " + e);
       }
@@ -266,7 +266,7 @@ public class PaaSMetricNormalization {
       }
     }
     customNormalizationFile = customNormalizationFile
-	+ "/paasmetric_normalization-custom.json";
+        + "/paasmetric_normalization-custom.json";
     updateFromFile(customNormalizationFile);
   }
 
@@ -296,14 +296,14 @@ public class PaaSMetricNormalization {
     JsonElement element = gson.fromJson(line,  JsonElement.class);
     PaaSMetricNormalization paaSMetricNormalization =
         (PaaSMetricNormalization) gson.fromJson(element.getAsJsonObject(),
-					       PaaSMetricNormalization.class);
+                                               PaaSMetricNormalization.class);
     updateFromObject(paaSMetricNormalization);
   }
 
   /**
    * Doc TODO.
    */
-  private void update(final int   occi_create_vm_availability,
+  private void update(final int   occicreatevmavailability,
                       final float occiCreatevmResponseTime,
                       final int   occiCreatevmResult,
                       final int   occiDeletevmAvailability,
@@ -315,7 +315,7 @@ public class PaaSMetricNormalization {
                       final int   occiInspectVmAvailability,
                       final float occiInspectVmResponseTime,
                       final int   occiInspectVmResult) {
-    this.occiCreatevmAvailability   = occi_create_vm_availability;
+    this.occiCreatevmAvailability   = occicreatevmavailability;
     this.occiCreatevmResponseTime   = occiCreatevmResponseTime;
     this.occiCreatevmResult         = occiCreatevmResult;
     this.occiDeletevmAvailability   = occiDeletevmAvailability;

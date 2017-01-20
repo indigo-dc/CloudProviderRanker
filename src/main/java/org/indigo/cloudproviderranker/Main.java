@@ -1,16 +1,20 @@
 package org.indigo.cloudproviderranker;
 
-import java.util.logging.Logger;
-import java.util.logging.FileHandler;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.Level;
 import java.io.IOException;
+
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public final class Main {
 
   private Main() {
   }
 
+  /**
+   * Doc TODO
+   */
   public static void main(final String[] args) throws IOException {
     int tcpport = 8080;
     boolean usessl = false;
@@ -34,7 +38,7 @@ public final class Main {
                          + " then must specify also a password. STOP!");
       System.exit(1);
     }
-    if (args.length   ==   5) {
+    if (args.length == 5) {
       usessl = true;
       keystorepath = args[3];
       password = args[4];
@@ -66,10 +70,9 @@ public final class Main {
     rootLogger.addHandler(logHandler);
     String plairOrSsl = usessl ? "SSL" : "plain";
     rootLogger.log(Level.INFO,  "Cloud Provider Ranker is listening on TCP port "
-		   + tcpport
-		   + " with "
-		   + plairOrSsl
-		   + " HTTP protocol \n");
-
+                   + tcpport
+                   + " with "
+                   + plairOrSsl
+                   + " HTTP protocol \n");
   }
 }

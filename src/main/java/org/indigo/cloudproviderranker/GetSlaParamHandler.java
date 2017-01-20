@@ -1,17 +1,12 @@
 package org.indigo.cloudproviderranker;
 
 import com.sun.net.httpserver.HttpExchange;
-//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.io.OutputStream;
 import java.io.IOException;
-//import java.util.Date;
-/*import com.google.gson.JsonArray;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;*/
+
 import java.text.SimpleDateFormat;
 
 public class GetSlaParamHandler extends RequestHandler {
@@ -41,6 +36,9 @@ public class GetSlaParamHandler extends RequestHandler {
     os.close();
   }
 
+  /**
+   * Doc TODO
+   */
   public final String getParams() {
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 

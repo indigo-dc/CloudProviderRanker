@@ -70,12 +70,12 @@ public class Sla {
     this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
 
-//    KieServices kieServices = KieServices.Factory.get();
-  //  KieContainer kContainer = kieServices.getKieClasspathContainer();
-   // KieSession ksession = kContainer.newKieSession();
-    //ksession.insert(this);
-    //int totRules = ksession.fireAllRules();
-    //ksession.dispose();
+    // KieServices kieServices = KieServices.Factory.get();
+    // KieContainer kContainer = kieServices.getKieClasspathContainer();
+    // KieSession ksession = kContainer.newKieSession();
+    // ksession.insert(this);
+    // int totRules = ksession.fireAllRules();
+    // ksession.dispose();
 
     for (Target t : services.get(0).targets) {
 
@@ -109,11 +109,14 @@ public class Sla {
         normalizationFactor = slaNormalizations.downloadAggregated;
       }
 
-      rank += ((t.restrictions.total_limit < Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
+      rank += ((t.restrictions.total_limit <
+      	        Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
                 + t.restrictions.total_guaranteed
-      	        + (t.restrictions.user_limit < Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinityValue)
+      	        + (t.restrictions.user_limit <
+      	           Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinityValue)
 		+ t.restrictions.user_guaranteed
-		+ (t.restrictions.instance_limit < Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinityValue)
+		+ (t.restrictions.instance_limit <
+		   Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinityValue)
 		+ t.restrictions.instance_guaranteed) * normalizationFactor;
     }
   }
@@ -135,13 +138,13 @@ public class Sla {
     ArrayList<Sla> slaArray = new ArrayList<Sla>();
 
     for (int i = 0; i < slas.size(); ++i) {
-      JsonObject currentSLA = slas.get(i).getAsJsonObject();
-      serviceArray = parseService(currentSLA);
-      slaArray.add(new Sla(currentSLA.get("id").getAsString(),
-		           currentSLA.get("customer").getAsString(),
-		           currentSLA.get("provider").getAsString(),
-		           currentSLA.get("start_date").getAsString(),
-		           currentSLA.get("end_date").getAsString(),  serviceArray));
+      JsonObject currentSla = slas.get(i).getAsJsonObject();
+      serviceArray = parseService(currentSla);
+      slaArray.add(new Sla(currentSla.get("id").getAsString(),
+		           currentSla.get("customer").getAsString(),
+		           currentSla.get("provider").getAsString(),
+		           currentSla.get("start_date").getAsString(),
+		           currentSla.get("end_date").getAsString(),  serviceArray));
     }
     return slaArray;
   }
@@ -157,7 +160,8 @@ public class Sla {
         JsonObject obj = services.get(i).getAsJsonObject();
 	String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 	ArrayList<Target> targets = parseTarget(obj);
-	serviceArray.add(new Service(obj.get("service_id").getAsString(), obj.get("type").getAsString(),  targets));
+	serviceArray.add(new Service(obj.get("service_id").getAsString(), 
+	                             obj.get("type").getAsString(),  targets));
       } catch (Exception e) {
         String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
 	Logger.getLogger("").log(Level.INFO,  timeStamp + "Exception: " + e.getMessage());

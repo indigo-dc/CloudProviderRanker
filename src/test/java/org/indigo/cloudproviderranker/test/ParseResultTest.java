@@ -10,6 +10,6 @@ public class ParseResultTest {
   public void test( ) {
     ParseResult p = new ParseResult("message", 100);
     assertTrue(p.getMessage().compareTo("message")==0);
-    assertTrue(p.getHTTPCode()==100);
+    assertTrue(p.getHttpCode()==100);
   }
 }

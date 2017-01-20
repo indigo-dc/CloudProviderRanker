@@ -15,15 +15,15 @@ public class SlaTest {
   @Test
   public void test( ) {
     Restrictions r = new Restrictions( );
-    r.total_limit = 10;
-    r.total_guaranteed = 1;
-    r.instance_limit = 100;
-    r.instance_guaranteed = 1;
-    r.user_limit = 5;
-    r.user_guaranteed = 1;
+    r.totalLimit = 10;
+    r.totalGuaranteed = 1;
+    r.instanceLimit = 100;
+    r.instanceGuaranteed = 1;
+    r.userLimit = 5;
+    r.userGuaranteed = 1;
 
     if(r!=null)
-      assertTrue(r.total_limit==10);
+      assertTrue(r.totalLimit==10);
     
     ArrayList<String> targetTypes = new ArrayList<String>();
     targetTypes.add( "public_ip" );

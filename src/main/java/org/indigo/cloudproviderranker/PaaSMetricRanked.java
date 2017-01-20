@@ -30,7 +30,7 @@ public class PaaSMetricRanked extends PaaSMetric {
   /**
    * Doc TODO.
    */
-  public final void setClientIP(final String ip) {
+  public final void setClientIp(final String ip) {
     clientHostName = ip;
   }
   /**
@@ -42,8 +42,8 @@ public class PaaSMetricRanked extends PaaSMetric {
   /**
    * Doc TODO.
    */
-  public final void addToRank(final float f) {
-    rank += f;
+  public final void addToRank(final float rankValue) {
+    rank += rankValue;
   }
   /**
    * Doc TODO.
@@ -62,89 +62,89 @@ public class PaaSMetricRanked extends PaaSMetric {
         JsonObject currentMetricJsonObject = metricsArray.get(j).getAsJsonObject();
 
         PaaSMetricRanked paaSMetricRanked =
-	    (PaaSMetricRanked) (new
-			       GsonBuilder().create()).fromJson(currentMetricJsonObject,
-								PaaSMetricRanked.class);
+            (PaaSMetricRanked) (new
+                               GsonBuilder().create()).fromJson(currentMetricJsonObject,
+                                                               PaaSMetricRanked.class);
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi create vm availability")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiCreatevmAvailability;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi create vm availability")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiCreatevmAvailability;
+          paaSMetricRanked.addToRank(val);
+        }
 
 	if (paaSMetricRanked.getMetricName().compareTo("occi createvm Response Time")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiCreatevmResponseTime;
-	  paaSMetricRanked.addToRank(0 - val);
-	}
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiCreatevmResponseTime;
+          paaSMetricRanked.addToRank(0 - val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi createvm Result")  ==  0) {
-	  float val =  paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiCreatevmResult;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi createvm Result")  ==  0) {
+          float val =  paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiCreatevmResult;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi delete vm Availability")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiDeletevmAvailability;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi delete vm Availability")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiDeletevmAvailability;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Response Time")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiDeletevmResponseTime;
-	  paaSMetricRanked.addToRank(0 - val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Response Time")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiDeletevmResponseTime;
+          paaSMetricRanked.addToRank(0 - val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Result")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiDeletevmResult;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Result")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiDeletevmResult;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("general occi api Availability")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.generalOcciApiAvailability;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("general occi api Availability")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.generalOcciApiAvailability;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("general occi api Response Time")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.generalOcciApiResponseTime;
-	  paaSMetricRanked.addToRank(0 - val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("general occi api Response Time")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.generalOcciApiResponseTime;
+          paaSMetricRanked.addToRank(0 - val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("general occi api Result")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.generalOcciApiResult;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("general occi api Result")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.generalOcciApiResult;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi inspect vm availability")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiInspectVmAvailability;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi inspect vm availability")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiInspectVmAvailability;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Response Time")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiInspectVmResponseTime;
-	  paaSMetricRanked.addToRank(0 - val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Response Time")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiInspectVmResponseTime;
+          paaSMetricRanked.addToRank(0 - val);
+        }
 
-	if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Result")  ==  0) {
-	  float val = paaSMetricRanked.getMetricValue()
-	      * paaSMetricNormalization.occiInspectVmResult;
-	  paaSMetricRanked.addToRank(val);
-	}
+        if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Result")  ==  0) {
+          float val = paaSMetricRanked.getMetricValue()
+              * paaSMetricNormalization.occiInspectVmResult;
+          paaSMetricRanked.addToRank(val);
+        }
 
-	if (providerMonitor.containsKey(providerName)) {
-	  providerMonitor.get(providerName).add(paaSMetricRanked);
-	} else {
-	  ArrayList<PaaSMetricRanked> arrayTmp = new ArrayList<PaaSMetricRanked>();
-	  arrayTmp.add(paaSMetricRanked);
-	  providerMonitor.put(providerName,  arrayTmp);
-	}
+        if (providerMonitor.containsKey(providerName)) {
+          providerMonitor.get(providerName).add(paaSMetricRanked);
+        } else {
+          ArrayList<PaaSMetricRanked> arrayTmp = new ArrayList<PaaSMetricRanked>();
+          arrayTmp.add(paaSMetricRanked);
+          providerMonitor.put(providerName,  arrayTmp);
+        }
 
       }
     }

@@ -1,18 +1,17 @@
 package org.indigo.cloudproviderranker;
 
-import com.sun.net.httpserver.HttpExchange;
-//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.io.IOException;
-import java.io.OutputStream;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.OutputStream;
 
-//import java.util.Date;
-//import com.google.gson.JsonArray;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -46,6 +45,9 @@ public class CustomPaaSParamHandler extends RequestHandler {
     os.close();
   }
 
+  /**
+   * Todo
+   */
   public final void updateParams(final InputStream is /*String line*/) {
     String line = "";
     try {
@@ -57,7 +59,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
         line += sline;
       }
     } catch (IOException ioe) {
-
+      // Nothing todo
     }
 
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());

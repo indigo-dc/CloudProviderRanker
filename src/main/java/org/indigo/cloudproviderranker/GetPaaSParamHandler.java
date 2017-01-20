@@ -37,7 +37,7 @@ public class GetPaaSParamHandler extends RequestHandler {
 
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type",  "application/json");
-    httpExchange.sendResponseHeaders(pr.getHTTPCode(),  pr.getMessage().getBytes().length);
+    httpExchange.sendResponseHeaders(pr.getHttpCode(),  pr.getMessage().getBytes().length);
 
     OutputStream os = httpExchange.getResponseBody();
     os.write(pr.getMessage().getBytes());

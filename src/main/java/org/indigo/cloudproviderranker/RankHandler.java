@@ -52,7 +52,7 @@ public class RankHandler extends RequestHandler {
     ParseResult responseToClient = parseRequest(httpExchange.getRequestBody()/*Line*/);
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type",  "application/json");
-    httpExchange.sendResponseHeaders(responseToClient.getHTTPCode(),
+    httpExchange.sendResponseHeaders(responseToClient.getHttpCode(),
                                      responseToClient.getMessage().getBytes().length);
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     Logger.getLogger("").log(Level.INFO,  timeStamp

@@ -2,12 +2,12 @@ package org.indigo.cloudproviderranker;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.Headers;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.io.OutputStream;
-import java.io.IOException;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GetSlaParamHandler extends RequestHandler {
 

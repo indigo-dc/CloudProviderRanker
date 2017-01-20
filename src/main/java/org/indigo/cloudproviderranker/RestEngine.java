@@ -6,15 +6,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
-
 // doc: https://goo.gl/AJ792o
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 import com.sun.net.httpserver.HttpHandler;
-
-
-import javax.net.ssl.SSLContext;
-import com.sun.net.httpserver.HttpsConfigurator;
 
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -23,6 +18,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+
+import com.sun.net.httpserver.HttpsConfigurator;
 
 /**
  * Doc TODO.

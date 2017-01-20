@@ -5,9 +5,11 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+import java.text.SimpleDateFormat;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +17,6 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.text.SimpleDateFormat;
 
 public class CustomPaaSParamHandler extends RequestHandler {
 
@@ -45,9 +46,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
     os.close();
   }
 
-  /**
-   * Doc TODO
-   */
+  /** Doc TODO */
   public final void updateParams(final InputStream is /*String line*/) {
     String line = "";
     try {

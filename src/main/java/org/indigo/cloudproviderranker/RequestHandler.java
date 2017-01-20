@@ -1,10 +1,12 @@
 package org.indigo.cloudproviderranker;
+
 import com.sun.net.httpserver.HttpHandler;
 
-  /**
-   * Doc TODO.
-   */
+/**
+ * Doc TODO.
+ */
 abstract public class RequestHandler implements HttpHandler {
+
   /**
    * Doc TODO.
    */

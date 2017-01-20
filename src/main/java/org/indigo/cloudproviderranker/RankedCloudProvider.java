@@ -61,7 +61,7 @@ public class RankedCloudProvider {
   /**
    * Doc TODO.
    */
-  public final void addToRank(final float f) {
-    rank+= f;
+  public final void addToRank(final float rankValue) {
+    rank+= rankValue;
   }
 }

@@ -14,11 +14,11 @@ public class Preference {
   /**
    * Doc TODO.
    */
-  public String     	     serviceType;
+  public String serviceType;
   /**
    * Doc TODO.
    */
-  public String     	     id;
+  public String id;
   /**
    * Doc TODO.
    */
@@ -43,7 +43,8 @@ public class Preference {
     for (int i = 0; i < preferencesArray.size(); ++i) {
       JsonObject prefJsonObj = preferencesArray.get(i).getAsJsonObject();
       //System.err.println("prefJsonObj=" + prefJsonObj.getAsJsonObject().getAsString());
-      ArrayList<Priority> priorities = parsePriorities(prefJsonObj.get("priority").getAsJsonArray());
+      JsonArray array = prefJsonObj.get("priority").getAsJsonArray();
+      ArrayList<Priority> priorities = parsePriorities(array);
       String serviceType = prefJsonObj.get("serviceType").getAsString();
       //String id           = prefJsonObj.get("id").getAsString();
       Preference prf = new Preference(serviceType,  "",  priorities);

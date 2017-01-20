@@ -155,10 +155,10 @@ public class RankHandler extends RequestHandler {
       //
       Vector<RankedCloudProvider> rankedProviders = new Vector<RankedCloudProvider>();
       if (specifiedPreferences && specifiedSla) {
-        int jCounter = 0;
+        int counter = 0;
         for (Priority p : allPriorities) {
           rankedProviders.add(new RankedCloudProvider(slaidToProvider.get(p.slaId),
-                                                      (allPriorities.size() - jCounter++),
+                                                      (allPriorities.size() - counter++),
                                                       true,
                                                       "")
                               );

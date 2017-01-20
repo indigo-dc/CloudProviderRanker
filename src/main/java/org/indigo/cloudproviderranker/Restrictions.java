@@ -9,27 +9,27 @@ public class Restrictions {
   /**
    * Doc TODO.
    */
-  public double total_limit         = Double.POSITIVE_INFINITY;
+  public double totalLimit         = Double.POSITIVE_INFINITY;
   /**
    * Doc TODO.
    */
-  public long   total_guaranteed    = 0;
+  public long   totalGuaranteed    = 0;
   /**
    * Doc TODO.
    */
-  public long   instance_guaranteed = 0;
+  public long   instanceGuaranteed = 0;
   /**
    * Doc TODO.
    */
-  public double instance_limit      = Double.POSITIVE_INFINITY;
+  public double instanceLimit      = Double.POSITIVE_INFINITY;
   /**
    * Doc TODO.
    */
-  public long   user_guaranteed     = 0;
+  public long   userGuaranteed     = 0;
   /**
    * Doc TODO.
    */
-  public double user_limit          = Double.POSITIVE_INFINITY;
+  public double userLimit          = Double.POSITIVE_INFINITY;
 
   /**
    * Doc TODO.

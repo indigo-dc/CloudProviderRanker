@@ -109,15 +109,15 @@ public class Sla {
         normalizationFactor = slaNormalizations.downloadAggregated;
       }
 
-      rank += ((t.restrictions.total_limit
-                < Double.POSITIVE_INFINITY ? t.restrictions.total_limit : infinityValue)
-                + t.restrictions.total_guaranteed
-                + (t.restrictions.user_limit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.user_limit : infinityValue)
-                + t.restrictions.user_guaranteed
-                + (t.restrictions.instance_limit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.instance_limit : infinityValue)
-                + t.restrictions.instance_guaranteed) * normalizationFactor;
+      rank += ((t.restrictions.totalLimit
+                < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue)
+                + t.restrictions.totalGuaranteed
+                + (t.restrictions.userLimit
+                   < Double.POSITIVE_INFINITY ? t.restrictions.userLimit : infinityValue)
+                + t.restrictions.userGuaranteed
+                + (t.restrictions.instanceLimit
+                   < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue)
+                + t.restrictions.instanceGuaranteed) * normalizationFactor;
     }
   }
 

@@ -60,15 +60,15 @@ public class GetPaaSParamHandler extends RequestHandler {
     } catch (Exception e) {
       Logger.getLogger("").log(Level.SEVERE, timeStamp
                                + " - PaaSMetricNormalization object initialization failed: "
-			       + e);
+                               + e);
     }
     String params = paaSMetricNormalization.getParams();
     Logger.getLogger("").log(Level.INFO,  timeStamp
-			     + " ["
-			     + clientHostName
-			     + "] Returning normalization parameters to the client: "
-			     + params
-			     + "\n\n");
+                             + " ["
+                             + clientHostName
+                             + "] Returning normalization parameters to the client: "
+                             + params
+                             + "\n\n");
     return params;
   }
 }

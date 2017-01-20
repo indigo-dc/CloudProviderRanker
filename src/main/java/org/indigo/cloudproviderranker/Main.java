@@ -50,8 +50,8 @@ public final class Main {
     re.addHandlerToContext("/rank",  new RankHandler());
     re.addHandlerToContext("/custom-paas-parameters",  new CustomPaaSParamHandler());
     re.addHandlerToContext("/get-paas-parameters",  new GetPaaSParamHandler());
-    re.addHandlerToContext("/get-sla-parameters",  new GetSLAParamHandler());
-    re.addHandlerToContext("/custom-sla-parameters",  new CustomSLAParamHandler());
+    re.addHandlerToContext("/get-sla-parameters",  new GetSlaParamHandler());
+    re.addHandlerToContext("/custom-sla-parameters",  new CustomSlaParamHandler());
 
     re.startServer();
 

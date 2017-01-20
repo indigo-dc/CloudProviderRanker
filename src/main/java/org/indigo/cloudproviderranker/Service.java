@@ -3,18 +3,18 @@ package org.indigo.cloudproviderranker;
 import java.util.ArrayList;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-  /**
-   * Doc TODO.
-   */
+/**
+ * Doc TODO.
+ */
 public class Service {
   /**
    * Doc TODO.
    */
-  public String 	   type;
+  public String type;
   /**
    * Doc TODO.
    */
-  public String 	   service_id;
+  public String serviceId;
   /**
    * Doc TODO.
    */
@@ -22,8 +22,8 @@ public class Service {
   /**
    * Doc TODO.
    */
-  public Service(final String service_id, final String type, final ArrayList<Target> targets) {
-    this.service_id = service_id;
+  public Service(final String serviceid, final String type, final ArrayList<Target> targets) {
+    this.serviceId = serviceid;
     this.type       = type;
     this.targets    = targets;
   }

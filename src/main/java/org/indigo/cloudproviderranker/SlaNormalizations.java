@@ -173,17 +173,17 @@ public class SlaNormalizations {
   /**
    * Doc TODO.
    */
-  private final void fromJsonObject(final SlaNormalizations aSla) {
-    this.computingTime      = aSla.computingTime;
-    this.numCpus            = aSla.numCpus;
-    this.memSize            = aSla.memSize;
-    this.diskSize           = aSla.diskSize;
-    this.publicIp           = aSla.publicIp;
-    this.uploadBandwidth    = aSla.uploadBandwidth;
-    this.downloadBandwidth  = aSla.downloadBandwidth;
-    this.uploadAggregated   = aSla.uploadAggregated;
-    this.downloadAggregated = aSla.downloadAggregated;
-    this.infinityValue      = aSla.infinityValue;
+  private final void fromJsonObject(final SlaNormalizations asla) {
+    this.computingTime      = asla.computingTime;
+    this.numCpus            = asla.numCpus;
+    this.memSize            = asla.memSize;
+    this.diskSize           = asla.diskSize;
+    this.publicIp           = asla.publicIp;
+    this.uploadBandwidth    = asla.uploadBandwidth;
+    this.downloadBandwidth  = asla.downloadBandwidth;
+    this.uploadAggregated   = asla.uploadAggregated;
+    this.downloadAggregated = asla.downloadAggregated;
+    this.infinityValue      = asla.infinityValue;
   }
 
 

@@ -14,7 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;*/
 import java.text.SimpleDateFormat;
 
-public class GetSLAParamHandler extends RequestHandler {
+public class GetSlaParamHandler extends RequestHandler {
 
   //_________________________________________________________________________________________
   @Override

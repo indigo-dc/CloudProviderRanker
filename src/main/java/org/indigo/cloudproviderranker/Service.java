@@ -1,7 +1,8 @@
 package org.indigo.cloudproviderranker;
 
-import java.util.ArrayList;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.ArrayList;
 
 /**
  * Doc TODO.

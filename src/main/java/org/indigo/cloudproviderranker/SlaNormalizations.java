@@ -1,5 +1,8 @@
 package org.indigo.cloudproviderranker;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,9 +12,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 /**
  * Doc TODO.

@@ -1,7 +1,14 @@
 package org.indigo.cloudproviderranker;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
+
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +25,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-import com.google.gson.JsonArray;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 //import org.kie.api.KieServices;
 //import org.kie.api.runtime.KieContainer;

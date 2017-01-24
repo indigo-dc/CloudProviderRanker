@@ -1,9 +1,10 @@
 package org.indigo.cloudproviderranker;
 
-import java.util.ArrayList;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

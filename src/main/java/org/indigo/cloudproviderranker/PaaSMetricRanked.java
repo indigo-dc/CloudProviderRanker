@@ -1,13 +1,13 @@
 package org.indigo.cloudproviderranker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.google.gson.JsonArray;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import it.reply.monitoringpillar.domain.dsl.monitoring.pillar.wrapper.paas.PaaSMetric;
 

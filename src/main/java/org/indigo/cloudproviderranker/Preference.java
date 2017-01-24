@@ -4,9 +4,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.ArrayList;
 
 /**
  * Doc TODO.

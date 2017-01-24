@@ -1,20 +1,13 @@
 package org.indigo.cloudproviderranker;
 
-import com.sun.net.httpserver.HttpExchange;
-//import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.Headers;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import com.sun.net.httpserver.HttpExchange;
+
 import java.io.IOException;
 import java.io.OutputStream;
-//import java.io.InputStream;
-//import java.io.InputStreamReader;
-//import java.io.BufferedReader;
-//import java.util.Date;
-//import com.google.gson.JsonArray;
-//import com.google.gson.Gson;
-//import com.google.gson.JsonElement;
-//import com.google.gson.JsonObject;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
 
 public class GetPaaSParamHandler extends RequestHandler {

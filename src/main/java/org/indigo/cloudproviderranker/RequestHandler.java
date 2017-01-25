@@ -5,7 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 /**
  * Doc TODO.
  */
-abstract public class RequestHandler implements HttpHandler {
+public abstract class RequestHandler implements HttpHandler {
 
   /**
    * Doc TODO.

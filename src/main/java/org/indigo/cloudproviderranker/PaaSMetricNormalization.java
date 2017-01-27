@@ -302,7 +302,7 @@ public class PaaSMetricNormalization {
   /**
    * Doc TODO.
    */
-  private void update(final int   occicreatevmavailability,
+  public void update(final int   occicreatevmavailability,
                       final float occiCreatevmResponseTime,
                       final int   occiCreatevmResult,
                       final int   occiDeletevmAvailability,

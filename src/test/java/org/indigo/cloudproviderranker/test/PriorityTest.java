@@ -20,6 +20,7 @@ public class PriorityTest {
     P.weight=0.7f;
     assertTrue(P.compareTo(P2)<0);
     assertTrue(P2.compareTo(P)>0);
-     assertTrue(P2.compareTo(P2)==0);
+    assertTrue(P2.compareTo(P2)==0);
+    P.toString();
   }
 }

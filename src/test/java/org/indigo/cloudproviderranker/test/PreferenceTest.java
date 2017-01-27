@@ -10,7 +10,7 @@ import com.google.gson.*;
 public class PreferenceTest {
   @Test
   public void test( ) {
-/*
+
     ArrayList<Priority> P = new ArrayList<Priority>();
     Priority p = new Priority( );
     p.slaId="sla_id";
@@ -21,7 +21,7 @@ public class PreferenceTest {
     
     if(pref!=null)
       assertTrue( pref.serviceType.compareTo("type") == 0 );
-    String jsonTest = "{\"preferences\": [{\"service_type\": \"compute\",\"priority\": [{\"sla_id\": \"4401ac5dc8cfbbb737b0a02575ee53f6\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e8040f\",\"weight\": 0.5}, {\"sla_id\": \"4401ac5dc8cfbbb737b0a02575ee3b58\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e6f4bc\",\"weight\": 0.5}]}]}";
+/*    String jsonTest = "{\"preferences\": [{\"service_type\": \"compute\",\"priority\": [{\"sla_id\": \"4401ac5dc8cfbbb737b0a02575ee53f6\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e8040f\",\"weight\": 0.5}, {\"sla_id\": \"4401ac5dc8cfbbb737b0a02575ee3b58\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e6f4bc\",\"weight\": 0.5}]}]}";
     JsonParser parser = new JsonParser();
     JsonElement jsonElement = parser.parse( jsonTest );
     JsonObject obj = jsonElement.getAsJsonObject( );

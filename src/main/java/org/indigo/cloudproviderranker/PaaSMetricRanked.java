@@ -66,73 +66,73 @@ public class PaaSMetricRanked extends PaaSMetric {
                                GsonBuilder().create()).fromJson(currentMetricJsonObject,
                                                                PaaSMetricRanked.class);
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi create vm availability")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI Create VM availability")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi createvm Response Time")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI CreateVM Response Time")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi createvm Result")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI CreateVM Result")  ==  0) {
           float val =  paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi delete vm Availability")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI Delete VM Availability")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Response Time")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI DeleteVM Response Time")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi deletevm Result")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI DeleteVM Result")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("general occi api Availability")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("General OCCI API Availability")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("general occi api Response Time")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("General OCCI API Response Time")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("general occi api Result")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("General OCCI API Result")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi inspect vm availability")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI Inspect VM availability")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Response Time")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI InspectVM Response Time")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo("occi inspectvm Result")  ==  0) {
+        if (paaSMetricRanked.getMetricName().compareTo("OCCI InspectVM Result")  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmResult;
           paaSMetricRanked.addToRank(val);

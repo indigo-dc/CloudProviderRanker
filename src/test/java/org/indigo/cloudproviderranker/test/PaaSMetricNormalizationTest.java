@@ -46,5 +46,6 @@ public class PaaSMetricNormalizationTest {
     p.getocciInspectVmResponseTime( );
     p.getocciInspectVmResult( );
     p.update( 0, 0.0f, 0, 0, 0.0f, 0, 0, 0.0f, 0, 0, 0.0f, 0);
+    p.toString( );
   }
 }

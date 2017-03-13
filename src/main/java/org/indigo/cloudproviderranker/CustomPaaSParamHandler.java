@@ -73,52 +73,52 @@ public class CustomPaaSParamHandler extends RequestHandler {
     Gson gson = new Gson();
 
     JsonObject obj = gson.fromJson(line,  JsonElement.class).getAsJsonObject();
-    if (obj.has("occi_create_vm_availability")) {
-      int vma = obj.get("occi_create_vm_availability").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_CREATE_VM_AVAILABILITY)) {
+      int vma = obj.get(CustomPaaSParams.OCCI_CREATE_VM_AVAILABILITY).getAsInt();
       paaSMetricNormalization.setocciCreatevmAvailability(vma);
     }
-    if (obj.has("occi_createvm_Response_Time")) {
-      float vmrt = obj.get("occi_createvm_Response_Time").getAsFloat();
+    if (obj.has(CustomPaaSParams.OCCI_CREATEVM_RESPONSE_TIME)) {
+      float vmrt = obj.get(CustomPaaSParams.OCCI_CREATEVM_RESPONSE_TIME).getAsFloat();
       paaSMetricNormalization.setocciCreatevmResponseTime(vmrt);
     }
-    if (obj.has("occi_createvm_Result")) {
-      int vmr = obj.get("occi_createvm_Result").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_CREATEVM_RESULT)) {
+      int vmr = obj.get(CustomPaaSParams.OCCI_CREATEVM_RESULT).getAsInt();
       paaSMetricNormalization.setocciCreatevmResult(vmr);
     }
-    if (obj.has("occi_delete_vm_Availability")) {
-      int vma = obj.get("occi_delete_vm_Availability").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_DELETE_VM_AVAILABILITY)) {
+      int vma = obj.get(CustomPaaSParams.OCCI_DELETE_VM_AVAILABILITY).getAsInt();
       paaSMetricNormalization.setocciDeletevmAvailability(vma);
     }
-    if (obj.has("occi_deletevm_Response_Time")) {
-      float vmrt = obj.get("occi_deletevm_Response_Time").getAsFloat();
+    if (obj.has(CustomPaaSParams.OCCI_DELETEVM_RESPONSE_TIME)) {
+      float vmrt = obj.get(CustomPaaSParams.OCCI_DELETEVM_RESPONSE_TIME).getAsFloat();
       paaSMetricNormalization.setocciDeletevmResponseTime(vmrt);
     }
-    if (obj.has("occi_deletevm_Result")) {
-      int vmr = obj.get("occi_deletevm_Result").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_DELETEVM_RESULT)) {
+      int vmr = obj.get(CustomPaaSParams.OCCI_DELETEVM_RESULT).getAsInt();
       paaSMetricNormalization.setocciDeletevmResult(vmr);
     }
-    if (obj.has("general_occi_api_Availability")) {
-      int vma = obj.get("general_occi_api_Availability").getAsInt();
+    if (obj.has(CustomPaaSParams.GENERAL_OCCI_API_AVAILABILITY)) {
+      int vma = obj.get(CustomPaaSParams.GENERAL_OCCI_API_AVAILABILITY).getAsInt();
       paaSMetricNormalization.setgeneralOcciApiAvailability(vma);
     }
-    if (obj.has("general_occi_api_Response_Time")) {
-      float vmrt = obj.get("general_occi_api_Response_Time").getAsFloat();
+    if (obj.has(CustomPaaSParams.GENERAL_OCCI_API_RESPONSE_TIME)) {
+      float vmrt = obj.get(CustomPaaSParams.GENERAL_OCCI_API_RESPONSE_TIME).getAsFloat();
       paaSMetricNormalization.setgeneralOcciApiResponseTime(vmrt);
     }
-    if (obj.has("general_occi_api_Result")) {
-      int vmr = obj.get("general_occi_api_Result").getAsInt();
+    if (obj.has(CustomPaaSParams.GENERAL_OCCI_API_RESULT)) {
+      int vmr = obj.get(CustomPaaSParams.GENERAL_OCCI_API_RESULT).getAsInt();
       paaSMetricNormalization.setgeneralOcciApiResult(vmr);
     }
-    if (obj.has("occi_inspect_vm_availability")) {
-      int vma = obj.get("occi_inspect_vm_availability").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_INSPECT_VM_AVAILABILITY)) {
+      int vma = obj.get(CustomPaaSParams.OCCI_INSPECT_VM_AVAILABILITY).getAsInt();
       paaSMetricNormalization.setocciInspectVmAvailability(vma);
     }
-    if (obj.has("occi_inspectvm_Response_Time")) {
-      float vmrt = obj.get("occi_inspectvm_Response_Time").getAsFloat();
+    if (obj.has(CustomPaaSParams.OCCI_INSPECTVM_RESPONSE_TIME)) {
+      float vmrt = obj.get(CustomPaaSParams.OCCI_INSPECTVM_RESPONSE_TIME).getAsFloat();
       paaSMetricNormalization.setocciInspectVmResponseTime(vmrt);
     }
-    if (obj.has("occi_inspectvm_Result")) {
-      int vmr = obj.get("occi_inspectvm_Result").getAsInt();
+    if (obj.has(CustomPaaSParams.OCCI_INSPECTVM_RESULT)) {
+      int vmr = obj.get(CustomPaaSParams.OCCI_INSPECTVM_RESULT).getAsInt();
       paaSMetricNormalization.setocciInspectVmResult(vmr);
     }
 

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -32,11 +33,11 @@ public class Sla {
   /**
    * Doc TODO.
    */
-  public  String startDate;
+  @SerializedName("start_date") public  String startDate;
   /**
    * Doc TODO.
    */
-  public  String endDate;
+  @SerializedName("end_date") public  String endDate;
   /**
    * Doc TODO.
    */

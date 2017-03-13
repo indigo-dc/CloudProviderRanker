@@ -1,6 +1,7 @@
 package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class Service {
   /**
    * Doc TODO.
    */
-  public String serviceId;
+  @SerializedName("service_id") public String serviceId;
   /**
    * Doc TODO.
    */

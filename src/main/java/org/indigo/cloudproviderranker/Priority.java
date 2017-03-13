@@ -1,6 +1,7 @@
 package org.indigo.cloudproviderranker;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Doc TODO.
@@ -9,11 +10,11 @@ public class Priority implements Comparable<Priority> {
   /**
    * Doc TODO.
    */
-  public String slaId;
+  @SerializedName("sla_id") public String slaId;
   /**
    * Doc TODO.
    */
-  public String serviceId;
+  @SerializedName("service_id") public String serviceId;
   /**
    * Doc TODO.
    */

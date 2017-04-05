@@ -66,73 +66,85 @@ public class PaaSMetricRanked extends PaaSMetric {
                                GsonBuilder().create()).fromJson(currentMetricJsonObject,
                                                                PaaSMetricRanked.class);
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_CREATE_VM_AVAILABILITY)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_CREATE_VM_AVAILABILITY)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_CREATEVM_RESPONSE_TIME)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_CREATEVM_RESPONSE_TIME)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_CREATEVM_RESULT)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_CREATEVM_RESULT)  ==  0) {
           float val =  paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiCreatevmResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_DELETE_VM_AVAILABILITY)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_DELETE_VM_AVAILABILITY)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_DELETEVM_RESPONSE_TIME)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_DELETEVM_RESPONSE_TIME)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_DELETEVM_RESULT)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_DELETEVM_RESULT)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiDeletevmResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.GENERAL_OCCI_API_AVAILABILITY)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.GENERAL_OCCI_API_AVAILABILITY)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.GENERAL_OCCI_API_RESPONSE_TIME)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.GENERAL_OCCI_API_RESPONSE_TIME)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.GENERAL_OCCI_API_RESULT)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.GENERAL_OCCI_API_RESULT)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.generalOcciApiResult;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_INSPECT_VM_AVAILABILITY)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_INSPECT_VM_AVAILABILITY)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmAvailability;
           paaSMetricRanked.addToRank(val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_INSPECTVM_RESPONSE_TIME)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_INSPECTVM_RESPONSE_TIME)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmResponseTime;
           paaSMetricRanked.addToRank(0 - val);
         }
 
-        if (paaSMetricRanked.getMetricName().compareTo(CustomPaaSParams.OCCI_INSPECTVM_RESULT)  ==  0) {
+        if (paaSMetricRanked.getMetricName()
+            .compareTo(CustomPaaSParams.OCCI_INSPECTVM_RESULT)  ==  0) {
           float val = paaSMetricRanked.getMetricValue()
               * paaSMetricNormalization.occiInspectVmResult;
           paaSMetricRanked.addToRank(val);

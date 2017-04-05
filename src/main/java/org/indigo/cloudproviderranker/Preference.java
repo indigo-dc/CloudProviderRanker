@@ -47,7 +47,7 @@ public class Preference {
       JsonArray array = prefJsonObj.get("priority").getAsJsonArray();
       ArrayList<Priority> priorities = parsePriorities(array);
       String serviceType = "None";
-      if(prefJsonObj.has("service_type")) {
+      if (prefJsonObj.has("service_type")) {
         serviceType = prefJsonObj.get("service_type").getAsString();
       }
       //String id           = prefJsonObj.get("id").getAsString();

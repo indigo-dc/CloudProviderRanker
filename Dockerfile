@@ -1,4 +1,4 @@
-FROM java
+FROM openjdk:8
 
 # MAINTAINER Alvise Dorigo <alvise.dorigo@pd.infn.it>
 LABEL maintainer "Fabrizio Chiarello <fabrizio.chiarello@pd.infn.it>"

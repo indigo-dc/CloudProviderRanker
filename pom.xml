@@ -171,7 +171,8 @@
           <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses) </license>
           <distribution>Indigo-dc</distribution>
          <group>Application/WebServers</group>
-          <packager>Alvise Dorigo [dorigoa@pd.infn.it]</packager>
+          <!-- <packager>Alvise Dorigo [dorigoa@pd.infn.it]</packager> -->
+          <packager>Fabrizio Chiarello [fabrizio.chiarello@pd.infn.it]</packager>
           <defineStatements>
             <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
           </defineStatements>

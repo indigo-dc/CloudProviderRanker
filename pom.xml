@@ -80,7 +80,13 @@
       <version>${droolsVersion}</version>
       <type>pom</type>
     </dependency>
-    
+
+    <dependency>
+      <groupId>com.github.pcj</groupId>
+      <artifactId>google-options</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>

@@ -1,7 +1,10 @@
 package org.indigo.cloudproviderranker;
 
+import com.google.devtools.common.options.OptionsParser;
+
 import java.io.IOException;
 
+import java.util.Collections;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,33 +18,42 @@ public final class Main {
   /**
    * Doc TODO.
    */
-  public static void main(final String[] args) throws IOException {
-    int tcpport = 8080;
+  public static void main(final String[] argv) throws IOException {
+    OptionsParser parser = OptionsParser.newOptionsParser(CliOptions.class);
+    parser.parseAndExitUponError(argv);
+    CliOptions opts = parser.getOptions(CliOptions.class);
+
+    /* get residual parameters */
+    String[] args = parser.getResidue().toArray(new String[0]);
+
+    int tcpport = opts.port;
     boolean usessl = false;
     String keystorepath = null;
     String password = null;
 
     if (args.length < 2) {
-      System.err.println("Must specify at least the SLA priority file as "
-                         + "first argument and monitoring normalization file as second argument");
+      System.err.println("Must specify the SLA priority file as first argument"
+                         + " and monitoring normalization file as second argument!");
+
+      printUsage(parser);
       System.exit(1);
     }
 
     SlaNormalizations.priority_file = args[0];
     PaaSMetricNormalization.normalization_file = args[1];
 
-    if (args.length > 2) {
-      tcpport = Integer.parseInt(args[2]);
-    }
-    if (args.length >= 4 && args.length < 5) {
-      System.err.println("If a keystore path is specified"
-                         + " then must specify also a password. STOP!");
-      System.exit(1);
-    }
-    if (args.length == 5) {
+    if (!opts.keystorePath.isEmpty()) {
+      if (opts.password.isEmpty()) {
+        System.err.println("If a keystore path is specified then"
+                           + " a password must also be specified!");
+
+        printUsage(parser);
+        System.exit(1);
+      }
+
       usessl = true;
-      keystorepath = args[3];
-      password = args[4];
+      keystorepath = opts.keystorePath;
+      password = opts.password;
     }
 
     RestEngine re = new RestEngine();
@@ -74,5 +86,13 @@ public final class Main {
                    + " with "
                    + plairOrSsl
                    + " HTTP protocol \n");
+  }
+
+  private static void printUsage(OptionsParser parser) {
+    System.out.println("Usage: java -jar <jar-file> [OPTIONS]"
+                       + " <sla priority file> <monitoring normalization file>");
+    System.out.println(parser.describeOptions(Collections.<String,
+                                              String>emptyMap(),
+                                              OptionsParser.HelpVerbosity.LONG));
   }
 }

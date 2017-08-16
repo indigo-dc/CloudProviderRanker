@@ -14,7 +14,6 @@ spec:
       containers:
       - name: im
         image: indigodatacloud/cloudproviderranker
-        args: ["/usr/bin/java", "-jar", "/root/CloudProviderRanker-jar-with-dependencies.jar", "/root/sla_priorities.json", "/root/paasmetric_normalization.json", "8080" ]
         ports:
         - containerPort: 8080
         imagePullPolicy: Always

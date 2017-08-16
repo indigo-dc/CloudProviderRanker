@@ -58,6 +58,7 @@ public class SlaTest {
       SlaNormalizations.priority_file = "sla_priorities.json";
       Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
       assertTrue( sla.toString().compareTo("") != 0);
+      assertTrue( sla.rank != 0 );
 
       Gson gson = new Gson();
       String line = "{\"sla\": [{\"customer\": \"indigo-dc\",\"provider\": \"provider-UPV-GRyCAP\",\"start_date\": \"11.01.2016+15:50:00\",\"end_date\": \"11.02.2016+15:50:00\", \"services\": [{\"type\": \"compute\",\"service_id\": \"4401ac5dc8cfbbb737b0a02575e6f4bc\",\"targets\": [{ \"type\": \"public_ip\", \"unit\": \"none\", \"restrictions\": { \"total_guaranteed\": 10 } }] }], \"id\": \"4401ac5dc8cfbbb737b0a02575ee3b58\" }, { \"customer\": \"indigo-dc\", \"provider\": \"provider-RECAS-BARI\", \"start_date\": \"11.01.2016+15:50:00\", \"end_date\": \"11.02.2016+15:50:00\", \"services\": [{ \"type\": \"compute\", \"service_id\": \"4401ac5dc8cfbbb737b0a02575e8040f\", \"targets\": [{ \"type\": \"computing_time\", \"unit\": \"h\", \"restrictions\": { \"total_guaranteed\": 200 } }]  }],\"id\": \"4401ac5dc8cfbbb737b0a02575ee53f6\"}]}";
@@ -65,6 +66,11 @@ public class SlaTest {
       JsonObject obj = E.getAsJsonObject( );
 
       ArrayList<Sla> slas = Sla.fromJsonObject( obj );
+
+      assertTrue( slas.size() == 2);
+
+      assertEquals( 3010.0, slas.get(0).rank, 0.01 );
+      assertEquals( 53.12, slas.get(1).rank, 0.001 );
     }
   }
 }

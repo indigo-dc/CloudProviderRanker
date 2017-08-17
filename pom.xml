@@ -8,30 +8,30 @@
   <version>0.5.4</version>
 
   <properties>
-<!--    <hostName>myhostname.com</hostName>
-    <programName>Cloud Provider Ranker</programName> -->
+    <!-- <hostName>myhostname.com</hostName>
+         <programName>Cloud Provider Ranker</programName> -->
     <droolsVersion>6.4.0.Final</droolsVersion>
     <monitoring.pillar.domain.version>1.8.0-FINAL</monitoring.pillar.domain.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <mainClass>org.indigo.cloudproviderranker.Main</mainClass>
   </properties>
 
-    <distributionManagement>
+  <distributionManagement>
     <!-- Publish versioned releases here -->
     <repository>
       <id>concept-reply-nexus-repository</id>
       <name>Concept Reply Releases Repository</name>
       <url>http://nexusconcept.cloud.reply.eu/content/repositories/releases</url>
     </repository>
-    </distributionManagement>
+  </distributionManagement>
 
-    <repositories>
-      <repository>
-        <id>concept-reply-nexus-repository</id>
-        <name>Concept Reply Nexus</name>
-        <url>http://nexusconcept.cloud.reply.eu/content/groups/public</url>
-      </repository>
-    </repositories>
+  <repositories>
+    <repository>
+      <id>concept-reply-nexus-repository</id>
+      <name>Concept Reply Nexus</name>
+      <url>http://nexusconcept.cloud.reply.eu/content/groups/public</url>
+    </repository>
+  </repositories>
 
   <dependencies>
 
@@ -46,8 +46,8 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.4</version>
     </dependency>
-  
-    <dependency>    
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -96,96 +96,92 @@
   </dependencies>
 
   <build>
-  <finalName>${project.artifactId}</finalName>
-  <plugins>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
 
-	<plugin>
-	  <groupId>org.apache.maven.plugins</groupId>
-	  <artifactId>maven-compiler-plugin</artifactId>
-	  <version>2.5.1</version>
-	</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+      </plugin>
 
-	<plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12</version>
         <configuration>
-	  <environmentVariables>
-   	    <versionName>0.4</versionName>
-	  </environmentVariables>
+          <environmentVariables>
+            <versionName>0.4</versionName>
+          </environmentVariables>
           <systemPropertyVariables>
             <xml.test.config.file>${project.build.directory}/myconfig.xml</xml.test.config.file>
             <log4j.output.file>${project.build.directory}/testsuite.log</log4j.output.file>
-	    <environment>0.4</environment>
+            <environment>0.4</environment>
           </systemPropertyVariables>
         </configuration>
-	</plugin>
+      </plugin>
 
-<!-- PLUGIN TO CREATE A SINGLE EXECUTABLE JAR FILE CONTAINING ALL THE DEPENDENCIES -->
+      <!-- PLUGIN TO CREATE A SINGLE EXECUTABLE JAR FILE CONTAINING ALL THE DEPENDENCIES -->
 
-        <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>2.3</version>
-            <configuration>
-      		 <archive>
-       		  <manifest>
-       		    <mainClass>${mainClass}</mainClass>
-    		    </manifest>
-    		   </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-            <executions>
-                <execution>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${mainClass}</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
-                    <id>make-assembly</id>  
-                    <phase>compile</phase>  
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-
-  
-<!--
-        Included plugin to generate RPM when launching "mvn package"
-	DOC HERE: http://www.mojohaus.org/rpm-maven-plugin/index.html
--->
-
+      <!--
+          Included plugin to generate RPM when launching "mvn package"
+          DOC HERE: http://www.mojohaus.org/rpm-maven-plugin/index.html
+      -->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rpm-maven-plugin</artifactId>
         <version>2.1.5</version>
-	
+
         <executions>
-   
           <execution>
             <id>generate-rpm</id>
             <goals>
               <goal>rpm</goal>
             </goals>
-<!--            <phase>package</phase> -->
+            <!-- <phase>package</phase> -->
           </execution>
         </executions>
         <configuration>
-	  <skip>${maven.exec.skip}</skip>
-	  <name>CloudProviderRanker</name>
-	  <workarea>target</workarea>
+          <skip>${maven.exec.skip}</skip>
+          <name>CloudProviderRanker</name>
+          <workarea>target</workarea>
           <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses) </license>
           <distribution>Indigo-dc</distribution>
-         <group>Application/WebServers</group>
+          <group>Application/WebServers</group>
           <!-- <packager>Alvise Dorigo [dorigoa@pd.infn.it]</packager> -->
           <packager>Fabrizio Chiarello [fabrizio.chiarello@pd.infn.it]</packager>
           <defineStatements>
             <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
           </defineStatements>
 
-	<requires>
-  	  <require>java-1.8.0-openjdk</require>
-	</requires>
+          <requires>
+            <require>java-1.8.0-openjdk</require>
+          </requires>
 
           <mappings>
 
@@ -225,7 +221,6 @@
               </sources>
             </mapping>
 
-
             <mapping>
               <directory>/usr/share/java/cpr/</directory>
               <filemode>755</filemode>
@@ -243,63 +238,62 @@
           <preinstallScriptlet>
             <script>echo "Installing Cloud Provider Ranker..."</script>
           </preinstallScriptlet>
-       
-	  <postinstallScriptlet>
+
+          <postinstallScriptlet>
             <script>cp /usr/share/java/cpr/cloudproviderranker /etc/init.d/; /etc/init.d/cloudproviderranker stop; /etc/init.d/cloudproviderranker start</script>
           </postinstallScriptlet>
 
           <preremoveScriptlet>
-	    <script>/etc/init.d/cloudproviderranker stop</script>
+            <script>/etc/init.d/cloudproviderranker stop</script>
           </preremoveScriptlet>
 
-	  <postremoveScriptlet>
-	    <script>rm -f /etc/init.d/cloudproviderranker</script>
-	  </postremoveScriptlet>
+          <postremoveScriptlet>
+            <script>rm -f /etc/init.d/cloudproviderranker</script>
+          </postremoveScriptlet>
 
         </configuration>
       </plugin>
 
       <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-project-info-reports-plugin</artifactId>
-		<version>2.7</version>
-		<configuration>
-			<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-		</configuration>
-	</plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+        </configuration>
+      </plugin>
 
-<!--integrate maven-cobertura-plugin to project site -->
-	<plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>cobertura-maven-plugin</artifactId>
-		<version>2.6</version>
-		<configuration>
-			<formats>
-				<format>html</format>
-				<format>xml</format>
-			</formats>
-		</configuration>
-	</plugin>
+      <!--integrate maven-cobertura-plugin to project site -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
+        </configuration>
+      </plugin>
 
-
-<!--
-	Plugin to produce .deb package
-	DOC HERE: https://github.com/tcurdt/jdeb
--->
-    <plugin>
+      <!--
+          Plugin to produce .deb package
+          DOC HERE: https://github.com/tcurdt/jdeb
+      -->
+      <plugin>
         <configuration><controlDir>${basedir}/project/debfiles</controlDir></configuration>
         <artifactId>jdeb</artifactId>
         <groupId>org.vafer</groupId>
         <version>1.5</version>
-	
+
         <executions>
           <execution>
-	    <phase>package</phase>
+            <phase>package</phase>
             <goals>
               <goal>jdeb</goal>
             </goals>
             <configuration>
-	      <verbose>true</verbose>
+              <verbose>true</verbose>
               <deb>${project.build.directory}/${project.artifactId}-${project.version}-1_all.deb</deb>
               <dataSet>
 
@@ -318,7 +312,7 @@
                   <mapper>
                     <type>perm</type>
                     <prefix>/usr/share/java/cpr/</prefix>
-                  </mapper>  
+                  </mapper>
 
                 </data>
 
@@ -328,8 +322,7 @@
                   <mapper>
                     <type>perm</type>
                     <prefix>/usr/share/java/cpr/</prefix>
-                  </mapper>  
-
+                  </mapper>
                 </data>
 
                 <data>
@@ -338,7 +331,7 @@
                   <mapper>
                     <type>perm</type>
                     <prefix>/etc/init.d/</prefix>
-		    <filemode>755</filemode>
+                    <filemode>755</filemode>
                   </mapper>
                 </data>
 
@@ -346,13 +339,7 @@
             </configuration>
           </execution>
         </executions>
-    </plugin>
-
-
-
-
-
-  </plugins>
-  </build>  
-
+      </plugin>
+    </plugins>
+  </build>
 </project>

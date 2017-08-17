@@ -24,6 +24,14 @@ public final class CliOptions extends OptionsBase {
   ) public int port;
 
   @Option(
+      name = "rules-file",
+      abbrev = 'r',
+      help = "Rules file.",
+      category = "startup",
+      defaultValue = ""
+  ) public String rulesFile;
+
+  @Option(
       name = "keystore-path",
       abbrev = 'k',
       help = "Keystore path.",

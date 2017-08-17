@@ -9,6 +9,15 @@ import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.KieRepository;
+import org.kie.api.builder.Message;
+import org.kie.api.io.KieResources;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,6 +64,10 @@ public class Sla {
    */
   private float infinityValue;
 
+  public static String rules_file = null;
+
+  private static KieSession ksession;
+
   /**
    * Doc TODO.
    */
@@ -72,12 +85,9 @@ public class Sla {
     this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
 
-    // KieServices kieServices = KieServices.Factory.get();
-    // KieContainer kContainer = kieServices.getKieClasspathContainer();
-    // KieSession ksession = kContainer.newKieSession();
-    // ksession.insert(this);
-    // int totRules = ksession.fireAllRules();
-    // ksession.dispose();
+    ksession.insert(this);
+    int totRules = ksession.fireAllRules();
+    ksession.dispose();
 
     for (Target t : services.get(0).targets) {
       float normalizationFactor = slaNormalizations.getByName(t.type);
@@ -93,6 +103,32 @@ public class Sla {
                    < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue)
                 + t.restrictions.instanceGuaranteed) * normalizationFactor;
     }
+  }
+
+  public final static void loadRules() {
+    KieServices ks = KieServices.Factory.get();
+    KieRepository kr = ks.getRepository();
+    KieFileSystem kfs = ks.newKieFileSystem();
+    KieResources kres = ks.getResources();
+
+    if(null != rules_file && !rules_file.isEmpty()) {
+      // this will parse and compile in one step
+      kfs.write(kres.newFileSystemResource(rules_file));
+    } else {
+      // load default file
+      kfs.write(kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
+    }
+
+    KieBuilder kb = ks.newKieBuilder(kfs);
+    kb.buildAll();
+
+    // Check the builder for errors
+    if (kb.getResults().hasMessages(Message.Level.ERROR)) {
+      throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
+    }
+
+    KieContainer kc = ks.newKieContainer(kr.getDefaultReleaseId());
+    ksession = kc.newKieSession();
   }
 
   /**

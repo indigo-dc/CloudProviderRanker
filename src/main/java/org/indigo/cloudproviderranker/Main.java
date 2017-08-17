@@ -42,6 +42,9 @@ public final class Main {
     SlaNormalizations.priority_file = args[0];
     PaaSMetricNormalization.normalization_file = args[1];
 
+    Sla.rules_file = opts.rulesFile;
+    Sla.loadRules();
+
     if (!opts.keystorePath.isEmpty()) {
       if (opts.password.isEmpty()) {
         System.err.println("If a keystore path is specified then"

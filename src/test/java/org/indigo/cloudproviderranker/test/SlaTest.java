@@ -1,6 +1,7 @@
 package org.indigo.cloudproviderranker.test;
 
 import java.util.ArrayList;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.indigo.cloudproviderranker.Sla;
@@ -12,8 +13,11 @@ import com.google.gson.*;
 
 
 public class SlaTest {
-  @Test
-  public void test( ) {
+  Restrictions restrictions;
+  ArrayList<String> targetTypes;
+
+  @Before
+  public void prepare() {
     Restrictions r = new Restrictions( );
     r.totalLimit = 10;
     r.totalGuaranteed = 1;
@@ -21,9 +25,7 @@ public class SlaTest {
     r.instanceGuaranteed = 1;
     r.userLimit = 5;
     r.userGuaranteed = 1;
-
-    if(r!=null)
-      assertTrue(r.totalLimit==10);
+    this.restrictions = r;
 
     ArrayList<String> targetTypes = new ArrayList<String>();
     targetTypes.add( "public_ip" );
@@ -35,6 +37,17 @@ public class SlaTest {
     targetTypes.add( "download_bandwidth" );
     targetTypes.add( "upload_aggregated" );
     targetTypes.add( "download_aggregated" );
+    this.targetTypes = targetTypes;
+  }
+
+  @Test
+  public void testRestrictions() {
+    assertNotNull( restrictions );
+    assertEquals( 10, restrictions.totalLimit, 0.1 );
+  }
+
+  @Test
+  public void test( ) {
 
     for(String type : targetTypes) {
 
@@ -42,7 +55,7 @@ public class SlaTest {
       Target T = new Target();
       T.type = type;
       T.unit = "unit";
-      T.restrictions = r;
+      T.restrictions = restrictions;
       t.add(T);
 
       if(T!=null)

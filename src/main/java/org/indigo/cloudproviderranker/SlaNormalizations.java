@@ -102,6 +102,34 @@ public class SlaNormalizations {
     this.infinityValue      = infinityvalue;
   }
 
+  public float getByName(String name) {
+    if (null == name) {
+      return 0.0f;
+    }
+
+    if (0  ==  name.compareTo("public_ip")) {
+      return publicIp;
+    } else if (0  ==  name.compareTo("computing_time")) {
+      return computingTime;
+    } else if (0  ==  name.compareTo("num_cpus")) {
+      return numCpus;
+    } else if (0  ==  name.compareTo("mem_size")) {
+      return memSize;
+    } else if (0  ==  name.compareTo("disk_size")) {
+      return diskSize;
+    } else if (0  ==  name.compareTo("upload_bandwidth")) {
+      return uploadBandwidth;
+    } else if (0  ==  name.compareTo("download_bandwidth")) {
+      return downloadBandwidth;
+    } else if (0  ==  name.compareTo("upload_aggregated")) {
+      return  uploadAggregated;
+    } else if (0  ==  name.compareTo("download_aggregated")) {
+      return downloadAggregated;
+    } else {
+      return 0.0f;
+    }
+  }
+
   /**
    * Doc TODO.
    */

@@ -80,36 +80,8 @@ public class Sla {
     // ksession.dispose();
 
     for (Target t : services.get(0).targets) {
-
-      float normalizationFactor = 0.0f;
+      float normalizationFactor = slaNormalizations.getByName(t.type);
       infinityValue = slaNormalizations.infinityValue;
-      if (0  ==  t.type.compareTo("public_ip")) {
-        normalizationFactor = slaNormalizations.publicIp;
-      }
-      if (0  ==  t.type.compareTo("computing_time")) {
-        normalizationFactor = slaNormalizations.computingTime;
-      }
-      if (0  ==  t.type.compareTo("num_cpus")) {
-        normalizationFactor = slaNormalizations.numCpus;
-      }
-      if (0  ==  t.type.compareTo("mem_size")) {
-        normalizationFactor = slaNormalizations.memSize;
-      }
-      if (0  ==  t.type.compareTo("disk_size")) {
-        normalizationFactor = slaNormalizations.diskSize;
-      }
-      if (0  ==  t.type.compareTo("upload_bandwidth")) {
-        normalizationFactor = slaNormalizations.uploadBandwidth;
-      }
-      if (0  ==  t.type.compareTo("download_bandwidth")) {
-        normalizationFactor = slaNormalizations.downloadBandwidth;
-      }
-      if (0  ==  t.type.compareTo("upload_aggregated")) {
-        normalizationFactor = slaNormalizations.uploadAggregated;
-      }
-      if (0  ==  t.type.compareTo("download_aggregated")) {
-        normalizationFactor = slaNormalizations.downloadAggregated;
-      }
 
       rank += ((t.restrictions.totalLimit
                 < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue)

@@ -101,7 +101,6 @@ public class SlaTest {
       Sla sla = new Sla("id", "customer", "provider", "start_date", "end_date", s );
       assertTrue( sla.toString().compareTo("") != 0);
       assertTrue( sla.rank != 0 );
-      assertNull( Sla.rules_file );
 
       ArrayList<Sla> slas = Sla.fromJsonObject( sla_input_obj );
 
@@ -116,8 +115,8 @@ public class SlaTest {
       slas = Sla.fromJsonObject( sla_input_obj );
 
       assertTrue( slas.size() == 2);
-      assertEquals( 6020.0, slas.get(0).rank, 0.01 );
-      assertEquals( 106.24, slas.get(1).rank, 0.001 );
+      assertEquals( 2010.0, slas.get(0).rank, 0.01 );
+      assertEquals( 36.52, slas.get(1).rank, 0.001 );
     }
   }
 }

@@ -59,14 +59,10 @@ public class Sla {
    * Doc TODO.
    */
   public  float rank;
-  /**
-   * Doc TODO.
-   */
-  private float infinityValue;
 
   public static String rules_file = null;
 
-  private static KieSession ksession;
+  private static KieContainer kcontainer;
 
   /**
    * Doc TODO.
@@ -85,24 +81,10 @@ public class Sla {
     this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
 
-    ksession.insert(this);
-    int totRules = ksession.fireAllRules();
-    ksession.dispose();
-
-    for (Target t : services.get(0).targets) {
-      float normalizationFactor = slaNormalizations.getByName(t.type);
-      infinityValue = slaNormalizations.infinityValue;
-
-      rank += ((t.restrictions.totalLimit
-                < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue)
-                + t.restrictions.totalGuaranteed
-                + (t.restrictions.userLimit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.userLimit : infinityValue)
-                + t.restrictions.userGuaranteed
-                + (t.restrictions.instanceLimit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue)
-                + t.restrictions.instanceGuaranteed) * normalizationFactor;
-    }
+    KieSession ks = kcontainer.newKieSession();
+    ks.insert(this);
+    int totRules = ks.fireAllRules();
+    ks.dispose();
   }
 
   public final static void loadRules() {
@@ -127,8 +109,7 @@ public class Sla {
       throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
     }
 
-    KieContainer kc = ks.newKieContainer(kr.getDefaultReleaseId());
-    ksession = kc.newKieSession();
+    kcontainer = ks.newKieContainer(kr.getDefaultReleaseId());
   }
 
   /**

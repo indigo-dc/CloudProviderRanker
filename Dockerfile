@@ -12,4 +12,4 @@ ADD paasmetric_normalization.json /cpr
 EXPOSE 8080
 
 ENTRYPOINT [ "java", "-jar", "CloudProviderRanker-jar-with-dependencies.jar" ]
-CMD [ "sla_priorities.json", "paasmetric_normalization.json", "8080" ]
+CMD [ "sla_priorities.json", "paasmetric_normalization.json" ]

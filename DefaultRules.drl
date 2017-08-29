@@ -1,0 +1,22 @@
+package org.indigo.cloudproviderruleengine;
+
+import org.indigo.cloudproviderranker.Sla;
+import org.indigo.cloudproviderranker.Target;
+
+rule "SLA"
+  when
+    $sla : Sla()
+  then
+    for( Target t : $sla.services.get(0).targets ) {
+      float normalizationFactor = $sla.slaNormalizations.getByName(t.type);
+      float infinityValue = $sla.slaNormalizations.getInfinityValue();
+
+      $sla.rank += (
+        (t.restrictions.totalLimit < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue) + t.restrictions.totalGuaranteed
+        +
+        (t.restrictions.userLimit < Double.POSITIVE_INFINITY ? t.restrictions.userLimit : infinityValue) + t.restrictions.userGuaranteed
+        +
+        (t.restrictions.instanceLimit < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue) + t.restrictions.instanceGuaranteed
+      ) * normalizationFactor;
+    }
+end

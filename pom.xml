@@ -248,6 +248,18 @@
 
             <mapping>
               <directory>/usr/share/java/cpr/</directory>
+              <filemode>644</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>DefaultRules.drl</location>
+                </source>
+              </sources>
+            </mapping>
+
+            <mapping>
+              <directory>/usr/share/java/cpr/</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -343,6 +355,15 @@
 
                 <data>
                   <src>${project.build.directory}/../paasmetric_normalization.json</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/usr/share/java/cpr/</prefix>
+                  </mapper>
+                </data>
+
+                <data>
+                  <src>${project.build.directory}/../DefaultRules.drl</src>
                   <type>file</type>
                   <mapper>
                     <type>perm</type>

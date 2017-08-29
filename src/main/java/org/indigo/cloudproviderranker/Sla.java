@@ -87,13 +87,15 @@ public class Sla {
     ks.dispose();
   }
 
-  public final static void loadRules() {
+  /**
+   * Doc TODO.
+   */
+  public static final void loadRules() {
     KieServices ks = KieServices.Factory.get();
-    KieRepository kr = ks.getRepository();
     KieFileSystem kfs = ks.newKieFileSystem();
     KieResources kres = ks.getResources();
 
-    if(null != rules_file && !rules_file.isEmpty()) {
+    if (null != rules_file && !rules_file.isEmpty()) {
       // this will parse and compile in one step
       kfs.write(kres.newFileSystemResource(rules_file));
     } else {
@@ -109,6 +111,7 @@ public class Sla {
       throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
     }
 
+    KieRepository kr = ks.getRepository();
     kcontainer = ks.newKieContainer(kr.getDefaultReleaseId());
   }
 

@@ -102,10 +102,16 @@ public class SlaNormalizations {
     this.infinityValue      = infinityvalue;
   }
 
+  /**
+   * Doc TODO.
+   */
   public float getInfinityValue() {
     return infinityValue;
   }
 
+  /**
+   * Doc TODO.
+   */
   public float getByName(String name) {
     if (null == name) {
       return 0.0f;

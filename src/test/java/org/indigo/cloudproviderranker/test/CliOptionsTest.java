@@ -44,4 +44,25 @@ public class CliOptionsTest {
     assertNotNull(opts);
     assertEquals(8080, opts.port);
   }
+
+  @Test
+  public void rulesOptionWithValue() throws Exception {
+    OptionsParser parser = OptionsParser.newOptionsParser(CliOptions.class);
+    parser.parse("-r", "rules.drl");
+
+    CliOptions opts = parser.getOptions(CliOptions.class);
+    assertNotNull(opts);
+    assertEquals("rules.drl", opts.rulesFile);
+  }
+
+  @Test
+  public void rulesOptionWithDefault() throws Exception {
+    OptionsParser parser = OptionsParser.newOptionsParser(CliOptions.class);
+    parser.parse();
+
+    CliOptions opts = parser.getOptions(CliOptions.class);
+    assertNotNull(opts);
+    assertEquals("", opts.rulesFile);
+  }
+
 }

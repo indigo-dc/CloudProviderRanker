@@ -9,6 +9,15 @@ import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.KieRepository;
+import org.kie.api.builder.Message;
+import org.kie.api.io.KieResources;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -50,10 +59,10 @@ public class Sla {
    * Doc TODO.
    */
   public  float rank;
-  /**
-   * Doc TODO.
-   */
-  private float infinityValue;
+
+  public static String rules_file = null;
+
+  private static KieContainer kcontainer;
 
   /**
    * Doc TODO.
@@ -72,55 +81,38 @@ public class Sla {
     this.slaNormalizations.fromCustomFile();
     this.rank              = 0.0f;
 
-    // KieServices kieServices = KieServices.Factory.get();
-    // KieContainer kContainer = kieServices.getKieClasspathContainer();
-    // KieSession ksession = kContainer.newKieSession();
-    // ksession.insert(this);
-    // int totRules = ksession.fireAllRules();
-    // ksession.dispose();
+    KieSession ks = kcontainer.newKieSession();
+    ks.insert(this);
+    int totRules = ks.fireAllRules();
+    ks.dispose();
+  }
 
-    for (Target t : services.get(0).targets) {
+  /**
+   * Doc TODO.
+   */
+  public static final void loadRules() {
+    KieServices ks = KieServices.Factory.get();
+    KieFileSystem kfs = ks.newKieFileSystem();
+    KieResources kres = ks.getResources();
 
-      float normalizationFactor = 0.0f;
-      infinityValue = slaNormalizations.infinityValue;
-      if (0  ==  t.type.compareTo("public_ip")) {
-        normalizationFactor = slaNormalizations.publicIp;
-      }
-      if (0  ==  t.type.compareTo("computing_time")) {
-        normalizationFactor = slaNormalizations.computingTime;
-      }
-      if (0  ==  t.type.compareTo("num_cpus")) {
-        normalizationFactor = slaNormalizations.numCpus;
-      }
-      if (0  ==  t.type.compareTo("mem_size")) {
-        normalizationFactor = slaNormalizations.memSize;
-      }
-      if (0  ==  t.type.compareTo("disk_size")) {
-        normalizationFactor = slaNormalizations.diskSize;
-      }
-      if (0  ==  t.type.compareTo("upload_bandwidth")) {
-        normalizationFactor = slaNormalizations.uploadBandwidth;
-      }
-      if (0  ==  t.type.compareTo("download_bandwidth")) {
-        normalizationFactor = slaNormalizations.downloadBandwidth;
-      }
-      if (0  ==  t.type.compareTo("upload_aggregated")) {
-        normalizationFactor = slaNormalizations.uploadAggregated;
-      }
-      if (0  ==  t.type.compareTo("download_aggregated")) {
-        normalizationFactor = slaNormalizations.downloadAggregated;
-      }
-
-      rank += ((t.restrictions.totalLimit
-                < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue)
-                + t.restrictions.totalGuaranteed
-                + (t.restrictions.userLimit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.userLimit : infinityValue)
-                + t.restrictions.userGuaranteed
-                + (t.restrictions.instanceLimit
-                   < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue)
-                + t.restrictions.instanceGuaranteed) * normalizationFactor;
+    if (null != rules_file && !rules_file.isEmpty()) {
+      // this will parse and compile in one step
+      kfs.write(kres.newFileSystemResource(rules_file));
+    } else {
+      // load default file
+      kfs.write(kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
     }
+
+    KieBuilder kb = ks.newKieBuilder(kfs);
+    kb.buildAll();
+
+    // Check the builder for errors
+    if (kb.getResults().hasMessages(Message.Level.ERROR)) {
+      throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
+    }
+
+    KieRepository kr = ks.getRepository();
+    kcontainer = ks.newKieContainer(kr.getDefaultReleaseId());
   }
 
   /**

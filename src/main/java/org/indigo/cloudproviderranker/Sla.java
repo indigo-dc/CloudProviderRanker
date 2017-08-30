@@ -104,8 +104,8 @@ public class Sla {
                 kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
     }
 
-    String rule_content = new String(kfs.read("src/main/resources/rules/rules.drl"));
-    Logger.getLogger("").log(Level.INFO, "Rules content:\n" + rule_content + "\n");
+    String ruleContent = new String(kfs.read("src/main/resources/rules/rules.drl"));
+    Logger.getLogger("").log(Level.INFO, "Rules content:\n" + ruleContent + "\n");
     // this will parse and compile in one step
     KieBuilder kb = ks.newKieBuilder(kfs);
     kb.buildAll();

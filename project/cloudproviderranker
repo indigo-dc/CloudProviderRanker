@@ -6,18 +6,15 @@ pid_file=/var/run/CloudProviderRanker.pid
 logfile=/var/log/CloudProviderRanker.log
 jar_name=CloudProviderRanker-jar-with-dependencies.jar
 jar_path=/usr/share/java/cpr
-#class_name=org.indigo.cloudproviderranker.Main
-
 
 running()
 {
    pid=`ps -ef|grep ${java_name}|grep CloudProviderRanker|awk '{print $2}'`
 
-    
     if [ -z "${pid}" ]; then
         return 1
-    fi    
-    
+    fi
+
     return 0
 }
 
@@ -29,15 +26,14 @@ start()
     if running; then
         echo "ok (already running)"
     else
-	mkdir -p /var/run/
+        mkdir -p /var/run/
         rm -f ${pid_file}
-	touch ${pid_file}
-	touch ${logfile}
-#	cmd="su root -c \"${java_path} -cp ${jar_path}/${jar_name} ${class_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &\""
-	su root -c "${java_path} -jar ${jar_path}/${jar_name} ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json 8443 >> /var/log/CloudProviderRanker.log   2>&1 &"
-	sleep 2
-	local pid=`ps -ef|grep ${java_name}|grep CloudProviderRanker|awk '{print $2}'`
-	echo $pid > ${pid_file}
+        touch ${pid_file}
+        touch ${logfile}
+        su root -c "${java_path} -jar ${jar_path}/${jar_name} -p 8443 -r ${jar_path}/DefaultRules.drl ${jar_path}/sla_priorities.json ${jar_path}/paasmetric_normalization.json >> /var/log/CloudProviderRanker.log 2>&1 &"
+        sleep 2
+        local pid=`ps -ef|grep ${java_name}|grep CloudProviderRanker|awk '{print $2}'`
+        echo $pid > ${pid_file}
 
         sleep 1
         if running; then
@@ -51,15 +47,15 @@ start()
 
 stop()
 {
-  if running; then
-   echo -n "stopping CloudProviderRanker... "
-   pid=`ps -ef|grep java|grep CloudProviderRanker|awk '{print $2}'`
-   kill $pid
-   sleep 1
-   echo "ok"
-   rm -f ${pid_file}
-  fi
-   return
+    if running; then
+        echo -n "stopping CloudProviderRanker... "
+        pid=`ps -ef|grep java|grep CloudProviderRanker|awk '{print $2}'`
+        kill $pid
+        sleep 1
+        echo "ok"
+        rm -f ${pid_file}
+    fi
+    return
 }
 
 status()
@@ -67,7 +63,7 @@ status()
     running
     RETVAL=$?
     if [ ${RETVAL} -eq 0 ]; then
-	 pid=`ps -ef|grep java|grep CloudProviderRanker|awk '{print $2}'`
+        pid=`ps -ef|grep java|grep CloudProviderRanker|awk '{print $2}'`
         echo "CloudProviderRanker (pid ${pid}) is running..."
     else
         echo "CloudProviderRanker is not running"
@@ -91,7 +87,7 @@ case $1 in
         stop
         if [ ${ret_code} -eq 0 ]; then
             start
-        fi     
+        fi
         ;;
     status)
         status

@@ -1,13 +1,13 @@
-Source:  CloudProviderRanker
-Section:  net
-Priority:  optional
+Source: CloudProviderRanker
+Section: net
+Priority: optional
 # Maintainer:  Alvise Dorigo <alvise.dorigo@pd.infn.it>
 Maintainer: Fabrizio Chiarello <fabrizio.chiarello@pd.infn.it>
 Build-Depends: debhelper (>= 8.0.0~)
 Standards-Version:  3.9.1
 Homepage: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/
-Package: cloudproviderranker
-Version: master
+Package: [[name]]
+Version: [[version]]
 Architecture: all
 Depends: jdk (>= 1.8)
 Description: An Indigo ranker rest web service for cloud providers

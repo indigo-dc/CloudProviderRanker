@@ -14,7 +14,7 @@
   <properties>
     <!-- <hostName>myhostname.com</hostName>
          <programName>Cloud Provider Ranker</programName> -->
-    <droolsVersion>7.2.0.Final</droolsVersion>
+    <droolsVersion>7.1.0.Final</droolsVersion>
     <monitoring.pillar.domain.version>1.9.5-FINAL</monitoring.pillar.domain.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <mainClass>org.indigo.cloudproviderranker.Main</mainClass>

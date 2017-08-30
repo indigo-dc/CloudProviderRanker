@@ -96,13 +96,17 @@ public class Sla {
     KieResources kres = ks.getResources();
 
     if (null != rules_file && !rules_file.isEmpty()) {
-      // this will parse and compile in one step
-      kfs.write(kres.newFileSystemResource(rules_file));
+      Logger.getLogger("").log(Level.INFO, "Loading rules from '" + rules_file + "'");
+      kfs.write("src/main/resources/rules/rules.drl", kres.newFileSystemResource(rules_file));
     } else {
-      // load default file
-      kfs.write(kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
+      Logger.getLogger("").log(Level.INFO, "Loading default rules.");
+      kfs.write("src/main/resources/rules/rules.drl",
+                kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
     }
 
+    String rule_content = new String(kfs.read("src/main/resources/rules/rules.drl"));
+    Logger.getLogger("").log(Level.INFO, "Rules content:\n" + rule_content + "\n");
+    // this will parse and compile in one step
     KieBuilder kb = ks.newKieBuilder(kfs);
     kb.buildAll();
 

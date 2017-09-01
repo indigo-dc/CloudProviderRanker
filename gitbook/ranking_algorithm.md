@@ -143,7 +143,7 @@ must valorize the `infinity` value, which of course would be not usable
 as a number.
 
 In the following an example of priority file `<SLA_PRIORITY_FILE>` (see
-the [Build from source](chapter1.md) chapter) for the SLA:
+the [Building from source](building.md) chapter) for the SLA:
 
 ```
 {
@@ -223,7 +223,7 @@ Ranker needs to know the normalization factor.
 All the normalization factors must be specified in a file
 (`<PAASMETRIC_NORMALIZATION_FILE>`) whose name is a mandatory command
 line argument when launching the Cloud Provider Ranker server
-(see [Building from source](chapter1.md)).
+(see [Building from source](building.md)).
 
 In the following the content of the normalization file:
 

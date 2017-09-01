@@ -1,4 +1,4 @@
-# Build from source
+# Building from source
 
 To build the java `.jar` artifact, you need `JDK`, `Maven` and `Git`
 installed on your system.
@@ -43,3 +43,14 @@ For example, the packages for tag `v0.6.0` can be found at:
 
   * `target/CloudProviderRanker-0.6.0-1_all.deb`
   * `target/CloudProviderRanker/RPMS/noarch/CloudProviderRanker-0.6.0-1.noarch.rpm`
+
+## Building a Docker image
+
+To build a docker image you have to first build the Cloud Provider
+Ranker `.jar`, as described in the above sections.
+
+Then issue the command:
+
+```
+docker build -t <IMAGE_NAME> .
+```

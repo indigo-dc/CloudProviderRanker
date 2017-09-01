@@ -9,4 +9,4 @@ which are put in a path known by the start script
 
 The admin doesn't have to take care about them if she/he is happy with
 the basic normalization values (see the
-section [Ranking Algorithm](chapter08.md) for details).
+section [Ranking Algorithm](ranking_algorithm.md) for details).

@@ -10,7 +10,7 @@ There're three main sections:
   * `monitoring`
 
 How they're handled by Cloud Provider Ranker to rank the cloud providers
-is described in the [Ranking Algorithm](chapter4.md) chapter.
+is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
 
 ```
 {

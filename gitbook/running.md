@@ -1,4 +1,4 @@
-# Install and run Cloud Provider Ranker
+# Running the Cloud Provider Ranker
 
 ## Installation
 The Cloud Provider Ranker WEB Service is made of a single `.jar` file
@@ -20,7 +20,7 @@ java -jar [YOUR_PREFERRED_PATH]/CloudProviderRanker-jar-with-dependencies.jar [o
 It requires the presence of two arguments pointing to two files
  `<SLA_PRIORITY_FILE>` and `<PAASMETRIC_NORMALIZATION_FILE>`. The
  meaning of content of such files is explained in
- the [Ranking Algorithm](chapter4.md) section.
+ the [Ranking Algorithm](ranking_algorithm.md) section.
 
 The optional parameters are:
 
@@ -36,7 +36,7 @@ will be 8080.
 
 The `--rules-file` option can be used to specify a file containing
 custom ranking rules, as explained in
-the [Ranking Algorithm](chapter4.md) section.
+the [Ranking Algorithm](ranking_algorithm.md) section.
 
 ### Serving on HTTPS
 
@@ -63,7 +63,7 @@ curl -d @cpr-test.json http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/ra
 ```
 
 The content of the file `cpr-test.json` is described in
-the [Ranking JSON Request format](chapter8.md).
+the [Ranking JSON request format](json_request_format.md).
 
 The repository contains sample files which can be used. For example,
 after starting the server with:
@@ -104,3 +104,34 @@ should invoke it manually:
 By default the service listens on port 8443, without opening an SSL
   socket. The the port 8443 should be exposed to, at least, the host
   running the Orchestrator.
+
+## Running a Docker container
+
+To run the container:
+
+```
+docker run -d --name CloudProviderRanker -p 8080:8080 <IMAGE_NAME>
+```
+
+The container will use the default parameters and the customization
+files included in the repository (which can be customized with docker
+volume mounts).
+
+For example, to start the container with `my_sla_priorities.json`,
+`my_paasmetric_normalization.json`, and to make it listening on port
+8443 with HTTPS, you can use:
+
+```
+docker run -d --name CloudProviderRanker -p 8443:8080 \
+    -v my_sla_priorities.json:/cpr/sla_priorities.json \
+    -v my_paasmetric_normalization.json:/cpr/paasmetric_normalization.json \
+    <IMAGE_NAME>
+```
+
+### Run container from Docker Hub
+
+The container can be pulled from the central Docker Hub:
+
+```
+docker run -d --name CloudProviderRanker -p 8080:8080 indigodatacloud/cloudproviderranker
+```

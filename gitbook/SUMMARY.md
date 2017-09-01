@@ -10,4 +10,3 @@
 * [API](chapter7.md)
 * [Ranking JSON Request format](chapter8.md)
 * [Ranking JSON response format](chapter9.md)
-

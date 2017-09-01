@@ -1,34 +1,45 @@
 # Build from source
 
-To build the JAR artifact, you need JDK, Maven and Git installed on your system. 
+To build the java `.jar` artifact, you need `JDK`, `Maven` and `Git`
+installed on your system.
 
-First Step - Download the code from GIT:
-* git clone git@github.com:indigo-dc/CloudProviderRanker.git
-* cd CloudProviderRanker
-* git checkout tags/v0.4.2-1
+## Get the source code
 
-Second Step - Produce the JAR
-* mvn compile
-
-The artifact is written in the `target/` subdirectory:
-
-```$ ll target/*.jar```
-```
--rw-rw-r--. 1 centos centos    27196 Sep 13 10:33 target/CloudProviderRanker.jar
--rw-rw-r--. 1 centos centos 24095292 Sep 13 10:33 target/CloudProviderRanker-jar-with-dependencies.jar```
-
-You must only consider the "`-jar-with-dependencies.jar`" one, which is dependency free (it contains all it needs).
-
-# Build RPM and DEB packages
-To produce the RPM and DEB packages just issue the command
-* `mvn package`
-
-from within the CloudProviderRanker main directory. The packages are produced under the `target/` subdirectory:
-```
-$ ls -l target/*.deb
--rw-rw-r--. 1 centos centos 21831812 Sep 13 10:33 target/CloudProviderRanker-0.4.5-1_all.deb
-$ ls -l target/CloudProviderRanker/RPMS/noarch/*.rpm
--rw-rw-r--. 1 centos centos 21818988 Sep 13 10:33 target/CloudProviderRanker/RPMS/noarch/CloudProviderRanker-0.4.5-1.noarch.rpm
-[centos@indigo-ranker-priv CloudProviderRanker]$ 
+Download the source code repository and optionally checkout a specific
+tag:
 
 ```
+git clone https://github.com/indigo-dc/CloudProviderRanker.git
+cd CloudProviderRanker
+git checkout v0.6.0
+```
+
+## Build the java `.jar`
+Build the java `.jar` by running:
+
+```
+mvn compile
+```
+
+After the compilation is done, the artifact can be found in the file
+`target/CloudProviderRanker-jar-with-dependencies.jar`. The artifact is
+dependency free as it contains all it needs.
+
+
+## Build RPM and DEB packages
+
+To produce the `.rpm` and `.deb` packages just issue the command:
+
+```
+mvn package
+```
+
+The packages can then be found at:
+
+  * `target/CloudProviderRanker-<version>_all.deb`
+  * `target/CloudProviderRanker/RPMS/noarch/CloudProviderRanker-<version>.noarch.rpm`
+
+For example, the packages for tag `v0.6.0` can be found at:
+
+  * `target/CloudProviderRanker-0.6.0-1_all.deb`
+  * `target/CloudProviderRanker/RPMS/noarch/CloudProviderRanker-0.6.0-1.noarch.rpm`

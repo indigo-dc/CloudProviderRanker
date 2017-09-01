@@ -1,57 +1,106 @@
 # Install and run Cloud Provider Ranker
 
 ## Installation
-The CloudProviderRanker WEB Service is made of a single .jar file containing a Main class which implements the ```main``` method. It's about a stand-alone server, so no WEB container (JBOSS, Tomcat, ...) is required. The WEB server is implemented using the HttpServer Java library (http://goo.gl/QLBjiP).
-To install the artifact just put it wherever you prefer.
+The Cloud Provider Ranker WEB Service is made of a single `.jar` file
+containing a `Main` class which implements the `main` method.
+
+It acts as a stand-alone server, so no WEB container (JBOSS, Tomcat,
+...) is required. The WEB server is implemented using the `HttpServer`
+Java library (http://goo.gl/QLBjiP).  To install the artifact just put
+it wherever you prefer.
+
 ## Launch the server
-To run the standalone WEB Server just issue the command:
 
-    java -jar [YOUR_PREFERRED_PATH]/CloudProviderRanker-jar-with-dependencies.jar  <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE> [TCPPORT] [KeystoreFile password]
+The Cloud Provider Ranker can be executed by:
 
-The meaning of the content of two files ```<SLA_PRIORITY_FILE>``` and ```<PAASMETRIC_NORMALIZATION_FILE>``` is explained in the algorithm section.
+```
+java -jar [YOUR_PREFERRED_PATH]/CloudProviderRanker-jar-with-dependencies.jar [options] <SLA_PRIORITY_FILE> <PAASMETRIC_NORMALIZATION_FILE>
+```
 
-By default the server is started listening on plain HTTP (not encrypted). To switch on a HTTPS server, it must be started with the options ```KeystoreFile``` and ```password```; to generate a Keystore file, just issue the command:
+It requires the presence of two arguments pointing to two files
+ `<SLA_PRIORITY_FILE>` and `<PAASMETRIC_NORMALIZATION_FILE>`. The
+ meaning of content of such files is explained in
+ the [Ranking Algorithm](chapter4.md) section.
 
-    keytool -genkey -alias webservice -keystore <filepath>
+The optional parameters are:
+
+| Option                 | Description       | Type    | Default |
+|------------------------|-------------------|---------|---------|
+| `--keystore-path [-k]` | Keystore path     | string  | ""      |
+| `--password [-P]`      | Keystore password | string  | ""      |
+| `--port [-p]`          | The server port   | integer | 8080    |
+| `--rules-file [-r]`    | Rules file        | string  | ""      |
+
+If the `--port TCPPORT` parameter is not specified, the default port
+will be 8080.
+
+The `--rules-file` option can be used to specify a file containing
+custom ranking rules, as explained in
+the [Ranking Algorithm](chapter4.md) section.
+
+### Serving on HTTPS
+
+By default the server starts listening on plain HTTP (not encrypted).
+
+To switch to HTTPS, the options `--keystore-path <filepath>` and
+`--password <password>` must be given; to generate a `Keystore` file,
+just issue the command:
+
+```
+keytool -genkey -alias webservice -keystore <filepath>
+```
 
 a password will be asked, and must be used in the command line above.
 
-If the ```TCPPORT``` parameter is not specified, the default port will be 8080.
-If the couple of parameters ```KeystoreFile``` and ```password``` are not specified, the server will start listening on plain HTTP, otherwise it will start with HTTPS.
-
-----------------------------
 ## Testing the server
-To test the server (which responds at the address ```http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank```) at the client side just use ```cURL``` with the content shown in the [Ranking JSON Request format](chapter8.md). Save that content into a file ```cpr-test.json```, then execute the command:
+
+To test the server (which responds at the address
+`http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank`) at the
+client side just use `cURL`:
 
 ```
 curl -d @cpr-test.json http[s]://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank
 ```
 
-You'll receive an output like this:
+The content of the file `cpr-test.json` is described in
+the [Ranking JSON Request format](chapter8.md).
 
-    ```{{"name":"provider-RECAS-BARI","rank":57.02,"ranked":true,"errorReason":""},{"name":"provider-UPV-GRyCAP","rank":3017.123,"ranked":true,"errorReason":""}} ```
+The repository contains sample files which can be used. For example,
+after starting the server with:
 
-In the case of a JSON syntax error, the exception is reported to the client:
-
-```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unterminated object at line 1 column 6141 path $.monitoring[1].metrics[3].paasThresholds```
-
-```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unexpected value at line 1 column 6338 path $.monitoring[1].metrics[4].metricValue```
-
-```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Unterminated array at line 1 column 4835 path $.monitoring[2]```
-
-```Exception parsing JSON client request: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 8 path $```
-
-## Installing the RPM/DEB packages and launch the CloudProviderRanker
-Install the rpm/deb package as usual:
 ```
-yum install CloudProviderRanker
+$ java -jar target/CloudProviderRanker-jar-with-dependencies.jar sla_priorities.json paasmetric_normalization.json
 ```
+
+and you can verify it is working with:
+
 ```
-apt-get install cloudproviderranker
+$ curl -d @request_template_full.json http://127.0.0.1:8080/rank
+[{"name":"provider-RECAS-BARI","rank":2.0,"ranked":true,"errorReason":""}, {"name":"provider-UPV-GRyCAP","rank":1.0,"ranked":true,"errorReason":""}]
 ```
-The RPM should automatically invoke the start script (which is located in `/etc/init.d/cloudproviderranker`). In Ubuntu the admin should invoke it manually:
+
+## Installing the RPM/DEB packages and launch the Cloud Provider Ranker
+
+Install the `.rpm` package with:
+
 ```
-/etc/init.d/cloudproviderranker start
+# yum localinstall target/CloudProviderRanker/RPMS/noarch/CloudProviderRanker-0.6.0-1.noarch.rpm
 ```
-The start/stop script set the service listening on port 8443 (without opening an SSL socket, but a plain one).
-The the port 8443 should be exposed to, at least, the host running the Orchestrator.
+
+or the `.deb` package with:
+
+```
+# dpkg -i target/CloudProviderRanker-0.6.0-1_all.deb
+```
+
+The `.rpm` should automatically invoke the start script (which is
+located in `/etc/init.d/cloudproviderranker`). On Ubuntu the admin
+should invoke it manually:
+
+```
+# /etc/init.d/cloudproviderranker start
+```
+
+By default the service listens on port 8443, without opening an SSL
+  socket. The the port 8443 should be exposed to, at least, the host
+  running the Orchestrator.

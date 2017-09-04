@@ -66,20 +66,20 @@ The content of the file `cpr-test.json` is described in
 the [Ranking JSON request format](json_request_format.md).
 
 The repository contains sample files which can be used. For example,
-after starting the server with:
+start the server with:
 
 ```
 $ java -jar target/CloudProviderRanker-jar-with-dependencies.jar sla_priorities.json paasmetric_normalization.json
 ```
 
-and you can verify it is working with:
+and verify it is working with:
 
 ```
 $ curl -d @request_template_full.json http://127.0.0.1:8080/rank
 [{"name":"provider-RECAS-BARI","rank":2.0,"ranked":true,"errorReason":""}, {"name":"provider-UPV-GRyCAP","rank":1.0,"ranked":true,"errorReason":""}]
 ```
 
-## Installing the RPM/DEB packages and launch the Cloud Provider Ranker
+## Using the RPM/DEB packages
 
 Install the `.rpm` package with:
 
@@ -102,8 +102,8 @@ should invoke it manually:
 ```
 
 By default the service listens on port 8443, without opening an SSL
-  socket. The the port 8443 should be exposed to, at least, the host
-  running the Orchestrator.
+socket. The port 8443 should be exposed to, at least, the host running
+the Orchestrator.
 
 ## Running a Docker container
 
@@ -114,23 +114,28 @@ docker run -d --name CloudProviderRanker -p 8080:8080 <IMAGE_NAME>
 ```
 
 The container will use the default parameters and the customization
-files included in the repository (which can be customized with docker
-volume mounts).
+files included in the repository, and can be customized by rebuilding
+it.
 
-For example, to start the container with `my_sla_priorities.json`,
-`my_paasmetric_normalization.json`, and to make it listening on port
-8443 with HTTPS, you can use:
+Alternatively, it can be customized with docker volume mounts. For
+example, to start the container with `my_sla_priorities.json` priority
+file, `my_paasmetric_normalization.json` normalization file,
+`MyRules.drl` rules file, and to make it listening on port 8443 with
+HTTPS, you can use:
 
 ```
 docker run -d --name CloudProviderRanker -p 8443:8080 \
-    -v my_sla_priorities.json:/cpr/sla_priorities.json \
-    -v my_paasmetric_normalization.json:/cpr/paasmetric_normalization.json \
-    <IMAGE_NAME>
+  -v my_sla_priorities.json:/cpr/sla_priorities.json \
+  -v my_paasmetric_normalization.json:/cpr/paasmetric_normalization.json \
+  -v MyRules.drl:/cpr/MyRule.drl \
+  --rules-file /cpr/MyRule.drl \
+  --keystore-path <keystore_file> --password <password> \
+  <IMAGE_NAME>
 ```
 
 ### Run container from Docker Hub
 
-The container can be pulled from the central Docker Hub:
+The pre-built container can also be pulled from the central Docker Hub:
 
 ```
 docker run -d --name CloudProviderRanker -p 8080:8080 indigodatacloud/cloudproviderranker

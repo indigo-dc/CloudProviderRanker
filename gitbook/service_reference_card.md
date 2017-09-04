@@ -24,6 +24,7 @@ controlled by standard docker commands (`pause`, `stop`, ...).
   * `/usr/share/java/cpr/sla_priorities.json`
     (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/sla_priorities.json)
   * `/usr/share/java/cpr/paasmetric_normalization.json` (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/paasmetric_normalization.json)
+  * `/usr/share/java/cpr/DefaultRules.drl` (https://raw.githubusercontent.com/indigo-dc/CloudProviderRanker/master/DefaultRules.drl)
 
 
 ## Logfile locations:

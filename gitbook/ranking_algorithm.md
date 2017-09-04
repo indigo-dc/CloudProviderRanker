@@ -116,11 +116,11 @@ may be used for the providers' ranking. In the following an example:
 If preferences are not specified, for each provider the rank is
 calculated as sum of SLA's rank and a combination of monitoring data.
 
-### SLA's rank
+## SLA's rank
 Each SLA in the JSON corresponds to **one and only one** cloud provider to rank.
 
-SLA's rank is calculated as sum of its fields specified in this
-document: https://indigo-dc.gitbooks.io/slam/content/rest.html
+By default SLA's rank is calculated as sum of its fields specified in
+this document: https://indigo-dc.gitbooks.io/slam/content/rest.html
 
 Each SLA can specify multiple type of services, and each type of service
 can specify an array of targets (`public_ip`, `num_cpu`,
@@ -160,25 +160,65 @@ the [Building from source](building.md) chapter) for the SLA:
 }
 ```
 
-Prioritization can be conceived even as a "normalization"; the choice is up to the ranker's admin.
-The only thing to know is that the SLA's rank, for a single target, is calculated in this way:
+Prioritization can be conceived even as a "normalization"; the choice is
+up to the ranker's admin.
 
-    sla_rank = (total_limit + total_guaranteed + user_limit + user_guaranteed
-        + instance_total + instance_guaranteed ) * norm_factor
-        
-and ```norm_factor``` is specified by the admin for each kind of target. If a SLA contains multiple targets, all the ```sla_rank``` are added for a final SLA's rank.
+The SLA's rank logic is described in the [Drools Rule
+Language](https://www.drools.org/learn/documentation.html). Such logic
+can be customized by specifying a `.drl` file using the `--rules-file`
+command line option.  If the option is not given, then the default rules
+(contained in the file `DefaultRules.drl`.
 
-Remember that each ```*_limit``` is the actual value specified in the JSON request or the ```infinity_value``` specified in the SLA prioritization file in case it was missing in the JSON request.
+### Default rules
 
-To sum up, the java implementation is:
+The content of the default rules file is the following:
 
-    for( Target target : all_sla_targets )
-         sla_rank = ( (total_limit < Double.POSITIVE_INFINITY ? total_limit : infinity_value) + total_guaranteed + (user_limit < Double.POSITIVE_INFINITY ? user_limit : infinity_value) + user_guaranteed + (instance_total < Double.POSITIVE_INFINITY ? instance_total : infinity_value ) + instance_guaranteed ) * norm_factor
-        
-where ```norm_factor``` is a function of the current target's type, as specified in ```<SLA_PRIORITY_FILE>``` (not shown  in the above formula).
-        
+```
+package org.indigo.cloudproviderruleengine;
 
-### Monitoring based rank
+import org.indigo.cloudproviderranker.Sla;
+import org.indigo.cloudproviderranker.Target;
+
+rule "SLA"
+  when
+    $sla : Sla()
+  then
+    for( Target t : $sla.services.get(0).targets ) {
+      float normalizationFactor = $sla.slaNormalizations.getByName(t.type);
+      float infinityValue = $sla.slaNormalizations.getInfinityValue();
+
+      $sla.rank += (
+        (t.restrictions.totalLimit < Double.POSITIVE_INFINITY ? t.restrictions.totalLimit : infinityValue) + t.restrictions.totalGuaranteed
+        +
+        (t.restrictions.userLimit < Double.POSITIVE_INFINITY ? t.restrictions.userLimit : infinityValue) + t.restrictions.userGuaranteed
+        +
+        (t.restrictions.instanceLimit < Double.POSITIVE_INFINITY ? t.restrictions.instanceLimit : infinityValue) + t.restrictions.instanceGuaranteed
+      ) * normalizationFactor;
+    }
+end
+```
+
+The SLA's rank, for a single target, is calculated in this way:
+
+```
+sla_rank = ( total_limit + total_guaranteed
+           + user_limit + user_guaranteed
+           + instance_total + instance_guaranteed
+           ) * norm_factor
+```
+
+where `norm_factor` depends on the current target's type and is
+specified by the admin in `<SLA_PRIORITY_FILE>` for each kind of target.
+
+If a SLA contains multiple targets, all the `sla_rank` are added for a
+final SLA's rank.
+
+Remember that each `*_limit` is the actual value specified in the JSON
+request or the `infinity_value` specified in the SLA prioritization file
+in case it was missing in the JSON request.
+
+
+## Monitoring based rank
 
 If the JSON request contains also monitoring data, they are used
 (together with the SLA information) to vote each cloud provider.

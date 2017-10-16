@@ -249,14 +249,14 @@ public class PaaSMetricNormalization {
   /**
    * Doc TODO.
    */
-  private void updateFromDefaultFile() {
+  private final void updateFromDefaultFile() {
     updateFromFile(normalization_file);
   }
 
   /**
    * Doc TODO.
    */
-  private void updateFromCustomFile() {
+  private final void updateFromCustomFile() {
     String customNormalizationFile = "/usr/share/java/cpr";
     if (normalization_file != null) {
       customNormalizationFile = (new File(normalization_file)).getParent();

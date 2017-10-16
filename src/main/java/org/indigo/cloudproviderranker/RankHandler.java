@@ -193,7 +193,6 @@ public class RankHandler extends RequestHandler {
         ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
         for (Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext();) {
           PaaSMetricRanked paas = jt.next();
-          paas.setClientIp(clientHostName);
           rcp.addToRank(paas.getRank());
         }
         rcp.addToRank(providerToSlaMap.get(provider).rank);

@@ -32,7 +32,6 @@ public class PaaSMetricRankedTest {
       metricNames.add("OCCI InspectVM Result");
       PaaSMetricNormalization.normalization_file = "paasmetric_normalization.json";
       JsonParser parser = new JsonParser();
-      p.setClientIp( "0.0.0.0" );
       p.toString( );
       String jsonTest = "";
       HashMap<String, ArrayList<PaaSMetricRanked>> result = null;

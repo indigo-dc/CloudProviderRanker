@@ -11,4 +11,6 @@ public abstract class RequestHandler implements HttpHandler {
    * Doc TODO.
    */
   protected String clientHostName = "";
+
+  protected RequestHandler() { }
 }

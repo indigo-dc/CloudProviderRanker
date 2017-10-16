@@ -112,7 +112,7 @@ public class Sla {
 
     // Check the builder for errors
     if (kb.getResults().hasMessages(Message.Level.ERROR)) {
-      throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
+      throw new RulesBuildException(kb.getResults());
     }
 
     KieRepository kr = ks.getRepository();

@@ -18,9 +18,9 @@ public class GetPaaSParamHandler extends RequestHandler {
   public final void handle(final HttpExchange httpExchange) throws IOException {
     if (httpExchange.getRequestMethod().compareToIgnoreCase("GET") != 0) {
       String response = "API \"get-paas-parameters\" only supports GET method";
-      httpExchange.sendResponseHeaders(405,  response.getBytes().length);
+      httpExchange.sendResponseHeaders(405, response.getBytes("UTF8").length);
       OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
+      os.write(response.getBytes("UTF8"));
       os.close();
       return;
     }
@@ -31,10 +31,10 @@ public class GetPaaSParamHandler extends RequestHandler {
 
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type",  "application/json");
-    httpExchange.sendResponseHeaders(pr.getHttpCode(),  pr.getMessage().getBytes().length);
+    httpExchange.sendResponseHeaders(pr.getHttpCode(),  pr.getMessage().getBytes("UTF8").length);
 
     OutputStream os = httpExchange.getResponseBody();
-    os.write(pr.getMessage().getBytes());
+    os.write(pr.getMessage().getBytes("UTF8"));
     os.close();
   }
 

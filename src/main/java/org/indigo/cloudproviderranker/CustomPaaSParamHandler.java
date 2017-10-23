@@ -25,9 +25,9 @@ public class CustomPaaSParamHandler extends RequestHandler {
   public final void handle(final HttpExchange httpExchange) throws IOException {
     if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
       String response = "api \"custom-monitoring-parameters\" only supports POST method";
-      httpExchange.sendResponseHeaders(405,  response.getBytes().length);
+      httpExchange.sendResponseHeaders(405, response.getBytes("UTF8").length);
       OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
+      os.write(response.getBytes("UTF8"));
       os.close();
       return;
     }
@@ -42,7 +42,7 @@ public class CustomPaaSParamHandler extends RequestHandler {
     httpExchange.sendResponseHeaders(200,  0);
 
     OutputStream os = httpExchange.getResponseBody();
-    os.write("".getBytes());
+    os.write("".getBytes("UTF8"));
     os.close();
   }
   /**

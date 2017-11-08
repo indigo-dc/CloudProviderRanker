@@ -10,4 +10,11 @@ public class ServerException extends Exception {
   public ServerException(final String errMex) {
     super(errMex);
   }
+
+  /**
+   * Doc TODO.
+   */
+  public ServerException(final String errMex, Throwable cause) {
+    super(errMex, cause);
+  }
 }

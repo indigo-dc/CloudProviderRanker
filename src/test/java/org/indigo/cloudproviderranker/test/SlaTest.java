@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.channels.FileChannel;
 
 import org.junit.Before;
@@ -73,7 +74,7 @@ public class SlaTest {
   }
 
   @Test
-  public void test( ) {
+  public void test( ) throws UnsupportedEncodingException {
 
     for(String type : targetTypes) {
 

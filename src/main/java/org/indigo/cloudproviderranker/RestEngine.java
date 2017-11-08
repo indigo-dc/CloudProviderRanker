@@ -56,7 +56,7 @@ public class RestEngine {
       try {
         server = HttpServer.create(new InetSocketAddress(tcpport),  0);
       } catch (IOException e) {
-        throw new ServerException("Error in HttpServer.create: " + e.getMessage());
+        throw new ServerException("Error in HttpServer.create: " + e.getMessage(), e);
       }
 
     } else {
@@ -67,14 +67,14 @@ public class RestEngine {
       try {
         server = HttpsServer.create(new InetSocketAddress(tcpport),  0);
       } catch (IOException e) {
-        throw new ServerException("Error in HttpServer.create: " + e.getMessage());
+        throw new ServerException("Error in HttpServer.create: " + e.getMessage(), e);
       }
       SSLContext sslContext = null;
       try {
         sslContext = SSLContext.getInstance("TLS");
       } catch (NoSuchAlgorithmException e) {
         throw new ServerException("Error in SSLContext.getInstance(\"TLS\"): "
-                                  + e.getMessage());
+                                  + e.getMessage(), e);
       }
 
       char[] keystorePassword = password.toCharArray();
@@ -83,18 +83,18 @@ public class RestEngine {
         ks = KeyStore.getInstance("JKS");
       } catch (KeyStoreException e) {
         throw new ServerException("Error in KeyStore.getInstance(\"JKS\"): "
-                                  + e.getMessage());
+                                  + e.getMessage(), e);
       }
       try {
         ks.load(new FileInputStream(keystorepath),  keystorePassword);
       } catch (FileNotFoundException e) {
-        throw new ServerException("Error in KeyStore.load: " + e.getMessage());
+        throw new ServerException("Error in KeyStore.load: " + e.getMessage(), e);
       } catch (IOException e) {
-        throw new ServerException("Error in KeyStore.load: " + e.getMessage());
+        throw new ServerException("Error in KeyStore.load: " + e.getMessage(), e);
       } catch (NoSuchAlgorithmException e) {
-        throw new ServerException("Error in KeyStore.load: " + e.getMessage());
+        throw new ServerException("Error in KeyStore.load: " + e.getMessage(), e);
       } catch (CertificateException e) {
-        throw new ServerException("Error in KeyStore.load: " + e.getMessage());
+        throw new ServerException("Error in KeyStore.load: " + e.getMessage(), e);
       }
 
       KeyManagerFactory kmf = null;
@@ -102,22 +102,22 @@ public class RestEngine {
         kmf = KeyManagerFactory.getInstance("SunX509");
       } catch (NoSuchAlgorithmException e) {
         throw new ServerException("Error in KeyManagerFactory.getInstance(\"SunX509\"): "
-                                  + e.getMessage());
+                                  + e.getMessage(), e);
       }
       try {
         kmf.init(ks,  keystorePassword);
       } catch (KeyStoreException e) {
-        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage());
+        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage(), e);
       } catch (NoSuchAlgorithmException e) {
-        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage());
+        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage(), e);
       } catch (UnrecoverableKeyException e) {
-        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage());
+        throw new ServerException("Error in KeyManagerFactory.init: " + e.getMessage(), e);
       }
 
       try {
         sslContext.init(kmf.getKeyManagers(),  null,  null);
       } catch (KeyManagementException e) {
-        throw new ServerException("Error in SSLContext.init: " + e.getMessage());
+        throw new ServerException("Error in SSLContext.init: " + e.getMessage(), e);
       }
       HttpsConfigurator httpsConfigurator = new HttpsConfigurator(sslContext);
       ((HttpsServer) server).setHttpsConfigurator(httpsConfigurator);

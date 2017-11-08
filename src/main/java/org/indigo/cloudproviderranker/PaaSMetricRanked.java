@@ -22,20 +22,6 @@ public class PaaSMetricRanked extends PaaSMetric {
   /**
    * Doc TODO.
    */
-  private String providerName = "";
-  /**
-   * Doc TODO.
-   */
-  private String clientHostName = "";
-  /**
-   * Doc TODO.
-   */
-  public final void setClientIp(final String ip) {
-    clientHostName = ip;
-  }
-  /**
-   * Doc TODO.
-   */
   public final float getRank() {
     return rank;
   }

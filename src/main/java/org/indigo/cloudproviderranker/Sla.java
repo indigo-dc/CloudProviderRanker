@@ -18,6 +18,7 @@ import org.kie.api.io.KieResources;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -90,7 +91,7 @@ public class Sla {
   /**
    * Doc TODO.
    */
-  public static final void loadRules() {
+  public static final void loadRules() throws UnsupportedEncodingException {
     KieServices ks = KieServices.Factory.get();
     KieFileSystem kfs = ks.newKieFileSystem();
     KieResources kres = ks.getResources();
@@ -104,7 +105,7 @@ public class Sla {
                 kres.newClassPathResource("rules/DefaultRules.drl", Sla.class));
     }
 
-    String ruleContent = new String(kfs.read("src/main/resources/rules/rules.drl"));
+    String ruleContent = new String(kfs.read("src/main/resources/rules/rules.drl"), "UTF8");
     Logger.getLogger("").log(Level.INFO, "Rules content:\n" + ruleContent + "\n");
     // this will parse and compile in one step
     KieBuilder kb = ks.newKieBuilder(kfs);
@@ -112,7 +113,7 @@ public class Sla {
 
     // Check the builder for errors
     if (kb.getResults().hasMessages(Message.Level.ERROR)) {
-      throw new RuntimeException("Rules Build Errors:\n" + kb.getResults().toString());
+      throw new RulesBuildException(kb.getResults());
     }
 
     KieRepository kr = ks.getRepository();

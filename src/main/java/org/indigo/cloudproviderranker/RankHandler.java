@@ -42,9 +42,9 @@ public class RankHandler extends RequestHandler {
   public final void handle(final HttpExchange httpExchange) throws IOException {
     if (httpExchange.getRequestMethod().compareToIgnoreCase("POST") != 0) {
       String response = "API \"rank\" only supports POST method";
-      httpExchange.sendResponseHeaders(405,  response.getBytes().length);
+      httpExchange.sendResponseHeaders(405, response.getBytes("UTF8").length);
       OutputStream os = httpExchange.getResponseBody();
-      os.write(response.getBytes());
+      os.write(response.getBytes("UTF8"));
       os.close();
       return;
     }
@@ -55,7 +55,7 @@ public class RankHandler extends RequestHandler {
     Headers responseHeaders = httpExchange.getResponseHeaders();
     responseHeaders.set("Content-Type",  "application/json");
     httpExchange.sendResponseHeaders(responseToClient.getHttpCode(),
-                                     responseToClient.getMessage().getBytes().length);
+                                     responseToClient.getMessage().getBytes("UTF8").length);
     String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date());
     Logger.getLogger("").log(Level.INFO,  timeStamp
                              + " ["
@@ -64,7 +64,7 @@ public class RankHandler extends RequestHandler {
                              + responseToClient.getMessage() + "\n\n");
 
     OutputStream os = httpExchange.getResponseBody();
-    os.write(responseToClient.getMessage().getBytes());
+    os.write(responseToClient.getMessage().getBytes("UTF8"));
     os.close();
   }
 
@@ -193,7 +193,6 @@ public class RankHandler extends RequestHandler {
         ArrayList<PaaSMetricRanked> psmr = paasMetricRanked.get(provider);
         for (Iterator<PaaSMetricRanked> jt = psmr.iterator(); jt.hasNext();) {
           PaaSMetricRanked paas = jt.next();
-          paas.setClientIp(clientHostName);
           rcp.addToRank(paas.getRank());
         }
         rcp.addToRank(providerToSlaMap.get(provider).rank);

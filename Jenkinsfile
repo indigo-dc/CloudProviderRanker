@@ -9,6 +9,7 @@ pipeline {
     
     environment {
         dockerhub_repo = "indigodatacloud/cloudproviderranker"
+        dockerhub_image_id  = ''
     }
 
     stages {
@@ -99,13 +100,13 @@ pipeline {
             steps {
                 checkout scm
                 script {
-                    image_id = DockerBuild(dockerhub_repo, env.BRANCH_NAME, dockerhub_repo+":latest")
+                    dockerhub_image_id = DockerBuild(dockerhub_repo, env.BRANCH_NAME, dockerhub_repo+":latest")
                 }
             }
             post {
                 success {
-                    echo "Pushing Docker image ${image_id}.."
-                    DockerPush(image_id)
+                    echo "Pushing Docker image ${dockerhub_image_id}.."
+                    DockerPush(dockerhub_image_id)
                 }
                 failure {
                     echo 'Docker image building failed, removing dangling images..'

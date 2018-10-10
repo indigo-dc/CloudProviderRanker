@@ -22,9 +22,7 @@ pipeline {
 
         stage('Style analysis') {
             steps {
-                dir("$WORKSPACE/CloudProviderRanker") {
-                    MavenRun('checkstyle:check')
-                }
+            	MavenRun('checkstyle:check')
             }
             post {
                 always {
@@ -56,16 +54,12 @@ pipeline {
                 label 'sloc'
             }
             steps {
-                sh 'git clone https://github.com/indigo-dc/CloudProviderRanker'
-                dir("$WORKSPACE/CloudProviderRanker") {
-                    SLOCRun()
-                }
+               	checkout scm 
+           	SLOCRun()
             }
             post {
                 success {
-                    dir("$WORKSPACE/CloudProviderRanker") {
-                        SLOCPublish()
-                    }
+                    SLOCPublish()
                 }
             }
         }
@@ -115,6 +109,45 @@ pipeline {
                 always {
                     cleanWs()
                 }
+            }
+        }
+
+        stage('RPM/DEB package building') {
+            when {
+                anyOf {
+                    branch 'master'
+                    buildingTag()
+                }
+            }
+	    agent {
+		label 'bcentos7'
+	    }
+	    steps {
+		checkout scm
+		MavenRun('package')
+	    }
+	    post {
+		success {
+		    archiveArtifacts artifacts: '**/RPMS/noarch/*.rpm'
+		}
+	    }
+        }
+
+	stage('Notifications') {
+            when {
+                buildingTag()
+            }
+            steps {
+                JiraIssueNotification(
+                    'DEEP',
+                    'DPM',
+                    '10204',
+                    "[preview-testbed] New CloudProviderRanker version ${env.BRANCH_NAME} available",
+                    'Check new artifacts at:\n\t- Docker image: ${dockerhub_image_id}\n\t- RPM package/s: ${env.BUILD_URL}',
+                    ['wp3', 'preview-testbed', "CloudProviderRanker-${env.BRANCH_NAME}"],
+		    'Task',
+		    'mariojmdavid'
+	        )
             }
         }
     }

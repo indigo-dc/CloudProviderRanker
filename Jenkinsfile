@@ -143,7 +143,7 @@ pipeline {
                     'DPM',
                     '10204',
                     "[preview-testbed] New CloudProviderRanker version ${env.BRANCH_NAME} available",
-                    'Check new artifacts at:\n\t- Docker image: ${dockerhub_image_id}\n\t- RPM package/s: ${env.BUILD_URL}',
+                    "Check new artifacts at:\n\t- Docker image: [${dockerhub_image_id}:${env.BRANCH_NAME}|https://hub.docker.com/r/${dockerhub_image_id}/tags/]\n\t- RPM package/s: ${env.BUILD_URL}",
                     ['wp3', 'preview-testbed', "CloudProviderRanker-${env.BRANCH_NAME}"],
 		    'Task',
 		    'mariojmdavid'

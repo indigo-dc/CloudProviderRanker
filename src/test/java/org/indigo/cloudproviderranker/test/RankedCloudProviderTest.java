@@ -1,7 +1,9 @@
-package org.indigo.cloudproviderranker;
+package org.indigo.cloudproviderranker.test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import org.indigo.cloudproviderranker.RankedCloudProvider;
 
 public class RankedCloudProviderTest {
   

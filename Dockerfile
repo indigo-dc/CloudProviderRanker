@@ -5,9 +5,9 @@ LABEL maintainer "Marica Antonacci <marica.antonacci@ba.infn.it>"
 RUN apt-get update && apt-get install -y --no-install-recommends maven
 COPY . /cpr
 WORKDIR /cpr
-RUN mvn compile
+RUN mvn clean install -Dmaven.test.skip=true
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "CloudProviderRanker-jar-with-dependencies.jar" ]
+ENTRYPOINT [ "java", "-jar", "target/CloudProviderRanker.jar" ]
 

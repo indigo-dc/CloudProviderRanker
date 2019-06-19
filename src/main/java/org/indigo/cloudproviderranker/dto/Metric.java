@@ -8,6 +8,13 @@ import lombok.ToString;
 
 import java.util.List;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
@@ -15,12 +22,43 @@ import java.util.List;
 @AllArgsConstructor
 public class Metric {
 
+	/**
+	 * 
+	 */
 	private String metricName;
+	
+	/**
+	 * 
+	 */
 	private String metricKey;
+	
+	/**
+	 * 
+	 */
 	private Float metricValue;
+	
+	/**
+	 * 
+	 */
 	private String metricTime;
+	
+	/**
+	 * 
+	 */
 	private String metricUnit;
+	
+	/**
+	 * 
+	 */
 	private List<Object> paasThresholds;
+	
+	/**
+	 * 
+	 */
 	private List<Object> historyClocks;
+	
+	/**
+	 * 
+	 */
 	private List<Object> historyValues;
 }

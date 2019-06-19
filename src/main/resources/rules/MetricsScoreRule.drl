@@ -1,0 +1,65 @@
+package org.indigo.cloudproviderruleengine;
+
+import org.indigo.cloudproviderranker.dto.RankedService;
+
+import java.util.Map;
+
+global org.slf4j.Logger logger;
+
+
+rule "Compute rank on Marathon/Chronos metrics"
+  when
+    $rs : RankedService( metrics != null, serviceType == "eu.indigo-datacloud.marathon" || serviceType == "eu.indigo-datacloud.chronos"  )
+  then
+    logger.debug("Computing Marathon/Chronos metrics score for service : " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    
+    Map<String, Float> metrics = $rs.getMetrics();
+    
+    try {
+    
+	    if ( metrics.get("create_result") == 1 )
+	       score += ( 1.0/metrics.get("create_responseTime")*100 );
+	    if ( metrics.get("run_result") == 1 )
+	       score += ( 1.0/metrics.get("run_responseTime")*100 );
+	    if ( metrics.get("delete_result") == 1 )
+	       score += ( 1.0/metrics.get("delete_responseTime")*10 );
+       
+    }catch(Exception e){
+       logger.warn("Error computing Marathon/Chronos metrics score for service: " + $rs.getServiceId(), e);
+    }   
+    
+    logger.debug("Computed Marathon/Chronos metrics score: " + score);
+    $rs.setMetricsScore(score);
+end
+
+
+rule "Compute rank on Openstack metrics"
+  when
+    $rs : RankedService( metrics != null, serviceType == "eu.egi.cloud.vm-management.openstack"  )
+  then
+    logger.debug("Computing Openstack rank for service: " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    
+    Map<String, Float> metrics = $rs.getMetrics();
+    
+    try {
+    
+	    if ( metrics.get("General Openstack API Availability") == 1 )
+	       score += ( 1.0/metrics.get("General Openstack API Response Time")*100 );
+	    if ( metrics.get("Openstack CreateVM Result") == 1 )
+	       score += ( 1.0/metrics.get("Openstack CreateVM Response Time")*100 );
+	    if ( metrics.get("Openstack InspectVM Result") == 1 )
+	       score += ( 1.0/metrics.get("Openstack InspectVM Response Time")*10 );
+	    if ( metrics.get("Openstack DeleteVM Result") == 1 )
+	       score += ( 1.0/metrics.get("Openstack DeleteVM Response Time")*10 );
+       
+    }catch(Exception e){
+       logger.warn("Error computing openstack metrics score for service: " + $rs.getServiceId(), e);
+    } 
+    
+    logger.debug("Computed Openstack metrics score: " + score);
+    $rs.setMetricsScore(score);
+end

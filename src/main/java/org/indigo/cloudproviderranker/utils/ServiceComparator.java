@@ -1,0 +1,33 @@
+package org.indigo.cloudproviderranker.utils;
+
+import java.util.Comparator;
+
+import org.indigo.cloudproviderranker.dto.RankedService;
+
+public class ServiceComparator implements Comparator<RankedService> {
+
+	@Override
+	public int compare(RankedService s1, RankedService s2) {
+		
+		Float slaWeight1 = s1.getSlaWeight();
+		Float slaWeight2 = s2.getSlaWeight();
+		
+		if (slaWeight1 > slaWeight2)
+			return 1;
+		else if (slaWeight1 < slaWeight2)
+			return -1;
+		else // if no preferences is set on the SLAs...
+		{
+			Float score1 = (s1.getSlaScore()==null ? 0 : s1.getSlaScore( ) ) + ( s1.getMetricsScore() == null ? 0 : s1.getMetricsScore() );
+			Float score2 = (s2.getSlaScore()==null ? 0 : s2.getSlaScore( ) ) + ( s2.getMetricsScore() == null ? 0 : s2.getMetricsScore() );
+			
+			if (score1 > score2)
+				return 1;
+			else if (score1 < score2)
+				return -1;
+			else 
+				return 0;
+		}
+	}		
+
+}

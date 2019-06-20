@@ -53,6 +53,7 @@ public class RankController {
 		 * Then this hash map is sent to the RankService to compute the score for each service
 		 * and then the rank. 
 		 */
+		logger.debug("Rank Request: " + request);
 		
 		HashMap<String, RankedService> rankedServiceMap = new HashMap<>();
 		

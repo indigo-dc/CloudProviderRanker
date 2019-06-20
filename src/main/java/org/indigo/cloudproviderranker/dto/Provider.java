@@ -8,13 +8,28 @@ import lombok.ToString;
 
 import java.util.List;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Provider {
-   private String provider;
-   private List<Service> services;
+	
+	/**
+	 * 
+	 */
+	private String provider;
+	
+	/**
+	 * 
+	 */
+	private List<Service> services;
    
 }

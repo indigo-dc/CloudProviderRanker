@@ -8,16 +8,42 @@ import lombok.ToString;
 
 import java.util.List;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Service {
-    
+   
+	/**
+	 * 
+	 */
     private String service_id;
+    
+    /**
+     * 
+     */
     private String service_parent_id;
+    
+    /**
+     * 
+     */
     private String type;
+    
+    /**
+     * 
+     */
     private List<Target> targets;
+    
+    /**
+     * 
+     */
     private List<Metric> metrics;
 }

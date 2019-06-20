@@ -13,7 +13,13 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+//TODO docs
 
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
@@ -22,36 +28,81 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(value = { "serviceParentId", "serviceType", "targets", "metrics", "metricsScore", "slaScore", "slaWeight" })
 public class RankedService {
 	
+	/**
+	 * 
+	 */
 	private String provider;
 	
+	/**
+	 * 
+	 */
 	@JsonProperty("service_id")
     private String serviceId;
     
+	/**
+	 * 
+	 */
 	private String serviceParentId;
     
+	/**
+	 * 
+	 */
     private String serviceType;
 	
+    /**
+     * 
+     */
     private List<Target> targets;    
     
+    /**
+     * 
+     */
     private Map<String, Float> metrics;
     
+    /**
+     * 
+     */
     private Float metricsScore;
     
+    /**
+     * 
+     */
     private Float slaScore;
     
+    /**
+     * 
+     */
     private Float slaWeight;
     
+    /**
+     * 
+     */
     @JsonProperty("total_score")
     private Float totalScore;
     
+    /**
+     * 
+     */
     private int rank;
     
+    /**
+     * 
+     */
     private boolean ranked;
     
+    /**
+     * 
+     * @param m
+     */
     public void setMetrics(List<Metric> m) {
     	metrics = m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
     }
     
+    /**
+     * 
+     * 
+     *
+     */
     public static class RankedServiceBuilder {
     	private Map<String, Float> metrics;
     	
@@ -61,6 +112,10 @@ public class RankedService {
     	}
     }
 
+    /**
+     * 
+     * @param parentService
+     */
 	public void computeTotalScore(RankedService parentService) {
 		this.totalScore = this.slaScore + this.metricsScore; 
 		if( parentService != null) {

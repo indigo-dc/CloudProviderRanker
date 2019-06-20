@@ -8,6 +8,13 @@ import lombok.ToString;
 
 import java.util.List;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
@@ -15,7 +22,18 @@ import java.util.List;
 @AllArgsConstructor
 public class RankRequest {
 
+	/**
+	 * 
+	 */
 	private List<Preference> preferences;
+	
+	/**
+	 * 
+	 */
 	private List<Sla> sla;
+	
+	/**
+	 * 
+	 */
     private List<Provider> monitoring;
 }

@@ -9,8 +9,8 @@ public class ServiceComparator implements Comparator<RankedService> {
 	@Override
 	public int compare(RankedService s1, RankedService s2) {
 		
-		Float slaWeight1 = s1.getSlaWeight();
-		Float slaWeight2 = s2.getSlaWeight();
+		Float slaWeight1 = s1.getSlaWeight() == null ? 0 : s1.getSlaWeight();
+		Float slaWeight2 = s2.getSlaWeight() == null ? 0 : s2.getSlaWeight();
 		
 		if (slaWeight1 > slaWeight2)
 			return 1;

@@ -20,15 +20,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Preference {
-	
-	/**
-	 * 
-	 */	
-	private String service_type;
-	
-	/**
-	 * 
-	 */
-	private List<Priority> priority;
+
+    /**
+     * 
+     */
+    private String service_type;
+
+    /**
+     * 
+     */
+    private List<Priority> priority;
 
 }

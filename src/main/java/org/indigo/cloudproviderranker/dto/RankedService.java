@@ -8,9 +8,7 @@ import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 //TODO docs
@@ -25,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties(value = { "serviceParentId", "serviceType", "targets", "metrics", "metricsScore", "slaScore", "slaWeight" })
 public class RankedService {
 	
 	/**
@@ -90,27 +87,27 @@ public class RankedService {
      */
     private boolean ranked;
     
-    /**
-     * 
-     * @param m
-     */
-    public void setMetrics(List<Metric> m) {
-    	metrics = m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
-    }
-    
-    /**
-     * 
-     * 
-     *
-     */
-    public static class RankedServiceBuilder {
-    	private Map<String, Float> metrics;
-    	
-    	public RankedServiceBuilder metrics(List<Metric> m) {
-    		this.metrics = m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
-    		return this;
-    	}
-    }
+//    /**
+//     * 
+//     * @param m
+//     */
+//    public void setMetrics(List<Metric> m) {
+//    	metrics = m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
+//    }
+//    
+//    /**
+//     * 
+//     * 
+//     *
+//     */
+//    public static class RankedServiceBuilder {
+//    	private Map<String, Float> metrics;
+//    	
+//    	public RankedServiceBuilder metrics(List<Metric> m) {
+//    		this.metrics = m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
+//    		return this;
+//    	}
+//    }
 
     /**
      * 

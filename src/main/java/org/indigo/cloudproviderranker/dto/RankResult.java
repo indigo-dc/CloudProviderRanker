@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 //TODO docs
 
@@ -20,16 +20,33 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Provider {
+public class RankResult {
 
     /**
      * 
      */
     private String provider;
-
+    
     /**
      * 
      */
-    private List<Service> services;
-
+    @JsonProperty("service_id")
+    private String serviceId;
+    
+    
+    /**
+     * 
+     */
+    @JsonProperty("total_score")
+    private Float totalScore;
+    
+    /**
+     * 
+     */
+    private int rank;
+    
+    /**
+     * 
+     */
+    private boolean ranked;
 }

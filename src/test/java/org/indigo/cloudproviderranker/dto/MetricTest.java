@@ -33,7 +33,7 @@ public class MetricTest {
 		historyValues.add("history_value1");
 		m.setHistoryValues(historyValues);
 		
-		assertTrue( m.getMetricName().compareTo("metric_name") == 0 );
+        assertTrue(m.getMetricName().compareTo("metric_name") == 0 );
 		assertTrue( m.getMetricKey().compareTo("metric_key") == 0 );
 		assertTrue( m.getMetricValue().compareTo(1.0f) == 0 );
 		assertTrue( m.getMetricTime().compareTo("metric_time") == 0 );

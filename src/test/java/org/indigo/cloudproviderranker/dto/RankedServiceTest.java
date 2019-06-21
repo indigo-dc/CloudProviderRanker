@@ -1,5 +1,6 @@
 package org.indigo.cloudproviderranker.dto;
 
+import org.indigo.cloudproviderranker.utils.Utils;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -31,7 +32,7 @@ public class RankedServiceTest {
 		rs1.setServiceParentId("serviceParentId");
 		rs1.setServiceType("serviceType");
 		rs1.setTargets(targets);
-		rs1.setMetrics(metrics);
+		rs1.setMetrics(Utils.metricsToMap(metrics));
 	    rs1.setMetricsScore(1.0f);
 	    rs1.setSlaScore(2.0f);
 	    rs1.setSlaWeight(50f);
@@ -39,7 +40,7 @@ public class RankedServiceTest {
 	    rs1.setRank(10);
 	    rs1.setRanked(true);
 		
-		assertTrue( rs1.getProvider().compareTo("provider")==0 ); 
+        assertTrue(rs1.getProvider().compareTo("provider")==0 ); 
 		assertTrue( rs1.getServiceId().compareTo("serviceId")==0 );
 		assertTrue( rs1.getServiceParentId().compareTo("serviceParentId")==0 );
 		assertTrue( rs1.getServiceType().compareTo("serviceType")==0 );
@@ -100,7 +101,7 @@ public class RankedServiceTest {
 							.serviceParentId("serviceParentId")
 							.targets(targets)
 							.metricsScore(1.0f)
-							.metrics(metrics)
+							.metrics(Utils.metricsToMap(metrics))
 							.slaScore(2.0f)
 							.slaWeight(50f)
 						    .totalScore(3.0f)

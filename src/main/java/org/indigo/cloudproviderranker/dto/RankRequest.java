@@ -22,18 +22,18 @@ import java.util.List;
 @AllArgsConstructor
 public class RankRequest {
 
-	/**
-	 * 
-	 */
-	private List<Preference> preferences;
-	
-	/**
-	 * 
-	 */
-	private List<Sla> sla;
-	
-	/**
-	 * 
-	 */
+    /**
+     * 
+     */
+    private List<Preference> preferences;
+
+    /**
+     * 
+     */
+    private List<Sla> sla;
+
+    /**
+     * 
+     */
     private List<Provider> monitoring;
 }

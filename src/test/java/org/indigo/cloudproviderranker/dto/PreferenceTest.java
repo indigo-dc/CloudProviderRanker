@@ -22,7 +22,7 @@ public class PreferenceTest {
     p1.setService_type("service_type");
     p1.setPriority(P);
     
-    assertTrue( p1.getService_type().compareTo("service_type") == 0 );
+    assertTrue(p1.getService_type().compareTo("service_type") == 0 );
     assertTrue( p1.getPriority() != null);
     assertTrue( p1.getPriority().get(0).compareTo(p) == 0);
     		

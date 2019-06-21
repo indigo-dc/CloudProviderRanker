@@ -21,19 +21,19 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Target {
-	
-	/**
-	 * 
-	 */
+
+    /**
+     * 
+     */
     private String type;
-    
+
     /**
      * 
      */
     private String unit;
-    
+
     /**
      * 
      */
-    Map<String,Float> restrictions;
+    Map<String, Float> restrictions;
 }

@@ -1,6 +1,7 @@
 package org.indigo.cloudproviderranker.service;
 
 import org.indigo.cloudproviderranker.config.properties.RuleEngineProperties;
+import org.indigo.cloudproviderranker.dto.RankResult;
 import org.indigo.cloudproviderranker.dto.RankedService;
 import org.indigo.cloudproviderranker.utils.ServiceComparator;
 import org.indigo.cloudproviderranker.utils.exceptions.RulesBuildException;
@@ -58,8 +59,7 @@ public class RankService {
 	    
 	}
 	
-	public List<RankedService> run(HashMap<String, RankedService> services) {
-		
+	public List<RankResult> run(HashMap<String, RankedService> services) {
 		
 	    KieSession ks = kcontainer.newKieSession();
 	    ks.setGlobal("logger", logger);
@@ -107,21 +107,26 @@ public class RankService {
 	     */
 	    Collections.sort(results, new ServiceComparator());
 	    
-	    // Associate the rank to each element in the list
+	    List<RankResult> ranked = new ArrayList<RankResult>();
+	    
+	    // Associate the rank to each element in the list and create results
 	    int n = results.size();
 	    int rank=(n-numServicesNotRanked);
 	    
 	    for (int i = 0; i < n; i++) {
-	    	if(results.get(i).isRanked()) {
-	    		results.get(i).setRank(rank);
+	        RankedService s = results.get(i);
+	    	if(s.isRanked()) {
+	    		s.setRank(rank);
 	    	    rank--;
 	    	}
-	    	else results.get(i).setRank(-1);
+	    	else 
+	    	    s.setRank(-1);
+	    	ranked.add(new RankResult(s.getProvider(), s.getServiceId(), s.getTotalScore(), s.getRank(), s.isRanked()));
 	    }
 	    
 	    logger.debug("Ranking results: " + results);
 		
-		return results;
+		return ranked;
 		
 	}
 }

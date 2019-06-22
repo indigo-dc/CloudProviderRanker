@@ -21,8 +21,6 @@ rule "Compute rank on SLA targets"
 	          
 	      String targetType = t.getType();
 	      
-	      logger.debug("Target Type : " + targetType);
-	      
 	      switch (targetType)
 	      {
 	         case "computing_time":

@@ -16,10 +16,12 @@ import org.indigo.cloudproviderranker.dto.Preference;
 import org.indigo.cloudproviderranker.dto.Priority;
 import org.indigo.cloudproviderranker.dto.Provider;
 import org.indigo.cloudproviderranker.dto.RankRequest;
+import org.indigo.cloudproviderranker.dto.RankResult;
 import org.indigo.cloudproviderranker.dto.Service;
 import org.indigo.cloudproviderranker.dto.Sla;
 import org.indigo.cloudproviderranker.dto.RankedService;
 import org.indigo.cloudproviderranker.service.RankService;
+import org.indigo.cloudproviderranker.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,7 +40,7 @@ public class RankController {
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "/rank", method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<RankedService> rank(@Valid @RequestBody RankRequest request) {
+	public Collection<RankResult> rank(@Valid @RequestBody RankRequest request) {
 		
 		logger.debug("Calling API endpoint /rank");
 		
@@ -71,11 +73,12 @@ public class RankController {
 						          filter(locService -> serviceId.equals(locService.getService_id()))
 						          .findAny().orElse(null);
 				
-				rankedServiceMap.put(serviceId, RankedService.builder().serviceId(serviceId)
-						                                               .serviceType(preference.getService_type())
-						                                               .provider(sla.getProvider())
-						                                               .targets(service.getTargets())
-						                                               .slaWeight(priority.getWeight().floatValue()).build());
+				rankedServiceMap.put(serviceId, RankedService.builder()
+				        .serviceId(serviceId)
+				        .serviceType(preference.getService_type())
+				        .provider(sla.getProvider())
+				        .targets(service.getTargets())
+				        .slaWeight(priority.getWeight().floatValue()).build());
 						        		  
 			}
 		}
@@ -86,7 +89,7 @@ public class RankController {
 				if (rankedServiceMap.containsKey(serviceId)) {
 					rankedService = rankedServiceMap.get(serviceId);
 					rankedService.setProvider(provider.getProvider());
-					rankedService.setMetrics(service.getMetrics());
+					rankedService.setMetrics(Utils.metricsToMap(service.getMetrics()));
 					rankedService.setServiceType(service.getType());
 					rankedService.setServiceParentId(service.getService_parent_id());
 				}
@@ -95,16 +98,14 @@ public class RankController {
 						             .serviceId(serviceId)
 						             .serviceType(service.getType())
 						             .serviceParentId(service.getService_parent_id())
-						             .metrics(service.getMetrics()).build(); 
+						             .metrics(Utils.metricsToMap(service.getMetrics())).build(); 
 				
 				
 				rankedServiceMap.put(serviceId, rankedService);
 			}
-		}
-		
+		}	
 		
 		return rankService.run(rankedServiceMap);
-		
 	}
 	
 }

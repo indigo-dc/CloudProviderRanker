@@ -7,13 +7,28 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import java.util.List;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Preference {
-	private String service_type;
-	private List<Priority> priority;
+
+    /**
+     * 
+     */
+    private String service_type;
+
+    /**
+     * 
+     */
+    private List<Priority> priority;
 
 }

@@ -8,13 +8,32 @@ import lombok.ToString;
 
 import java.util.Map;
 
+//TODO docs
+
+/**
+ * 
+ * 
+ *
+ */
 @Data
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Target {
+
+    /**
+     * 
+     */
     private String type;
+
+    /**
+     * 
+     */
     private String unit;
-    Map<String,Float> restrictions;
+
+    /**
+     * 
+     */
+    Map<String, Float> restrictions;
 }

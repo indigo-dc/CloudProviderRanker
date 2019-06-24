@@ -38,5 +38,4 @@ public class ServiceComparator implements Comparator<RankedService> {
                 return 0;
         }
     }
-
 }

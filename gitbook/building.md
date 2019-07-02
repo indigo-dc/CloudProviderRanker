@@ -11,18 +11,18 @@ tag:
 ```
 git clone https://github.com/indigo-dc/CloudProviderRanker.git
 cd CloudProviderRanker
-git checkout v0.6.0
+git checkout <tag>
 ```
 
 ## Build the java `.jar`
 Build the java `.jar` by running:
 
 ```
-mvn compile
+mvn clean install
 ```
 
 After the compilation is done, the artifact can be found in the file
-`target/CloudProviderRanker-jar-with-dependencies.jar`. The artifact is
+`target/CloudProviderRanker.jar`. The artifact is
 dependency free as it contains all it needs.
 
 

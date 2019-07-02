@@ -10,6 +10,7 @@ ranking request (performed by contacting the `/rank` API).
       "rank": -1,
       "ranked": false,
       "service_id": "eaa07cfcceb85cd11b8adacf35008587",
+      "sla_weight": null,
       "total_score": 0.0
     },
     {
@@ -17,6 +18,7 @@ ranking request (performed by contacting the `/rank` API).
       "rank": 7,
       "ranked": true,
       "service_id": "99f82787b0522954505d2bc835008849",
+      "sla_weight": 0.5,
       "total_score": 7.316
     },
     {
@@ -24,6 +26,7 @@ ranking request (performed by contacting the `/rank` API).
       "rank": 6,
       "ranked": true,
       "service_id": "eaa07cfcceb85cd11b8adacf350066fe",
+      "sla_weight": 0.5,
       "total_score": 14.83
     },
     ...
@@ -32,6 +35,7 @@ ranking request (performed by contacting the `/rank` API).
       "rank": 1,
       "ranked": true,
       "service_id": "eaa07cfcceb85cd11b8adacf350022ce",
+      "sla_weight": 0.5,
       "total_score": 241.892
     }
 ]

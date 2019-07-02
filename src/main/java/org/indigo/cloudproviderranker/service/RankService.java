@@ -84,11 +84,14 @@ public class RankService {
 		    	RankedService parentService = services.get(service.getServiceParentId() );
 		    	
 		    	if( parentService != null) {
-		    		totalScore += ( parentService.getSlaScore() + parentService.getMetricsScore());
+		    		Float parentSlaScore     = parentService.getSlaScore()     == null ? 0 : parentService.getSlaScore();
+		    		Float parentMetricsScore = parentService.getMetricsScore() == null ? 0 : parentService.getMetricsScore();
+		    		totalScore += ( parentSlaScore + parentMetricsScore);
 		    	}
 		    	
 		    	service.setTotalScore(totalScore);
-		    	service.setRanked(totalScore != 0);
+		    	// Set ranked = false if the total score is 0 or the SLA is not provided
+		    	service.setRanked(totalScore != 0 && service.getSlaScore()!=null);
 		    	
 	    	} catch (Exception e) {
 	    		logger.warn("Error computing score for service " + service.getServiceId(), e);
@@ -121,7 +124,7 @@ public class RankService {
 	    	}
 	    	else 
 	    	    s.setRank(-1);
-	    	ranked.add(new RankResult(s.getProvider(), s.getServiceId(), s.getTotalScore(), s.getRank(), s.isRanked()));
+	    	ranked.add(new RankResult(s.getProvider(), s.getServiceId(), s.getSlaWeight(), s.getTotalScore(), s.getRank(), s.isRanked()));
 	    }
 	    
 	    logger.debug("Ranking results: " + results);

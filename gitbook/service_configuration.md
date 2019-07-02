@@ -31,7 +31,7 @@ config
 and then run the container as follows:
 
 ````
-docker run -d --name cpr -p 8080:8080 -e SPRING_CONFIG_LOCATION=/cpr/config -v $PWD/config:/cpr/config cpr
+docker run -d --name cpr -p 8080:8080 -e SPRING_CONFIG_LOCATION=/cpr/config -v $PWD/config:/cpr/config <IMAGE_NAME>
 ````
 
 

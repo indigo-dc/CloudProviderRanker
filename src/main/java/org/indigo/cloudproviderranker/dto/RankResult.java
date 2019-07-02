@@ -32,7 +32,12 @@ public class RankResult {
      */
     @JsonProperty("service_id")
     private String serviceId;
-    
+ 
+    /**
+     * 
+     */
+    @JsonProperty("sla_weight")
+    private Float slaWeight;
     
     /**
      * 

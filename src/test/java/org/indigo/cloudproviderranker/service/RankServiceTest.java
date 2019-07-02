@@ -56,7 +56,7 @@ public class RankServiceTest {
         
         List<RankResult> result = service.run(services);      
         
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        //mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String serialized = null;
         try {
             serialized = mapper.writeValueAsString(result);

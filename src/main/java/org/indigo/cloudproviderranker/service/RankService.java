@@ -1,5 +1,6 @@
 package org.indigo.cloudproviderranker.service;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.indigo.cloudproviderranker.config.properties.RuleEngineProperties;
 import org.indigo.cloudproviderranker.dto.RankResult;
 import org.indigo.cloudproviderranker.dto.RankedService;
@@ -16,8 +17,15 @@ import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,12 +46,26 @@ public class RankService {
 		logger.debug("Importing Drools Rules");
 
 		this.drls = ruleEngineProperties.getRules();
-		
+			
 	    KieServices ks = KieServices.Factory.get();
 	    KieFileSystem kfs = ks.newKieFileSystem();
 	    KieResources kres = ks.getResources();
 	    
-	    drls.forEach(drl -> kfs.write("src/main/resources/" + drl.hashCode() + ".drl", kres.newFileSystemResource(drl)));
+	    //drls.forEach(drl -> kfs.write("src/main/resources/" + drl.hashCode() + ".drl", kres.newFileSystemResource(drl)));
+	    drls.forEach(drl ->{
+			try {
+				if( drl.startsWith("classpath:") ) {
+					ClassPathResource cpr = new ClassPathResource(drl.substring("classpath:".length()) ) ;
+					kfs.write("src/main/resources/" + drl.hashCode() + ".drl", new String( FileCopyUtils.copyToByteArray(cpr.getInputStream()) ) );
+				}				    
+				else {
+					kfs.write("src/main/resources/" + drl.hashCode() + ".drl", new String(Files.readAllBytes(ResourceUtils.getFile(drl).toPath())) );
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} );
 	    
 	    KieBuilder kb = ks.newKieBuilder(kfs).buildAll();
 	    

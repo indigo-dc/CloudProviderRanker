@@ -25,10 +25,8 @@ public class ServiceComparator implements Comparator<RankedService> {
             return -1;
         else // if no preferences is set on the SLAs...
         {
-            Float score1 = (s1.getSlaScore() == null ? 0 : s1.getSlaScore())
-                    + (s1.getMetricsScore() == null ? 0 : s1.getMetricsScore());
-            Float score2 = (s2.getSlaScore() == null ? 0 : s2.getSlaScore())
-                    + (s2.getMetricsScore() == null ? 0 : s2.getMetricsScore());
+            Float score1 = s1.getTotalScore();
+            Float score2 = s2.getTotalScore();
 
             if (score1 > score2)
                 return 1;

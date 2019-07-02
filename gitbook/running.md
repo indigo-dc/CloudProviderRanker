@@ -20,11 +20,11 @@ The service listens on the default port 8080.
 ## Testing the server
 
 To test the server (which responds at the address
-`http://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank`) at the
+`http://<IP_WHERE_YOU_DEPLOYED_IT>:8080/rank`) at the
 client side just use `cURL`:
 
 ```
-curl -d @cpr-test.json http://<IP_WHERE_YOU_DEPLOYED_IT>:<CHOSEN_TCP_PORT>/rank
+curl -d @cpr-test.json http://<IP_WHERE_YOU_DEPLOYED_IT>:8080/rank
 ```
 
 The content of the file `cpr-test.json` is described in

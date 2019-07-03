@@ -16,7 +16,27 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-     <parent>
+  <profiles>
+    <profile>
+       <id>default</id>
+       <activation>
+         <activeByDefault>true</activeByDefault>
+       </activation>
+       <properties>
+         <skip.rpm>false</skip.rpm>
+         <skip.deb>false</skip.deb>
+       </properties>
+    </profile>	    
+    <profile>
+       <id>package-jar-only</id>
+       <properties>
+	  <skip.rpm>true</skip.rpm>
+	  <skip.deb>true</skip.deb>
+      </properties>
+    </profile>
+  </profiles>
+
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.13.RELEASE</version>
@@ -130,7 +150,7 @@
                         </goals>
                         <configuration>
 			              <verbose>true</verbose>
-				      <deb>${project.build.directory}/dist/deb/${project.artifactId}-${project.version}-1_all.deb</deb>
+			              <deb>${project.build.directory}/dist/deb/${project.artifactId}-${project.version}-1_all.deb</deb>
 			              <dataSet>
 			              
 			                <data>
@@ -156,7 +176,8 @@
 			            </configuration>
                     </execution>
                 </executions>
-                <configuration>
+		<configuration>
+		    <skip>${skip.deb}</skip>
                     <controlDir>${basedir}/project/debfiles</controlDir>
                 </configuration>
             </plugin>
@@ -181,11 +202,11 @@
           </execution>
         </executions>
         <configuration>
-          <skip>${maven.exec.skip}</skip>
-	  <name>${project.artifactId}</name>
-	  <version>${project.version}</version>
-	  <release>1</release>
-	  <workarea>target/dist/rpm</workarea>
+          <disabled>${skip.rpm}</disabled>
+		  <name>${project.artifactId}</name>
+		  <version>${project.version}</version>
+		  <release>1</release>
+		  <workarea>target/dist/rpm</workarea>
           <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses) </license>
           <distribution>indigo-dc</distribution>
           <group>Application/WebServers</group>

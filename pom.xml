@@ -1,264 +1,239 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.indigo</groupId>
-  <artifactId>CloudProviderRanker</artifactId>
-  <version>0.7.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>CloudProviderRanker</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <droolsVersion>7.1.0.Final</droolsVersion>
-    <java.version>1.8</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <profiles>
-    <profile>
-       <id>default</id>
-       <activation>
-         <activeByDefault>true</activeByDefault>
-       </activation>
-       <properties>
-         <skip.rpm>false</skip.rpm>
-         <skip.deb>false</skip.deb>
-       </properties>
-    </profile>	    
-    <profile>
-       <id>package-jar-only</id>
-       <properties>
-	  <skip.rpm>true</skip.rpm>
-	  <skip.deb>true</skip.deb>
-      </properties>
-    </profile>
-  </profiles>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.13.RELEASE</version>
-    </parent>
- 
-    <dependencies>
-          
-        <dependency>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>org.indigo</groupId>
+   <artifactId>CloudProviderRanker</artifactId>
+   <version>0.7.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+   <name>CloudProviderRanker</name>
+   <url>http://maven.apache.org</url>
+   
+   <properties>
+      <droolsVersion>7.1.0.Final</droolsVersion>
+      <java.version>1.8</java.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   
+   <profiles>
+      <profile>
+         <id>default</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+            <skip.rpm>false</skip.rpm>
+            <skip.deb>false</skip.deb>
+         </properties>
+      </profile>
+      <profile>
+         <id>package-jar-only</id>
+         <properties>
+            <skip.rpm>true</skip.rpm>
+            <skip.deb>true</skip.deb>
+         </properties>
+      </profile>
+   </profiles>
+   
+   <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>1.5.13.RELEASE</version>
+   </parent>
+   
+   <dependencies>
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <exclusions>
+            <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-log4j2</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-configuration-processor</artifactId>
+         <optional>true</optional>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <optional>true</optional>
+      </dependency>
+      
+      <dependency>
+         <groupId>org.kie</groupId>
+         <artifactId>kie-api</artifactId>
+         <version>${droolsVersion}</version>
+         <type>pom</type>
+      </dependency>
+      <dependency>
+         <groupId>org.drools</groupId>
+         <artifactId>drools-compiler</artifactId>
+         <version>${droolsVersion}</version>
+         <type>jar</type>
+      </dependency>
+      <dependency>
+         <groupId>org.drools</groupId>
+         <artifactId>drools-core</artifactId>
+         <version>${droolsVersion}</version>
+         <type>pom</type>
+      </dependency>
+      
+      <!--  test  -->
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.12</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>commons-io</groupId>
+         <artifactId>commons-io</artifactId>
+         <version>2.6</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <version>2.1.6.RELEASE</version>
+         <scope>test</scope>
+      </dependency>
+      
+   </dependencies>
+   
+   
+   <build>
+      <finalName>CloudProviderRanker</finalName>
+      <plugins>
+         <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        
-        <dependency>
-	    	<groupId>org.springframework.boot</groupId>
-	    	<artifactId>spring-boot-configuration-processor</artifactId>
-	    	<optional>true</optional>
-	    </dependency>
-        
-        <dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-	      <groupId>org.kie</groupId>
-	      <artifactId>kie-api</artifactId>
-	      <version>${droolsVersion}</version>
-	      <type>pom</type>
-        </dependency>
-
-	    <dependency>
-	      <groupId>org.drools</groupId>
-	      <artifactId>drools-compiler</artifactId>
-	      <version>${droolsVersion}</version>
-	      <type>jar</type>
-	    </dependency>
-	
-	    <dependency>
-	      <groupId>org.drools</groupId>
-	      <artifactId>drools-core</artifactId>
-	      <version>${droolsVersion}</version>
-	      <type>pom</type>
-	    </dependency>
-	    
-	    <!--  test  -->
-	    
-	    <dependency>
-      		<groupId>junit</groupId>
-      		<artifactId>junit</artifactId>
-      		<version>4.12</version>
-      		<scope>test</scope>
-    	</dependency>
-    	
-		<dependency>
-		    <groupId>commons-io</groupId>
-		    <artifactId>commons-io</artifactId>
-		    <version>2.6</version>
-		    <scope>test</scope>	    
-		</dependency>
-    	
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <scope>test</scope>
-		</dependency>		    
-    	
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-test</artifactId>
-		    <version>2.1.6.RELEASE</version>
-		    <scope>test</scope>
-		</dependency>
-		    	
-    </dependencies>
- 
-    <build>
-        <finalName>CloudProviderRanker</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                   <mainClass>org.indigo.cloudproviderranker.Application</mainClass>
-                   <!--  <outputDirectory>./</outputDirectory> -->
-                   <executable>true</executable>
-                   <layout>ZIP</layout>
-                </configuration>
-            </plugin>
-            
-            <!-- Creation of the deb package -->
-            <plugin>               
-                <artifactId>jdeb</artifactId>
-                <groupId>org.vafer</groupId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jdeb</goal>
-                        </goals>
-                        <configuration>
-			              <verbose>true</verbose>
-			              <deb>${project.build.directory}/dist/deb/${project.artifactId}-${project.version}-1_all.deb</deb>
-			              <dataSet>
-			              
-			                <data>
-			                  <src>${project.build.directory}/CloudProviderRanker.jar</src>
-			                  <type>file</type>
-			                  <mapper>
-			                    <type>perm</type>
-			                    <prefix>/usr/share/java/cpr/</prefix>
-			                    <filemode>755</filemode>
-			                  </mapper>
-			                </data>
-			                
-			                <data>
-			                  <src>${basedir}/project/cloudproviderranker.service</src>
-			                  <type>file</type>
-			                  <mapper>
-			                    <type>perm</type>
-			                    <prefix>/etc/systemd/system</prefix>
-			                    <filemode>755</filemode>
-			                  </mapper>
-			                </data>			                
-			              </dataSet>
-			            </configuration>
-                    </execution>
-                </executions>
-		<configuration>
-		    <skip>${skip.deb}</skip>
-                    <controlDir>${basedir}/project/debfiles</controlDir>
-                </configuration>
-            </plugin>
-                  
-                  <!--
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+               <mainClass>org.indigo.cloudproviderranker.Application</mainClass>
+               <!--  <outputDirectory>./</outputDirectory> -->
+               <executable>true</executable>
+               <layout>ZIP</layout>
+            </configuration>
+         </plugin>
+         
+         <!-- Creation of the deb package -->
+         <plugin>
+            <artifactId>jdeb</artifactId>
+            <groupId>org.vafer</groupId>
+            <version>1.5</version>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>jdeb</goal>
+                  </goals>
+                  <configuration>
+                     <verbose>true</verbose>
+                     <deb>${project.build.directory}/dist/deb/${project.artifactId}-${project.version}-1_all.deb</deb>
+                     <dataSet>
+                        <data>
+                           <src>${project.build.directory}/CloudProviderRanker.jar</src>
+                           <type>file</type>
+                           <mapper>
+                              <type>perm</type>
+                              <prefix>/usr/share/java/cpr/</prefix>
+                              <filemode>755</filemode>
+                           </mapper>
+                        </data>
+                        <data>
+                           <src>${basedir}/project/cloudproviderranker.service</src>
+                           <type>file</type>
+                           <mapper>
+                              <type>perm</type>
+                              <prefix>/etc/systemd/system</prefix>
+                              <filemode>755</filemode>
+                           </mapper>
+                        </data>
+                     </dataSet>
+                  </configuration>
+               </execution>
+            </executions>
+            <configuration>
+               <skip>${skip.deb}</skip>
+               <controlDir>${basedir}/project/debfiles</controlDir>
+            </configuration>
+         </plugin>
+         <!--
           Included plugin to generate RPM when launching "mvn package"
           DOC HERE: http://www.mojohaus.org/rpm-maven-plugin/index.html
       -->
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rpm-maven-plugin</artifactId>
-        <version>2.1.5</version>
-
-        <executions>
-          <execution>
-            <id>generate-rpm</id>
-            <goals>
-              <goal>rpm</goal>
-            </goals>
-            <!-- <phase>package</phase> -->
-          </execution>
-        </executions>
-        <configuration>
-          <disabled>${skip.rpm}</disabled>
-		  <name>${project.artifactId}</name>
-		  <version>${project.version}</version>
-		  <release>1</release>
-		  <workarea>target/dist/rpm</workarea>
-          <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses) </license>
-          <distribution>indigo-dc</distribution>
-          <group>Application/WebServers</group>
-          <packager>Marica Antonacci [marica.antonacci@ba.infn.it]</packager>
-          <defineStatements>
-            <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
-          </defineStatements>
-
-          <requires>
-            <require>java-1.8.0-openjdk</require>
-          </requires>
-
-          <mappings>
-
-            <mapping>
-              <directory>/usr/share/java/cpr/</directory>
-              <filemode>755</filemode>
-              <username>root</username>
-              <groupname>root</groupname>
-              <sources>
-                <source>
-                  <location>target/CloudProviderRanker.jar</location>
-                </source>
-              </sources>
-            </mapping>
-
-            <mapping>
-              <directory>/etc/systemd/system</directory>
-              <filemode>755</filemode>
-              <username>root</username>
-              <groupname>root</groupname>
-              <sources>
-                <source>
-                  <location>project/cloudproviderranker.service</location>
-                </source>
-              </sources>
-            </mapping>
-
-          </mappings>
-
-        </configuration>
-      </plugin>      
-                        
-        </plugins>
-    </build>
- 
-    <repositories>
-        <repository>
-            <id>repository.spring.release</id>
-            <name>Spring GA Repository</name>
-            <url>http://repo.spring.io/release</url>
-        </repository>
-    </repositories>
-    
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>rpm-maven-plugin</artifactId>
+            <version>2.1.5</version>
+            <executions>
+               <execution>
+                  <id>generate-rpm</id>
+                  <goals>
+                     <goal>rpm</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <disabled>${skip.rpm}</disabled>
+               <name>${project.artifactId}</name>
+               <version>${project.version}</version>
+               <release>1</release>
+               <workarea>target/dist/rpm</workarea>
+               <license>Apache License Version 2.0, January 2004 (http://www.apache.org/licenses)</license>
+               <distribution>indigo-dc</distribution>
+               <group>Application/WebServers</group>
+               <packager>Marica Antonacci [marica.antonacci@ba.infn.it]</packager>
+               <defineStatements>
+                  <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+               </defineStatements>
+               <requires>
+                  <require>java-1.8.0-openjdk</require>
+               </requires>
+               <mappings>
+                  <mapping>
+                     <directory>/usr/share/java/cpr/</directory>
+                     <filemode>755</filemode>
+                     <username>root</username>
+                     <groupname>root</groupname>
+                     <sources>
+                        <source>
+                           <location>target/CloudProviderRanker.jar</location>
+                        </source>
+                     </sources>
+                  </mapping>
+                  <mapping>
+                     <directory>/etc/systemd/system</directory>
+                     <filemode>755</filemode>
+                     <username>root</username>
+                     <groupname>root</groupname>
+                     <sources>
+                        <source>
+                           <location>project/cloudproviderranker.service</location>
+                        </source>
+                     </sources>
+                  </mapping>
+               </mappings>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+   <repositories>
+      <repository>
+         <id>repository.spring.release</id>
+         <name>Spring GA Repository</name>
+         <url>http://repo.spring.io/release</url>
+      </repository>
+   </repositories>
 </project>

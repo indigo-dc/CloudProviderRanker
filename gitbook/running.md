@@ -24,7 +24,7 @@ To test the server (which responds at the address
 client side just use `cURL`:
 
 ```
-curl -d @cpr-test.json http://<IP_WHERE_YOU_DEPLOYED_IT>:8080/rank
+curl -H 'Content-Type: application/json' -X POST http://<IP_WHERE_YOU_DEPLOYED_IT>:8080/rank -d@cpr-test.json
 ```
 
 The content of the file `cpr-test.json` is described in

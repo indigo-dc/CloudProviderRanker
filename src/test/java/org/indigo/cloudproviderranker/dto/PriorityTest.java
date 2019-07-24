@@ -1,41 +1,40 @@
 package org.indigo.cloudproviderranker.dto;
 
+import org.indigo.cloudproviderranker.dto.Priority;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import org.indigo.cloudproviderranker.dto.Priority;
 
 
 public class PriorityTest {
 
-	@Test
-	public void test( ) {
+  @Test
+  public void test() {
 
-		Priority P = new Priority( );
-		P.setSla_id("sla_id");
-		P.setService_id("service_id");
-		P.setWeight(0.15);
+    Priority priority = new Priority();
+    priority.setSla_id("sla_id");
+    priority.setService_id("service_id");
+    priority.setWeight(0.15);
 
-		assertTrue(P.getSla_id().compareTo("sla_id")==0);
-		assertTrue(P.getService_id().compareTo("service_id")==0);
-		assertTrue(P.getWeight().compareTo(0.15)==0);
+    assertTrue(priority.getSla_id().compareTo("sla_id") == 0);
+    assertTrue(priority.getService_id().compareTo("service_id") == 0);
+    assertTrue(priority.getWeight().compareTo(0.15) == 0);
 
-		P.toString();
+    priority.toString();
 
-		Priority P2 = new Priority( );
-		P2.setSla_id("sla_id2");
-		P2.setService_id("service_id2");
-		P2.setWeight(0.7);
+    Priority p2 = new Priority();
+    p2.setSla_id("sla_id2");
+    p2.setService_id("service_id2");
+    p2.setWeight(0.7);
 
-		assertTrue(P.compareTo(P2)<0);
-		assertTrue(P2.compareTo(P)>0);
-		assertTrue(P2.compareTo(P2)==0);
+    assertTrue(priority.compareTo(p2) < 0);
+    assertTrue(p2.compareTo(priority) > 0);
+    assertTrue(p2.compareTo(p2) == 0);
 
-		Priority P3 = new Priority("sla_id3", "service_id3", 0.15);
+    Priority p3 = new Priority("sla_id3", "service_id3", 0.15);
 
-		assertTrue(P3.getSla_id().compareTo("sla_id3")==0);
-		assertTrue(P3.getService_id().compareTo("service_id3")==0);
-		assertTrue(P3.getWeight().compareTo(0.15)==0);
+    assertTrue(p3.getSla_id().compareTo("sla_id3") == 0);
+    assertTrue(p3.getService_id().compareTo("service_id3") == 0);
+    assertTrue(p3.getWeight().compareTo(0.15) == 0);
 
-	}
+  }
 }

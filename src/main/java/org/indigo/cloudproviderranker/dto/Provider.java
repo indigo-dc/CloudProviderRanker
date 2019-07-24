@@ -1,12 +1,12 @@
 package org.indigo.cloudproviderranker.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
 
 //TODO docs
 
@@ -22,14 +22,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Provider {
 
-	/**
-	 * 
-	 */
-	private String provider;
+  /**
+   * 
+   */
+  private String provider;
 
-	/**
-	 * 
-	 */
-	private List<Service> services;
+  /**
+   * 
+   */
+  private List<Service> services;
 
 }

@@ -21,14 +21,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Preference {
 
-    /**
-     * 
-     */
-    private String service_type;
+	/**
+	 * 
+	 */
+	private String service_type;
 
-    /**
-     * 
-     */
-    private List<Priority> priority;
+	/**
+	 * 
+	 */
+	private List<Priority> priority;
 
 }

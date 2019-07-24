@@ -8,13 +8,13 @@ import java.util.List;
 
 @ConfigurationProperties(prefix = "rule-engine")
 public class RuleEngineProperties {
-    private List<String> rules;
+	private List<String> rules;
 
-    public List<String> getRules() {
-        return rules;
-    }
+	public List<String> getRules() {
+		return rules;
+	}
 
-    public void setRules(List<String> rules) {
-        this.rules = rules;
-    }
+	public void setRules(List<String> rules) {
+		this.rules = rules;
+	}
 }

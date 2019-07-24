@@ -22,43 +22,43 @@ import java.util.List;
 @AllArgsConstructor
 public class Metric {
 
-    /**
-     * 
-     */
-    private String metricName;
+	/**
+	 * 
+	 */
+	private String metricName;
 
-    /**
-     * 
-     */
-    private String metricKey;
+	/**
+	 * 
+	 */
+	private String metricKey;
 
-    /**
-     * 
-     */
-    private Float metricValue;
+	/**
+	 * 
+	 */
+	private Float metricValue;
 
-    /**
-     * 
-     */
-    private String metricTime;
+	/**
+	 * 
+	 */
+	private String metricTime;
 
-    /**
-     * 
-     */
-    private String metricUnit;
+	/**
+	 * 
+	 */
+	private String metricUnit;
 
-    /**
-     * 
-     */
-    private List<Object> paasThresholds;
+	/**
+	 * 
+	 */
+	private List<Object> paasThresholds;
 
-    /**
-     * 
-     */
-    private List<Object> historyClocks;
+	/**
+	 * 
+	 */
+	private List<Object> historyClocks;
 
-    /**
-     * 
-     */
-    private List<Object> historyValues;
+	/**
+	 * 
+	 */
+	private List<Object> historyValues;
 }

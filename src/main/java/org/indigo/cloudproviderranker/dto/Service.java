@@ -21,29 +21,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Service {
-   
+
 	/**
 	 * 
 	 */
-    private String service_id;
-    
-    /**
-     * 
-     */
-    private String service_parent_id;
-    
-    /**
-     * 
-     */
-    private String type;
-    
-    /**
-     * 
-     */
-    private List<Target> targets;
-    
-    /**
-     * 
-     */
-    private List<Metric> metrics;
+	private String service_id;
+
+	/**
+	 * 
+	 */
+	private String service_parent_id;
+
+	/**
+	 * 
+	 */
+	private String type;
+
+	/**
+	 * 
+	 */
+	private List<Target> targets;
+
+	/**
+	 * 
+	 */
+	private List<Metric> metrics;
 }

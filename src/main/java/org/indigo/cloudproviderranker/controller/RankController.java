@@ -31,19 +31,19 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 public class RankController {	
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(RankController.class);
-	
+
 	@Autowired
 	private RankService rankService;
-	
+
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "/rank", method = RequestMethod.POST,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+	produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<RankResult> rank(@Valid @RequestBody RankRequest request) {
-		
+
 		logger.debug("Calling API endpoint /rank");
-		
+
 		/**
 		 * The request body contains three main structure:
 		 * 1) SLA preferences
@@ -56,9 +56,9 @@ public class RankController {
 		 * and then the rank. 
 		 */
 		logger.debug("Rank Request: " + request);
-		
+
 		HashMap<String, RankedService> rankedServiceMap = new HashMap<>();
-		
+
 		for (Preference preference : request.getPreferences()) {
 			List<Priority> priorities = preference.getPriority();
 			for (Priority priority : priorities) {
@@ -66,20 +66,20 @@ public class RankController {
 				String serviceId = priority.getService_id();
 				// filter SLA on service_id
 				Sla sla = request.getSla().stream()
-						          .filter(locSla -> slaId.equals(locSla.getId()))
-						          .findAny().orElse(null);
+						.filter(locSla -> slaId.equals(locSla.getId()))
+						.findAny().orElse(null);
 				// filter services on service_id
 				Service service = sla.getServices().stream().
-						          filter(locService -> serviceId.equals(locService.getService_id()))
-						          .findAny().orElse(null);
-				
+						filter(locService -> serviceId.equals(locService.getService_id()))
+						.findAny().orElse(null);
+
 				rankedServiceMap.put(serviceId, RankedService.builder()
-				        .serviceId(serviceId)
-				        .serviceType(preference.getService_type())
-				        .provider(sla.getProvider())
-				        .targets(service.getTargets())
-				        .slaWeight(priority.getWeight().floatValue()).build());
-						        		  
+						.serviceId(serviceId)
+						.serviceType(preference.getService_type())
+						.provider(sla.getProvider())
+						.targets(service.getTargets())
+						.slaWeight(priority.getWeight().floatValue()).build());
+
 			}
 		}
 		for (Provider provider : request.getMonitoring()) {
@@ -94,20 +94,20 @@ public class RankController {
 					rankedService.setServiceParentId(service.getService_parent_id());
 				}
 				else rankedService = RankedService.builder()
-						             .provider(provider.getProvider())
-						             .serviceId(serviceId)
-						             .serviceType(service.getType())
-						             .serviceParentId(service.getService_parent_id())
-						             .metrics(Utils.metricsToMap(service.getMetrics())).build(); 
-				
-				
+						.provider(provider.getProvider())
+						.serviceId(serviceId)
+						.serviceType(service.getType())
+						.serviceParentId(service.getService_parent_id())
+						.metrics(Utils.metricsToMap(service.getMetrics())).build(); 
+
+
 				rankedServiceMap.put(serviceId, rankedService);
 			}
 		}	
-		
+
 		return rankService.run(rankedServiceMap);
 	}
-	
+
 }
-	
-	
+
+

@@ -22,14 +22,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Provider {
 
-    /**
-     * 
-     */
-    private String provider;
+	/**
+	 * 
+	 */
+	private String provider;
 
-    /**
-     * 
-     */
-    private List<Service> services;
+	/**
+	 * 
+	 */
+	private List<Service> services;
 
 }

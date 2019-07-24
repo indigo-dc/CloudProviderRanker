@@ -21,30 +21,30 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Priority {
 
-    /**
-     * 
-     */
-    private String sla_id;
+	/**
+	 * 
+	 */
+	private String sla_id;
 
-    /**
-     * 
-     */
-    private String service_id;
+	/**
+	 * 
+	 */
+	private String service_id;
 
-    /**
-     * 
-     */
-    private Double weight;
+	/**
+	 * 
+	 */
+	private Double weight;
 
-    /**
-     * 
-     */
-    public final int compareTo(final Priority p) {
-        if (p == null)
-            return 1;
-        if (weight.equals(p.getWeight())) {
-            return 0;
-        }
-        return weight > p.getWeight() ? 1 : -1;
-    }
+	/**
+	 * 
+	 */
+	public final int compareTo(final Priority p) {
+		if (p == null)
+			return 1;
+		if (weight.equals(p.getWeight())) {
+			return 0;
+		}
+		return weight > p.getWeight() ? 1 : -1;
+	}
 }

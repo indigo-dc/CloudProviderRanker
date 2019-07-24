@@ -28,49 +28,49 @@ import org.indigo.cloudproviderranker.utils.TestUtil;
 @SpringBootTest(classes = Application.class)
 public class RankServiceTest {
 
-    private static final String RS_BASE_DIR = "./src/test/resources/RankServiceIO/";
-    
-    @Autowired
-    private RankService service;
-    
-    @Test
-    public void test() {
-        
-        String json = null;
-        try {
-            json = TestUtil.getFileContentAsString(RS_BASE_DIR+"rs-input.json");
-        } catch (IOException e) {
-            fail("Error reading input template");
-        }        
+	private static final String RS_BASE_DIR = "./src/test/resources/RankServiceIO/";
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);        
-        TypeFactory typeFactory = mapper.getTypeFactory();
-        MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, RankedService.class);        
-        HashMap<String, RankedService> services = null;
-        try {
-            services = mapper.readValue(json, mapType);
-        } catch (IOException e) {
-            fail("Error creating input HashMap");
-        }        
-        
-        List<RankResult> result = service.run(services);      
-        
-        //mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String serialized = null;
-        try {
-            serialized = mapper.writeValueAsString(result);
-        } catch (JsonProcessingException e) {
-            fail("Error serializing result");
-        }   
-        
-        try {
-            json = TestUtil.getFileContentAsString(RS_BASE_DIR+"rs-output.json");
-        } catch (IOException e) {
-            fail("Error reading output template");
-        }        
-        
-        assertEquals(json, serialized);    
-        
-    }
+	@Autowired
+	private RankService service;
+
+	@Test
+	public void test() {
+
+		String json = null;
+		try {
+			json = TestUtil.getFileContentAsString(RS_BASE_DIR+"rs-input.json");
+		} catch (IOException e) {
+			fail("Error reading input template");
+		}        
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);        
+		TypeFactory typeFactory = mapper.getTypeFactory();
+		MapType mapType = typeFactory.constructMapType(HashMap.class, String.class, RankedService.class);        
+		HashMap<String, RankedService> services = null;
+		try {
+			services = mapper.readValue(json, mapType);
+		} catch (IOException e) {
+			fail("Error creating input HashMap");
+		}        
+
+		List<RankResult> result = service.run(services);      
+
+		//mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		String serialized = null;
+		try {
+			serialized = mapper.writeValueAsString(result);
+		} catch (JsonProcessingException e) {
+			fail("Error serializing result");
+		}   
+
+		try {
+			json = TestUtil.getFileContentAsString(RS_BASE_DIR+"rs-output.json");
+		} catch (IOException e) {
+			fail("Error reading output template");
+		}        
+
+		assertEquals(json, serialized);    
+
+	}
 }

@@ -22,36 +22,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @AllArgsConstructor
 public class RankResult {
 
-    /**
-     * 
-     */
-    private String provider;
-    
-    /**
-     * 
-     */
-    @JsonProperty("service_id")
-    private String serviceId;
- 
-    /**
-     * 
-     */
-    @JsonProperty("sla_weight")
-    private Float slaWeight;
-    
-    /**
-     * 
-     */
-    @JsonProperty("total_score")
-    private Float totalScore;
-    
-    /**
-     * 
-     */
-    private int rank;
-    
-    /**
-     * 
-     */
-    private boolean ranked;
+	/**
+	 * 
+	 */
+	private String provider;
+
+	/**
+	 * 
+	 */
+	@JsonProperty("service_id")
+	private String serviceId;
+
+	/**
+	 * 
+	 */
+	@JsonProperty("sla_weight")
+	private Float slaWeight;
+
+	/**
+	 * 
+	 */
+	@JsonProperty("total_score")
+	private Float totalScore;
+
+	/**
+	 * 
+	 */
+	private int rank;
+
+	/**
+	 * 
+	 */
+	private boolean ranked;
 }

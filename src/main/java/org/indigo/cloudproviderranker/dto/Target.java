@@ -22,18 +22,18 @@ import java.util.Map;
 @AllArgsConstructor
 public class Target {
 
-    /**
-     * 
-     */
-    private String type;
+	/**
+	 * 
+	 */
+	private String type;
 
-    /**
-     * 
-     */
-    private String unit;
+	/**
+	 * 
+	 */
+	private String unit;
 
-    /**
-     * 
-     */
-    Map<String, Float> restrictions;
+	/**
+	 * 
+	 */
+	Map<String, Float> restrictions;
 }

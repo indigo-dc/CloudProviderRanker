@@ -1,6 +1,9 @@
 package org.indigo.cloudproviderranker.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,9 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-//TODO docs
 
-/**
+/** Sla class.
  * 
  * 
  *
@@ -22,32 +24,34 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Sla {
 
-  /**
+  /** Customer field.
    * 
    */
   private String customer;
 
-  /**
+  /** Provider field.
    * 
    */
   private String provider;
 
-  /**
+  /** Start date field.
    * 
    */
-  private String start_date;
+  @JsonProperty("start_date")
+  private String startDate;
 
-  /**
+  /** End date field.
    * 
    */
-  private String end_date;
+  @JsonProperty("end_date")
+  private String endDate;
 
-  /**
+  /** Services field.
    * 
    */
   private List<Service> services;
 
-  /**
+  /** ID field.
    * 
    */
   private String id;

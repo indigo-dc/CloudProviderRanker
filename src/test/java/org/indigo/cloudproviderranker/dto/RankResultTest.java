@@ -1,8 +1,9 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 public class RankResultTest {
 

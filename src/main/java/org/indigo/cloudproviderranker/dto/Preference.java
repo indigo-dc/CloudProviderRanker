@@ -1,6 +1,9 @@
 package org.indigo.cloudproviderranker.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +13,7 @@ import lombok.ToString;
 
 //TODO docs
 
-/**
+/** Preferences class.
  * 
  * 
  *
@@ -22,13 +25,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Preference {
 
-  /**
-   * 
+  /** Service Type field.
    */
-  private String service_type;
+  @JsonProperty("service_type")
+  private String serviceType;
 
-  /**
-   * 
+  /** Priority field.
    */
   private List<Priority> priority;
 

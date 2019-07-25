@@ -9,8 +9,7 @@ import lombok.ToString;
 
 //TODO docs
 
-/**
- * 
+/** RankRequest class.
  * 
  *
  */
@@ -21,18 +20,15 @@ import lombok.ToString;
 @AllArgsConstructor
 public class RankRequest {
 
-  /**
-   * 
+  /** Preferences field.
    */
   private List<Preference> preferences;
 
-  /**
-   * 
+  /** Sla field.
    */
   private List<Sla> sla;
 
-  /**
-   * 
+  /** monitoring field.
    */
   private List<Provider> monitoring;
 }

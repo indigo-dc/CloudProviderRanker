@@ -16,7 +16,6 @@ import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.KieRepository;
 import org.kie.api.builder.Message;
-import org.kie.api.io.KieResources;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
@@ -36,6 +35,10 @@ public class RankService {
   private static KieContainer kcontainer;
   private List<String> drls;
 
+  /** RankedService constructor.
+   * 
+   * @param ruleEngineProperties properties containing the Rule Engine conf.
+   */
   @Autowired
   public RankService(RuleEngineProperties ruleEngineProperties) {
 
@@ -79,6 +82,11 @@ public class RankService {
 
   }
 
+  /** run method.
+   * 
+   * @param services hashmap of services that will be ranked
+   * @return
+   */
   public List<RankResult> run(HashMap<String, RankedService> services) {
 
     KieSession ks = kcontainer.newKieSession();

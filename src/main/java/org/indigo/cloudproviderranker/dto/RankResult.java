@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-//TODO docs
-
-/**
+/** Rank Result class.
  * 
  * 
  *
@@ -22,35 +20,35 @@ import lombok.ToString;
 @AllArgsConstructor
 public class RankResult {
 
-  /**
+  /** provider field.
    * 
    */
   private String provider;
 
-  /**
+  /** service Id field.
    * 
    */
   @JsonProperty("service_id")
   private String serviceId;
 
-  /**
+  /** sla weight field.
    * 
    */
   @JsonProperty("sla_weight")
   private Float slaWeight;
 
-  /**
+  /** total score field.
    * 
    */
   @JsonProperty("total_score")
   private Float totalScore;
 
-  /**
+  /** rank field.
    * 
    */
   private int rank;
 
-  /**
+  /** ranked field.
    * 
    */
   private boolean ranked;

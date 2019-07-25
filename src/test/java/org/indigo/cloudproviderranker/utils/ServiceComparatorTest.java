@@ -1,10 +1,11 @@
 package org.indigo.cloudproviderranker.utils;
 
+import static org.junit.Assert.assertTrue;
+
 import org.indigo.cloudproviderranker.dto.RankedService;
 import org.indigo.cloudproviderranker.utils.ServiceComparator;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 
 public class ServiceComparatorTest {

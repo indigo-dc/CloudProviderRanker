@@ -1,9 +1,10 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 
 public class RankRequestTest {
@@ -13,7 +14,7 @@ public class RankRequestTest {
 
     List<Preference> preferences = new ArrayList<Preference>();
     Preference pr = new Preference();
-    pr.setService_type("service_type");
+    pr.setServiceType("service_type");
     preferences.add(pr);
 
     List<Sla> sla = new ArrayList<Sla>();

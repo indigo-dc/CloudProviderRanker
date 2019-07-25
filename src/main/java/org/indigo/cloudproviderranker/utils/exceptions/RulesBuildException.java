@@ -9,7 +9,7 @@ import org.kie.api.builder.Results;
  */
 public class RulesBuildException extends RuntimeException {
 
-  /**
+  /** serialVersionUID.
    * 
    */
   private static final long serialVersionUID = 1L;
@@ -17,14 +17,14 @@ public class RulesBuildException extends RuntimeException {
   private Results results = null;
 
   /**
-   * Doc TODO.
+   * RulesBuildException.
    */
   public RulesBuildException(final Results results) {
     super("Rules Build Errors:\n" + results);
     this.results = results;
   }
 
-  /**
+  /** getResults() method.
    * 
    * @return
    */

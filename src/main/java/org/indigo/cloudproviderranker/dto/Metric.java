@@ -11,7 +11,7 @@ import lombok.ToString;
 
 //TODO docs
 
-/**
+/** Metric class.
  * 
  * 
  *
@@ -23,42 +23,42 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Metric {
 
-  /**
+  /** Metric Name.
    * 
    */
   private String metricName;
 
-  /**
+  /** Metric Key.
    * 
    */
   private String metricKey;
 
-  /**
+  /** Metric Value.
    * 
    */
   private Float metricValue;
 
-  /**
+  /** Metric Time.
    * 
    */
   private String metricTime;
 
-  /**
+  /** Metric Unit.
    * 
    */
   private String metricUnit;
 
-  /**
+  /** PaaS Thresholds.
    * 
    */
   private List<Object> paasThresholds;
 
-  /**
+  /** History Clocks.
    * 
    */
   private List<Object> historyClocks;
 
-  /**
+  /** History Values.
    * 
    */
   private List<Object> historyValues;

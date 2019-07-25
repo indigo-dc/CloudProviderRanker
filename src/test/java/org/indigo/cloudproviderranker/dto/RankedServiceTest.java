@@ -1,5 +1,7 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +9,6 @@ import java.util.Map;
 
 import org.indigo.cloudproviderranker.utils.Utils;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class RankedServiceTest {
 

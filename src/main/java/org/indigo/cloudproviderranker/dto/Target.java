@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-//TODO docs
 
-/**
+/** Target class.
  * 
  * 
  *
@@ -22,17 +21,17 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Target {
 
-  /**
+  /** Type field.
    * 
    */
   private String type;
 
-  /**
+  /** Unit field.
    * 
    */
   private String unit;
 
-  /**
+  /** Restrictions field.
    * 
    */
   Map<String, Float> restrictions;

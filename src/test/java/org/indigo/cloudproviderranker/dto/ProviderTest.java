@@ -1,10 +1,11 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import org.indigo.cloudproviderranker.dto.Provider;
 import org.indigo.cloudproviderranker.dto.Service;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 
@@ -15,7 +16,7 @@ public class ProviderTest {
 
     ArrayList<Service> services = new ArrayList<Service>();
     Service s = new Service();
-    s.setService_id("service_id");
+    s.setServiceId("service_id");
     services.add(s);
 
     Provider p1 = new Provider();

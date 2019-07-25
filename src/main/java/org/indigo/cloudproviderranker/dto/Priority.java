@@ -1,14 +1,15 @@
 package org.indigo.cloudproviderranker.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-//TODO docs
 
-/**
+/** Priority class.
  * 
  * 
  *
@@ -21,23 +22,21 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Priority {
 
-  /**
-   * 
+  /** Sla ID field.
    */
-  private String sla_id;
+  @JsonProperty("sla_id")
+  private String slaId;
 
-  /**
-   * 
+  /** Service ID field.
    */
-  private String service_id;
+  @JsonProperty("service_id")
+  private String serviceId;
 
-  /**
-   * 
+  /** Weight field.
    */
   private Double weight;
 
-  /**
-   * 
+  /** compare method.
    */
   public final int compareTo(final Priority p) {
     if (p == null) {

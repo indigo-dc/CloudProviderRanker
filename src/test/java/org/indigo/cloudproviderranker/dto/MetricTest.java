@@ -1,10 +1,12 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.indigo.cloudproviderranker.dto.Metric;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 public class MetricTest {
 

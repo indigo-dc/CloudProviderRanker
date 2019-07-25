@@ -10,10 +10,7 @@ import lombok.ToString;
 
 //TODO docs
 
-/**
- * 
- * 
- *
+/** Provider class.
  */
 @Data
 @ToString
@@ -22,13 +19,11 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Provider {
 
-  /**
-   * 
+  /** Provider field.
    */
   private String provider;
 
-  /**
-   * 
+  /** Services field.
    */
   private List<Service> services;
 

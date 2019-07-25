@@ -1,5 +1,7 @@
 package org.indigo.cloudproviderranker.utils.exceptions;
 
+import static org.junit.Assert.assertTrue;
+
 import org.drools.compiler.commons.jci.compilers.EclipseCompilationProblem;
 import org.drools.compiler.commons.jci.problems.CompilationProblem;
 import org.drools.compiler.kie.builder.impl.MessageImpl;
@@ -13,8 +15,6 @@ import org.indigo.cloudproviderranker.utils.exceptions.RulesBuildException;
 import org.junit.Test;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
-
-import static org.junit.Assert.*;
 
 
 public class RulesBuildExceptionTest {

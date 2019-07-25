@@ -1,12 +1,13 @@
 package org.indigo.cloudproviderranker.dto;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import org.indigo.cloudproviderranker.dto.Metric;
 import org.indigo.cloudproviderranker.dto.Service;
 import org.indigo.cloudproviderranker.dto.Target;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ServiceTest {
 
@@ -24,14 +25,14 @@ public class ServiceTest {
     metrics.add(m);
 
     Service s = new Service();
-    s.setService_id("service_id");
-    s.setService_parent_id("service_parent_id");
+    s.setServiceId("service_id");
+    s.setServiceParentId("service_parent_id");
     s.setType("service_type");
     s.setTargets(targets);
     s.setMetrics(metrics);
 
-    assertTrue(s.getService_id().compareTo("service_id") == 0);
-    assertTrue(s.getService_parent_id().compareTo("service_parent_id") == 0);
+    assertTrue(s.getServiceId().compareTo("service_id") == 0);
+    assertTrue(s.getServiceParentId().compareTo("service_parent_id") == 0);
     assertTrue(s.getType().compareTo("service_type") == 0);
     assertTrue(s.getTargets() != null);
     assertTrue(s.getTargets().get(0).equals(t));
@@ -42,8 +43,8 @@ public class ServiceTest {
 
     Service s2 = new Service("service_id", "service_parent_id", "service_type", targets, metrics);
 
-    assertTrue(s2.getService_id().compareTo("service_id") == 0);
-    assertTrue(s2.getService_parent_id().compareTo("service_parent_id") == 0);
+    assertTrue(s2.getServiceId().compareTo("service_id") == 0);
+    assertTrue(s2.getServiceParentId().compareTo("service_parent_id") == 0);
     assertTrue(s2.getType().compareTo("service_type") == 0);
     assertTrue(s2.getTargets() != null);
     assertTrue(s2.getTargets().get(0).equals(t));

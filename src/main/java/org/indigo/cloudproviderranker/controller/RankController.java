@@ -33,6 +33,9 @@ public class RankController {
   @Autowired
   private RankService rankService;
 
+  /** TODO.
+   * 
+   **/
   @ResponseStatus(HttpStatus.OK)
   @RequestMapping(value = "/rank", method = RequestMethod.POST,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,20 +61,20 @@ public class RankController {
     for (Preference preference : request.getPreferences()) {
       List<Priority> priorities = preference.getPriority();
       for (Priority priority : priorities) {
-        String slaId = priority.getSla_id();
-        String serviceId = priority.getService_id();
+        String slaId = priority.getSlaId();
+        String serviceId = priority.getServiceId();
         // filter SLA on service_id
         Sla sla = request.getSla().stream()
             .filter(locSla -> slaId.equals(locSla.getId()))
             .findAny().orElse(null);
         // filter services on service_id
         Service service = sla.getServices().stream()
-            .filter(locService -> serviceId.equals(locService.getService_id()))
+            .filter(locService -> serviceId.equals(locService.getServiceId()))
             .findAny().orElse(null);
 
         rankedServiceMap.put(serviceId, RankedService.builder()
             .serviceId(serviceId)
-            .serviceType(preference.getService_type())
+            .serviceType(preference.getServiceType())
             .provider(sla.getProvider())
             .targets(service.getTargets())
             .slaWeight(priority.getWeight().floatValue()).build());
@@ -81,19 +84,19 @@ public class RankController {
     for (Provider provider : request.getMonitoring()) {
       for (Service service: provider.getServices()) {
         RankedService rankedService;
-        String serviceId = service.getService_id();
+        String serviceId = service.getServiceId();
         if (rankedServiceMap.containsKey(serviceId)) {
           rankedService = rankedServiceMap.get(serviceId);
           rankedService.setProvider(provider.getProvider());
           rankedService.setMetrics(Utils.metricsToMap(service.getMetrics()));
           rankedService.setServiceType(service.getType());
-          rankedService.setServiceParentId(service.getService_parent_id());
+          rankedService.setServiceParentId(service.getServiceParentId());
         } else {
           rankedService = RankedService.builder()
               .provider(provider.getProvider())
               .serviceId(serviceId)
               .serviceType(service.getType())
-              .serviceParentId(service.getService_parent_id())
+              .serviceParentId(service.getServiceParentId())
               .metrics(Utils.metricsToMap(service.getMetrics())).build(); 
         }
         rankedServiceMap.put(serviceId, rankedService);

@@ -496,7 +496,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           "metrics": [
             {
               "metricName": "clear_responseTime",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.clear_responseTime",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.clear_responseTime",
               "metricValue": 38049,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "ms",
@@ -506,7 +506,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "clear_result",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.clear_result",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.clear_result",
               "metricValue": 1,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -516,7 +516,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "clear_status",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.clear_status",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.clear_status",
               "metricValue": 204,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -526,7 +526,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "create_responseTime",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.create_responseTime",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.create_responseTime",
               "metricValue": 777,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "ms",
@@ -536,7 +536,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "create_result",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.create_result",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.create_result",
               "metricValue": 1,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -546,7 +546,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "create_status",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.create_status",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.create_status",
               "metricValue": 200,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -556,7 +556,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "delete_responseTime",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.delete_responseTime",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.delete_responseTime",
               "metricValue": 1142,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "ms",
@@ -566,7 +566,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "delete_result",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.delete_result",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.delete_result",
               "metricValue": 1,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -576,7 +576,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "delete_status",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.delete_status",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.delete_status",
               "metricValue": 200,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -586,7 +586,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "openstack_responseTime",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.openstack_responseTime",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.openstack_responseTime",
               "metricValue": 0,
               "metricTime": "Instant null because no metrics were returned in the last 24hs",
               "metricUnit": "ms",
@@ -596,7 +596,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "openstack_result",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.openstack_result",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.openstack_result",
               "metricValue": 0,
               "metricTime": "Instant null because no metrics were returned in the last 24hs",
               "metricUnit": "",
@@ -606,7 +606,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "openstack_status",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.openstack_status",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.openstack_status",
               "metricValue": 0,
               "metricTime": "Instant null because no metrics were returned in the last 24hs",
               "metricUnit": "",
@@ -616,7 +616,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "run_responseTime",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.run_responseTime",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.run_responseTime",
               "metricValue": 565,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "ms",
@@ -626,7 +626,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "run_result",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.run_result",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.run_result",
               "metricValue": 1,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -636,7 +636,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
             },
             {
               "metricName": "run_status",
-              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. eu.egi.cloud.vm-management.openstack.run_status",
+              "metricKey": "provider-RECAS-BARI.eaa07cfcceb85cd11b8adacf350022ce. org.openstack.nova.run_status",
               "metricValue": 200,
               "metricTime": "26-06-2019 07:40:14",
               "metricUnit": "",
@@ -1161,11 +1161,11 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
     "services": [
       {
         "service_id": "eaa07cfcceb85cd11b8adacf350066fe",
-        "type": "eu.egi.cloud.vm-management.openstack",
+        "type": "org.openstack.nova",
         "metrics": [
           {
             "metricName": "clear_responseTime",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.clear_responseTime",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.clear_responseTime",
             "metricValue": 24441,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "ms",
@@ -1175,7 +1175,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "clear_result",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.clear_result",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.clear_result",
             "metricValue": 1,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1185,7 +1185,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "clear_status",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.clear_status",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.clear_status",
             "metricValue": 204,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1195,7 +1195,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "create_responseTime",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.create_responseTime",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.create_responseTime",
             "metricValue": 933,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "ms",
@@ -1205,7 +1205,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "create_result",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.create_result",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.create_result",
             "metricValue": 1,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1215,7 +1215,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "create_status",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.create_status",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.create_status",
             "metricValue": 200,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1225,7 +1225,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "delete_responseTime",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.delete_responseTime",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.delete_responseTime",
             "metricValue": 1387,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "ms",
@@ -1235,7 +1235,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "delete_result",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.delete_result",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.delete_result",
             "metricValue": 1,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1245,7 +1245,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "delete_status",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.delete_status",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.delete_status",
             "metricValue": 200,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1255,7 +1255,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "openstack_responseTime",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.openstack_responseTime",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.openstack_responseTime",
             "metricValue": 0,
             "metricTime": "Instant null because no metrics were returned in the last 24hs",
             "metricUnit": "ms",
@@ -1265,7 +1265,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "openstack_result",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.openstack_result",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.openstack_result",
             "metricValue": 0,
             "metricTime": "Instant null because no metrics were returned in the last 24hs",
             "metricUnit": "",
@@ -1275,7 +1275,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "openstack_status",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.openstack_status",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.openstack_status",
             "metricValue": 0,
             "metricTime": "Instant null because no metrics were returned in the last 24hs",
             "metricUnit": "",
@@ -1285,7 +1285,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "run_responseTime",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.run_responseTime",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.run_responseTime",
             "metricValue": 788,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "ms",
@@ -1295,7 +1295,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "run_result",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.run_result",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.run_result",
             "metricValue": 1,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",
@@ -1305,7 +1305,7 @@ is described in the [Ranking Algorithm](ranking_algorithm.md) chapter.
           },
           {
             "metricName": "run_status",
-            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. eu.egi.cloud.vm-management.openstack.run_status",
+            "metricKey": "provider-IFCA-LCG2.eaa07cfcceb85cd11b8adacf350066fe. org.openstack.nova.run_status",
             "metricValue": 200,
             "metricTime": "26-06-2019 08:11:04",
             "metricUnit": "",

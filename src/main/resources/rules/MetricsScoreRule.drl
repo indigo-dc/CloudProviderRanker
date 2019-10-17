@@ -37,7 +37,7 @@ end
 
 rule "Compute rank on Openstack metrics"
   when
-    $rs : RankedService( metrics != null, serviceType == "eu.egi.cloud.vm-management.openstack"  )
+    $rs : RankedService( metrics != null, serviceType == "org.openstack.nova"  )
   then
     logger.debug("Computing Openstack rank for service: " + $rs.getServiceId());
     

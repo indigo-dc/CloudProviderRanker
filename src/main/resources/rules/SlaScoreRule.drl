@@ -1,0 +1,48 @@
+package org.indigo.cloudproviderruleengine;
+
+import org.indigo.cloudproviderranker.dto.RankedService;
+import org.indigo.cloudproviderranker.dto.Target;
+
+global org.slf4j.Logger logger;
+
+rule "Compute rank on SLA targets"
+  when
+    $rs : RankedService( targets != null)
+  then
+  
+    logger.debug("Computing SLA targets score for service: " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    float normalizationFactor = 1.0f;
+    
+    try {
+    
+	    for(Target t : $rs.getTargets() ){
+	          
+	      String targetType = t.getType();
+	      
+	      switch (targetType)
+	      {
+	         case "computing_time":
+	               normalizationFactor = 0.0166f; break;
+	         case "public_ip":
+	               normalizationFactor = 1.0f; break;
+	               
+	         default:
+	               logger.debug("No match");
+	      }  
+	      
+	          
+	      score += normalizationFactor*(t.getRestrictions().getOrDefault("total_guaranteed", 0.0f) + t.getRestrictions().getOrDefault("total_limit", 0.0f) 
+	                                  + t.getRestrictions().getOrDefault("user_guaranteed", 0.0f) +   t.getRestrictions().getOrDefault("user_limit", 0.0f)
+	                                  + t.getRestrictions().getOrDefault("instance_guaranteed", 0.0f) + t.getRestrictions().getOrDefault("instance_limit", 0.0f));
+	      
+	    }
+    
+    }catch(Exception e){
+       logger.warn("Error computing SLA targets score for service: " + $rs.getServiceId(), e);
+    } 
+    
+    logger.debug("Computed score : " + score);
+    $rs.setSlaScore(score);
+end

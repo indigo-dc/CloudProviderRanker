@@ -1,0 +1,90 @@
+package org.indigo.cloudproviderruleengine;
+
+import org.indigo.cloudproviderranker.dto.RankedService;
+
+import java.util.Map;
+
+global org.slf4j.Logger logger;
+
+
+rule "Compute rank on Marathon/Chronos metrics"
+  when
+    $rs : RankedService( metrics != null, serviceType == "eu.indigo-datacloud.marathon" || serviceType == "eu.indigo-datacloud.chronos"  )
+  then
+    logger.debug("Computing Marathon/Chronos metrics score for service : " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    
+    Map<String, Float> metrics = $rs.getMetrics();
+    
+    try {
+    
+	    if ( metrics.get("create_result") == 1 && metrics.get("create_responseTime") != 0)
+	       score += ( 1.0/metrics.get("create_responseTime")*100 );
+	    if ( metrics.get("run_result") == 1 && metrics.get("run_responseTime") != 0)
+	       score += ( 1.0/metrics.get("run_responseTime")*100 );
+	    if ( metrics.get("delete_result") == 1 && metrics.get("delete_responseTime") != 0)
+	       score += ( 1.0/metrics.get("delete_responseTime")*10 );
+       
+    }catch(Exception e){
+       logger.warn("Error computing Marathon/Chronos metrics score for service: " + $rs.getServiceId(), e);
+    }   
+    
+    logger.debug("Computed Marathon/Chronos metrics score: " + score);
+    $rs.setMetricsScore(score);
+end
+
+
+rule "Compute rank on Openstack metrics"
+  when
+    $rs : RankedService( metrics != null, serviceType == "org.openstack.nova"  )
+  then
+    logger.debug("Computing Openstack rank for service: " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    
+    Map<String, Float> metrics = $rs.getMetrics();
+    
+    try {
+    
+	    if ( metrics.get("create_result") == 1 && metrics.get("create_responseTime") != 0 )
+	       score += ( 1.0/metrics.get("create_responseTime")*100 );
+	    if ( metrics.get("run_result") == 1 && metrics.get("run_responseTime") != 0)
+	       score += ( 1.0/metrics.get("run_responseTime")*100 );
+	    if ( metrics.get("delete_result") == 1 && metrics.get("delete_responseTime") != 0)
+	       score += ( 1.0/metrics.get("delete_responseTime")*10 );
+       
+    }catch(Exception e){
+       logger.warn("Error computing openstack metrics score for service: " + $rs.getServiceId(), e);
+    } 
+    
+    logger.debug("Computed Openstack metrics score: " + score);
+    $rs.setMetricsScore(score);
+end
+
+rule "Compute rank on Mesos metrics"
+  when
+    $rs : RankedService( metrics != null, serviceType == "eu.indigo-datacloud.mesos"  )
+  then
+    logger.debug("Computing Mesos rank for service: " + $rs.getServiceId());
+    
+    float score = 0.0f;
+    
+    Map<String, Float> metrics = $rs.getMetrics();
+    
+    try {
+    
+        if ( metrics.get("master.cpu_total")!=null  && metrics.get("master.cpu_used")!=null )
+	       score += ( metrics.get("master.cpu_total") - metrics.get("master.cpu_used") );
+	    if ( metrics.get("master.gpu_total")!=null  && metrics.get("master.gpu_used")!=null )
+	       score += ( metrics.get("master.gpu_total") - metrics.get("master.gpu_used") );
+	    if ( metrics.get("master.mem_total")!=null  && metrics.get("master.mem_used")!=null )
+	       score += ( metrics.get("master.mem_total") - metrics.get("master.mem_used") )/1024;
+	    
+    }catch(Exception e){
+       logger.warn("Error computing Mesos metrics score for service: " + $rs.getServiceId(), e);
+    } 
+    
+    logger.debug("Computed Mesos metrics score: " + score);
+    $rs.setMetricsScore(score);
+end

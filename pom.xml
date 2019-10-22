@@ -117,10 +117,6 @@
                <groupId>org.springframework.boot</groupId>
                <artifactId>spring-boot-starter-logging</artifactId>
             </exclusion>
-            <exclusion>
-                <artifactId>commons-logging</artifactId>
-                <groupId>commons-logging</groupId>
-            </exclusion>
          </exclusions>
          <scope>test</scope>
       </dependency>

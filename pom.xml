@@ -12,6 +12,7 @@
       <droolsVersion>7.1.0.Final</droolsVersion>
       <java.version>1.8</java.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <org.projectlombok.version>1.16.20</org.projectlombok.version>
    </properties>
    
    <profiles>
@@ -37,10 +38,22 @@
    <parent>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-parent</artifactId>
-      <version>1.5.13.RELEASE</version>
+      <version>1.5.21.RELEASE</version>
    </parent>
    
    <dependencies>
+       <dependency>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>cobertura-maven-plugin</artifactId>
+         <version>2.7</version>
+         <scope>test</scope>
+         <exclusions>
+           <exclusion>
+             <groupId>ch.qos.logback</groupId>
+             <artifactId>logback-classic</artifactId>
+           </exclusion>
+         </exclusions>
+      </dependency>
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-web</artifactId>
@@ -61,14 +74,14 @@
          <optional>true</optional>
       </dependency> 
       <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-      
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+      </dependency>
       <dependency>
          <groupId>org.projectlombok</groupId>
          <artifactId>lombok</artifactId>
          <optional>true</optional>
+        <version>${org.projectlombok.version}</version>
       </dependency>
       
       <dependency>
@@ -93,8 +106,8 @@
       <!--  test  -->
       <dependency>
          <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>4.12</version>
+	 <artifactId>junit</artifactId>
+	 <version>4.12</version>
          <scope>test</scope>
       </dependency>
       <dependency>
@@ -111,10 +124,18 @@
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-test</artifactId>
-         <version>2.1.6.RELEASE</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-logging</artifactId>
+            </exclusion>
+            <exclusion>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-log4j2</artifactId>
+            </exclusion>
+         </exclusions>
          <scope>test</scope>
       </dependency>
-      
    </dependencies>
    
    
@@ -125,13 +146,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <executions>
-		        <execution>
-		            <id>build-info</id>
-		            <goals>
-		                <goal>build-info</goal>
-		            </goals>
-		        </execution>
-		    </executions>
+	        <execution>
+	            <id>build-info</id>
+	            <goals>
+	                <goal>build-info</goal>
+	            </goals>
+	        </execution>
+	    </executions>
             <configuration>
                <mainClass>org.indigo.cloudproviderranker.Application</mainClass>
                <!--  <outputDirectory>./</outputDirectory> -->
@@ -139,6 +160,18 @@
                <layout>ZIP</layout>
             </configuration>
          </plugin>
+         <plugin>
+	   <groupId>org.codehaus.mojo</groupId>
+	   <artifactId>cobertura-maven-plugin</artifactId>
+	   <version>2.7</version>
+	   <configuration>
+	     <instrumentation>
+	       <ignoreMethodAnnotations>
+	          <ignoreMethodAnnotation>lombok.Generated</ignoreMethodAnnotation>
+	       </ignoreMethodAnnotations>
+	     </instrumentation>
+	   </configuration>
+	 </plugin>
          
          <!-- Creation of the deb package -->
          <plugin>

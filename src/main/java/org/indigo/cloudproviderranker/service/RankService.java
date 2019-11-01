@@ -11,6 +11,7 @@ import org.indigo.cloudproviderranker.dto.RankResult;
 import org.indigo.cloudproviderranker.dto.RankedService;
 import org.indigo.cloudproviderranker.utils.ServiceComparator;
 import org.indigo.cloudproviderranker.utils.exceptions.RulesBuildException;
+import org.indigo.cloudproviderranker.utils.Utils;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -160,7 +161,7 @@ public class RankService {
                                 s.getSlaWeight(), s.getTotalScore(), s.getRank(), s.isRanked()));
     }
 
-    logger.debug("Ranking results: " + results);
+    logger.debug("Ranking results: " + Utils.toJsonString(results)  );
 
     return ranked;
 

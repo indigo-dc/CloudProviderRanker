@@ -41,6 +41,21 @@
       <version>1.5.21.RELEASE</version>
    </parent>
    
+   <licenses>
+     <license>
+       <name>Apache License, Version 2.0</name>
+       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+       <distribution>repo</distribution>
+     </license>
+   </licenses>
+
+   <scm>
+     <url>https://github.com/indigo-dc/CloudProviderRanker</url>
+     <connection>scm:git:https://github.com/indigo-dc/CloudProviderRanker.git</connection>
+     <developerConnection>scm:git:https://github.com/indigo-dc/CloudProviderRanker.git</developerConnection>
+     <tag>HEAD</tag>
+   </scm>
+
    <dependencies>
       <dependency>
          <groupId>org.springframework.boot</groupId>

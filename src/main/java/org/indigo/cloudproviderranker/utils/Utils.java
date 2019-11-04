@@ -12,16 +12,16 @@ import org.indigo.cloudproviderranker.dto.Metric;
 
 public class Utils {
 
-  /** metricsToMap() static method
+  /** metricsToMap() static method.
    *
    * @param m A list of metric objects
-   * @return a map <metric name, metric value>
+   * @return a map (metric name, metric value)
    */
   public static Map<String, Float> metricsToMap(List<Metric> m) {
     return m.stream().collect(Collectors.toMap(Metric::getMetricName, Metric::getMetricValue));
   }
  
-  /** toJsonString() static method
+  /** toJsonString() static method.
    * 
    * @param obj an object of type T
    * @return a json string representing the input object 
@@ -30,8 +30,7 @@ public class Utils {
     try {
       ObjectMapper objmapper = new ObjectMapper();
       return objmapper.writeValueAsString(obj);
-    }catch (JsonProcessingException e)
-    {
+    } catch (JsonProcessingException e) {
       return "";
     }
   }

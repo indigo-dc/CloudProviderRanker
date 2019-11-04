@@ -8,6 +8,5 @@ Homepage: https://indigo-dc.gitbooks.io/cloud-provider-ranker/content/
 Package: [[name]]
 Version: [[version]]
 Architecture: all
-Depends: jdk (>= 1.8)
 Description:  Rest service for ranking cloud providers services
-Depends: default-jre | java8-runtime
+Depends: openjdk-8-jre-headless

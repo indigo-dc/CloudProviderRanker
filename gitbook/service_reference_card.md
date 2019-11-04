@@ -2,7 +2,7 @@
 
 
 ## Functional description:
-A REST WEB Service which ranks cloud providers.
+A REST Web Service which ranks cloud services on specific monitoring and SLA based critera.
 
 
 ## Daemons running:

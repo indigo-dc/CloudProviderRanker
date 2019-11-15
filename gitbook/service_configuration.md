@@ -6,7 +6,7 @@ You can provide custom rules, external to the jar, specifying their paths in the
 
 ````
 rule-engine.rules[0]=/cpr/config/rules/SlaScoreRule.drl
-rule-engine.rules[1]=/cpr/config/resources/rules/MetricsScoreRule.drl
+rule-engine.rules[1]=/cpr/config/rules/MetricsScoreRule.drl
 ````
 
 Note that you can provide a custom `application.properties` file using the environment variable `SPRING_CONFIG_LOCATION`:

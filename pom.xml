@@ -9,7 +9,7 @@
    <url>http://maven.apache.org</url>
    
    <properties>
-      <droolsVersion>7.1.0.Final</droolsVersion>
+      <droolsVersion>7.60.0.Final</droolsVersion>
       <java.version>1.8</java.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <org.projectlombok.version>1.16.20</org.projectlombok.version>
